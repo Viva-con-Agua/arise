@@ -28,6 +28,8 @@ import SignIn from '../views/SignIn'
 // import HelloWorld from '/components/HelloWorld'
 import SignUp from '../views/SignUp'
 import Crews from '../views/Crews'
+import Tasks from '../views/Tasks'
+import OAuth from '../views/OAuth'
 
 Vue.use(Router)
 
@@ -55,6 +57,18 @@ export default new Router({
             path: "/signin",
             name: 'SignIn',
             component: SignIn
+        },
+
+        {
+            path: "/tasks",
+            name: 'Tasks',
+            component: Tasks
+        },
+
+        {
+            path: "/oauth",
+            name: 'OAuth',
+            component: OAuth
         }
 
     ]

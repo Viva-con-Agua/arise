@@ -4,34 +4,68 @@
     <sui-divider horizontal>
       Person</sui-divider>
 
-    <el-form :model="signUpForm"  :rules="rules" ref="SignUpForm" label-width="200px" class="signUpForm">
-      <el-form-item label="Firstname:" prop="firstname">
-        <el-input v-model="signUpForm.firstname"></el-input>
+    <el-form
+            :model="signUpForm"
+            :rules="rules"
+            label-position=""
+            ref="SignUpForm"
+            class="signUpForm">
+      <el-form-item
+              label="Firstname:"
+              prop="firstname">
+        <el-input
+                v-model="signUpForm.firstname"></el-input>
       </el-form-item>
-      <el-form-item label="Lastname:" prop="lastname">
-        <el-input v-model="signUpForm.lastname"></el-input>
+      <el-form-item
+              label="Lastname:"
+              prop="lastname">
+        <el-input
+                v-model="signUpForm.lastname"></el-input>
       </el-form-item>
-      <el-form-item label="Mobile:" prop="mobile">
-        <el-input v-model="signUpForm.mobile"></el-input>
+      <el-form-item
+              label="Mobile:"
+              prop="mobile">
+        <el-input
+                v-model="signUpForm.mobile"></el-input>
       </el-form-item>
-      <el-form-item label="Wohnort:" prop="placeofresidence">
-        <el-input v-model="signUpForm.placeofresidence"></el-input>
+      <el-form-item
+              label="Wohnort:"
+              prop="placeofresidence">
+        <el-input
+                v-model="signUpForm.placeofresidence"></el-input>
       </el-form-item>
-      <el-form-item label="Geburtsdatum:" required>
-        <el-date-picker type="date" placeholder="Wann wurdest du geboren?" v-model="signUpForm.birthdate" style="width: 100%;"></el-date-picker>
+      <el-form-item
+              label="Geburtsdatum:" required>
+        <el-date-picker
+                v-model="signUpForm.birthdate"
+                type="date"
+                placeholder="Wann wurdest du geboren?"
+                style="width: 100%;"></el-date-picker>
       </el-form-item>
-      <el-form-item label="Gender" prop="gender">
-        <el-radio-group v-model="signUpForm.gender" size="small">
-          <el-radio-button label="female">Female</el-radio-button>
-          <el-radio-button label="male">Male</el-radio-button>
-          <el-radio-button label="other">other</el-radio-button>
-          <el-radio-button label="prefer not to say">Prefer not to say</el-radio-button>
-        </el-radio-group>
+      <el-form-item
+            label="Gender:"
+            prop="gender">
+        <div id="gen_content">
+        <el-radio-group
+                v-model="signUpForm.gender"
+                size="small">
+          <el-radio-button
+                  label="female">female</el-radio-button>
+          <el-radio-button
+                  label="male">male</el-radio-button>
+          <el-radio-button
+                  label="other">other</el-radio-button>
+          <el-radio-button
+                  label="prefer not to say">prefer not to say</el-radio-button>
+        </el-radio-group></div>
       </el-form-item>
       <sui-divider horizontal>
         Account</sui-divider>
-      <el-form-item label="e-mail Adresse:" prop="email">
-        <el-input v-model="signUpForm.email"></el-input>
+      <el-form-item
+              label="e-mail Adresse:"
+              prop="email">
+        <el-input
+                v-model="signUpForm.email"></el-input>
       </el-form-item>
       <password
         v-model="signUpForm.password"
@@ -40,7 +74,23 @@
         @feedback="showFeedback"
         :class="{'input': true }"
         name="password"
-        type="password"/>
+        type="password"
+        defaultClass = "style"
+        style="
+            background-color: #fff;
+            background-image: none;
+            border-radius: 4px;
+            border: 1px solid #dcdfe6;
+            box-sizing: border-box;
+            color: #606266;
+            display: inline-block;
+            font-size: inherit;
+            height: 40px;
+            line-height: 40px;
+            outline: 0;
+            padding: 0 15px;
+            transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+            width: 100%;"/>
     </el-form>
 
 <!--    <el-form :label-position="'top'" @submit.prevent="validateBeforeSubmit">
@@ -200,16 +250,14 @@
           <!--v-show="fields.password_confirmation && fields.password_confirmation.dirty && errors.has('password_confirmation')"-->
           <!--class="help_is-danger"> {{ errors.first('password_confirmation') }}</span></sui-form-field>-->
       <sui-divider hidden/>
-      <sui-button
-        class="ui blue submit button"
-        type="submit"
+      <el-button
+              type="primary"
+              @click.prevent="resetForm"
+              icon="el-icon-close">Reset</el-button>
+      <el-button
+        type="primary"
         @click.prevent="submitForm"
-        floated="left">Sign Up</sui-button>
-      <sui-button
-        class="ui reset button"
-        type="reset"
-        @click.prevent="resetForm"
-        floated="left">Reset</sui-button>
+        icon="el-icon-arrow-right">Sign Up</el-button>
       <div style="margin: 20px;">
         <h5>Du bist bereits dabei? <a href="drops/auth/login">Log In</a></h5>
       </div>
@@ -353,21 +401,33 @@
 </script>
 
 <style scoped>
-  @import "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css";
+  /*@import "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css";
+*/
 
 
-  label {
+  el-form-item {
+      float: left;
   }
 
-  #op {
-    font-weight: lighter;
-    color: grey;
+  #gen_content {
+      float: left;
+      clear: both;
   }
 
-
-  .help_is-danger {
-    font-size: small;
-    color: red;
+  style {
+      background-color: #fff;
+      background-image: none;
+      border-radius: 4px;
+      border: 1px solid #dcdfe6;
+      box-sizing: border-box;
+      color: #606266;
+      display: inline-block;
+      font-size: inherit;
+      height: 40px;
+      line-height: 40px;
+      outline: 0;
+      padding: 0 15px;
+      transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+      width: 100%;
   }
-
 </style>

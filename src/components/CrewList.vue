@@ -1,6 +1,7 @@
 <template>
   <div id="CrewList">
-    <el-radio-group
+    <div id="ListMenu">
+      <el-radio-group
       v-model="tableSize"
       size="small">
       <el-radio-button label="medium" value="medium">medium</el-radio-button>
@@ -8,7 +9,7 @@
       <el-radio-button label="mini" value="mini" ><i class="el-icon-minus"></i></el-radio-button>
     </el-radio-group>
       <el-button size="small" icon="el-icon-search">Search</el-button>
-
+    </div>
     <el-table
       ref="crewdata"
       :size="tableSize"
@@ -107,5 +108,7 @@
 </script>
 
 <style scoped>
-
+    #ListMenu {
+        float: right;
+    }
 </style>
