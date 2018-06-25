@@ -3,7 +3,8 @@
         <el-form
                 :model="OAuth"
                 :rules="rules"
-                ref="OAuth">
+                ref="OAuth"
+                status-icon>
             <el-form-item
                     label="ID:"
                     prop="id">
@@ -40,7 +41,7 @@
             <el-button
                     type="primary"
                     @click.prevent="submitForm"
-                    icon="el-icon-arrow-right">Sign Up</el-button>
+                    icon="el-icon-arrow-right">Hinzufügen</el-button>
         </el-form>
     </div>
 </template>
@@ -64,16 +65,17 @@
 
                 rules: {
                     id: [
-                        {required: true, message: 'Please input a Title', trigger: 'blur'}
+                        {required: true, message: 'An ID is required!', trigger: 'blur'},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'only chars and numbers are allowed!', trigger: 'blur'}
                     ],
                     secret: [
-                        {required: true, message: 'Please input a Title', trigger: 'blur'}
+                        {required: true, message: 'platzhalter', trigger: 'blur'}
                     ],
                     redirectURI: [
-                        {required: true, message: 'Please input a Title', trigger: 'blur'}
+                        {required: true, message: 'Where is your Service directed?', trigger: 'blur'}
                     ],
                     grantTypes: [
-                        {required: true, message: 'Please input a Title', trigger: 'blur'}
+                        {required: true, message: 'Choose a grant Type.', trigger: 'blur'}
                     ],
                 }
             }

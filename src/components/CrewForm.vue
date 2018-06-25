@@ -3,15 +3,17 @@
     <el-form
             :model="crewForm"
             :rules="rules"
-            ref="CrewForm">
+            ref="crewForm"
+            status-icon>
       <el-form-item
               label="Crewname:"
-              prop="crewname">
+              prop="CrewName">
         <el-input
                 v-model="crewForm.CrewName"></el-input>
       </el-form-item>
         <el-form-item
-            label="City/Cities:">
+            label="City/Cities:"
+            prop="City">
             <el-tag
                     :key="city"
                     v-for="city in Cities"
@@ -35,7 +37,7 @@
         </el-form-item>
         <el-form-item
                 label="Country:"
-                prop="country">
+                prop="Country">
             <div id="CountryContent">
                 frequently added:
                 <el-radio-group
@@ -55,12 +57,12 @@
         </el-form-item>
         <el-button
                 type="primary"
-                @click.prevent="resetForm"
+                @click.prevent="resetForm('crewForm')"
                 icon="el-icon-close">Reset</el-button>
         <el-button
                 type="primary"
-                @click.prevent="submitForm"
-                icon="el-icon-arrow-right">Sign Up</el-button>
+                @click.prevent="submitForm('crewForm')"
+                icon="el-icon-arrow-right">Hinzufügen</el-button>
     </el-form>
   </div>
 </template>
@@ -91,13 +93,16 @@ import InputTag from 'vue-input-tag'
 
                 rules: {
                     CrewName: [
-                        {required: true, message: 'Please input a name', trigger: 'blur'}
+                        {required: true, message: 'Please input a crewname', trigger: 'blur',},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'f.e. Frederikshausen', trigger: 'blur'}
                     ],
                     City: [
-                        {required: true, message: 'Please input at least 1 city', trigger: 'blur'}
+                        {required: true, message: 'Please input at least 1 city', trigger: 'blur'},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'You have to add, at least 1 city', trigger: 'blur'}
                     ],
                     Country: [
-                        {required: true, message: 'Please input a country', trigger: 'change'}
+                        {required: true, message: 'Please input a country', trigger: 'blur'},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, trigger: 'blur'}
                     ],
                 }
             }
@@ -115,8 +120,8 @@ import InputTag from 'vue-input-tag'
                 this.address = addressData;
             },*/
 
-            submitForm(CrewForm) {
-                this.$refs[CrewForm].validate((valid) => {
+            submitForm(crewForm) {
+                this.$refs[crewForm].validate((valid) => {
                     if (valid) {
                         alert('submit!');
                     } else {
@@ -126,8 +131,8 @@ import InputTag from 'vue-input-tag'
                 });
             },
 
-            resetForm(CrewForm) {
-                this.$refs[CrewForm].resetFields();
+            resetForm(crewForm) {
+                this.$refs[crewForm].resetFields();
             },
 
             handleClose(city) {

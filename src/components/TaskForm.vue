@@ -3,7 +3,8 @@
         <el-form
                 :model="TaskForm"
                 :rules="rules"
-                ref="TaskForm">
+                ref="TaskForm"
+                status-icon>
             <el-form-item
                     label="Title:"
                     prop="taskTitle">
@@ -46,7 +47,7 @@
             <el-button
                     type="primary"
                     @click.prevent="submitForm"
-                    icon="el-icon-arrow-right">Sign Up</el-button>
+                    icon="el-icon-arrow-right">Hinzufügen</el-button>
         </el-form>
     </div>
 </template>
@@ -70,7 +71,8 @@
 
                 rules: {
                     taskTitle: [
-                        {required: true, message: 'Please input a Title', trigger: 'blur'}
+                        {required: true, message: 'Please give your Task a title.', trigger: 'blur'},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'Use a Title like: Lager aufräumen', trigger: 'blur'}
                     ],
                 }
             }
