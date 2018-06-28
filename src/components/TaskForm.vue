@@ -6,21 +6,21 @@
                 ref="TaskForm"
                 status-icon>
             <el-form-item
-                    label="Title:"
+                    v-bind:label="$t('taskform.label.title')"
                     prop="taskTitle">
                 <el-input
                         v-model="TaskForm.taskTitle"></el-input>
             </el-form-item>
             <el-form-item
-                    label="Description:">
+                    v-bind:label="$t('taskform.label.description')">
                 <el-input
                     v-model="TaskForm.description"
                     type="textarea"
                     :autosize="{ minRows: 2, maxRows: 6}"
-                    placeholder="Please input a description">
+                    v-bind:placeholder="$t('taskform.descriptionPlaceholder')">
                 </el-input>
             </el-form-item>
-            <el-form-item
+            <!--<el-form-item
                     label="Deadline:">
                 <div id="deadline">
                 <el-date-picker
@@ -29,8 +29,8 @@
                     placeholder="Pick a deadline">
                 </el-date-picker>
                 </div>
-            </el-form-item>
-            <el-form-item
+            </el-form-item>-->
+           <!-- <el-form-item
                 label="Supportercounter:">
                 <div id="counter">
                 <el-input-number
@@ -39,15 +39,15 @@
                     :min="1">
                 </el-input-number>
                 </div>
-            </el-form-item>
+            </el-form-item>-->
             <el-button
-                    type="primary"
+                    type="text"
                     @click.prevent="resetForm"
-                    icon="el-icon-close">Reset</el-button>
+                    icon="el-icon-close">{{ $t('options.reset') }}</el-button>
             <el-button
                     type="primary"
                     @click.prevent="submitForm"
-                    icon="el-icon-arrow-right">Hinzufügen</el-button>
+                    icon="el-icon-arrow-right">{{ $t('options.submit') }}</el-button>
         </el-form>
     </div>
 </template>
@@ -71,8 +71,8 @@
 
                 rules: {
                     taskTitle: [
-                        {required: true, message: 'Please give your Task a title.', trigger: 'blur'},
-                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'Use a Title like: Lager aufräumen', trigger: 'blur'}
+                        {required: true, message: this.$t('validationError.taskTitle'), trigger: 'blur'},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.taskTitle'), trigger: 'blur'}
                     ],
                 }
             }

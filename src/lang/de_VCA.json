@@ -1,7 +1,125 @@
-// en_US,json
-
 {
-  "test": {
-    "msg": "fuhh = freie und hansestadt hamburg"
-  }
+  "hello": "Hallo Welt!",
+  "options": {
+    "reset": "zurücksetzen",
+    "submit": "hinzufügen",
+    "signup": "login",
+    "signout": "logout"
+  },
+
+  "validationError": {
+
+    "crewname": "Trage den Crewnamen hier ein...",
+    "city": "Bitte trage mindestens eine Stadt ein...",
+    "country": "Bitte trage ein Land ein...",
+
+    "firstname":"Bitte trage hier deinen Vornamen ein...",
+    "lastname":"Bitte trage hier deinen Nachnamen ein...",
+    "mobile":"Bitte trage hie deine Mobiltelefonnummer ein...",
+    "placeofresidence":"Bitte trage hier deinen Wohnort ein...",
+    "birthdate":"Bitte trage hier deinen Geburtstag ein...",
+    "gender":"Bitte sag uns doch dein soziales Geschlecht...",
+    "email":"Bitte nenn uns doch deine e-Mail Adresse...",
+    "password":"Bitte erstelle dir noch ein sichers Passwort...",
+    "checkPass":"Bitte wiederholge hier dein sicheres Passwort...",
+
+    "taskTitle":"Bitte nenn uns den Namen deiner Aufgabe...",
+
+    "id":"Bitte erstelle eine ID",
+    "secret":"Sicherheit geht vor, erstelle ein Secret",
+    "uri":"Wo liegt dein Service?",
+    "types":"Wähle einen grant Type aus."
+  },
+
+  "inputSample": {
+
+    "name": "z.B. Ottibotti",
+    "city": "z.B. Aldera",
+    "country": "z.B. Alderaan",
+
+    "firstname":"meine Eltern haben mich Frederik genannt",
+    "lastname":"Mustermensch wäre ein Nachname",
+    "mobile":"z.B. +49-1523-45679",
+    "placeofresidence":"z.B. Aldera",
+    "birthdate":"z.B. 1910.05.10",
+    "gender":"z.B. männlich",
+    "email":"z.B. freak@vivaconagua.org",
+    "password":"Bild info",
+
+    "taskTitle":"z.B. Lager aufräumen",
+
+    "id":"z.B. arise"
+  },
+
+  "gender": {
+    "female": "weiblich",
+    "male": "männlich",
+    "other": "divers",
+    "prefernottosay": "keine Antwort"
+  },
+
+  "signup": {
+    "label": {
+      "firstname": "Vorname:",
+      "lastname": "Nachname:",
+      "mobile": "Mobiltelefonnummer:",
+      "placeofresidence": "Wohnort:",
+      "birthdate": "Geburtstag:",
+      "birthdateinfo": "Wann wurdest du Geboren?",
+      "gender": "Gender:",
+      "email": "E-Mail:",
+      "password": "Passwort:",
+      "confirmPassword": "Passwort wiederholen:"
+    }
+  },
+
+  "crewform": {
+    "label": {
+      "crewname": "Crewname:",
+      "cities": "Stadt / Städte:",
+      "country": "Land:"
+    }
+  },
+
+  "crewlist": {
+    "label": {
+      "crewname": "Crewname:",
+      "cities": "Stadt / Städte:",
+      "country": "Land:",
+      "operations": "Optionen:"
+    }
+  },
+
+  "taskform":{
+    "label": {
+      "title":"Title:",
+      "description":"Beschreibung:"
+    },
+    "descriptionPlaceholder":"Bitte beschreibe deine Aktion..."
+  },
+
+  "oauth":{
+    "label": {
+      "id":"ID:",
+      "secret":"Secret:",
+      "uri":"Redirect URI:",
+      "types":"Grant Types:"
+    },
+    "sublabel": {
+      "id":"",
+      "secret":"",
+      "uri":"",
+      "types":"Die katze rennt um den grünen großen Baum"
+    },
+    "descriptionPlaceholder":""
+  },
+
+  "country": {
+    "de" : "Deutschland",
+    "at" : "Österreich",
+    "nl" : "Niederlande",
+    "ch" : "Schweiz"
+  },
+
+  "latest" : "zuletzt hinzugefügt"
 }

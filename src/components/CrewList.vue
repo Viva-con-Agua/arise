@@ -1,6 +1,6 @@
 <template>
   <div id="CrewList">
-    <div id="ListMenu">
+<!--    <div id="ListMenu">
       <el-radio-group
       v-model="tableSize"
       size="small">
@@ -9,34 +9,37 @@
       <el-radio-button label="mini" value="mini" ><i class="el-icon-minus"></i></el-radio-button>
     </el-radio-group>
       <el-button size="small" icon="el-icon-search">Search</el-button>
-    </div>
+    </div>-->
     <el-table
       ref="crewdata"
       :size="tableSize"
       :data="value"
-      style="width: 100%"
-      @selection-change="handleSelectionChange">
-      <el-table-column
+      style="width: 100%">
+<!--      <el-table-column
         type="selection"
-        witdh="55">
+        fixed="left">
+      </el-table-column>-->
+      <el-table-column
+        sortable
+        v-bind:label="$t('crewlist.label.crewname')"
+        prop="crewname"
+        align="left">
       </el-table-column>
       <el-table-column
         sortable
-        label="Name"
-        prop="crewname">
+        v-bind:label="$t('crewlist.label.cities')"
+        prop="cities"
+        align="left">
       </el-table-column>
       <el-table-column
         sortable
-        label="City/Cities"
-        prop="cities">
+        v-bind:label="$t('crewlist.label.country')"
+        prop="country"
+        align="left">
       </el-table-column>
       <el-table-column
-        sortable
-        label="Country"
-        prop="country">
-      </el-table-column>
-      <el-table-column
-                label="Operations">
+                v-bind:label="$t('crewlist.label.operations')"
+                align="left">
             <template slot-scope="scope">
                 <el-button
                         size="mini"
@@ -62,7 +65,7 @@
       props: ['value'],
       data() {
         return {
-          multipleSelection: [],
+          // multipleSelection: [],
             tableSize: "medium",
 
           /*crewdata: [{
@@ -90,11 +93,11 @@
           } else {
             this.$refs.crewdata.clearSelection();
           }
-        },*/
+        },
 
         handleSelectionChange(val) {
           this.multipleSelection = val;
-        },
+        },*/
         handleEdit(index, row) {
               console.log(index, row);
           },

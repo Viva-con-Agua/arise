@@ -6,14 +6,16 @@
             ref="crewForm"
             status-icon>
       <el-form-item
-              label="Crewname:"
+              v-bind:label="$t('crewform.label.crewname')"
               prop="CrewName">
         <el-input
-                v-model="crewForm.CrewName"></el-input>
+                v-model="crewForm.CrewName">
+        </el-input>
       </el-form-item>
         <el-form-item
-            label="City/Cities:"
+            v-bind:label="$t('crewform.label.cities')"
             prop="City">
+            <div id="tag">
             <el-tag
                     :key="city"
                     v-for="city in Cities"
@@ -22,6 +24,15 @@
                     @close="handleClose(city)">
                 {{city}}
             </el-tag>
+            </div>
+<!--            <input
+                    class="input-new-city"
+                    v-if="inputVisible"
+                    v-model="cityValue"
+                    onfocus="value = ''"
+                    type="text"
+                    ref="autocomplete"
+            />-->
             <input
                     class="input-new-city"
                     v-if="inputVisible"
@@ -29,54 +40,48 @@
                     onfocus="value = ''"
                     type="text"
                     ref="autocomplete"
-                    @keyup.enter.prevent="handleInputConfirm"
-                    @blur="handleInputConfirm"
             />
 
-            <el-button v-else class="button-new-tag" size="small">+ New City</el-button>
+            <!--<el-button v-else class="button-new-tag" size="small">+ New City</el-button>-->
         </el-form-item>
         <el-form-item
-                label="Country:"
+                v-bind:label="$t('crewform.label.country')"
                 prop="Country">
             <div id="CountryContent">
-                frequently added:
+                {{ $t('latest') }}
                 <el-radio-group
                     v-model="crewForm.country"
                     size="mini">
                 <el-radio-button
-                        label="Germany">Deutschland</el-radio-button>
+                        label="Germany">{{ $t('country.de') }}</el-radio-button>
                 <el-radio-button
-                        label="Austria">Österreich</el-radio-button>
+                        label="Austria">{{ $t('country.at') }}</el-radio-button>
                 <el-radio-button
-                        label="Switzerland">Schweiz</el-radio-button>
+                        label="Switzerland">{{ $t('country.ch') }}</el-radio-button>
                 <el-radio-button
-                        label="Netherlands">Niederlande</el-radio-button>
+                        label="Netherlands">{{ $t('country.nl') }}</el-radio-button>
             </el-radio-group></div>
             <el-input
                     v-model="crewForm.country"></el-input>
         </el-form-item>
         <el-button
-                type="primary"
+                type="text"
                 @click.prevent="resetForm('crewForm')"
-                icon="el-icon-close">Reset</el-button>
+                icon="el-icon-close">{{ $t('options.reset') }}</el-button>
         <el-button
                 type="primary"
                 @click.prevent="submitForm('crewForm')"
-                icon="el-icon-arrow-right">Hinzufügen</el-button>
+                icon="el-icon-arrow-right">{{ $t('options.submit') }}</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
-import VueGoogleAutocomplete from 'vue-google-autocomplete'
-import InputTag from 'vue-input-tag'
-
     export default {
-
         name: "CrewForm",
         components: {
-            VueGoogleAutocomplete
         },
+
 
         data() {
             return {
@@ -93,33 +98,22 @@ import InputTag from 'vue-input-tag'
 
                 rules: {
                     CrewName: [
-                        {required: true, message: 'Please input a crewname', trigger: 'blur',},
-                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'f.e. Frederikshausen', trigger: 'blur'}
+                        {required: true, message: this.$t('validationError.crewname'), trigger: 'blur',},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.name'), trigger: 'blur'}
                     ],
                     City: [
-                        {required: true, message: 'Please input at least 1 city', trigger: 'blur'},
-                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'You have to add, at least 1 city', trigger: 'blur'}
+                        {required: true, message: this.$t('validationError.city'), trigger: 'blur'},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.city'), trigger: 'blur'}
                     ],
                     Country: [
-                        {required: true, message: 'Please input a country', trigger: 'blur'},
-                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, trigger: 'blur'}
+                        {required: true, message: this.$t('validationError.country'), trigger: 'blur'},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.country'), trigger: 'blur'}
                     ],
                 }
             }
         },
 
         methods: {
-/*
-            /!**
-             * When the location found
-             * @param {Object} addressData
-             * @param {Object} placeResultData
-             * @param {Object} id
-             *!/
-            getAddressData: function (addressData, placeResultData, id) {
-                this.address = addressData;
-            },*/
-
             submitForm(crewForm) {
                 this.$refs[crewForm].validate((valid) => {
                     if (valid) {
@@ -140,11 +134,11 @@ import InputTag from 'vue-input-tag'
             },
 
             handleInputConfirm() {
-                let cityValue = this.cityValue;
-                if (cityValue) {
-                    this.Cities.push(cityValue);
+                let city = this.cityValue;
+                if (city) {
+                    this.Cities.push(city);
                 }
-                this.cityValue = '';
+                this.city = '';
             }
         },
 
@@ -159,6 +153,8 @@ import InputTag from 'vue-input-tag'
                 let city = ac[0]["short_name"];
                 this.cityValue = (`${city}`);
                 console.log(`The user picked ${city}`);
+                this.handleInputConfirm();
+                this.cityValue = "";
             });
 
         }
@@ -188,7 +184,7 @@ import InputTag from 'vue-input-tag'
         float: left;
     }
 
-    el-tag {
+    #tag {
         float: left;
     }
 

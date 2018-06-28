@@ -14,11 +14,11 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
+                loader: 'vue',
                 options: {
                     loaders: {
+                        i18n: '@kazupon/vue-i18n-loader'
                     }
-                    // other vue-loader options go here
                 }
             },
             {

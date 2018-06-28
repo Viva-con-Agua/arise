@@ -13,15 +13,13 @@ import locale from 'element-ui/lib/locale/lang/de'
 import enLocale from 'element-ui/lib/locale/lang/en'
 import deLocale from 'element-ui/lib/locale/lang/de'
 import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
-
+import ElementLocale from 'element-ui/lib/locale'
 //import styles from './src/index.css'
 //import '@/element-ui/lib/theme-chalk/index.css'
 import '@/router/index.css'
 import DataTables from 'vue-data-table'
 import focus from 'vue-focus'
 import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete'
-
-
 //import { ClientTable, Event} from 'vue-tables-2'
 //import VueGoodTable from 'vue-good-table'
 import SignIn from '../views/SignIn'
@@ -80,17 +78,10 @@ Vue.use(VueAxios, axios),
 Vue.use(Vuetify),
 Vue.use(Element, { locale }),
 Vue.use(VueI18n),
+Vue.use(DataTables)
 
-Vue.use(Element, {
-    i18n: (key, value) => i18n.t(key, value)
-});
 
-Vue.use(DataTables),
-Vue.use(require('vue-shortkey')),
-Vue.use(VuetifyGoogleAutocomplete, {
-  apiKey: 'AIzaSyDnoNOeMPDa7WkC8NVxO6IZV3K6MRNLA0M',
-  version: '',
-});
+
 
 //Vue.use(Vuetable),
 //Vue.use(VueGoodTable);
@@ -166,24 +157,3 @@ const i18n = new Vuei18n({
 //
 // const validator = new Validator({ email: 'email' });
 
-const messages = {
-    en: {
-        hello: 'hello',
-        enLocale // Or use `Object.assign({ message: 'hello' }, enLocale)`
-    },
-    de: {
-        hello: 'hallo',
-        deLocale
-    },
-    zh: {
-        hello: '你好',
-        zhLocale // Or use `Object.assign({ message: '你好' }, zhLocale)`
-    }
-};
-// Create VueI18n instance with options
-const i18n = new VueI18n({
-    locale: 'de', // set locale
-    messages,// set locale messages
-});
-
-new Vue({ i18n }).$mount('#app');

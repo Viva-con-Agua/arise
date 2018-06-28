@@ -11,69 +11,73 @@
             class="signUpForm"
             status-icon>
       <el-form-item
-              label="Firstname:"
+              v-bind:label="$t('signup.label.firstname')"
               prop="firstname">
         <el-input
                 v-model="signUpForm.firstname">
         </el-input>
       </el-form-item>
       <el-form-item
-              label="Lastname:"
+              v-bind:label="$t('signup.label.lastname')"
               prop="lastname">
         <el-input
                 v-model="signUpForm.lastname">
         </el-input>
       </el-form-item>
       <el-form-item
-              label="Mobile:"
+              v-bind:label="$t('signup.label.mobile')"
               prop="mobile">
         <el-input
                 v-model="signUpForm.mobile">
         </el-input>
       </el-form-item>
       <el-form-item
-              label="Wohnort:"
+              v-bind:label="$t('signup.label.placeofresidence')"
               prop="placeofresidence">
         <el-input
                 v-model="signUpForm.placeofresidence">
         </el-input>
       </el-form-item>
       <el-form-item
-              label="Geburtsdatum:" required>
+              v-bind:label="$t('signup.label.birthdate')"
+              required>
         <el-date-picker
                 v-model="signUpForm.birthdate"
                 type="date"
-                placeholder="Wann wurdest du geboren?"
+                v-bind:placeholder="$t('signup.label.birthdateinfo')"
                 style="width: 100%;">
         </el-date-picker>
       </el-form-item>
       <el-form-item
-            label="Gender:"
+              v-bind:label="$t('signup.label.gender')"
             prop="gender">
         <div id="gen_content">
         <el-radio-group
                 v-model="signUpForm.gender"
                 size="small">
           <el-radio-button
-                  label="female">female</el-radio-button>
+                  label="female">{{ $t('gender.female') }}</el-radio-button>
           <el-radio-button
-                  label="male">male</el-radio-button>
+                  label="male">{{ $t('gender.male') }}</el-radio-button>
           <el-radio-button
-                  label="other">other</el-radio-button>
+                  label="other">{{ $t('gender.other') }}</el-radio-button>
           <el-radio-button
-                  label="prefer not to say">prefer not to say</el-radio-button>
+                  label="prefer not to say">{{ $t('gender.prefernottosay') }}</el-radio-button>
         </el-radio-group></div>
       </el-form-item>
       <sui-divider horizontal>
         Account</sui-divider>
       <el-form-item
-              label="e-mail Adresse:"
+              v-bind:label="$t('signup.label.email')"
               prop="email">
         <el-input
                 v-model="signUpForm.email">
         </el-input>
       </el-form-item>
-      <password
+      <el-form-item
+              v-bind:label="$t('signup.label.password')"
+              prop="password">
+        <password
         v-model="signUpForm.password"
         :toggle="false"
         @score="showScore"
@@ -97,8 +101,9 @@
             padding: 0 15px;
             transition: border-color .2s cubic-bezier(.645,.045,.355,1);
             width: 100%;"/>
-        <el-form-item
-            label="Confirm:"
+      </el-form-item>
+       <el-form-item
+            v-bind:label="$t('signup.label.confirmPassword')"
             prop="checkPass">
             <el-input
                 v-model="signUpForm.checkPass">
@@ -109,13 +114,13 @@
 
       <sui-divider hidden/>
       <el-button
-              type="primary"
+              type="text"
               @click.prevent="resetForm"
-              icon="el-icon-close">Reset</el-button>
+              icon="el-icon-close">{{ $t('options.reset') }}</el-button>
       <el-button
         type="primary"
         @click.prevent="submitForm"
-        icon="el-icon-arrow-right">Sign Up</el-button>
+        icon="el-icon-arrow-right">{{ $t('options.signup') }}</el-button>
       <div style="margin: 20px;">
         <h5>Du bist bereits dabei? <a href="drops/auth/login">Log In</a></h5>
       </div>
@@ -157,24 +162,24 @@
 
        rules: {
          firstname: [
-           {required: true, message: 'Please input your firstname', trigger: 'blur',},
-             {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'Your firstname should be like mine: Frederik', trigger: 'blur'}
+           {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
+             {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.firstname'), trigger: 'blur'}
          ], lastname: [
-           {required: true, message: 'Please input your lastname', trigger: 'change'},
-               {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'Your lastname is unvalid.', trigger: 'blur'}
+           {required: true, message: this.$t('validationError.lastname'), trigger: 'change'},
+               {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.lastname'), trigger: 'blur'}
            ], mobile: [
-           {required: true, message: 'Please input phone', trigger: 'blur'},
-               {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message:'Your mobile number should look like this: +49-1234-56783', trigger: 'blur'}
+           {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
+               {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
            ], placeofresidence: [
-           {required: true, message: 'Please input your place of resisdence', trigger: 'blur'},
-               {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'Choose your city, like mine: Berlin', trigger: 'blur'}
+           {required: true, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
+               {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
          ], birthdate: [
-           {type: 'date', required: true, message: 'looks like, you dont know when you was born...', trigger: 'change'}
+           {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
          ], email: [
-           {required: true, message: 'Please input your e-mail address', trigger: 'blur'},
-               {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: 'Is this realy your address? It should look like: freak@vivaconagua.org' }
+           {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
+               {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ], checkPass: [
-               { required: true, validator: checkPass, trigger: 'blur' }
+               { required: true, validator: checkPass, message: this.$t('validationError.checkPass'), trigger: 'blur' }
            ]
        }
      }

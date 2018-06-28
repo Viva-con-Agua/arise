@@ -1,7 +1,125 @@
-// en_US,json
-
 {
-  "test": {
-    "msg": "HH = Hamburg"
-  }
+  "hello": "Hello World!",
+  "options": {
+    "reset": "reset",
+    "submit": "submit",
+    "signup": "login",
+    "signout": "logout"
+  },
+
+  "validationError": {
+
+    "crewname": "Please fill in the crewname...",
+    "city": "Please fill in at least one city...",
+    "country": "Please fill in a country...",
+
+    "firstname":"Please fill in your firstname...",
+    "lastname":"Please fill in your name...",
+    "mobile":"Please fill in your mobile number...",
+    "placeofresidence":"Please fill in your place of residence...",
+    "birthdate":"Please fill in your birtdate...",
+    "gender":"What is your Gender?",
+    "email":"Please fill in your e-mail address...",
+    "password":"Please use a safe password...",
+    "checkPass":"Please reenter your password...",
+
+    "taskTitle":"Please enter the title of your task",
+
+    "id":"Please enter an ID",
+    "secret":"Safty fitst, please enter a secret",
+    "uri":"Where is your service located?",
+    "types":"Please chose a grant type."
+  },
+
+  "inputSample": {
+
+    "name": "z.B. Los Angeles",
+    "city": "z.B. Aldera",
+    "country": "z.B. Alderaan",
+
+    "firstname":"my parents named me Frederik",
+    "lastname":"e.g. Mustermensch",
+    "mobile":"e.g. +49-1523-45679",
+    "placeofresidence":"e.g. Aldera",
+    "birthdate":"e.g. 1910.05.10",
+    "gender":"e.g. male",
+    "email":"e.g. freak@vivaconagua.org",
+    "password":"info",
+
+    "taskTitle":"e.g. tidying up warehouse",
+
+    "id":"e.g. arise"
+  },
+
+  "gender": {
+    "female": "female",
+    "male": "male",
+    "other": "diverse",
+    "prefernottosay": "prefer not to say"
+  },
+
+  "signup": {
+    "label": {
+      "firstname": "Firstname:",
+      "lastname": "Lastname:",
+      "mobile": "Mobilenr.:",
+      "placeofresidence": "Place of residence:",
+      "birthdate": "Birthday:",
+      "birthdateinfo": "When is your birthdate?",
+      "gender": "Gender:",
+      "email": "e-mail:",
+      "password": "Password:",
+      "confirmPassword": "Confirm Password:"
+    }
+  },
+
+  "crewform": {
+    "label": {
+      "crewname": "Crewname:",
+      "cities": "City / Cities:",
+      "country": "Country:"
+    }
+  },
+
+  "crewlist": {
+    "label": {
+      "crewname": "Crewname:",
+      "cities": "City / Cities:",
+      "country": "Country:",
+      "operations": "Options:"
+    }
+  },
+
+  "taskform":{
+    "label": {
+      "title":"Title:",
+      "description":"Description:"
+    },
+    "descriptionPlaceholder":"Please descripe your task..."
+  },
+
+  "oauth":{
+    "label": {
+      "id":"ID:",
+      "secret":"Secret:",
+      "uri":"Redirect URI:",
+      "types":"Grant Types:"
+    },
+    "sublabel": {
+      "id":"",
+      "secret":"",
+      "uri":"",
+      "types":"Die katze rennt um den grünen großen Baum"
+    },
+    "descriptionPlaceholder":""
+  },
+
+  "country": {
+    "de" : "Germany",
+    "at" : "Austria",
+    "nl" : "Netherlands",
+    "ch" : "Switzerland"
+  },
+
+  "latest" : "frequently added"
 }

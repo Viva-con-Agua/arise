@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-       <!--<p> {{ $t(i18n.messages, hello) }}</p>-->
+        <p>{{ $t('hello') }}</p>
         <CrewForm></CrewForm>
         <CrewList v-model="this.crews"></CrewList>
     </div>
@@ -9,7 +9,6 @@
 <script>
   import CrewForm from '@/components/CrewForm.vue'
   import CrewList from '@/components/CrewList.vue'
-
 
   var initURL = 'http://localhost:3000/drops/rest/crew/query';
   var initMethod = 'POST';

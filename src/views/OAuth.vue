@@ -6,47 +6,59 @@
                 ref="OAuth"
                 status-icon>
             <el-form-item
-                    label="ID:"
+                    v-bind:label="$t('oauth.label.id')"
                     prop="id">
                 <el-input
                         v-model="OAuth.id">
                 </el-input>
             </el-form-item>
             <el-form-item
-                    label="Secret:"
+                    v-bind:label="$t('oauth.label.secret')"
                     prop="secret">
                 <el-input
                         v-model="OAuth.secret">
                 </el-input>
             </el-form-item>
             <el-form-item
-                label="Redirect URI:"
+                    v-bind:label="$t('oauth.label.uri')"
                 prop="redirectURI">
             <el-input
                     v-model="OAuth.redirectURI">
             </el-input>
             </el-form-item>
             <el-form-item
-                label="grantTypes:"
+                    v-bind:label="$t('oauth.label.types')"
                 prop="grantTypes">
-            <el-input
+                <div id="subLabel">{{ $t('oauth.sublabel.types') }}</div>
+<!--            <el-input
                     v-model="OAuth.grantTypes"
                     :disabled="true">
-            </el-input>
+            </el-input>-->
+                <div id="grantTypes">
+                <el-checkbox-group
+                        v-model="OAuth.checkedGrandTypes"
+                        :max="1">
+                    <el-checkbox v-for="type in OAuth.grantTypes" :label="type" :key="type">{{type}}</el-checkbox>
+                </el-checkbox-group>
+                </div>
             </el-form-item>
             <el-button
-                    type="primary"
+                    type="text"
                     @click.prevent="resetForm"
-                    icon="el-icon-close">Reset</el-button>
+                    icon="el-icon-close">{{ $t('options.reset') }}</el-button>
             <el-button
                     type="primary"
                     @click.prevent="submitForm"
-                    icon="el-icon-arrow-right">Hinzufügen</el-button>
+                    icon="el-icon-arrow-right">{{ $t('options.submit') }}</el-button>
         </el-form>
     </div>
 </template>
 
 <script>
+    const typesOptions = [  {authorization_code: 'Authorization Code'},
+                            { asasd:'Implicit'},
+                            {asdsd:'Password'},
+                            {asdasd: 'Client Credentials'}];
     export default {
 
         name: "OAuth",
@@ -60,22 +72,24 @@
                     id: '',
                     secret: '',
                     redirectURI: '',
-                    grantTypes: 'Authorization Code',
+                    checkedGrandTypes: ['Authorization Code'],
+                    grantTypes: typesOptions
                 },
+
 
                 rules: {
                     id: [
-                        {required: true, message: 'An ID is required!', trigger: 'blur'},
-                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: 'only chars and numbers are allowed!', trigger: 'blur'}
+                        {required: true, message: this.$t('validationError.id'), trigger: 'blur'},
+                        {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.id'), trigger: 'blur'}
                     ],
                     secret: [
-                        {required: true, message: 'platzhalter', trigger: 'blur'}
+                        {required: true, message: this.$t('validationError.secret'), trigger: 'blur'}
                     ],
                     redirectURI: [
-                        {required: true, message: 'Where is your Service directed?', trigger: 'blur'}
+                        {required: true, message: this.$t('validationError.uri'), trigger: 'blur'}
                     ],
                     grantTypes: [
-                        {required: true, message: 'Choose a grant Type.', trigger: 'blur'}
+                        {required: true, message: this.$t('validationError.types'), trigger: 'blur'}
                     ],
                 }
             }
@@ -102,5 +116,14 @@
 </script>
 
 <style scoped>
+    #subLabel {
+        float: left;
+        color: #909399;
+        padding-top: 1px;
+    }
 
+    #grantTypes {
+        clear: both;
+        float: left;
+    }
 </style>
