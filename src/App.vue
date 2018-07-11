@@ -1,28 +1,28 @@
 <template>
   <div id="app">
-    <sui-menu 
+<!--    <el-menu
       :widths="3">
-      <sui-menu-item>
+      <el-menu-item>
         <h2>Viva con Agua Pool²</h2>
-      </sui-menu-item>
-      <sui-menu-item>
-        <!--<sui-image src=""></sui-image>-->
-      </sui-menu-item>
-      <sui-menu-item>
-        <sui-button-group color="blue">
-          <sui-button 
+      </el-menu-item>
+      <el-menu-item>
+        &lt;!&ndash;<sui-image src=""></sui-image>&ndash;&gt;
+      </el-menu-item>
+      <el-menu-item>
+        <el-button-group color="blue">
+          <el-button
             attached="left" 
             content="SIGN UP" 
             icon="edit" 
             label-position="left" /><a href="drops/auth/login"/>
-          <sui-button 
+          <el-button
             attached="right" 
             content="SIGN IN" 
             icon="sign in alternate" 
             label-position="right"/><a href="drops/auth/login"/>
-        </sui-button-group>
-      </sui-menu-item>
-    </sui-menu>
+        </el-button-group>
+      </el-menu-item>
+    </el-menu>-->
 
     <router-view/>
   </div>
@@ -36,13 +36,10 @@ export default {
 </script>
 
 <style>
-  @import "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css";
-
-  #app {
+    #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 </style>

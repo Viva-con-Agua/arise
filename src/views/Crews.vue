@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <p>{{ $t('hello') }}</p>
         <CrewForm></CrewForm>
         <CrewList v-model="this.crews"></CrewList>
     </div>
@@ -38,16 +37,21 @@
         },
 
 
-        methods: {
-          // axios: function () {
-          //   axios.post('http://localhost:3000/drops/rest/crew/query')
-          //       .then(function (response) {
-          //       console.log(response);
-          //   })  .catch(function (error) {
-          //       console.log(error);
-          //   })
-          // },
+/*        mounted () {
 
+          this.axios
+                    .post('http://localhost:3000/drops/rest/crew/query')
+                    .then(response => {this.crews = response
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.errored = true
+                    })
+                    .finally(() => this.loading = false)
+        },*/
+
+
+        methods: {
 
           init: function () {
               var xhr = new XMLHttpRequest()

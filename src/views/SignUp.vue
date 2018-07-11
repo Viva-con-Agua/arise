@@ -1,9 +1,5 @@
 <template>
   <div id="signupform">
-    <sui-divider hidden/>
-    <sui-divider horizontal>
-      Person</sui-divider>
-
     <el-form
             :model="signUpForm"
             :rules="rules"
@@ -65,8 +61,7 @@
                   label="prefer not to say">{{ $t('gender.prefernottosay') }}</el-radio-button>
         </el-radio-group></div>
       </el-form-item>
-      <sui-divider horizontal>
-        Account</sui-divider>
+
       <el-form-item
               v-bind:label="$t('signup.label.email')"
               prop="email">
@@ -74,45 +69,28 @@
                 v-model="signUpForm.email">
         </el-input>
       </el-form-item>
-      <el-form-item
-              v-bind:label="$t('signup.label.password')"
-              prop="password">
-        <password
-        v-model="signUpForm.password"
-        :toggle="false"
-        @score="showScore"
-        @feedback="showFeedback"
-        :class="{'input': true }"
-        name="password"
-        type="password"
-        defaultClass = "style"
-        style="
-            background-color: #fff;
-            background-image: none;
-            border-radius: 4px;
-            border: 1px solid #dcdfe6;
-            box-sizing: border-box;
-            color: #606266;
-            display: inline-block;
-            font-size: inherit;
-            height: 40px;
-            line-height: 40px;
-            outline: 0;
-            padding: 0 15px;
-            transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-            width: 100%;"/>
-      </el-form-item>
-       <el-form-item
+        <el-form-item
+        v-bind:label="$t('signup.label.password')"
+        prop="password">
+            <div id="pw">
+            <password
+                    v-model="signUpForm.password"
+                    class="input"
+                    :toggle="true"
+                    defaultClass="el-input__inner"
+                    @feedback="showFeedback"/>
+        </div>
+        </el-form-item>
+            <el-form-item
             v-bind:label="$t('signup.label.confirmPassword')"
             prop="checkPass">
-            <el-input
-                v-model="signUpForm.checkPass">
-            </el-input>
+                <el-input
+                    v-model="signUpForm.checkPass"
+                    type="password">
+                </el-input>
         </el-form-item>
     </el-form>
 
-
-      <sui-divider hidden/>
       <el-button
               type="text"
               @click.prevent="resetForm"
@@ -128,12 +106,12 @@
 </template>
 
 <script>
-  import Password from 'vue-password-strength-meter'
-  var axios = require('axios');
+ import Password from 'vue-password-strength-meter';
+ var axios = require('axios');
 
 
  export default {
-   components: { Password},
+   components: {Password},
    data () {
        var checkPass = (rule, value, callback) => {
            if (value === '') {
@@ -155,18 +133,17 @@
          birthdate: '',
          gender: '',
          email: '',
-         password: '',
          checkPass: '',
        },
-
+       password: null,
 
        rules: {
          firstname: [
            {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
-             {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.firstname'), trigger: 'blur'}
+             {message: this.$t('inputSample.firstname'), trigger: 'blur'}
          ], lastname: [
            {required: true, message: this.$t('validationError.lastname'), trigger: 'change'},
-               {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.lastname'), trigger: 'blur'}
+               {message: this.$t('inputSample.lastname'), trigger: 'blur'}
            ], mobile: [
            {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
                {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
@@ -175,7 +152,9 @@
                {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
          ], birthdate: [
            {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
-         ], email: [
+         ], gender: [
+               {type: 'gender', required: false}
+           ],email: [
            {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
                {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ], checkPass: [
@@ -186,7 +165,6 @@
    },
 
    methods: {
-
      submitForm(SignUpForm) {
        this.$refs[SignUpForm].validate((valid) => {
          if (valid) {
@@ -208,8 +186,7 @@
        console.log('💯', score)
      },
 
-   }
-
+   },
  };
 </script>
 
@@ -223,20 +200,5 @@
       clear: both;
   }
 
-  style {
-      background-color: #fff;
-      background-image: none;
-      border-radius: 4px;
-      border: 1px solid #dcdfe6;
-      box-sizing: border-box;
-      color: #606266;
-      display: inline-block;
-      font-size: inherit;
-      height: 40px;
-      line-height: 40px;
-      outline: 0;
-      padding: 0 15px;
-      transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-      width: 100%;
-  }
+
 </style>

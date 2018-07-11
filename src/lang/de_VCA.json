@@ -93,7 +93,8 @@
   "taskform":{
     "label": {
       "title":"Title:",
-      "description":"Beschreibung:"
+      "description":"Beschreibung:",
+      "accessrights":"Access rights:"
     },
     "descriptionPlaceholder":"Bitte beschreibe deine Aktion..."
   },

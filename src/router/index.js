@@ -2,32 +2,27 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Vuex from 'vuex'
 import 'es6-promise/auto'
-import SuiVue from 'semantic-ui-vue'
-//import VeeValidate from 'vee-validate'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Vuetify from 'vuetify'
 import Element from 'element-ui'
 import VueI18n from 'vue-i18n'
 import locale from 'element-ui/lib/locale/lang/de'
-import enLocale from 'element-ui/lib/locale/lang/en'
-import deLocale from 'element-ui/lib/locale/lang/de'
-import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
-import ElementLocale from 'element-ui/lib/locale'
-//import styles from './src/index.css'
-//import '@/element-ui/lib/theme-chalk/index.css'
-import '@/router/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/css/better_index.css'
+//import '@/router/index.css'
 import DataTables from 'vue-data-table'
-import focus from 'vue-focus'
-import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete'
-//import { ClientTable, Event} from 'vue-tables-2'
-//import VueGoodTable from 'vue-good-table'
 import SignIn from '../views/SignIn'
 // import HelloWorld from '/components/HelloWorld'
 import SignUp from '../views/SignUp'
 import Crews from '../views/Crews'
 import Tasks from '../views/Tasks'
 import OAuth from '../views/OAuth'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import '@/assets/css/quill.vca.css'
 
 Vue.use(Router)
 
@@ -73,12 +68,13 @@ export default new Router({
 });
 
 Vue.use(Vuex),
-Vue.use(SuiVue),
+//Vue.use(SuiVue),
 Vue.use(VueAxios, axios),
 Vue.use(Vuetify),
 Vue.use(Element, { locale }),
 Vue.use(VueI18n),
-Vue.use(DataTables)
+Vue.use(DataTables),
+Vue.use(VueQuillEditor)
 
 
 

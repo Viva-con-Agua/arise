@@ -1,0 +1,32 @@
+.el-form-item.is-required .el-form-item__label:before
+    {
+        content:'';
+        color:#f56c6c;
+        margin-right:0px }
+
+.el-form-item.is-required .el-form-item__label:after
+{
+    content:'';
+    color:#f56c6c;
+    margin-right:4px }
+
+.el-form-item__label:after
+    {
+    content: 'Optional';
+    color: #8a8a8a;
+    margin-left: 4px; }
+
+.Password {
+    max-width: 100%!important;
+    margin: 0;
+}
+.Password__group {
+    clear: both;
+    width: 100%;
+}
+
+#subLabel {
+    float: left;
+    color: #909399;
+    padding-top: 1px;
+}

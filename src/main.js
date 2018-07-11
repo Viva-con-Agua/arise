@@ -7,7 +7,7 @@ import VueI18n from 'vue-i18n';
 const $t = Vue.t;
 
 
-Vue.use(VueI18n)
+Vue.use(VueI18n);
 
 Vue.config.productionTip = false;
 
@@ -16,7 +16,7 @@ const locale =  'de';
 const i18n = new VueI18n({
     locale: locale,
     messages: {
-        en: require('@/lang/lang'),
+        en: require('@/lang/en_US'),
         de: require('@/lang/de_VCA'),
         ja: require('../node_modules/element-ui/lib/locale/lang/ja')
     }

@@ -11,7 +11,6 @@
       <el-button size="small" icon="el-icon-search">Search</el-button>
     </div>-->
     <el-table
-      ref="crewdata"
       :size="tableSize"
       :data="value"
       style="width: 100%">
@@ -51,11 +50,6 @@
             </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      small
-      layout="prev, pager, next"
-      :total="50">
-    </el-pagination>
   </div>
 </template>
 

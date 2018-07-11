@@ -116,12 +116,6 @@
 </script>
 
 <style scoped>
-    #subLabel {
-        float: left;
-        color: #909399;
-        padding-top: 1px;
-    }
-
     #grantTypes {
         clear: both;
         float: left;

@@ -1,6 +1,5 @@
 var path = require('path')
 var webpack = require('webpack')
-//require("!style-loader!css-loader!./src/index.css");
 
 module.exports = {
     mode: 'development',
@@ -17,13 +16,18 @@ module.exports = {
                 loader: 'vue',
                 options: {
                     loaders: {
-                        i18n: '@kazupon/vue-i18n-loader'
+                        i18n: '@kazupon/vue-i18n-loader',
+
                     }
                 }
             },
             {
-                test: /\.css$/,
-                use: ['style-loader','css-loader']
+                test: /\.(css|scss)$/,
+                use: [
+                    {loader: 'style-loader'},
+                    {loader: 'css-loader'},
+                    {loader: 'sass-loader'}
+                ]
             },
             {
                 test: /\.js$/,
