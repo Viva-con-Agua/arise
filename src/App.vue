@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-<!--    <el-menu
+    <!--<el-menu
       :widths="3">
       <el-menu-item>
         <h2>Viva con Agua Pool²</h2>
@@ -23,7 +23,6 @@
         </el-button-group>
       </el-menu-item>
     </el-menu>-->
-
     <router-view/>
   </div>
 </template>

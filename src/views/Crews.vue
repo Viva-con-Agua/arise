@@ -1,8 +1,8 @@
 <template>
-    <div id="app">
-        <CrewForm></CrewForm>
-        <CrewList v-model="this.crews"></CrewList>
-    </div>
+  <div id="app">
+    <CrewForm/>
+    <CrewList v-model="crews"/>
+  </div>
 </template>
 
 <script>

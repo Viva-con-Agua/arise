@@ -10,21 +10,33 @@ import VueI18n from 'vue-i18n'
 import locale from 'element-ui/lib/locale/lang/de'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/better_index.css'
-//import '@/router/index.css'
 import DataTables from 'vue-data-table'
-import SignIn from '../views/SignIn'
-// import HelloWorld from '/components/HelloWorld'
-import SignUp from '../views/SignUp'
-import Crews from '../views/Crews'
-import Tasks from '../views/Tasks'
-import OAuth from '../views/OAuth'
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import '@/assets/css/quill.vca.css'
+import {library } from '@fortawesome/fontawesome-svg-core'
+import { faUserLock, faLockOpen, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import SignIn from '../views/SignIn'
+import SignUp from '../views/SignUp'
+import Crews from '../views/Crews'
+import Tasks from '../views/Tasks'
+import OAuth from '../views/OAuth'
+import finishSignup from '../views/finishSignup'
+import resetPassword from '../views/resetPassword'
+import resetPasswordDone from '../views/resetPasswordDone'
+import resetPasswordInstructions from '../views/resetPasswordInstructions'
+import resetPasswordInstructionsPool1 from '../views/resetPasswordInstructionsPool1'
+import startResetPassword from '../views/startResetPassword'
 
-Vue.use(Router)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+library.add(faUserLock, faLockOpen, faCheckCircle);
+
+Vue.use(Router);
 
 export default new Router({
     routes: [
@@ -39,29 +51,55 @@ export default new Router({
             name: 'Crews',
             component: Crews
         },
-
         {
             path: '/signup',
             name: 'SignUp',
             component: SignUp
         },
-
         {
             path: "/signin",
             name: 'SignIn',
             component: SignIn
         },
-
         {
             path: "/tasks",
             name: 'Tasks',
             component: Tasks
         },
-
         {
             path: "/oauth",
             name: 'OAuth',
             component: OAuth
+        },
+        {
+            path: "/finishSignup",
+            name: 'finishSignup',
+            component: finishSignup
+        },
+        {
+            path: "/startResetPassword",
+            name: 'startResetPassword',
+            component: startResetPassword
+        },
+        {
+            path: "/resetPassword",
+            name: 'resetPassword',
+            component: resetPassword
+        },
+        {
+            path: "/resetPasswordDone",
+            name: 'resetPasswordDone',
+            component: resetPasswordDone
+        },
+        {
+            path: "/resetPasswordInstructions",
+            name: 'resetPasswordInstructions',
+            component: resetPasswordInstructions
+        },
+        {
+            path: "/resetPasswordInstructionsPool1",
+            name: 'resetPasswordInstructionsPool1',
+            component: resetPasswordInstructionsPool1
         }
 
     ]

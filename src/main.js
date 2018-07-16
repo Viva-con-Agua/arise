@@ -11,14 +11,14 @@ Vue.use(VueI18n);
 
 Vue.config.productionTip = false;
 
-const locale =  'de';
+const locale =  navigator.language;
 
 const i18n = new VueI18n({
     locale: locale,
     messages: {
-        en: require('@/lang/en_US'),
-        de: require('@/lang/de_VCA'),
-        ja: require('../node_modules/element-ui/lib/locale/lang/ja')
+        'en-US': require('@/lang/en_US'),
+        'de': require('@/lang/de_VCA'),
+        'ja-JA': require('../node_modules/element-ui/lib/locale/lang/ja')
     }
 });
 

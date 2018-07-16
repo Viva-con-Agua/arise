@@ -1,31 +1,30 @@
 <template>
   <div id="crewForm">
     <el-form
-            :model="crewForm"
-            :rules="rules"
-            ref="crewForm"
-            status-icon>
+      ref="crewForm"
+      :model="crewForm"
+      :rules="rules"
+      status-icon>
       <el-form-item
-              v-bind:label="$t('crewform.label.crewname')"
-              prop="CrewName">
+        :label="$t('crewform.label.crewname')"
+        prop="CrewName">
         <el-input
-                v-model="crewForm.CrewName">
-        </el-input>
+          v-model="crewForm.CrewName"/>
       </el-form-item>
-        <el-form-item
-            v-bind:label="$t('crewform.label.cities')"
-            prop="City">
-            <div id="tag">
-            <el-tag
-                    :key="city"
-                    v-for="city in Cities"
-                    closable
-                    :disable-transitions="false"
-                    @close="handleClose(city)">
-                {{city}}
-            </el-tag>
-            </div>
-<!--            <input
+      <el-form-item
+        :label="$t('crewform.label.cities')"
+        prop="City">
+        <div id="tag">
+          <el-tag
+            v-for="city in Cities"
+            :key="city"
+            :disable-transitions="false"
+            closable
+            @close="handleClose(city)">
+            {{ city }}
+          </el-tag>
+        </div>
+        <!--            <input
                     class="input-new-city"
                     v-if="inputVisible"
                     v-model="cityValue"
@@ -33,45 +32,45 @@
                     type="text"
                     ref="autocomplete"
             />-->
-            <input
-                    class="input-new-city"
-                    v-if="inputVisible"
-                    v-model="cityValue"
-                    onfocus="value = ''"
-                    type="text"
-                    ref="autocomplete"
-            />
+        <input
+          v-if="inputVisible"
+          ref="autocomplete"
+          v-model="cityValue"
+          class="input-new-city"
+          onfocus="value = ''"
+          type="text"
+        >
 
-            <!--<el-button v-else class="button-new-tag" size="small">+ New City</el-button>-->
-        </el-form-item>
-        <el-form-item
-                v-bind:label="$t('crewform.label.country')"
-                prop="Country">
-            <div id="CountryContent">
-                {{ $t('latest') }}
-                <el-radio-group
-                    v-model="crewForm.country"
-                    size="mini">
-                <el-radio-button
-                        label="Germany">{{ $t('country.de') }}</el-radio-button>
-                <el-radio-button
-                        label="Austria">{{ $t('country.at') }}</el-radio-button>
-                <el-radio-button
-                        label="Switzerland">{{ $t('country.ch') }}</el-radio-button>
-                <el-radio-button
-                        label="Netherlands">{{ $t('country.nl') }}</el-radio-button>
-            </el-radio-group></div>
-            <el-input
-                    v-model="crewForm.country"></el-input>
-        </el-form-item>
-        <el-button
-                type="text"
-                @click.prevent="resetForm('crewForm')"
-                icon="el-icon-close">{{ $t('options.reset') }}</el-button>
-        <el-button
-                type="primary"
-                @click.prevent="submitForm('crewForm')"
-                icon="el-icon-arrow-right">{{ $t('options.submit') }}</el-button>
+        <!--<el-button v-else class="button-new-tag" size="small">+ New City</el-button>-->
+      </el-form-item>
+      <el-form-item
+        :label="$t('crewform.label.country')"
+        prop="Country">
+        <div id="CountryContent">
+          {{ $t('latest') }}
+          <el-radio-group
+            v-model="crewForm.country"
+            size="mini">
+            <el-radio-button
+              label="Germany">{{ $t('country.de') }}</el-radio-button>
+            <el-radio-button
+              label="Austria">{{ $t('country.at') }}</el-radio-button>
+            <el-radio-button
+              label="Switzerland">{{ $t('country.ch') }}</el-radio-button>
+            <el-radio-button
+              label="Netherlands">{{ $t('country.nl') }}</el-radio-button>
+        </el-radio-group></div>
+        <el-input
+          v-model="crewForm.country"/>
+      </el-form-item>
+      <el-button
+        type="text"
+        icon="el-icon-close"
+        @click.prevent="resetForm('crewForm')">{{ $t('options.reset') }}</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-arrow-right"
+        @click.prevent="submitForm('crewForm')">{{ $t('options.submit') }}</el-button>
     </el-form>
   </div>
 </template>
@@ -113,6 +112,23 @@
             }
         },
 
+        mounted() {
+            this.autocomplete = new google.maps.places.Autocomplete(
+                (this.$refs.autocomplete),
+                {types: ['(cities)']}
+            );
+            this.autocomplete.addListener('place_changed', () => {
+                let place = this.autocomplete.getPlace();
+                let ac = place.address_components;
+                let city = ac[0]["short_name"];
+                this.cityValue = (`${city}`);
+                console.log(`The user picked ${city}`);
+                this.handleInputConfirm();
+                this.cityValue = "";
+            });
+
+        },
+
         methods: {
             submitForm(crewForm) {
                 this.$refs[crewForm].validate((valid) => {
@@ -141,23 +157,6 @@
                 this.city = '';
             }
         },
-
-        mounted() {
-            this.autocomplete = new google.maps.places.Autocomplete(
-                (this.$refs.autocomplete),
-                {types: ['(cities)']}
-            );
-            this.autocomplete.addListener('place_changed', () => {
-                let place = this.autocomplete.getPlace();
-                let ac = place.address_components;
-                let city = ac[0]["short_name"];
-                this.cityValue = (`${city}`);
-                console.log(`The user picked ${city}`);
-                this.handleInputConfirm();
-                this.cityValue = "";
-            });
-
-        }
     }
 </script>
 

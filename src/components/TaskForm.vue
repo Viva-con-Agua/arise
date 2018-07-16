@@ -1,36 +1,35 @@
 <template xmlns:v-quill="http://www.w3.org/1999/xhtml">
-    <div id="TaskForm">
-        <el-form
-                :model="TaskForm"
-                :rules="rules"
-                ref="TaskForm"
-                status-icon>
-            <el-form-item
-                    v-bind:label="$t('taskform.label.title')"
-                    prop="taskTitle">
-                <el-input
-                        v-model="TaskForm.taskTitle"></el-input>
-            </el-form-item>
-            <el-form-item
-                    v-bind:label="$t('taskform.label.description')">
-<!--                <el-input
+  <div id="TaskForm">
+    <el-form
+      ref="TaskForm"
+      :model="TaskForm"
+      :rules="rules"
+      status-icon>
+      <el-form-item
+        :label="$t('taskform.label.title')"
+        prop="taskTitle">
+        <el-input
+          v-model="TaskForm.taskTitle"/>
+      </el-form-item>
+      <el-form-item
+        :label="$t('taskform.label.description')">
+        <!--                <el-input
                     v-model="TaskForm.description"
                     type="textarea"
                     :autosize="{ minRows: 8, maxRows: 16}"
                     v-bind:placeholder="$t('taskform.descriptionPlaceholder')">
                 </el-input>-->
-                <quill-editor
-                              theme="vca"
-                              @change="onEditorChange($event)">
-                </quill-editor>
-            </el-form-item>
-            <el-form-item
-                v-bind:label="$t('taskform.label.accessrights')">
-                <div class="clear">
-                    <Transfer v-model="this.rights"> </Transfer>
-                </div>
-            </el-form-item>
-<!--            <el-form-item
+        <quill-editor
+          theme="vca"
+          @change="onEditorChange($event)"/>
+      </el-form-item>
+      <el-form-item
+        :label="$t('taskform.label.accessrights')">
+        <div class="clear">
+          <Transfer v-model="rights"/>
+        </div>
+      </el-form-item>
+      <!--            <el-form-item
                 v-bind:label="$t('taskform.label.accessrights')">
                 <div class="clear">
                     <tree-transfer
@@ -42,7 +41,7 @@
                         </tree-transfer>
                 </div>
             </el-form-item>-->
-            <!--<el-form-item
+      <!--<el-form-item
                     label="Deadline:">
                 <div class="clear">
                 <el-date-picker
@@ -52,9 +51,9 @@
                 </el-date-picker>
                 </div>
             </el-form-item>-->
-           <!-- <el-form-item
+      <!-- <el-form-item
                 label="Supportercounter:">
-                <div id="counter">
+                <div id="counter">2
                 <el-input-number
                     v-model="TaskForm.counter"
                     @change="handleChange"
@@ -62,16 +61,16 @@
                 </el-input-number>
                 </div>
             </el-form-item>-->
-            <el-button
-                    type="text"
-                    @click.prevent="resetForm"
-                    icon="el-icon-close">{{ $t('options.reset') }}</el-button>
-            <el-button
-                    type="primary"
-                    @click.prevent="submitForm"
-                    icon="el-icon-arrow-right">{{ $t('options.submit') }}</el-button>
-        </el-form>
-    </div>
+      <el-button
+        type="text"
+        icon="el-icon-close"
+        @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-arrow-right"
+        @click.prevent="submitForm">{{ $t('options.submit') }}</el-button>
+    </el-form>
+  </div>
 </template>
 
 <script>

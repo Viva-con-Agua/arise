@@ -1,5 +1,5 @@
 <template>
-    <TaskForm></TaskForm>
+  <TaskForm/>
 </template>
 
 <script>

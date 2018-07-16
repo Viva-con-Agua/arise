@@ -4,7 +4,8 @@
     "reset": "reset",
     "submit": "submit",
     "signup": "login",
-    "signout": "logout"
+    "signout": "logout",
+    "sendemail": "send e-mail"
   },
 
   "validationError": {
@@ -119,6 +120,26 @@
     "at" : "Austria",
     "nl" : "Netherlands",
     "ch" : "Switzerland"
+  },
+
+  "hier kommt jetzt der" : "reset View",
+
+  "reset" : {
+    "steps": {
+      "title" : {
+        "1" : "Step 1",
+        "2" : "Step 2",
+        "3" : "Step 3"
+      },
+      "description" : {
+        "1" : "wer das ",
+        "2" : "hier liest",
+        "3" : "ist doof"
+      }
+    },
+    "label": {
+      "email": "e-mail:"
+    }
   },
 
   "latest" : "frequently added"

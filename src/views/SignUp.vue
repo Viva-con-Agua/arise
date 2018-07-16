@@ -1,107 +1,100 @@
 <template>
   <div id="signupform">
     <el-form
-            :model="signUpForm"
-            :rules="rules"
-            ref="SignUpForm"
-            class="signUpForm"
-            status-icon>
+      ref="SignUpForm"
+      :model="signUpForm"
+      :rules="rules"
+      class="signUpForm"
+      status-icon>
       <el-form-item
-              v-bind:label="$t('signup.label.firstname')"
-              prop="firstname">
+        :label="$t('signup.label.firstname')"
+        prop="firstname">
         <el-input
-                v-model="signUpForm.firstname">
-        </el-input>
+          v-model="signUpForm.firstname"/>
       </el-form-item>
       <el-form-item
-              v-bind:label="$t('signup.label.lastname')"
-              prop="lastname">
+        :label="$t('signup.label.lastname')"
+        prop="lastname">
         <el-input
-                v-model="signUpForm.lastname">
-        </el-input>
+          v-model="signUpForm.lastname"/>
       </el-form-item>
       <el-form-item
-              v-bind:label="$t('signup.label.mobile')"
-              prop="mobile">
+        :label="$t('signup.label.mobile')"
+        prop="mobile">
         <el-input
-                v-model="signUpForm.mobile">
-        </el-input>
+          v-model="signUpForm.mobile"/>
       </el-form-item>
       <el-form-item
-              v-bind:label="$t('signup.label.placeofresidence')"
-              prop="placeofresidence">
+        :label="$t('signup.label.placeofresidence')"
+        prop="placeofresidence">
         <el-input
-                v-model="signUpForm.placeofresidence">
-        </el-input>
+          v-model="signUpForm.placeofresidence"/>
       </el-form-item>
       <el-form-item
-              v-bind:label="$t('signup.label.birthdate')"
-              required>
+        :label="$t('signup.label.birthdate')"
+        required>
         <el-date-picker
-                v-model="signUpForm.birthdate"
-                type="date"
-                v-bind:placeholder="$t('signup.label.birthdateinfo')"
-                style="width: 100%;">
-        </el-date-picker>
+          v-model="signUpForm.birthdate"
+          :placeholder="$t('signup.label.birthdateinfo')"
+          type="date"
+          style="width: 100%;"/>
       </el-form-item>
       <el-form-item
-              v-bind:label="$t('signup.label.gender')"
-            prop="gender">
+        :label="$t('signup.label.gender')"
+        prop="gender">
         <div id="gen_content">
-        <el-radio-group
-                v-model="signUpForm.gender"
-                size="small">
-          <el-radio-button
-                  label="female">{{ $t('gender.female') }}</el-radio-button>
-          <el-radio-button
-                  label="male">{{ $t('gender.male') }}</el-radio-button>
-          <el-radio-button
-                  label="other">{{ $t('gender.other') }}</el-radio-button>
-          <el-radio-button
-                  label="prefer not to say">{{ $t('gender.prefernottosay') }}</el-radio-button>
+          <el-radio-group
+            v-model="signUpForm.gender"
+            size="small">
+            <el-radio-button
+              label="female">{{ $t('gender.female') }}</el-radio-button>
+            <el-radio-button
+              label="male">{{ $t('gender.male') }}</el-radio-button>
+            <el-radio-button
+              label="other">{{ $t('gender.other') }}</el-radio-button>
+            <el-radio-button
+              label="prefer not to say">{{ $t('gender.prefernottosay') }}</el-radio-button>
         </el-radio-group></div>
       </el-form-item>
 
       <el-form-item
-              v-bind:label="$t('signup.label.email')"
-              prop="email">
+        :label="$t('signup.label.email')"
+        prop="email">
         <el-input
-                v-model="signUpForm.email">
-        </el-input>
+          v-model="signUpForm.email"/>
       </el-form-item>
-        <el-form-item
-        v-bind:label="$t('signup.label.password')"
+      <el-form-item
+        :label="$t('signup.label.password')"
         prop="password">
-            <div id="pw">
-            <password
-                    v-model="signUpForm.password"
-                    class="input"
-                    :toggle="true"
-                    defaultClass="el-input__inner"
-                    @feedback="showFeedback"/>
+        <div id="pw">
+          <password
+            v-model="signUpForm.password"
+            :toggle="true"
+            class="input"
+            default-class="el-input__inner"
+            @feedback="showFeedback"/>
         </div>
-        </el-form-item>
-            <el-form-item
-            v-bind:label="$t('signup.label.confirmPassword')"
-            prop="checkPass">
-                <el-input
-                    v-model="signUpForm.checkPass"
-                    type="password">
-                </el-input>
-        </el-form-item>
+      </el-form-item>
+      <el-form-item
+        :label="$t('signup.label.confirmPassword')"
+        prop="checkPass">
+        <el-input
+          v-model="signUpForm.checkPass"
+          type="password"/>
+      </el-form-item>
     </el-form>
 
-      <el-button
-              type="text"
-              @click.prevent="resetForm"
-              icon="el-icon-close">{{ $t('options.reset') }}</el-button>
-      <el-button
-        type="primary"
-        @click.prevent="submitForm"
-        icon="el-icon-arrow-right">{{ $t('options.signup') }}</el-button>
-      <div style="margin: 20px;">
-        <h5>Du bist bereits dabei? <a href="drops/auth/login">Log In</a></h5>
-      </div>
+    <el-button
+      type="text"
+      icon="el-icon-close"
+      @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
+    <el-button
+      type="primary"
+      icon="el-icon-arrow-right"
+      @click.prevent="submitForm">{{ $t('options.signup') }}</el-button>
+    <div style="margin: 20px;">
+      <h5>Du bist bereits dabei? <a href="drops/auth/login">Log In</a></h5>
+    </div>
   </div>
 </template>
 

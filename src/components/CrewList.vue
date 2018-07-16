@@ -1,6 +1,6 @@
 <template>
   <div id="CrewList">
-<!--    <div id="ListMenu">
+    <!--    <div id="ListMenu">
       <el-radio-group
       v-model="tableSize"
       size="small">
@@ -14,40 +14,37 @@
       :size="tableSize"
       :data="value"
       style="width: 100%">
-<!--      <el-table-column
+      <!--      <el-table-column
         type="selection"
         fixed="left">
       </el-table-column>-->
       <el-table-column
+        :label="$t('crewlist.label.crewname')"
         sortable
-        v-bind:label="$t('crewlist.label.crewname')"
         prop="crewname"
-        align="left">
-      </el-table-column>
+        align="left"/>
       <el-table-column
+        :label="$t('crewlist.label.cities')"
         sortable
-        v-bind:label="$t('crewlist.label.cities')"
         prop="cities"
-        align="left">
-      </el-table-column>
+        align="left"/>
       <el-table-column
+        :label="$t('crewlist.label.country')"
         sortable
-        v-bind:label="$t('crewlist.label.country')"
         prop="country"
-        align="left">
-      </el-table-column>
+        align="left"/>
       <el-table-column
-                v-bind:label="$t('crewlist.label.operations')"
-                align="left">
-            <template slot-scope="scope">
-                <el-button
-                        size="mini"
-                        @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-edit"></i></el-button>
-                <el-button
-                        size="mini"
-                        type="danger"
-                        @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i></el-button>
-            </template>
+        :label="$t('crewlist.label.operations')"
+        align="left">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-edit"/></el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"/></el-button>
+        </template>
       </el-table-column>
     </el-table>
   </div>

@@ -4,7 +4,7 @@
       <sui-divider hidden/>
       <sui-divider horizontal>
         <i
-          class="sign in icon"></i>
+          class="sign in icon"/>
         SIGN IN</sui-divider>
       <div class="field">
         <label>e-mail:</label>
@@ -16,7 +16,7 @@
             type="text"
             placeholder="freak@vivaconagua.org"
             autocomplete="off">
-          <i class="user icon"></i>
+          <i class="user icon"/>
         </div>
       </div>
       <sui-divider hidden/>
@@ -27,7 +27,7 @@
             type="password"
             autocomplete="off"
           >
-          <i class="lock icon"></i>
+          <i class="lock icon"/>
         </div>
       </div>
       <sui-divider hidden/>

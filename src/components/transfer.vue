@@ -1,118 +1,112 @@
 <template>
-    <div class="transfer">
-        <div class="transferSource">
-    <h2> available rights</h2>
-    <el-table
-            :ref="sourceTable"
-            :data="value"
-            :disabled="onSourceCheckedChange"
-            @selection-change="onSourceCheckedChange">
+  <div class="transfer">
+    <div class="transferSource">
+      <h2> available rights <font-awesome-icon icon="coffee"/></h2>
+      <el-table
+        :data="value"
+        :disabled="onSourceCheckedChange"
+        @selection-change="onSourceCheckedChange">
         <el-table-column
-            type="selection"
-            fixed="left"
-            width="30">
-        </el-table-column>
+          type="selection"
+          fixed="left"
+          width="30"/>
         <el-table-column
-                label="Name"
-                prop="name">
-        </el-table-column>
+          label="Name"
+          prop="name"/>
         <el-table-column
-                label="Description"
-                prop="description">
-        </el-table-column>
+          label="Description"
+          prop="description"/>
         <el-table-column
-                prop="tag"
-                label="Tag"
-                width="100"
-                :filters="[{ text: 'write', value: 'write' }, { text: 'read', value: 'read' }]"
-                :filter-method="filterTag"
-                filter-placement="bottom-end">
-            <template slot-scope="scope">
-                <el-tag
-                        :type="scope.row.tag === 'write' ? 'primary' : 'success'"
-                        disable-transitions>{{scope.row.tag}}</el-tag>
-            </template>
+          :filters="[{ text: 'write', value: 'write' }, { text: 'read', value: 'read' }]"
+          :filter-method="filterTag"
+          prop="tag"
+          label="Tag"
+          width="100"
+          filter-placement="bottom-end">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.tag === 'write' ? 'primary' : 'success'"
+              disable-transitions>{{ scope.row.tag }}</el-tag>
+          </template>
         </el-table-column>
-<!--        <el-table-column type="expand">
+        <!--        <el-table-column type="expand">
             <template slot-scope="props">
                 <p>Uri: {{  }}</p>
                 <p>Method: {{  }}</p>
                 <p>Service: {{  }}</p>
             </template>
         </el-table-column>-->
-    </el-table>
-        </div>
-        <div class="transfer-buttons">
-            <el-button
-                    type="primary"
-                    :class="['el-transfer__button']"
-                    @click.native="addToRight"
-                    :disabled="leftChecked.length === 0">
-                <i class="el-icon-arrow-right"></i>
-            </el-button>
-            <el-button
-                    type="primary"
-                    :class="['el-transfer__button']"
-                    @click.native="addToLeft"
-                    :disabled="rightChecked.length === 0">
-                <i class="el-icon-arrow-left"></i>
-            </el-button>
-        </div>
-        <div class="transferTarget">
-            <h2>user rights</h2>
-    <el-table
-            :data="multipleSelection"
-            @selection-change="onTargetCheckedChange">
-        <el-table-column
-                type="selection"
-                fixed="left"
-                width="30">
-        </el-table-column>
-        <el-table-column
-                label="Name"
-                prop="name"
-                width="120">
-        </el-table-column>
-        <el-table-column
-                prop="tag"
-                label="Tag"
-                width="100"
-                :filters="[{ text: 'write', value: 'write' }, { text: 'read', value: 'read' }]"
-                :filter-method="filterTag"
-                filter-placement="bottom-end">
-            <template slot-scope="scope">
-                <el-tag
-                        :type="scope.row.tag === 'write' ? 'primary' : 'success'"
-                        disable-transitions>{{scope.row.tag}}</el-tag>
-            </template>
-        </el-table-column>
-        <el-table-column
-                label="Operations">
-            <template slot-scope="scope">
-                <el-button
-                        size="mini"
-                        type="danger"
-                        @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
+      </el-table>
     </div>
+    <div class="transfer-buttons">
+      <el-button
+        :class="['el-transfer__button']"
+        :disabled="leftChecked.length === 0"
+        type="primary"
+        @click.native="addToRight">
+        <i class="el-icon-arrow-right"/>
+      </el-button>
+      <el-button
+        :class="['el-transfer__button']"
+        :disabled="rightChecked.length === 0"
+        type="primary"
+        @click.native="addToLeft">
+        <i class="el-icon-arrow-left"/>
+      </el-button>
     </div>
+    <div class="transferTarget">
+      <h2>user rights</h2>
+      <el-table
+        :data="targetValue"
+        @selection-change="onTargetCheckedChange">
+        <el-table-column
+          type="selection"
+          fixed="left"
+          width="30"/>
+        <el-table-column
+          label="Name"
+          prop="name"
+          width="120"/>
+        <el-table-column
+          :filters="[{ text: 'write', value: 'write' }, { text: 'read', value: 'read' }]"
+          :filter-method="filterTag"
+          prop="tag"
+          label="Tag"
+          width="100"
+          filter-placement="bottom-end">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.tag === 'write' ? 'primary' : 'success'"
+              disable-transitions>{{ scope.row.tag }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Operations">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+  </div>
 </template>
 
 <script>
     import ElButton from 'element-ui/packages/button';
 
     export default {
-        name: "transfer",
-        props: ['value','value2'],
+        name: "Transfer",
         components: {
             ElButton,
         },
+        props: ['value'],
 
         data() {
             return {
-                multipleSelection: [],
+                targetValue: [],
                 leftChecked: [],
                 rightChecked: []
 
@@ -133,18 +127,9 @@
             },*/
 
             handleSelectionChange(val) {
-                this.multipleSelection = val;
+                this.targetValue = val;
             },
 
-            toggleSelection(rows) {
-                if (rows) {
-                    rows.forEach(row => {
-                        this.$refs.sourceTable.toggleRowSelection(row);
-                    });
-                } else {
-                    this.$refs.sourceTable.clearSelection();
-                }
-            },
 
             onSourceCheckedChange(val, movedKeys) {
                 this.leftChecked = val;
@@ -200,12 +185,13 @@
                 //     ? itemsToBeMoved.concat(currentValue)
                 //     : currentValue.concat(itemsToBeMoved);
                 // this.$emit('input', currentValue);
-                // this.$emit('change', currentValue, 'right', this.leftChecked);
+                // this.$emit('change', currentValue, 'right', thi.leftChecked);
                 var i;
                 var len = this.leftChecked.length;
                 for (i=0; i < len; i++) {
-                    this.multipleSelection.push(this.leftChecked[i]);
-                    onSourceCheckedChange.cleanSelection();
+                    this.targetValue.push(this.leftChecked[i]);
+                    this.value.splice(--i,++i);
+
                 }
             },
 
