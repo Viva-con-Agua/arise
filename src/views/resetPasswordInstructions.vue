@@ -1,62 +1,70 @@
 <template>
-  <div class="resetPassword">
-    <el-steps
-      :active="1"
-    >
-      <el-step 
-        :title="$t('reset.steps.title.1')" 
-        :description="$t('reset.steps.description.1')"/>
-      <el-step 
-        :title="$t('reset.steps.title.2')" 
-        :description="$t('reset.steps.description.2')"/>
-      <el-step 
-        :title="$t('reset.steps.title.3')" 
-        :description="$t('reset.steps.description.3')"/>
-    </el-steps>
-    <el-card class="box-card">
-      <div 
-        slot="header" 
-        class="title">
-        <font-awesome-icon
-          icon="user-lock"
-          size="4x"/>
-        <h4>you forgot your password?</h4>
-      </div>
-      <div class="content">
-        no problem, just enter here your e-mail adress and we will send you the instructions to reset it.
-      </div>
-      <el-form
-        :model="resetForm"
-        :rules="rules"
-        status-icon>
-        <el-form-item
-          :label="$t('reset.label.email')"
-          prop="email">
+  <div class="resetPasswordInstructions">
+    <transition name="fade">
+      <span v-show="show">
+        <el-alert
+          :title="$t('reset.alert.title')"
+          :description="$t('reset.alert.description')"
+          type="info"
+          show-icon
+        />
+      </span>
+    </transition>
+    <div class="resetPasswordContent">
+      <el-steps
+        :active="1"
+      >
+        <el-step 
+          :title="$t('reset.steps.title.1')" 
+          :description="$t('reset.steps.description.1')"/>
+        <el-step 
+          :title="$t('reset.steps.title.2')" 
+          :description="$t('reset.steps.description.2')"/>
+        <el-step 
+          :title="$t('reset.steps.title.3')" 
+          :description="$t('reset.steps.description.3')"/>
+      </el-steps>
+      <el-card class="box-card">
+        <div 
+          slot="header" 
+          class="title">
+          <font-awesome-icon
+            icon="user-lock"
+            size="4x"/>
+          <h2>{{ $t("reset.PasswordInstructions.title") }}</h2>
+        </div>
+        <div class="content">
+          {{ $t("reset.PasswordInstructions.description") }}
+        </div>
+        <el-form
+          :model="resetFormEMail"
+          :rules="rules"
+          status-icon>
+          <el-form-item
+            :label="$t('reset.label.email')"
+            prop="email">
 
-          <el-input
-            v-model.lazy="resetForm.email"/>
-        </el-form-item>
-      </el-form>
-      <el-button
-        type="primary"
-        icon="el-icon-arrow-right"
-        @click.prevent="show = !show">{{ $t('options.sendemail') }}</el-button>
-      <el-button
-        type="text"
-        icon="el-icon-close"
-        @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
-    </el-card>
+            <el-input
+              v-model.lazy="resetFormEMail.email"/>
+          </el-form-item>
+        </el-form>
+        <el-button
+          type="primary"
+          icon="el-icon-arrow-right"
+          @click.once="submitForm; show = !show">{{ $t('options.sendEmail') }}</el-button>
+      </el-card>
+    </div>
   </div>
 </template>
 
 <script>
     export default {
-        name: "ResetPasswordInstructions",
-
+      name: "ResetPasswordInstructions",
         data() {
-            return {
+          return {
+            show: false,
 
-                resetForm: {
+            resetFormEMail: {
                     email: ''
                 },
 
@@ -69,9 +77,9 @@
             }
         },
         methods: {
-            submitForm(resetForm) {
+            submitForm(resetFormEMail) {
 
-                this.$refs[resetForm].validate((valid) => {
+                this.$refs[resetFormEMail].validate((valid) => {
                     if (valid) {
                         alert('submit!');
                     } else {
@@ -80,26 +88,35 @@
                     }
                 });
             },
-            resetForm(SignUpForm) {
-                this.$refs[SignUpForm].resetFields();
+            resetForm(resetFormEMail) {
+                this.$refs[resetFormEMail].resetFields();
             },
         }
     }
 </script>
 <style scoped>
-    .resetPassword {
-        max-width: 480px;
+    .resetPasswordInstructions {
+        max-width: 75%;
+        margin: 0 auto;
     }
-    .box-card {
-
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      opacity: 0;
+    }
+    .resetPasswordContent {
+        max-width: 50%;
+        margin: 0 auto;
+        padding-top: 20px;
     }
     .title {
-        width: 50%;
+        width: 75%;
         margin: 0 auto;
         text-align: center;
     }
     .content {
-        font-size: 14px;
+        font-size: 16px;
     }
 
 </style>

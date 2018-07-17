@@ -19,78 +19,118 @@
         <font-awesome-icon 
           icon="lock-open" 
           size="4x"/>
-        <h4>you forgot your password?</h4>
+        <h2>{{ $t("reset.Password.title") }}</h2>
       </div>
-      <div class="content">
-        no problem, just enter here your e-mail adress and we will send you the instructions to reset it.
+      <div class="description">
+        {{ $t("reset.Password.description") }}
+        <div class="list">
+          <dl>
+            <dt>{{ $t('reset.Password.thingstoinclude.title') }}</dt>
+            <dd>{{ $t('reset.Password.thingstoinclude.1') }}</dd>
+            <dd>{{ $t('reset.Password.thingstoinclude.2') }}</dd>
+            <dt>{{ $t('reset.Password.thingstoavoid.title') }}</dt>
+            <dd>{{ $t('reset.Password.thingstoavoid.1') }}</dd>
+            <dd>{{ $t('reset.Password.thingstoavoid.2') }}</dd>
+            <dd>{{ $t('reset.Password.thingstoavoid.3') }}</dd>
+          </dl>
+        </div>
       </div>
       <el-form
-        :model="resetForm"
+        :model="resetFormPassword"
         :rules="rules"
         status-icon>
         <el-form-item
-          :label="$t('reset.label.email')"
-          prop="email">
-
+          :label="$t('reset.label.password')"
+          prop="password">
+          <div id="pw">
+            <password
+              v-model="resetFormPassword.password"
+              :toggle="true"
+              class="input"
+              default-class="el-input__inner"
+              @feedback="showFeedback"/>
+          </div>
+        </el-form-item>
+        <el-form-item
+          :label="$t('reset.label.checkPassword')"
+          prop="checkPass">
           <el-input
-            v-model.lazy="resetForm.email"/>
+            v-model="resetFormPassword.checkPass"
+            type="password"/>
         </el-form-item>
       </el-form>
       <el-button
         type="primary"
         icon="el-icon-arrow-right"
-        @click.prevent="show = !show">{{ $t('options.sendemail') }}</el-button>
-      <el-button
-        type="text"
-        icon="el-icon-close"
-        @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
+        @click.prevent="submitForm">{{ $t('options.resetIt') }}</el-button>
     </el-card>
   </div>
 </template>
 
 <script>
-    export default {
+  import Password from 'vue-password-strength-meter';
+
+  export default {
         name: "ResetPassword",
+        components: {Password},
 
         data() {
+          var checkPass = (rule, value, callback) => {
+            if (value === '') {
+              callback(new Error('Please input the password again'));
+            } else if (value !== this.signUpForm.password) {
+              callback(new Error('Two inputs don\'t match!'));
+            } else {
+              callback();
+            }
+          };
+
             return {
 
-                resetForm: {
-                    email: ''
+              resetFormPassword: {
+                  password: '',
+                  checkPass: ''
                 },
 
                 rules: {
-                    email: [
-                        {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
-                        {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email'), trigger: 'blur' }
-                    ]}
-
+                  password: [
+                    { required: true, trigger: 'blur'}
+                  ],
+                  checkPass: [
+                    { required: true, validator: checkPass, message: this.$t('validationError.checkPass'), trigger: 'blur' }
+                  ]
+              }
             }
         },
         methods: {
-            submitForm(resetForm) {
+            submitForm(resetFormPassword) {
+              this.$refs[resetFormPassword].validate((valid) => {
+                if (valid) {
+                  alert('submit!');
+                } else {
+                  console.log('error submit!!');
+                  return false;
+                }
+              });
+            },
+          resetForm(resetFormPassword) {
+            this.$refs[resetFormPassword].resetFields();
+          },
 
-                this.$refs[resetForm].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            },
-            resetForm(SignUpForm) {
-                this.$refs[SignUpForm].resetFields();
-            },
+          showFeedback ({suggestions, warning}) {
+            console.log('🙏', suggestions)
+            console.log('⚠', warning)
+          },
+          showScore (score) {
+            console.log('💯', score)
+          },
         }
     }
 </script>
 <style scoped>
-    .resetPassword {
-        max-width: 480px;
-    }
-    .box-card {
-
+    #resetPassword {
+      max-width: 50%;
+      margin: 0 auto;
     }
     .title {
         width: 50%;
@@ -98,7 +138,10 @@
         text-align: center;
     }
     .content {
-        font-size: 14px;
+        font-size: 16px;
+    }
+    .list {
+      font-size: 13px;
     }
 
 </style>

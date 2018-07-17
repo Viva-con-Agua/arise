@@ -4,7 +4,9 @@
     "reset": "zurücksetzen",
     "submit": "hinzufügen",
     "signup": "login",
-    "signout": "logout"
+    "signout": "logout",
+    "sendEmail": "sende e-mail",
+    "resetIt": "ändern"
   },
 
   "validationError": {
@@ -120,6 +122,58 @@
     "at" : "Österreich",
     "nl" : "Niederlande",
     "ch" : "Schweiz"
+  },
+
+  "reset" : {
+    "steps": {
+      "title" : {
+        "1" : "Step 1",
+        "2" : "Step 2",
+        "3" : "Step 3"
+      },
+      "description" : {
+        "1" : "anweisung",
+        "2" : "password zurücksetzen",
+        "3" : "fertig"
+      }
+    },
+    "label": {
+      "email": "e-mail:",
+      "password": "Passwort:",
+      "checkPassword": "Password überprüfen:"
+    },
+    "alert": {
+      "title": "Die E-Mail wurde versandt",
+      "description":"Du bekommst in den nächsten Minuten eine E-Mail. Bitte hab etwas Geduld"
+    },
+    "PasswordInstructions" : {
+      "title": "Du hast dein Password vergessen?",
+      "description": "Kein Problem, trage hier einfach deine E-Mail Adresse ein und wir senden dir Anweisungen zum zurücksetzen zu."
+
+    },
+    "PasswordInstructionsPool1" : {
+      "title": "Bitte wähle ein neues Passwort!",
+      "description": "Das scheint dein erster Login im neuen Pool zu sein. Bitte trag deine E-Mail adresse unten ein. Dann senden wird dir die Anweisungen zu, um ein neues Password zu erstellen."
+    },
+    "Password" : {
+      "title": "Passwort zurücksetzen",
+      "description": "Bitte such dir ein sicheres Passwort aus.",
+      "thingstoinclude": {
+        "title": "Dinge, die du verwenden solltest:",
+        "1": "•mindestens acht Zeichen",
+        "2": "•eins oder mehrere: kleingeschriebener Buchstabe, großgeschriebener Buchstabe, Nummer, Sonderzeichen"
+      },
+      "thingstoavoid": {
+        "title": "Dinge, die du vermeiden solltest:",
+        "1": "•Wörter, die du im Wörterbuch findest.",
+        "2": "•Tastaturfolgen, wie qwertz oder 12345.",
+        "3": "•Ein Passwort welches du bei einem anderen Dienst verwendest."
+      }
+    },
+    "PasswordDone": {
+      "title": "allet fertig!",
+      "description": "Du wirst in den nächsten Sekunden zur SignIn Seite weitergeleitet... Click hier, sollte nichts passieren!"
+    }
   },
 
   "latest" : "zuletzt hinzugefügt"

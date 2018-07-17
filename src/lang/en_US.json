@@ -5,7 +5,8 @@
     "submit": "submit",
     "signup": "login",
     "signout": "logout",
-    "sendemail": "send e-mail"
+    "sendEmail": "send e-mail",
+    "resetIt": "reset it"
   },
 
   "validationError": {
@@ -122,8 +123,6 @@
     "ch" : "Switzerland"
   },
 
-  "hier kommt jetzt der" : "reset View",
-
   "reset" : {
     "steps": {
       "title" : {
@@ -132,13 +131,47 @@
         "3" : "Step 3"
       },
       "description" : {
-        "1" : "wer das ",
-        "2" : "hier liest",
-        "3" : "ist doof"
+        "1" : "Instructions",
+        "2" : "reset password",
+        "3" : "finish"
       }
     },
     "label": {
-      "email": "e-mail:"
+      "email": "e-mail:",
+      "password": "Password:",
+      "checkPassword": "Check password:"
+    },
+    "alert": {
+      "title": "e-mail was sent",
+      "description":"You will receive the e-mail in the next few minutes. Please hold the line ;-)"
+    },
+    "PasswordInstructions" : {
+      "title": "you forgot your password?",
+      "description": "no problem, just enter here your e-mail adress and we will send you the instructions per mail to reset it."
+
+    },
+    "PasswordInstructionsPool1" : {
+      "title": "please reset your password!",
+      "description": "we've noticed this is your first login to the new Pool. Please enter your e-mail address and we will send you the instructuins per mail to set a new one."
+    },
+    "Password" : {
+      "title": "reset your password",
+      "description": "To protect your account, please use a secure password.",
+      "thingstoinclude": {
+        "title": "Things to include:",
+        "1": "•At least eight characters.",
+        "2": "•One or more of each of the following: lower-case letter, upper-case letter, number, special charakter"
+      },
+      "thingstoavoid": {
+        "title": "Things to avoid:",
+        "1": "•Words you can find in the dictionary.",
+        "2": "•Keyboard patterns, like qwerty or 12345. Particularly avoid sequences of numbers in order",
+        "3": "•The same password you use for another application."
+      }
+    },
+    "PasswordDone": {
+      "title": "all set up!",
+      "description": "you will be redirected to the sign in page in a few seconds... Or click here if nothing happens."
     }
   },
 
