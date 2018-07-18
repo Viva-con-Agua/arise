@@ -6,7 +6,8 @@
     "signup": "login",
     "signout": "logout",
     "sendEmail": "sende e-mail",
-    "resetIt": "ändern"
+    "resetIt": "ändern",
+    "signin": "Einloggen"
   },
 
   "validationError": {
@@ -72,7 +73,19 @@
       "email": "E-Mail:",
       "password": "Passwort:",
       "confirmPassword": "Passwort wiederholen:"
+    },
+    "finish" : {
+      "title" : "Fast geschafft, Supporti!",
+      "description" : "Du bist der Tropfen! Du bekommst sofort eine e-mail, klicke dort auf den Link und dein Account wird freigeschaltet."
     }
+  },
+  "signin": {
+    "label": {
+      "email": "E-Mail:",
+      "password": "Passwort:"
+    },
+    "title": "Einloggen",
+    "description":"Bitte Log dich mit deinen Accountdaten ein."
   },
 
   "crewform": {

@@ -17,7 +17,7 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import '@/assets/css/quill.vca.css'
 import {library } from '@fortawesome/fontawesome-svg-core'
-import { faUserLock, faLockOpen, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUserLock, faLockOpen, faCheckCircle, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import SignIn from '../views/SignIn'
 import SignUp from '../views/SignUp'
@@ -34,7 +34,7 @@ import startResetPassword from '../views/startResetPassword'
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-library.add(faUserLock, faLockOpen, faCheckCircle);
+library.add(faUserLock, faLockOpen, faCheckCircle, faSignInAlt);
 
 Vue.use(Router);
 

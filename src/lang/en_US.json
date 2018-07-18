@@ -6,7 +6,8 @@
     "signup": "login",
     "signout": "logout",
     "sendEmail": "send e-mail",
-    "resetIt": "reset it"
+    "resetIt": "reset it",
+    "signin" : "Sign In"
   },
 
   "validationError": {
@@ -72,7 +73,20 @@
       "email": "e-mail:",
       "password": "Password:",
       "confirmPassword": "Confirm Password:"
+    },
+    "finish" : {
+      "title" : "You're almost done Supporti",
+      "description" : "You are the Drop! We've send you an e-mail with instructions to complete your SignUp!"
     }
+  },
+
+  "signin": {
+    "label": {
+      "email": "E-mail:",
+      "password": "Password:"
+    },
+    "title": "Login",
+    "description":"Please enter your, account data to Sign In."
   },
 
   "crewform": {

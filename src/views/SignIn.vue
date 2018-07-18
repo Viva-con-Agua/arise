@@ -1,69 +1,107 @@
 <template>
-  <sui-form>
-    <div id="loginform">
-      <sui-divider hidden/>
-      <sui-divider horizontal>
-        <i
-          class="sign in icon"/>
-        SIGN IN</sui-divider>
-      <div class="field">
-        <label>e-mail:</label>
-        <div class="ui left icon input">
-          <input
-            v-validate="required"
-            v-model="email"
-            :class="{'input': true, 'is-danger': errors.has('email') }"
-            type="text"
-            placeholder="freak@vivaconagua.org"
-            autocomplete="off">
-          <i class="user icon"/>
-        </div>
+  <div id="signin">
+    <el-card class="box-card">
+      <div
+        slot="header"
+        class="title">
+        <font-awesome-icon
+          icon="sign-in-alt"
+          size="4x"/>
+        <h2>{{ $t("signin.title") }}</h2>
       </div>
-      <sui-divider hidden/>
-      <div class="field">
-        <label>password:</label>
-        <div class="ui left icon input">
-          <input
-            type="password"
-            autocomplete="off"
-          >
-          <i class="lock icon"/>
-        </div>
-      </div>
-      <sui-divider hidden/>
-      <sui-checkbox
-        v-model="vremember"
-        label="remember me"
-        toggle/>
-      <sui-divider hidden/>
-      <div class="ui blue submit button">login</div>
-      <sui-divider horizontal>OR</sui-divider>
-      <h6>Du hast noch keinen Account? Du kannst jederzeit <a href="drops/auth/signup">Mitmachen</a>.</h6>
-      <h6>Passwort vergessen? Das kannst <a href="drops/auth/reset">hier</a> neu setzen.</h6>
-    </div>
-  </sui-form>
-
+      <!-- <div class="description">
+        {{ $t("signin.description") }}
+      </div>-->
+      <el-form
+        :model="signin"
+        :rules="rules">
+        <el-form-item
+          :label="$t('signin.label.email')"
+          prop="email">
+          <el-input
+            v-model="signinForm.email"/>
+        </el-form-item>
+        <el-form-item
+          :label="$t('signin.label.password')"
+          prop="password">
+          <el-input
+            v-model="signinForm.password"
+            type="password"/>
+        </el-form-item>
+      </el-form>
+      <el-button
+        type="primary"
+        icon="el-icon-arrow-right"
+        @click.prevent="submitForm">{{ $t('options.signin') }}</el-button>
+    </el-card>
+  </div>
 </template>
 
 <script>
-   export default {
-      name: "Login",
-      components: {}
+  export default {
+    name: "SignIn",
+
+    data() {
+
+      return {
+        rules: {
+          email: [
+            { required: true, trigger: 'blur'}
+          ],
+          password: [
+            { required: true, trigger: 'blur' }
+          ]
+        },
+
+        signinForm: {
+          email: '',
+          password: ''
+        },
+      }
+    },
+    methods: {
+      submitForm(resetFormPassword) {
+        this.$refs[resetFormPassword].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+            this.$router.push({path: '/resetPasswordDone'});
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
     }
+  }
 </script>
-
 <style scoped>
-    @import "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css";
+  .box-card {
+    max-width: 30%;
+    margin: 0 auto;
+    margin-bottom: 15%;
+  }
 
-    #loginform {
-      padding-left: 25%;
-      padding-right: 25%;
-      text-align: left;
-    }
+  #signin {
+    padding-top: 10%;
+    width: 100%;
+    height: 100%;
+    background-repeat: repeat;
+    background: -webkit-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
+    background: -o-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
+    background: -moz-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
+    background: linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
+  }
 
-    .help_is-danger {
-      font-size: x-small;
-      color: red;
-    }
+  .title {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .content {
+    font-size: 16px;
+  }
+  .list {
+    font-size: 13px;
+  }
 
 </style>

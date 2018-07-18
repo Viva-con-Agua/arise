@@ -107,6 +107,7 @@
               this.$refs[resetFormPassword].validate((valid) => {
                 if (valid) {
                   alert('submit!');
+                  this.$router.push({path: '/resetPasswordDone'});
                 } else {
                   console.log('error submit!!');
                   return false;
