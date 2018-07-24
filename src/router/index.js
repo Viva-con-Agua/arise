@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import 'es6-promise/auto'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VeeValidate from 'vee-validate'
 import Vuetify from 'vuetify'
 import Element from 'element-ui'
 import VueI18n from 'vue-i18n'
@@ -40,11 +41,11 @@ Vue.use(Router);
 
 export default new Router({
     routes: [
-/*        {
+              {
             path: '/',
-            name: 'HelloWorld',
-            component: HelloWorld
-        },*/
+            name: 'SignIn',
+            component: SignIn
+        },
 
         {
             path: '/crews',
@@ -108,6 +109,7 @@ export default new Router({
 Vue.use(Vuex),
 //Vue.use(SuiVue),
 Vue.use(VueAxios, axios),
+Vue.use(VeeValidate),
 Vue.use(Vuetify),
 Vue.use(Element, { locale }),
 Vue.use(VueI18n),

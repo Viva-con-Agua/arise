@@ -174,10 +174,19 @@
         },
 
         methods: {
-            submitForm(TaskForm) {
-                this.$refs[TaskForm].validate((valid) => {
+            submitForm() {
+                this.$refs.TaskForm.validate((valid) => {
                     if (valid) {
                         alert('submit!');
+                      this.axios
+                        .post('http://localhost:3000/test', {
+                          data: this.TaskForm,
+                        })
+                        .catch(error => {
+                          console.log(error)
+                          this.errored = true
+                        })
+                        .finally(() => this.loading = false)
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -185,8 +194,8 @@
                 });
             },
 
-            resetForm(TaskForm) {
-                this.$refs[TaskForm].resetFields();
+            resetForm() {
+                this.$refs.TaskForm.resetFields();
             },
 
             handleChange(value) {

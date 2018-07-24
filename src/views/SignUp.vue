@@ -1,7 +1,7 @@
 <template>
   <div id="signupform">
     <el-form
-      ref="SignUpForm"
+      ref="signUpForm"
       :model="signUpForm"
       :rules="rules"
       class="signUpForm"
@@ -39,7 +39,7 @@
           type="date"
           style="width: 100%;"/>
       </el-form-item>
-      <el-form-item
+      <!--<el-form-item
         :label="$t('signup.label.gender')"
         prop="gender">
         <div id="gen_content">
@@ -55,7 +55,7 @@
             <el-radio-button
               label="prefer not to say">{{ $t('gender.prefernottosay') }}</el-radio-button>
         </el-radio-group></div>
-      </el-form-item>
+      </el-form-item>-->
 
       <el-form-item
         :label="$t('signup.label.email')"
@@ -83,15 +83,15 @@
           type="password"/>
       </el-form-item>
     </el-form>
-
-    <el-button
-      type="text"
-      icon="el-icon-close"
-      @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
     <el-button
       type="primary"
       icon="el-icon-arrow-right"
       @click.prevent="submitForm">{{ $t('options.signup') }}</el-button>
+    <el-button
+      type="text"
+      icon="el-icon-close"
+      @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
+
     <div style="margin: 20px;">
       <h5>Du bist bereits dabei? <a href="drops/auth/login">Log In</a></h5>
     </div>
@@ -157,19 +157,31 @@
      }
    },
 
+
    methods: {
-     submitForm(SignUpForm) {
-       this.$refs[SignUpForm].validate((valid) => {
+     submitForm() {
+       this.$refs.signUpForm.validate((valid) => {
          if (valid) {
            alert('submit!');
+           this.axios
+             .post('http://localhost:3000/test', {
+               user: this.signUpForm,
+             })
+             .catch(error => {
+               console.log(error)
+               this.errored = true
+             })
+             .finally(() => this.loading = false)
+           this.$router.push({path: '/finishSignup'});
+
          } else {
            console.log('error submit!!');
            return false;
          }
        });
      },
-     resetForm(SignUpForm) {
-       this.$refs[SignUpForm].resetFields();
+     resetForm() {
+      this.$refs.signUpForm.resetFields();
      },
      showFeedback ({suggestions, warning}) {
        console.log('🙏', suggestions)
@@ -180,6 +192,7 @@
      },
 
    },
+
  };
 </script>
 

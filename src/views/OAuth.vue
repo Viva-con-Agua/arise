@@ -96,10 +96,19 @@
 
         methods: {
 
-            submitForm(OAuth) {
-                this.$refs[OAuth].validate((valid) => {
+            submitForm() {
+                this.$refs.OAuth.validate((valid) => {
                     if (valid) {
                         alert('submit!');
+                      this.axios
+                        .post('http://localhost:3000/test', {
+                          data: this.OAuth,
+                        })
+                        .catch(error => {
+                          console.log(error)
+                          this.errored = true
+                        })
+                        .finally(() => this.loading = false)
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -107,8 +116,8 @@
                 });
             },
 
-            resetForm(OAuth) {
-                this.$refs[OAuth].resetFields();
+            resetForm() {
+                this.$refs.OAuth.resetFields();
             },
         }
     }
