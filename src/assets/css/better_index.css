@@ -1,10 +1,10 @@
-.el-form-item.is-required .el-form-item__label:before
-    {
+.el-form-item.is-required.el-form-item__label:before
+{
         content:'';
         color:#f56c6c;
-        margin-right:0px }
+        margin-right:0; }
 
-.el-form-item.is-required .el-form-item__label:after
+.el-form-item.is-required.el-form-item__label:after
 {
     content:'';
     color:#f56c6c;

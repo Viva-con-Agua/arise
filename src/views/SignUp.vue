@@ -99,8 +99,14 @@
 </template>
 
 <script>
+  import Vue from 'vue'
  import Password from 'vue-password-strength-meter';
- var axios = require('axios');
+ import axios from 'axios'
+ import VueAxios from 'vue-axios'
+
+ Vue.use(VueAxios, axios);
+
+ //var axios = require('axios');
 
 
  export default {

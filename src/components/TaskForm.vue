@@ -13,12 +13,6 @@
       </el-form-item>
       <el-form-item
         :label="$t('taskform.label.description')">
-        <!--                <el-input
-                    v-model="TaskForm.description"
-                    type="textarea"
-                    :autosize="{ minRows: 8, maxRows: 16}"
-                    v-bind:placeholder="$t('taskform.descriptionPlaceholder')">
-                </el-input>-->
         <quill-editor
           theme="vca"
           @change="onEditorChange($event)"/>
@@ -29,18 +23,11 @@
           <Transfer v-model="rights"/>
         </div>
       </el-form-item>
-      <!--            <el-form-item
-                v-bind:label="$t('taskform.label.accessrights')">
-                <div class="clear">
-                    <tree-transfer
-                        :title = "['dies', 'das']"
-                        :from_data = 'formData'
-                        :to_data = 'toData'
-                        @addBtn='add'
-                        @removeBtn='remove'>
-                        </tree-transfer>
-                </div>
-            </el-form-item>-->
+      <!--
+
+       ***Implementierte felder für Deadline und Supportercounter
+      -->
+
       <!--<el-form-item
                     label="Deadline:">
                 <div class="clear">
@@ -74,14 +61,19 @@
 </template>
 
 <script>
-    import treeTransfer from 'el-tree-transfer'
+    import Vue from 'vue'
+//    import treeTransfer from 'el-tree-transfer'
     import Transfer from '@/components/transfer'
+    import axios from 'axios'
+    import VueAxios from 'vue-axios'
+    import VueQuillEditor from 'vue-quill-editor'
+
+    Vue.use(VueAxios, axios, VueQuillEditor);
 
     export default {
         name: "TaskForm",
         components: {
             Transfer,
-            treeTransfer,
         },
 
         data() {
@@ -104,57 +96,6 @@
 
                 value: [],
                 value2: [],
-
-
-
-/*            filterMethod(query, item) {
-                    return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
-                }*/
-
-/*                formData: [
-                    {
-                        id: "1",
-                        pid: 0,
-                        lv: 0,
-                        label: "microservice 1",
-                        children: [
-                            {
-                                id: "1-1",
-                                pid: "1",
-                                label: "access right 1-1",
-                                children: []
-                            },
-                            {
-                                id: "1-2",
-                                pid: "1",
-                                label: "access right 1-2",
-                                children: []
-                            }
-                        ],
-                    },{
-                            id: "2",
-                            pid: 0,
-                            lv: 0,
-                            label: "microservice 2",
-                            children: [
-                                {
-                                    id: "2-1",
-                                    pid: "2",
-                                    label: "access right 2-1",
-                                    children: []
-                                },
-                                {
-                                    id: "2-2",
-                                    pid: "2",
-                                    label: "access right 2-2",
-                                    children:[]
-                                }
-                            ]
-                        },
-                    ],
-                    toData: [],*/
-
-
             }
         },
 

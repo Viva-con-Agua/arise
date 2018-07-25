@@ -55,6 +55,12 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+    import axios from 'axios'
+    import VueAxios from 'vue-axios'
+
+    Vue.use(VueAxios, axios);
+
     const typesOptions = [  {authorization_code: 'Authorization Code'},
                             { asasd:'Implicit'},
                             {asdsd:'Password'},

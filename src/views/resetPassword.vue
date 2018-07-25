@@ -68,7 +68,13 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import Password from 'vue-password-strength-meter';
+  import axios from 'axios'
+  import VueAxios from 'vue-axios'
+
+  Vue.use(VueAxios, axios);
+
 
   export default {
         name: "ResetPassword",
