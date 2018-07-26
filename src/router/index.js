@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-import Vuex from 'vuex'
+import Element from 'element-ui'
 import 'es6-promise/auto'
+
+//import Vuex from 'vuex'
 // import axios from 'axios'
 // import VueAxios from 'vue-axios'
 // import VeeValidate from 'vee-validate'
 // import Vuetify from 'vuetify'
-import Element from 'element-ui'
 //import VueI18n from 'vue-i18n'
 import locale from 'element-ui/lib/locale/lang/de'
 import 'element-ui/lib/theme-chalk/index.css'
