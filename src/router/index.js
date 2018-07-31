@@ -47,7 +47,7 @@ Vue.use(Router);
 Vue.use(Element, {locale});
 
 function loadView(view) {
-  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`)
+  return () => import(/* webpackChunkName: "[request]" */ `@/views/${view}.vue`)
 }
 export default new Router({
     routes: [

@@ -7,6 +7,7 @@ const path = require('path');
 const baseWebpackConfig = require('./webpack.base.conf');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
 const BundleAnalyzerPlugin = require ('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -27,7 +28,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, '/') },
+        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, '/arise/') },
       ],
     },
     hot: true,
@@ -67,6 +68,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
     //Bundle Analyzer
     //new BundleAnalyzerPlugin()
   ]

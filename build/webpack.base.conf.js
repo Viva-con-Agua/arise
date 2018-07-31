@@ -1,15 +1,14 @@
 'use strict';
-/*import Vue from "vue/types/index";
-import Element from "element-ui/types/index";
-import locale from "element-ui/lib/locale/lang/de";*/
 
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+process.traceDeprecation = true
 
 function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+  return path.join(__dirname, '../', dir)
 }
 
 
@@ -23,7 +22,8 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
+    publicPath:
+       process.env.NODE_ENV === 'production'
        ? config.build.assetsPublicPath
        : config.dev.assetsPublicPath
   },
@@ -32,6 +32,29 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+    }
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
     }
   },
   module: {
@@ -73,7 +96,7 @@ module.exports = {
       {
         test: /\.(css|scss)$/,
         use: [
-          {loader: 'style-loader'},
+          MiniCssExtractPlugin.loader,
           {loader: 'css-loader'},
           {loader: 'sass-loader'}
         ]
