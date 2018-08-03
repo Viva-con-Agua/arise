@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="arise">
     <!--<el-menu
       :widths="3">
       <el-menu-item>
@@ -29,13 +29,13 @@
 
 <script>
 export default {
-  name: 'App',
+  name: 'Arise',
   components: {}
 }
 </script>
 
 <style>
-    #app {
+    #arise {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

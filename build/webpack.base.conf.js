@@ -17,11 +17,12 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   mode: 'production',
   entry: {
-    app: './src/main.js'
+    arise: './src/main.js'
   },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
+    library: '[name]',
     publicPath:
        process.env.NODE_ENV === 'production'
        ? config.build.assetsPublicPath
