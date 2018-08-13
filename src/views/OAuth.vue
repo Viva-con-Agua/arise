@@ -58,8 +58,22 @@
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
+    import {
+      Button,
+      Checkbox,
+      CheckboxGroup,
+      Form,
+      FormItem,
+      Input
+    } from 'element-ui'
 
     Vue.use(VueAxios, axios);
+    Vue.use(Button);
+    Vue.use(Checkbox);
+    Vue.use(CheckboxGroup);
+    Vue.use(Form);
+    Vue.use(FormItem);
+    Vue.use(Input);
 
     const typesOptions = [  {authorization_code: 'Authorization Code'},
                             { asasd:'Implicit'},

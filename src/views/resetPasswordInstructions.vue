@@ -61,8 +61,28 @@
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
+    import {
+      Alert,
+      Button,
+      Card,
+      Form,
+      FormItem,
+      Step,
+      Steps,
+      Input
+    } from 'element-ui'
+
 
     Vue.use(VueAxios, axios);
+    Vue.use(Alert);
+    Vue.use(Button);
+    Vue.use(Card);
+    Vue.use(Form);
+    Vue.use(FormItem);
+    Vue.use(Step);
+    Vue.use(Steps);
+    Vue.use(Input);
+
 
     export default {
       name: "ResetPasswordInstructions",

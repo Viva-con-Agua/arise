@@ -29,6 +29,18 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import {
+    Card,
+    Step,
+    Steps
+  } from 'element-ui'
+
+
+  Vue.use(Card);
+  Vue.use(Step);
+  Vue.use(Steps);
+
   export default {
     name: "ResetPasswordDone",
 

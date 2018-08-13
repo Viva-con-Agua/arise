@@ -1,7 +1,7 @@
 <template>
   <div class="transfer">
     <div class="transferSource">
-      <h2> available rights <font-awesome-icon icon="coffee"/></h2>
+      <h2> available rights</h2>
       <el-table
         :data="value"
         :disabled="onSourceCheckedChange"
@@ -95,12 +95,18 @@
 </template>
 
 <script>
-    import ElButton from 'element-ui/packages/button';
+  import Vue from 'vue'
+  import {
+    Table,
+    TableColumn
+  } from 'element-ui'
+
+  Vue.use(Table);
+  Vue.use(TableColumn);
 
     export default {
         name: "Transfer",
         components: {
-            ElButton,
         },
         props: ['value'],
 

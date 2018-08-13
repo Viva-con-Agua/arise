@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Element from 'element-ui'
+//import Element from 'element-ui'
+/*import {
+  Button,
+  Card,
+  Form,
+  FormItem,
+  Input
+} from 'element-ui/lib/'*/
 import 'es6-promise/auto'
 
 //import Vuex from 'vuex'
@@ -10,7 +17,7 @@ import 'es6-promise/auto'
 // import Vuetify from 'vuetify'
 //import VueI18n from 'vue-i18n'
 import locale from 'element-ui/lib/locale/lang/de'
-import 'element-ui/lib/theme-chalk/index.css'
+//import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/better_index.css'
 // import DataTables from 'vue-data-table'
 // import VueQuillEditor from 'vue-quill-editor'
@@ -18,7 +25,7 @@ import '@/assets/css/better_index.css'
 // import 'quill/dist/quill.snow.css'
 // import 'quill/dist/quill.bubble.css'
 import '@/assets/css/quill.vca.css'
-import {library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserLock, faLockOpen, faCheckCircle, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -38,16 +45,23 @@ const resetPasswordInstructionsPool1 = () => System.import('../views/resetPasswo
 const startResetPassword = () => System.import('../views/startResetPassword');*/
 
 
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 //Font Awesome iCon Library
 library.add(faUserLock, faLockOpen, faCheckCircle, faSignInAlt);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Router);
-Vue.use(Element, {locale});
+//Vue.use(Element,{ locale });
+/*Vue.use(Button);
+Vue.use(Card);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Input);*/
+Vue.use(locale);
+
 
 function loadView(view) {
-  return () => import(/* webpackChunkName: "[request]" */ `@/views/${view}.vue`)
+  return () => import(/* webpackChunkName: '[request]' */ `@/views/${view}.vue`)
 }
 export default new Router({
     routes: [
@@ -70,7 +84,7 @@ export default new Router({
         {
             path: "/signin",
             name: 'SignIn',
-            component: loadView('Signin')
+            component: loadView('SignIn')
         },
         {
             path: "/tasks",

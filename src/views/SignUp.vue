@@ -103,8 +103,20 @@
  import Password from 'vue-password-strength-meter';
  import axios from 'axios'
  import VueAxios from 'vue-axios'
+  import {
+    Button,
+    DatePicker,
+    Form,
+    FormItem,
+    Input
+  } from 'element-ui'
 
  Vue.use(VueAxios, axios);
+  Vue.use(Button);
+  Vue.use(DatePicker);
+  Vue.use(Form);
+  Vue.use(FormItem);
+  Vue.use(Input);
 
  //var axios = require('axios');
 

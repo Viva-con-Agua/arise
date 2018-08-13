@@ -51,6 +51,17 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import {
+    Table,
+    TableColumn
+  } from 'element-ui'
+
+
+  Vue.use(Table);
+  Vue.use(TableColumn);
+
+
     export default {
       name: "CrewList",
       props: ['value'],

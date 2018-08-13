@@ -26,12 +26,12 @@ const i18n = new VueI18n({
 /* eslint-disable no-new */
 
 new Vue({
-  el: '#arise',
+  el: '#app',
   router,
   i18n,
   show: true,
   components: { Arise },
-  template: '<Arise/>',
+  template: '<App/>',
   render: h => h(Arise)
 }).$mount('#arise');
 

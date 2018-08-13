@@ -42,8 +42,20 @@
   import Vue from 'vue'
   import axios from 'axios'
   import VueAxios from 'vue-axios'
+  import {
+    Button,
+    Card,
+    Form,
+    FormItem,
+    Input
+  } from 'element-ui'
 
   Vue.use(VueAxios, axios);
+  Vue.use(Button);
+  Vue.use(Card);
+  Vue.use(Form);
+  Vue.use(FormItem);
+  Vue.use(Input);
 
   export default {
     name: "SignIn",

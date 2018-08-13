@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const BundleAnalyzerPlugin = require ('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const HOST = process.env.HOST
@@ -71,8 +72,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        compress: {
+          warnings: true
+        }
+      },
+      sourceMap: config.build.productionSourceMap,
+      parallel: true
+    }),
     //Bundle Analyzer
-    //new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin()
   ]
 })
 

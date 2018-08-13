@@ -67,8 +67,21 @@
     import axios from 'axios'
     import VueAxios from 'vue-axios'
     import VueQuillEditor from 'vue-quill-editor'
+    import {
+      Button,
+      Form,
+      FormItem,
+      Input
+    } from 'element-ui'
 
-    Vue.use(VueAxios, axios, VueQuillEditor);
+
+
+    Vue.use(VueAxios, axios);
+    Vue.use(VueQuillEditor);
+    Vue.use(Button);
+    Vue.use(Form);
+    Vue.use(FormItem);
+    Vue.use(Input);
 
     export default {
         name: "TaskForm",
