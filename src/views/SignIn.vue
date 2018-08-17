@@ -30,10 +30,18 @@
             type="password"/>
         </el-form-item>
       </el-form>
+      <el-switch
+        v-model="rememberMe">
+        {{ $t('options.rememberme') }}
+      </el-switch>
       <el-button
         type="primary"
         icon="el-icon-arrow-right"
         @click.prevent="submitForm">{{ $t('options.signin') }}</el-button>
+      <div style="margin: 20px;">
+        <h5>{{ $t('options.notamember') }} <a href="drops/auth/login">{{ $t('options.notamemberklick') }}</a></h5>
+        <h5>{{ $t('options.lostpw') }} <a href="drops/auth/login">{{ $t('options.lostpwklick') }}</a></h5>
+      </div>
     </el-card>
   </div>
 </template>
@@ -45,6 +53,7 @@
   import {
     Button,
     Card,
+    Switch,
     Form,
     FormItem,
     Input
@@ -53,6 +62,7 @@
   Vue.use(VueAxios, axios);
   Vue.use(Button);
   Vue.use(Card);
+  Vue.use(Switch);
   Vue.use(Form);
   Vue.use(FormItem);
   Vue.use(Input);
@@ -76,6 +86,7 @@
           email: '',
           password: ''
         },
+        rememberMe: false,
       }
     },
     methods: {

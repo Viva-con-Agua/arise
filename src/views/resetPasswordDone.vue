@@ -56,6 +56,7 @@
 <style scoped>
   #resetPasswordDone {
     max-width: 50%;
+    padding-top: 15%;
     margin: 0 auto;
   }
   .title {

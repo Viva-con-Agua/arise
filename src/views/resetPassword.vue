@@ -21,7 +21,7 @@
           size="4x"/>
         <h2>{{ $t("reset.Password.title") }}</h2>
       </div>
-      <div class="description">
+     <!-- <div class="description">
         {{ $t("reset.Password.description") }}
         <div class="list">
           <dl>
@@ -34,9 +34,10 @@
             <dd>{{ $t('reset.Password.thingstoavoid.3') }}</dd>
           </dl>
         </div>
-      </div>
+      </div>-->
       <el-form
         :model="resetFormPassword"
+        :ref="resetFormPassword"
         :rules="rules"
         status-icon>
         <el-form-item
@@ -50,6 +51,7 @@
               default-class="el-input__inner"
               @feedback="showFeedback"/>
           </div>
+          <span> {{ showFeedback }}</span>
         </el-form-item>
         <el-form-item
           :label="$t('reset.label.checkPassword')"
@@ -62,7 +64,7 @@
       <el-button
         type="primary"
         icon="el-icon-arrow-right"
-        @click.prevent="submitForm">{{ $t('options.resetIt') }}</el-button>
+        @click.prevent="submitForm(resetFormPassword)">{{ $t('options.resetIt') }}</el-button>
     </el-card>
   </div>
 </template>
@@ -100,7 +102,7 @@
           var checkPass = (rule, value, callback) => {
             if (value === '') {
               callback(new Error('Please input the password again'));
-            } else if (value !== this.signUpForm.password) {
+            } else if (value !== this.resetFormPassword.password) {
               callback(new Error('Two inputs don\'t match!'));
             } else {
               callback();
@@ -127,8 +129,16 @@
         methods: {
             submitForm(resetFormPassword) {
               this.$refs[resetFormPassword].validate((valid) => {
-                if (valid) {
-                  alert('submit!');
+                if(valid) {
+                this.axios
+                  .post('http://localhost:3000/test', {
+                    user: this.resetFormPassword,
+                  })
+                  .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                  })
+                  .finally(() => this.loading = false)
                   this.$router.push({path: '/resetPasswordDone'});
                 } else {
                   console.log('error submit!!');
@@ -153,6 +163,7 @@
 <style scoped>
     #resetPassword {
       max-width: 50%;
+      padding-top: 15%;
       margin: 0 auto;
     }
     .title {

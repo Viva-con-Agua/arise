@@ -38,6 +38,7 @@
         </div>
         <el-form
           :model="resetFormEMail"
+          :ref="resetFormEMail"
           :rules="rules"
           status-icon>
           <el-form-item
@@ -51,7 +52,7 @@
         <el-button
           type="primary"
           icon="el-icon-arrow-right"
-          @click.once="submitForm; show = !show">{{ $t('options.sendEmail') }}</el-button>
+          @click.once="submitForm(resetFormEMail)">{{ $t('options.sendEmail') }}</el-button>
       </el-card>
     </div>
   </div>
@@ -106,7 +107,16 @@
 
         this.$refs[resetFormEMail].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.show = !this.show;
+            this.axios
+              .post('http://localhost:3000/test', {
+                user: this.resetFormEMail,
+              })
+              .catch(error => {
+                console.log(error)
+                this.errored = true
+              })
+              .finally(() => this.loading = false)
           } else {
             console.log('error submit!!');
             return false;
@@ -133,7 +143,7 @@
   .resetPasswordContent {
     max-width: 50%;
     margin: 0 auto;
-    padding-top: 20px;
+    padding-top: 15%;
   }
   .title {
     width: 75%;

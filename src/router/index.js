@@ -1,62 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-//import Element from 'element-ui'
-/*import {
-  Button,
-  Card,
-  Form,
-  FormItem,
-  Input
-} from 'element-ui/lib/'*/
 import 'es6-promise/auto'
-
-//import Vuex from 'vuex'
-// import axios from 'axios'
-// import VueAxios from 'vue-axios'
-// import VeeValidate from 'vee-validate'
-// import Vuetify from 'vuetify'
-//import VueI18n from 'vue-i18n'
-import locale from 'element-ui/lib/locale/lang/de'
-//import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/better_index.css'
-// import DataTables from 'vue-data-table'
-// import VueQuillEditor from 'vue-quill-editor'
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
+import locale from 'element-ui/lib/locale/lang/de'
+import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/quill.vca.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserLock, faLockOpen, faCheckCircle, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-//import different Views
-
-/*
-const SignIn = () => import('../views/SignIn');
-const SignUp = () => System.import('../views/SignUp');
-const Crews = () => System.import('../views/Crews');
-const Tasks = () => System.import('../views/Tasks');
-const OAuth = () => System.import('../views/OAuth');
-const finishSignup = () => System.import('../views/finishSignup');
-const resetPassword = () => System.import('../views/resetPassword');
-const resetPasswordDone = () => System.import('../views/resetPasswordDone');
-const resetPasswordInstructions = () => System.import('../views/resetPasswordInstructions');
-const resetPasswordInstructionsPool1 = () => System.import('../views/resetPasswordInstructionsPool1');
-const startResetPassword = () => System.import('../views/startResetPassword');*/
-
-
-
 //Font Awesome iCon Library
 library.add(faUserLock, faLockOpen, faCheckCircle, faSignInAlt);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Router);
-//Vue.use(Element,{ locale });
-/*Vue.use(Button);
-Vue.use(Card);
-Vue.use(Form);
-Vue.use(FormItem);
-Vue.use(Input);*/
 Vue.use(locale);
 
 
@@ -65,12 +21,16 @@ function loadView(view) {
 }
 export default new Router({
     routes: [
-              {
+        {
             path: '/',
             name: 'SignIn',
             component: loadView('SignIn')
         },
-
+        {
+          path: '*',
+          name: '404',
+          component: loadView('404')
+        },
         {
             path: '/crews',
             name: 'Crews',
