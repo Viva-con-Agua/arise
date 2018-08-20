@@ -1,6 +1,5 @@
 <template>
   <div id="signin">
-    <h1> hallo habibi tobi </h1>
     <el-card class="box-card">
       <div
         slot="header"
@@ -35,6 +34,8 @@
         icon="el-icon-arrow-right"
         @click.prevent="submitForm">{{ $t('options.signin') }}</el-button>
     </el-card>
+    <Freak
+      message="Logg dich rin, digga"></Freak>
   </div>
 </template>
 
@@ -42,11 +43,24 @@
   import Vue from 'vue'
   import axios from 'axios'
   import VueAxios from 'vue-axios'
+<<<<<<< Updated upstream
+=======
+  import {
+    Button,
+    Card,
+    Switch,
+    Form,
+    FormItem,
+    Input
+  } from 'element-ui'
+import Freak from '@/components/freak.vue'
+>>>>>>> Stashed changes
 
   Vue.use(VueAxios, axios);
 
   export default {
     name: "SignIn",
+    components: {Freak},
 
     data() {
 
