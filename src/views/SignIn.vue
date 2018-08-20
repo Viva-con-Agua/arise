@@ -42,9 +42,7 @@
 <script>
   import Vue from 'vue'
   import axios from 'axios'
-  import VueAxios from 'vue-axios'
-<<<<<<< Updated upstream
-=======
+  
   import {
     Button,
     Card,
@@ -54,7 +52,7 @@
     Input
   } from 'element-ui'
 import Freak from '@/components/freak.vue'
->>>>>>> Stashed changes
+
 
   Vue.use(VueAxios, axios);
 
