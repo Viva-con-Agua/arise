@@ -82,7 +82,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       parallel: true
     }),
     //Bundle Analyzer
-    new BundleAnalyzerPlugin()
+    //new BundleAnalyzerPlugin()
   ]
 })
 

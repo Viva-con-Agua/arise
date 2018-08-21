@@ -1,7 +1,6 @@
 <template>
   <div id="signin">
-    <h1> hallo habibi tobi </h1>
-    <el-card class="box-card">
+      <el-card class="box-card">
       <div
         slot="header"
         class="title">
@@ -14,30 +13,31 @@
         {{ $t("signin.description") }}
       </div>-->
       <el-form
-        :model="signin"
+         :ref="signInForm"
+        :model="signInForm"
         :rules="rules">
         <el-form-item
           :label="$t('signin.label.email')"
           prop="email">
           <el-input
-            v-model="signinForm.email"/>
+            v-model="signInForm.email"/>
         </el-form-item>
         <el-form-item
           :label="$t('signin.label.password')"
           prop="password">
           <el-input
-            v-model="signinForm.password"
+            v-model="signInForm.password"
             type="password"/>
         </el-form-item>
       </el-form>
-      <el-switch
-        v-model="rememberMe">
+      <el-checkbox
+        v-model="signInForm.rememberMe">
         {{ $t('options.rememberme') }}
-      </el-switch>
+      </el-checkbox>
       <el-button
         type="primary"
         icon="el-icon-arrow-right"
-        @click.prevent="submitForm">{{ $t('options.signin') }}</el-button>
+        @click.prevent="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
       <div style="margin: 20px;">
         <h5>{{ $t('options.notamember') }} <a href="drops/auth/login">{{ $t('options.notamemberklick') }}</a></h5>
         <h5>{{ $t('options.lostpw') }} <a href="drops/auth/login">{{ $t('options.lostpwklick') }}</a></h5>
@@ -53,7 +53,7 @@
   import {
     Button,
     Card,
-    Switch,
+    Checkbox,
     Form,
     FormItem,
     Input
@@ -62,7 +62,7 @@
   Vue.use(VueAxios, axios);
   Vue.use(Button);
   Vue.use(Card);
-  Vue.use(Switch);
+  Vue.use(Checkbox);
   Vue.use(Form);
   Vue.use(FormItem);
   Vue.use(Input);
@@ -73,31 +73,51 @@
     data() {
 
       return {
-        rules: {
-          email: [
-            { required: true, trigger: 'blur'}
-          ],
-          password: [
-            { required: true, trigger: 'blur' }
-          ]
+        signInForm: {
+          email: '',
+          password: '',
+          rememberMe: false
         },
 
-        signinForm: {
-          email: '',
-          password: ''
-        },
-        rememberMe: false,
+        rules: {
+              email: [
+                  { required: true, message: this.$t('validationError.email'), trigger: 'blur' },
+                  {
+                      pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: this.$t('inputSample.email')
+                  }
+              ],
+              password: [
+                  { required: true, trigger: 'blur' }
+              ]
+          }
       }
     },
     methods: {
-      submitForm(resetFormPassword) {
-        this.$refs[resetFormPassword].validate((valid) => {
+      submitForm(signInForm) {
+        this.$refs[signInForm].validate((valid) => {
           if (valid) {
-            alert('submit!');
-            this.$router.push({path: '/resetPasswordDone'});
-          } else {
-            console.log('error submit!!');
-            return false;
+              var that = this;
+              this.axios
+                  .post('http://localhost/drops/webapp/authenticate', this.signInForm)
+                  .then(function (response)
+                  {
+                      console.log(response);
+                      var status = console.log(response.status)
+                      switch (status)
+                      {
+                          case "200":
+                          case "":
+                      }
+                      that.$router.push({path: '/resetPasswordDone'});
+
+                  })
+                  .catch(error => {
+                  console.log(error)
+                  this.errored = true
+          })
+          .finally(() => this.loading = false)
+            //this.$router.push({path: '/resetPasswordDone'});
           }
         });
       },

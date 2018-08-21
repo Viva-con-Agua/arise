@@ -41,11 +41,11 @@ export default new Router({
             name: 'SignUp',
             component: loadView('SignUp')
         },
-        {
+        /*{
             path: "/signin",
             name: 'SignIn',
             component: loadView('SignIn')
-        },
+        },*/
         {
             path: "/tasks",
             name: 'Tasks',
