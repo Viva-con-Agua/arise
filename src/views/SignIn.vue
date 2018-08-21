@@ -1,6 +1,12 @@
 <template>
   <div id="signin">
-      <el-card class="box-card">
+    <el-card class="box-card">
+      <span v-show="show">
+        <el-alert
+          :title="errormessage"
+          type="error"
+          show-icon/>
+      </span>
       <div
         slot="header"
         class="title">
@@ -13,7 +19,7 @@
         {{ $t("signin.description") }}
       </div>-->
       <el-form
-         :ref="signInForm"
+        :ref="signInForm"
         :model="signInForm"
         :rules="rules">
         <el-form-item
@@ -39,8 +45,8 @@
         icon="el-icon-arrow-right"
         @click.prevent="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
       <div style="margin: 20px;">
-        <h5>{{ $t('options.notamember') }} <a href="drops/auth/login">{{ $t('options.notamemberklick') }}</a></h5>
-        <h5>{{ $t('options.lostpw') }} <a href="drops/auth/login">{{ $t('options.lostpwklick') }}</a></h5>
+        <h5>{{ $t('singin.notasupporti') }} <a href="drops/auth/login">{{ $t('signin.notasupportiklick') }}</a></h5>
+        <h5>{{ $t('signin.lostpw') }} <a href="drops/auth/login">{{ $t('signin.lostpwklick') }}</a></h5>
       </div>
     </el-card>
   </div>
@@ -51,6 +57,7 @@
   import axios from 'axios'
   import VueAxios from 'vue-axios'
   import {
+    Alert,
     Button,
     Card,
     Checkbox,
@@ -60,6 +67,7 @@
   } from 'element-ui'
 
   Vue.use(VueAxios, axios);
+  Vue.use(Alert);
   Vue.use(Button);
   Vue.use(Card);
   Vue.use(Checkbox);
@@ -69,10 +77,11 @@
 
   export default {
     name: "SignIn",
-
     data() {
-
       return {
+        show: true,
+        errormessage: "fail",
+
         signInForm: {
           email: '',
           password: '',
@@ -99,17 +108,37 @@
           if (valid) {
               var that = this;
               this.axios
-                  .post('http://localhost/drops/webapp/authenticate', this.signInForm)
+                  .post('http://localhost:3000/drops/webapp/authenticate', this.signInForm)
                   .then(function (response)
                   {
                       console.log(response);
                       var status = console.log(response.status)
                       switch (status)
                       {
-                          case "200":
-                          case "":
+                        case 200:
+                            that.$router.push({path: '/resetPasswordDone'});
+                            break;
+                        case 300:
+                            this.show = true;
+                            this.errormessage = $t('signin.alert.code300');
+                            break;
+                        case 301:
+                            this.show = true;
+                            this.errormessage = $t('signin.alert.code301');
+                            break;
+                        case 302:
+                          this.show = true;
+                          this.errormessage = $t('signin.alert.code302');
+                          break;
+                        case 303:
+                          this.show = true;
+                          this.errormessage = $t('signin.alert.code303');
+                          break;
+                        case 304:
+                          this.show = true;
+                          this.errormessage = $t('signin.alert.code304');
+                          break;
                       }
-                      that.$router.push({path: '/resetPasswordDone'});
 
                   })
                   .catch(error => {
