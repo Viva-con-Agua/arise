@@ -42,6 +42,11 @@ export default new Router({
             component: loadView('SignUp')
         },
         {
+          path: '/finishsignup',
+          name: 'finishSignup',
+          component: loadView('finishSignup')
+        },
+        {
             path: "/signin",
             name: 'SignIn',
             component: loadView('SignIn')
@@ -55,11 +60,6 @@ export default new Router({
             path: "/oauth",
             name: 'OAuth',
             component: loadView('OAuth')
-        },
-        {
-            path: "/finishSignup",
-            name: 'finishSignup',
-            component: loadView('finishSignUp')
         },
         {
             path: "/startResetPassword",

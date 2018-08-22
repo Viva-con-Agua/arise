@@ -51,7 +51,7 @@
               default-class="el-input__inner"
               @feedback="showFeedback"/>
           </div>
-          <span> {{ showFeedback }}</span>
+          <span> {{ showFeedback.suggestions }}</span>
         </el-form-item>
         <el-form-item
           :label="$t('reset.label.checkPassword')"
@@ -110,7 +110,6 @@
           };
 
             return {
-
               resetFormPassword: {
                   password: '',
                   checkPass: ''

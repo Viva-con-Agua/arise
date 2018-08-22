@@ -39,23 +39,23 @@
           type="date"
           style="width: 100%;"/>
       </el-form-item>
-      <!--<el-form-item
+      <el-form-item
         :label="$t('signup.label.gender')"
         prop="gender">
         <div id="gen_content">
           <el-radio-group
             v-model="signUpForm.gender"
             size="small">
-            <el-radio-button
-              label="female">{{ $t('gender.female') }}</el-radio-button>
-            <el-radio-button
-              label="male">{{ $t('gender.male') }}</el-radio-button>
-            <el-radio-button
-              label="other">{{ $t('gender.other') }}</el-radio-button>
-            <el-radio-button
-              label="prefer not to say">{{ $t('gender.prefernottosay') }}</el-radio-button>
+            <el-radio
+              label="female">{{ $t('gender.female') }}</el-radio>
+            <el-radio
+              label="male">{{ $t('gender.male') }}</el-radio>
+            <el-radio
+              label="other">{{ $t('gender.other') }}</el-radio>
+            <el-radio
+              label="prefernottosay">{{ $t('gender.prefernottosay') }}</el-radio>
         </el-radio-group></div>
-      </el-form-item>-->
+      </el-form-item>
 
       <el-form-item
         :label="$t('signup.label.email')"
@@ -108,7 +108,9 @@
     DatePicker,
     Form,
     FormItem,
-    Input
+    Input,
+    Radio,
+    RadioGroup
   } from 'element-ui'
 
  Vue.use(VueAxios, axios);
@@ -117,6 +119,8 @@
   Vue.use(Form);
   Vue.use(FormItem);
   Vue.use(Input);
+  Vue.use(Radio);
+  Vue.use(RadioGroup);
 
  //var axios = require('axios');
 
@@ -144,9 +148,8 @@
          birthdate: '',
          gender: '',
          email: '',
-         checkPass: '',
+         password: '',
        },
-       password: null,
 
        rules: {
          firstname: [
@@ -164,7 +167,7 @@
          ], birthdate: [
            {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
          ], gender: [
-               {type: 'gender', required: false}
+               {required: false}
            ],email: [
            {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
                {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
@@ -182,9 +185,7 @@
          if (valid) {
            alert('submit!');
            this.axios
-             .post('http://localhost:3000/test', {
-               user: this.signUpForm,
-             })
+             .post('http://localhost:3000/test', this.signUpForm)
              .catch(error => {
                console.log(error)
                this.errored = true

@@ -4,7 +4,7 @@
   "options": {
     "reset": "reset",
     "submit": "submit",
-    "signup": "login",
+    "signup": "Sign Up",
     "signout": "logout",
     "sendEmail": "send e-mail",
     "resetIt": "reset it",
