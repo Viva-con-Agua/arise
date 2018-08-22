@@ -24,7 +24,7 @@
       <el-menu-item
         index="4">
         <a
-          href="https://www.ele.me"
+          href="https://www.gottemeyer.ms"
           target="_blank">Orders</a>
       </el-menu-item>
     </el-menu>
@@ -147,7 +147,7 @@
   }
 
   .image {
-    width: 100%;
+    width: 80%;
     display: block;
   }
 

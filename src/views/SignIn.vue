@@ -41,12 +41,13 @@
         {{ $t('options.rememberme') }}
       </el-checkbox>
       <el-button
+        class="button_signin"
         type="primary"
         icon="el-icon-arrow-right"
         @click.prevent="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
       <div style="margin: 20px;">
-        <h5>{{ $t('signin.notasupporti') }} <a href="/signup})">{{ $t('signin.notasupportiklick') }}</a></h5>
-        <h5>{{ $t('signin.lostpw') }} <a href="/resetpasswordinstructions">{{ $t('signin.lostpwklick') }}</a></h5>
+        <h5>{{ $t('signin.notasupporti') }} <a href="./#/signup">{{ $t('signin.notasupportiklick') }}</a></h5>
+        <h5>{{ $t('signin.lostpw') }} <a href="./#/resetpasswordinstructions">{{ $t('signin.lostpwklick') }}</a></h5>
       </div>
     </el-card>
     <Freak
@@ -121,15 +122,15 @@
                       switch (status)
                       {
                         case 200:
-                            that.$router.push({path: '/resetPasswordDone'});
+                            that.$router.push({path: '/index'});
                             break;
                         case 300:
                             this.show = true;
                             this.errormessage = $t('signin.alert.code300');
                             break;
-                        case 301:
+                        case 204:
                             this.show = true;
-                            this.errormessage = $t('signin.alert.code301');
+                            that.$router.push({path: '/resetPasswordInstructions'});
                             break;
                         case 302:
                           this.show = true;
@@ -159,6 +160,11 @@
   }
 </script>
 <style scoped>
+  .button_signin {
+    width: 100%;
+    padding-top: 2%;
+  }
+
   .box-card {
     max-width: 30%;
     margin: 0 auto;

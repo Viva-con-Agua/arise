@@ -23,8 +23,8 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'SignIn',
-            component: loadView('SignIn')
+            name: 'Index',
+            component: loadView('index')
         },
         {
           path: '*',
@@ -41,11 +41,11 @@ export default new Router({
             name: 'SignUp',
             component: loadView('SignUp')
         },
-        /*{
+        {
             path: "/signin",
             name: 'SignIn',
             component: loadView('SignIn')
-        },*/
+        },
         {
             path: "/tasks",
             name: 'Tasks',
