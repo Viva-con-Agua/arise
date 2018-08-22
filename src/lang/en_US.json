@@ -1,5 +1,6 @@
 {
   "hello": "Hello World!",
+
   "options": {
     "reset": "reset",
     "submit": "submit",
@@ -7,7 +8,8 @@
     "signout": "logout",
     "sendEmail": "send e-mail",
     "resetIt": "reset it",
-    "signin" : "Sign In"
+    "signin" : "Sign In",
+    "rememberme" : "Remember me"
   },
 
   "validationError": {
@@ -86,7 +88,19 @@
       "password": "Password:"
     },
     "title": "Login",
-    "description":"Please enter your, account data to Sign In."
+    "description":"Please enter your, account data to Sign In.",
+    "notasupporti": "You are not registered yet?",
+    "notasupportiklick": "Register",
+    "lostpw": "You lost your password?",
+    "lostpwklick": "Reset",
+
+    "alert" : {
+      "code300": "",
+      "code301": "",
+      "code302": "",
+      "code303": "",
+      "code304": ""
+    }
   },
 
   "crewform": {
@@ -189,5 +203,4 @@
     }
   },
 
-  "latest" : "frequently added"
-}
+  "latest" : "frequently added"}

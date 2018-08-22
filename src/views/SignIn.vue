@@ -45,10 +45,12 @@
         icon="el-icon-arrow-right"
         @click.prevent="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
       <div style="margin: 20px;">
-        <h5>{{ $t('singin.notasupporti') }} <a href="drops/auth/login">{{ $t('signin.notasupportiklick') }}</a></h5>
-        <h5>{{ $t('signin.lostpw') }} <a href="drops/auth/login">{{ $t('signin.lostpwklick') }}</a></h5>
+        <h5>{{ $t('signin.notasupporti') }} <a href="/signup})">{{ $t('signin.notasupportiklick') }}</a></h5>
+        <h5>{{ $t('signin.lostpw') }} <a href="/resetpasswordinstructions">{{ $t('signin.lostpwklick') }}</a></h5>
       </div>
     </el-card>
+    <Freak
+      message="Schon dabei?"></Freak>
   </div>
 </template>
 
@@ -56,6 +58,7 @@
   import Vue from 'vue'
   import axios from 'axios'
   import VueAxios from 'vue-axios'
+  import Freak from '@/components/Freak.vue'
   import {
     Alert,
     Button,
@@ -77,6 +80,8 @@
 
   export default {
     name: "SignIn",
+    components: {Freak},
+
     data() {
       return {
         show: true,

@@ -62,7 +62,6 @@
 
 <script>
     import Vue from 'vue'
-//    import treeTransfer from 'el-tree-transfer'
     import Transfer from '@/components/transfer'
     import axios from 'axios'
     import VueAxios from 'vue-axios'

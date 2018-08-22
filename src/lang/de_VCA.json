@@ -1,5 +1,4 @@
-{
-  "hello": "Hallo Welt!",
+{"hello": "Hallo Welt!",
   "options": {
     "reset": "zurücksetzen",
     "submit": "hinzufügen",
@@ -7,7 +6,8 @@
     "signout": "logout",
     "sendEmail": "sende e-mail",
     "resetIt": "ändern",
-    "signin": "Einloggen"
+    "signin": "Einloggen",
+    "rememberme" : "Eingeloggt bleiben"
   },
 
   "validationError": {
@@ -85,7 +85,19 @@
       "password": "Passwort:"
     },
     "title": "Einloggen",
-    "description":"Bitte Log dich mit deinen Accountdaten ein."
+    "description":"Bitte Log dich mit deinen Accountdaten ein.",
+    "notasupporti": "Du bist noch nicht dabei?",
+    "notasupportiklick": "Registrieren",
+    "lostpw": "Du hast dein Passwort vergessen?",
+    "lostpwklick": "zurücksetzten",
+
+    "alert" : {
+      "code300": "",
+      "code301": "",
+      "code302": "",
+      "code303": "",
+      "code304": ""
+    }
   },
 
   "crewform": {
@@ -189,5 +201,4 @@
     }
   },
 
-  "latest" : "zuletzt hinzugefügt"
-}
+  "latest" : "zuletzt hinzugefügt"}
