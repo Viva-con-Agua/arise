@@ -86,14 +86,15 @@
     <el-button
       type="primary"
       icon="el-icon-arrow-right"
-      @click.prevent="submitForm">{{ $t('options.signup') }}</el-button>
+      @click.prevent="submitForm"
+      @keyup.enter="submitForm">{{ $t('options.signup') }}</el-button>
     <el-button
       type="text"
       icon="el-icon-close"
       @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
 
     <div style="margin: 20px;">
-      <h5>Du bist bereits dabei? <a href="drops/auth/login">Log In</a></h5>
+      <h5>{{ $t('signup.asupporti') }}<router-link to="signin">{{ $t('options.signin') }}</router-link></h5>
     </div>
   </div>
 </template>
@@ -149,7 +150,18 @@
          gender: '',
          email: '',
          password: '',
-       },
+       },/*
+       signUpForm2: {
+         firstName: this.signUpForm.firstname,
+         lastName: this.signUpForm.lastname,
+         mobilePhone: this.signUpForm.mobile,
+         placeOfResidence: this.signUpForm.placeofresidence,
+         birthday: this.signUpForm.birthdate,
+         sex: this.signUpForm.gender,
+         emial: this.signUpForm.email,
+         password: this.signUpForm.password,
+         profileImageUrl: '',
+       },*/
 
        rules: {
          firstname: [
@@ -178,21 +190,23 @@
      }
    },
 
-
+    //createUserBody
    methods: {
      submitForm() {
        this.$refs.signUpForm.validate((valid) => {
          if (valid) {
-           alert('submit!');
+           var that = this;
            this.axios
              .post('http://localhost:3000/test', this.signUpForm)
-             .catch(error => {
+             .then(function (response) {
+               if (response == 200) {
+                 that.$router.push({path: 'finishSignup'})
+               }
+             }
+             .catch(function (error) {
                console.log(error)
-               this.errored = true
-             })
-             .finally(() => this.loading = false)
-           this.$router.push({path: '/finishSignup'});
-
+              })
+             .finally(() => this.loading = false))
          } else {
            console.log('error submit!!');
            return false;
@@ -216,6 +230,12 @@
 </script>
 
 <style scoped>
+  #signupform {
+    position: relative;
+    left: 25%;
+    width: 50%;
+  }
+
   el-form-item {
       float: left;
   }

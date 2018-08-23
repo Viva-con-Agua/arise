@@ -16,6 +16,7 @@ Vue.use(Router);
 Vue.use(locale);
 
 
+
 function loadView(view) {
   return () => import(/* webpackChunkName: '[request]' */ `@/views/${view}.vue`)
 }
@@ -24,7 +25,10 @@ export default new Router({
         {
             path: '/',
             name: 'Index',
-            component: loadView('index')
+            component: loadView('index'),
+            meta: {
+              requiresAuth: true
+            }
         },
         {
           path: '*',
@@ -89,6 +93,30 @@ export default new Router({
 
     ]
 });
+
+/*var Auth = {
+  loggedIn: false,
+  signin: function() { this.loggedIn = true },
+  signout: function() { this.loggedIn = false }
+};
+
+var Login = {
+  template: '<input type="submit" value="Login" v-on:click="login">',
+  methods: {
+    : function() {
+      Auth.login();
+      router.push(this.$route.query.redirect);
+    }
+  }
+};
+
+Router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && !Auth.loggedIn) {
+    next({path: '/login', query: {redirect: to.fullPath}});
+  }else {
+    next();
+  }
+});*/
 
 //Vue.use(Vuex),
 //Vue.use(SuiVue),

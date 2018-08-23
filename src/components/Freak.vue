@@ -24,7 +24,7 @@
         type: String
       },
       fontsize: {
-        default:"4vw",
+        default:"3vw",
         type: String
       },
       fontstyle: {
@@ -48,46 +48,46 @@
 <style scoped>
   .freak {
     position: relative;
-    height: 100%;
+    height: 90%;
     width: 50%;
     float: left;
   }
   #freak {
     position: absolute;
-    width: 25vw;
+    width: 20vw;
     bottom: 0vw;
   }
   #sign {
     position: absolute;
-    width: 20vw;
-    left: 18vw;
+    width: 15vw;
+    left: 15vw;
     bottom: 5vw;
     transform: rotate(5deg);
   }
   #eye {
     position: absolute;
-    left: 15vw;
-    width: 1.5vw;
-    bottom: 24vw;
+    left: 12vw;
+    width: 1vw;
+    bottom: 19vw;
     transform: rotateX(0deg);
     transition: transform 1s;
   }
   #message {
     position: absolute;
-    left: 21vw;
+    left: 16vw;
     height:11vw;
-    width: 16vw;
-    top: -41vw;
+    width: 14vw;
+    top: -32vw;
     text-align:center;
     transform: rotate(5deg);
   }
   .freak:hover #sign {
     transition: transform 1s;
-    transform: translate(-1vw,-3vw);
+    transform: translate(-1vw,-2vw);
   }
   .freak:hover #message {
     transition: transform 1s;
-    transform: translate(-2vw,-3vw);
+    transform: translate(-1vw,-2vw);
   }
   .freak:hover #eye {
     transform: rotateX(70deg);
