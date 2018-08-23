@@ -130,15 +130,13 @@
                             that.errormessage = error.response.data.msg;
                             break;
                         case 412:
-                            that.$router.push({path: '/resetPasswordInstructions'});
+                            that.$router.push({path: '/resetPasswordInstructionsPool1'});
                             break;
                         case 401:
                             that.show = true;
                             that.errormessage = error.response.data.msg;
                     }
-                  })
-          .finally(() => this.loading = false)
-            //this.$router.push({path: '/resetPasswordDone'});
+                  }).finally(() => this.loading = false)
           }
         });
       },

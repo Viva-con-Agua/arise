@@ -109,8 +109,8 @@
                     if (valid) {
                       this.show = !this.show;
                       this.axios
-                        .post('http://localhost:3000/test', {
-                          user: this.resetFormEMail,
+                        .post('http://localhost/drops/webapp/reset', {
+                          address: this.resetFormEMail.email,
                         })
                         .catch(error => {
                           console.log(error)
