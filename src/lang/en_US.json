@@ -176,8 +176,8 @@
     },
     "PasswordInstructions" : {
       "title": "you forgot your password?",
-      "description": "no problem, just enter here your e-mail adress and we will send you the instructions per mail to reset it."
-
+      "description": "no problem, just enter here your e-mail adress and we will send you the instructions per mail to reset it.",
+      "errorResponse": "Error occured during data communication"
     },
     "PasswordInstructionsPool1" : {
       "title": "please reset your password!",

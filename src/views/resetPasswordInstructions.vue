@@ -3,10 +3,11 @@
     <transition name="fade">
       <span v-show="show">
         <el-alert
-          :title="$t('reset.alert.title')"
-          :description="$t('reset.alert.description')"
-          type="info"
+          :title='statusMessage'
+          :description='statusDescription'
+          :type='statusType'
           show-icon
+          @close="hintClosed"
         />
       </span>
     </transition>
@@ -52,7 +53,8 @@
         <el-button
           type="primary"
           icon="el-icon-arrow-right"
-          @click.once="submitForm(resetFormEMail)">{{ $t('options.sendEmail') }}</el-button>
+          @click.once="submitForm(resetFormEMail)"
+          @keyup.enter="submitForm(signInForm)">{{ $t('options.sendEmail') }}</el-button>
       </el-card>
     </div>
   </div>
@@ -90,6 +92,9 @@
         data() {
           return {
             show: false,
+            statusMessage: this.$t('reset.alert.title'),
+              statusDescription: this.$t('reset.alert.description'),
+              statusType: 'success',
 
             resetFormEMail: {
                     email: ''
@@ -104,22 +109,37 @@
             }
         },
         methods: {
+            hintClosed() {
+              this.show = false;
+            },
             submitForm(resetFormEMail) {
                 this.$refs[resetFormEMail].validate((valid) => {
                     if (valid) {
-                      this.show = !this.show;
+                      var that = this;
                       this.axios
                         .post('http://localhost/drops/webapp/reset', {
-                          address: this.resetFormEMail.email,
+                          address: that.resetFormEMail.email,
                         })
-                        .catch(error => {
-                          console.log(error)
-                          this.errored = true
+                        .then(function (response) {
+                          that.show = true;
+                        })
+                        .catch(function (error) {
+                            switch (error.response.status) {
+                                case 401:
+                                    that.statusMessage = that.$t('reset.PasswordInstructions.errorResponse');
+                                    that.statusDescription = error.response.data.msg;
+                                    that.statusType = "error";
+                                    that.show = true;
+                                    break;
+                                case 404:
+                                    that.statusMessage = that.$t('reset.PasswordInstructions.errorResponse');
+                                    that.statusDescription = error.response.data.msg;
+                                    that.statusType = "error";
+                                    that.show = true;
+                                    break;
+                            }
                         })
                         .finally(() => this.loading = false)
-                    } else {
-                        console.log('error submit!!');
-                        return false;
                     }
                 });
             },
