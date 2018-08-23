@@ -85,7 +85,7 @@
 
     data() {
       return {
-        show: true,
+        show: false,
         errormessage: "fail",
 
         signInForm: {
@@ -114,43 +114,29 @@
           if (valid) {
               var that = this;
               this.axios
-                  .post('http://localhost:3000/drops/webapp/authenticate', this.signInForm)
+                  .post('http://localhost/drops/webapp/authenticate', this.signInForm)
                   .then(function (response)
                   {
-                      console.log(response);
-                      var status = console.log(response.status)
-                      switch (status)
+                      switch (response.status)
                       {
                         case 200:
-                            that.$router.push({path: '/index'});
+                            that.$router.push({path: '/'});
                             break;
-                        case 300:
-                            this.show = true;
-                            this.errormessage = $t('signin.alert.code300');
+                      }
+                  }).catch(function (error) {
+                    switch (error.response.status) {
+                        case 500:
+                            that.show = true;
+                            that.errormessage = error.response.data.msg;
                             break;
-                        case 204:
-                            this.show = true;
+                        case 412:
                             that.$router.push({path: '/resetPasswordInstructions'});
                             break;
-                        case 302:
-                          this.show = true;
-                          this.errormessage = $t('signin.alert.code302');
-                          break;
-                        case 303:
-                          this.show = true;
-                          this.errormessage = $t('signin.alert.code303');
-                          break;
-                        case 304:
-                          this.show = true;
-                          this.errormessage = $t('signin.alert.code304');
-                          break;
-                      }
-
+                        case 401:
+                            that.show = true;
+                            that.errormessage = error.response.data.msg;
+                    }
                   })
-                  .catch(error => {
-                  console.log(error)
-                  this.errored = true
-          })
           .finally(() => this.loading = false)
             //this.$router.push({path: '/resetPasswordDone'});
           }
