@@ -76,6 +76,7 @@
       "password": "Password:",
       "confirmPassword": "Confirm Password:"
     },
+    "asupporti": "You are registered?",
     "finish" : {
       "title" : "You're almost done Supporti",
       "description" : "You are the Drop! We've send you an e-mail with instructions to complete your SignUp!"

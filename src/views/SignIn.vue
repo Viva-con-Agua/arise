@@ -33,7 +33,8 @@
           prop="password">
           <el-input
             v-model="signInForm.password"
-            type="password"/>
+            type="password"
+            @keyup.enter="submitForm(signInForm)"/>
         </el-form-item>
       </el-form>
       <el-checkbox
@@ -44,10 +45,11 @@
         class="button_signin"
         type="primary"
         icon="el-icon-arrow-right"
-        @click.prevent="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
+        @click.prevent="submitForm(signInForm)"
+        @keyup.enter="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
       <div style="margin: 20px;">
-        <h5>{{ $t('signin.notasupporti') }} <a href="./#/signup">{{ $t('signin.notasupportiklick') }}</a></h5>
-        <h5>{{ $t('signin.lostpw') }} <a href="./#/resetpasswordinstructions">{{ $t('signin.lostpwklick') }}</a></h5>
+        <h5>{{ $t('signin.notasupporti') }} <router-link to="signup">{{ $t('signin.notasupportiklick') }}</router-link></h5>
+        <h5>{{ $t('signin.lostpw') }} <router-link to="resetpasswordinstructions">{{ $t('signin.lostpwklick') }}</router-link></h5>
       </div>
     </el-card>
     <Freak
@@ -161,11 +163,12 @@
     padding-top: 10%;
     width: 100%;
     height: 100%;
-    background-repeat: repeat;
+  /*  background-repeat: repeat;
     background: -webkit-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
     background: -o-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
     background: -moz-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
     background: linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
+  */
   }
 
   .title {
