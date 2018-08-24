@@ -21,10 +21,10 @@
           <font-awesome-icon
             icon="user-lock"
             size="4x"/>
-          <h2>{{ $t("reset.PasswordInstructions.title") }}</h2>
+          <h2>{{ (this.$route.params.pool === "pool") ? $t("reset.PasswordInstructionsPool1.title") : $t("reset.PasswordInstructions.title") }}</h2>
         </div>
         <div class="content">
-          {{ $t("reset.PasswordInstructions.description") }}
+          {{ (this.$route.params.pool === "pool") ? $t("reset.PasswordInstructionsPool1.description") : $t("reset.PasswordInstructions.description") }}
         </div>
         <el-form
           :model="resetFormEMail"

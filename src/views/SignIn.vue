@@ -43,7 +43,7 @@
         @keyup.enter="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
       <div style="margin: 20px;">
         <h5>{{ $t('signin.notasupporti') }} <router-link to="signup">{{ $t('signin.notasupportiklick') }}</router-link></h5>
-        <h5>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: p=2 }}">{{ $t('signin.lostpwklick') }}</router-link></h5>
+        <h5>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: 'default' }}">{{ $t('signin.lostpwklick') }}</router-link></h5>
       </div>
     </el-card>
     <Freak
@@ -124,7 +124,7 @@
                             that.open(that.$t('signin.error'), error.response.data.msg, "error");
                             break;
                         case 412:
-                            that.$router.push({path: '/resetPasswordInstructions?pool=1'});
+                            that.$router.push({path: '/resetPasswordInstructions/pool'});
                             break;
                         case 401:
                             that.open(that.$t('signin.error'), error.response.data.msg, "error");

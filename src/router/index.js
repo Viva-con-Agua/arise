@@ -87,11 +87,9 @@ export default new Router({
             component: loadView('resetPasswordInstructions'),
         },*/
         {
-            path: "/resetPasswordInstructions",
+            path: "/resetPasswordInstructions/:pool",
             name: 'resetPasswordInstructions',
-            component: loadView('resetPasswordInstructions'),
-            props: (route) => ({ pool: route.query.pool })
-
+            component: loadView('resetPasswordInstructions')
         },
         {
           path: "/Profile",
