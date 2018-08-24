@@ -9,7 +9,9 @@
     "sendEmail": "send e-mail",
     "resetIt": "reset it",
     "signin" : "Sign In",
-    "rememberme" : "Remember me"
+    "rememberme" : "Remember me",
+    "back": "Back",
+    "edit": "Edit"
   },
 
   "validationError": {
@@ -201,6 +203,37 @@
     "PasswordDone": {
       "title": "all set up!",
       "description": "you will be redirected to the sign in page in a few seconds... Or click here if nothing happens."
+    }
+  },
+
+  "profile": {
+    "label": {
+      "firstname": "Firstname:",
+      "lastname": "Lastname:",
+      "mobile": "Mobilenr.:",
+      "placeofresidence": "Place of residence:",
+      "birthdate": "Birthday:",
+      "birthdateinfo": "When is your birthdate?",
+      "gender": "Gender:"
+      }
+  },
+
+  "changePassword": {
+    "title": "Change your Password",
+    "description": "To set a new Password, please fill in your old Password.",
+    "label": {
+      "oldPassword": "Old Password: ",
+      "newPassword": "New Password: ",
+      "checkNewPassword":"New Password (again): "
+    }
+  },
+  "changeEMail": {
+    "title": "Change your e-mail address",
+    "description": "To change your e-mail address, please fill in your old e-Mail address",
+    "label": {
+      "oldEMail": "Old e-mail Address: ",
+      "newEMail": "New e-mail Address: ",
+      "checkNewEMail":"New e-mail Address (again): "
     }
   },
 

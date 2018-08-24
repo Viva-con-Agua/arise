@@ -1,44 +1,37 @@
 <template>
-  <div class="changePassword">
+  <div class="changeEMail">
     <el-card class="box-card">
       <div
         slot="header"
         class="title">
-        <h2>{{ $t("changePassword.title") }}</h2>
-        <h4>{{ $t("changePassword.description") }}</h4>
+        <h2>{{ $t("changeEMail.title") }}</h2>
+        <h4>{{ $t("changeEMail.description") }}</h4>
       </div>
-      <span>{{ $t('changePassword.label.oldPassword')}}</span>
+      <span>{{ $t('changeEMail.label.oldEMail') }}</span>
       <el-input
-        v-model="oldPassword"
-        type="password"/>
+        v-model="oldEMail"/>
       <el-form
-        :model="ChangePasswordForm"
-        :ref="ChangePasswordForm"
+        :model="ChangeEMailForm"
+        :ref="ChangeEMailForm"
         :rules="rules">
         <el-form-item
-          :label="$t('changePassword.label.newPassword')"
-          prop="newPassword">
-          <password
-            v-model="ChangePasswordForm.newPassword"
-            :toggle="true"
-            class="input"
-            default-class="el-input__inner"
-            @feedback="showFeedback"/>
-          <span> {{ showFeedback.suggestions }}</span>
+          :label="$t('changeEMail.label.newEMail')"
+          prop="newEMail">
+          <el-input
+            v-model="ChangeEMailForm.newEMail"/>
         </el-form-item>
         <el-form-item
-          :label="$t('changePassword.label.checkNewPassword')"
-          prop="checkNewPassword">
+          :label="$t('changeEMail.label.checkNewEMail')"
+          prop="checkNewEMail">
           <el-input
-            v-model="ChangePasswordForm.checkNewPassword"
-            type="password"/>
+            v-model="ChangeEMailForm.checkNewEMail"/>
         </el-form-item>
       </el-form>
       <el-button
-        class="buttonChangePassword"
+        class="buttonChangeEMail"
         type="primary"
         icon="el-icon-arrow-right"
-        @click.prevent="submitForm(ChangePasswordForm)">{{ $t('options.submit') }}</el-button>
+        @click.prevent="submitForm(ChangeEMailForm)">{{ $t('changeEMail.submit') }}</el-button>
       <el-button
         type="text"
         icon="el-icon-close"
@@ -72,10 +65,10 @@
     components: {Password},
 
     data () {
-      var checkPass = (rule, value, callback) => {
+      var checkEMail = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('Please input the password again'));
-        } else if (value !== this.ChangePasswordForm.newPassword) {
+        } else if (value !== this.ChangeEMailForm.newEMail) {
           callback(new Error('Two inputs don\'t match!'));
         } else {
           callback();
@@ -83,19 +76,19 @@
       };
 
       return {
-        oldPassword: '',
+        oldEMail: '',
 
-        ChangePasswordForm: {
-          newPassword: '',
-          checkNewPassword: '',
+        ChangeEMailForm: {
+          newEMail: '',
+          checkNewEMail: '',
         },
 
         rules: {
-          oldPassword: [
+          oldEMail: [
             { required: true, trigger: 'blur' }
           ],
-          checkNewPassword: [
-            { required: true, validator: checkPass, message: this.$t('validationError.checkPass'), trigger: 'blur' }
+          checkNewEMail: [
+            { required: true, validator: checkEMail, message: this.$t('validationError.checkEMail'), trigger: 'blur' }
           ]
         }
       }
@@ -105,13 +98,12 @@
 
 
     methods: {
-      submitForm(resetFormEMail) {
-        this.$refs[resetFormEMail].validate((valid) => {
+      submitForm(ChangeEMailForm) {
+        this.$refs[ChangeEMailForm].validate((valid) => {
           if (valid) {
             var that = this;
             this.axios
               .post('http://localhost/drops/', {
-                address: that.resetFormEMail.email,
               })
               .then(function (response) {
               })
@@ -141,12 +133,12 @@
 </script>
 
 <style scoped>
-  .buttonChangePassword {
+  .buttonChangeEMail {
     width: 70%;
     padding-top: 2%;
   }
 
-  .changePassword {
+  .changeEMail {
     max-width: 40%;
     margin: 0 auto;
     padding-top: 10%;

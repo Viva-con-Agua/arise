@@ -42,7 +42,7 @@
       <el-form-item
         :label="$t('signup.label.gender')"
         prop="gender">
-        <div id="gen_content">
+        <div id="genContent">
           <el-radio-group
             v-model="signUpForm.gender"
             size="small">
@@ -56,7 +56,6 @@
               label="prefernottosay">{{ $t('gender.prefernottosay') }}</el-radio>
         </el-radio-group></div>
       </el-form-item>
-      <div id="line"/>
       <el-form-item
         :label="$t('signup.label.email')"
         prop="email">
@@ -255,7 +254,7 @@
       float: left;
   }
 
-  #gen_content {
+  #genContent {
       float: left;
       clear: both;
   }
