@@ -1,7 +1,7 @@
 <template>
   <div class="resetPasswordInstructions">
     <transition name="fade">
-      <span v-show="show">
+      <!--<span v-show="show">
         <el-alert
           :title='statusMessage'
           :description='statusDescription'
@@ -9,7 +9,7 @@
           show-icon
           @close="hintClosed"
         />
-      </span>
+      </span> -->
     </transition>
     <div class="resetPasswordContent">
       <el-steps
@@ -65,11 +65,11 @@
     import axios from 'axios'
     import VueAxios from 'vue-axios'
     import {
-      Alert,
       Button,
       Card,
       Form,
       FormItem,
+      Message,
       Step,
       Steps,
       Input
@@ -77,11 +77,11 @@
 
 
     Vue.use(VueAxios, axios);
-    Vue.use(Alert);
     Vue.use(Button);
     Vue.use(Card);
     Vue.use(Form);
     Vue.use(FormItem);
+    Vue.use(Message);
     Vue.use(Step);
     Vue.use(Steps);
     Vue.use(Input);
@@ -109,8 +109,11 @@
             }
         },
         methods: {
-            hintClosed() {
-              this.show = false;
+            messageOpen() {
+              this.$message({
+                message: statusDescription,
+                type: statusType
+              });
             },
             submitForm(resetFormEMail) {
                 this.$refs[resetFormEMail].validate((valid) => {
@@ -121,7 +124,8 @@
                           address: that.resetFormEMail.email,
                         })
                         .then(function (response) {
-                          that.show = true;
+                          //that.show = true;
+                          messageOpen();
                         })
                         .catch(function (error) {
                             switch (error.response.status) {
@@ -129,13 +133,15 @@
                                     that.statusMessage = that.$t('reset.PasswordInstructions.errorResponse');
                                     that.statusDescription = error.response.data.msg;
                                     that.statusType = "error";
-                                    that.show = true;
+                                    //that.show = true;
+                                    messageOpen();
                                     break;
                                 case 404:
                                     that.statusMessage = that.$t('reset.PasswordInstructions.errorResponse');
                                     that.statusDescription = error.response.data.msg;
                                     that.statusType = "error";
-                                    that.show = true;
+                                    //that.show = true;
+                                    messageOpen();
                                     break;
                             }
                         })

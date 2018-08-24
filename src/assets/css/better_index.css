@@ -37,3 +37,9 @@
     color: #909399;
     padding-top: 1px;
 }
+
+.line {
+    width: 70%;
+    border-bottom: 1px solid black;
+    position: absolute;
+}

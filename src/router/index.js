@@ -80,16 +80,28 @@ export default new Router({
             name: 'resetPasswordDone',
             component: loadView('resetPasswordDone')
         },
+       /* {
+            path: "/resetPasswordInstructions",
+            name: 'resetPasswordInstructions',
+            component: loadView('resetPasswordInstructions'),
+        },*/
         {
             path: "/resetPasswordInstructions",
             name: 'resetPasswordInstructions',
-            component: loadView('resetPasswordInstructions')
+            component: loadView('resetPasswordInstructions'),
+            props: (route) => ({ pool: route.query.pool })
+
         },
         {
-            path: "/resetPasswordInstructionsPool1",
-            name: 'resetPasswordInstructionsPool1',
-            component: loadView('resetPasswordInstructionsPool1')
-        }
+          path: "/Profile",
+          name: 'Profile',
+          component: loadView('Profile')
+        },
+        {
+          path: "/changePassword",
+          name: 'changePassword',
+          component: loadView('changePassword')
+        },
 
     ]
 });

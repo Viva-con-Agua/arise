@@ -32,7 +32,7 @@
       </el-form-item>
       <el-form-item
         :label="$t('signup.label.birthdate')"
-        required>
+        prop="birthdate">
         <el-date-picker
           v-model="signUpForm.birthdate"
           :placeholder="$t('signup.label.birthdateinfo')"
@@ -56,12 +56,18 @@
               label="prefernottosay">{{ $t('gender.prefernottosay') }}</el-radio>
         </el-radio-group></div>
       </el-form-item>
-
+      <div id="line"/>
       <el-form-item
         :label="$t('signup.label.email')"
         prop="email">
         <el-input
           v-model="signUpForm.email"/>
+      </el-form-item>
+      <el-form-item
+        :label="$t('signup.label.checkemail')"
+        prop="checkemail">
+        <el-input
+          v-model="signUpForm.checkemail"/>
       </el-form-item>
       <el-form-item
         :label="$t('signup.label.password')"
@@ -138,6 +144,15 @@
                callback();
            }
        };
+     var checkeMail = (rule, value, callback) => {
+       if (value === '') {
+         callback(new Error('Please input the password again'));
+       } else if (value !== this.signUpForm.email) {
+         callback(new Error('Two inputs don\'t match!'));
+       } else {
+         callback();
+       }
+     };
 
      return {
 
@@ -181,7 +196,7 @@
          ], gender: [
                {required: false}
            ],email: [
-           {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
+           {required: true, validator: checkeMail, message: this.$t('validationError.email'), trigger: 'blur'},
                {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ], checkPass: [
                { required: true, validator: checkPass, message: this.$t('validationError.checkPass'), trigger: 'blur' }

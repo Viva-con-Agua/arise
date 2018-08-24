@@ -1,12 +1,12 @@
 <template>
   <div id="signin">
     <el-card class="box-card">
-      <span v-show="show">
+<!--      <span v-show="show">
         <el-alert
           :title="errormessage"
           type="error"
           show-icon/>
-      </span>
+      </span>-->
       <div
         slot="header"
         class="title">
@@ -49,7 +49,7 @@
         @keyup.enter="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
       <div style="margin: 20px;">
         <h5>{{ $t('signin.notasupporti') }} <router-link to="signup">{{ $t('signin.notasupportiklick') }}</router-link></h5>
-        <h5>{{ $t('signin.lostpw') }} <router-link to="resetpasswordinstructions">{{ $t('signin.lostpwklick') }}</router-link></h5>
+        <h5>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: p=2 }}">{{ $t('signin.lostpwklick') }}</router-link></h5>
       </div>
     </el-card>
     <Freak
@@ -63,22 +63,22 @@
   import VueAxios from 'vue-axios'
   import Freak from '@/components/Freak.vue'
   import {
-    Alert,
     Button,
     Card,
     Checkbox,
     Form,
     FormItem,
+    Message,
     Input
   } from 'element-ui'
 
   Vue.use(VueAxios, axios);
-  Vue.use(Alert);
   Vue.use(Button);
   Vue.use(Card);
   Vue.use(Checkbox);
   Vue.use(Form);
   Vue.use(FormItem);
+  Vue.use(Message);
   Vue.use(Input);
 
   export default {
@@ -101,7 +101,7 @@
                   { required: true, message: this.$t('validationError.email'), trigger: 'blur' },
                   {
                       pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: this.$t('inputSample.email')
+                      message: this.$t('inputSample.email'), trigger: 'blur'
                   }
               ],
               password: [
@@ -116,7 +116,7 @@
           if (valid) {
               var that = this;
               this.axios
-                  .post('http://localhost/drops/webapp/authenticate', this.signInForm)
+                  .post('http://localhost:3000/drops/webapp/authenticate', this.signInForm)
                   .then(function (response)
                   {
                       switch (response.status)
@@ -128,20 +128,30 @@
                   }).catch(function (error) {
                     switch (error.response.status) {
                         case 500:
-                            that.show = true;
                             that.errormessage = error.response.data.msg;
+                            that.open();
                             break;
                         case 412:
-                            that.$router.push({path: '/resetPasswordInstructionsPool1'});
+                            that.$router.push({path: '/resetPasswordInstructions?pool=1'});
                             break;
                         case 401:
-                            that.show = true;
                             that.errormessage = error.response.data.msg;
+                            that.open();
                     }
                   }).finally(() => this.loading = false)
           }
         });
       },
+
+
+
+      open() {
+        this.$message({
+          message: this.errormessage,
+          type: 'error'
+        });
+      }
+
     }
   }
 </script>
