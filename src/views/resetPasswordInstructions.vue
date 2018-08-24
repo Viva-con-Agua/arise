@@ -1,6 +1,6 @@
 <template>
   <div class="resetPasswordInstructions">
-    <transition name="fade">
+    <!--<transition name="fade">-->
       <!--<span v-show="show">
         <el-alert
           :title='statusMessage'
@@ -10,7 +10,7 @@
           @close="hintClosed"
         />
       </span> -->
-    </transition>
+    <!--</transition>-->
     <div class="resetPasswordContent">
       <el-steps
         :active="1"
@@ -69,7 +69,7 @@
       Card,
       Form,
       FormItem,
-      Message,
+      Notification,
       Step,
       Steps,
       Input
@@ -81,21 +81,17 @@
     Vue.use(Card);
     Vue.use(Form);
     Vue.use(FormItem);
-    Vue.use(Message);
+    Vue.use(Notification);
     Vue.use(Step);
     Vue.use(Steps);
     Vue.use(Input);
 
+    Notification.closeAll();
 
     export default {
       name: "ResetPasswordInstructions",
         data() {
           return {
-            show: false,
-            statusMessage: this.$t('reset.alert.title'),
-              statusDescription: this.$t('reset.alert.description'),
-              statusType: 'success',
-
             resetFormEMail: {
                     email: ''
                 },
@@ -109,11 +105,15 @@
             }
         },
         methods: {
-            messageOpen() {
-              this.$message({
-                message: statusDescription,
-                type: statusType
-              });
+            messageOpen(title, message, type) {
+              if(typeof title !== 'undefined' && typeof message !== 'undefined' && typeof type !== 'undefined') {
+                Notification({
+                  title: title,
+                  message: message,
+                  type: type,
+                  duration: 6000
+                });
+              }
             },
             submitForm(resetFormEMail) {
                 this.$refs[resetFormEMail].validate((valid) => {
@@ -124,24 +124,15 @@
                           address: that.resetFormEMail.email,
                         })
                         .then(function (response) {
-                          //that.show = true;
-                          messageOpen();
+                          that.messageOpen(that.$t('reset.PasswordInstructions.successResponse'), this.$t('reset.alert.description'), 'success');
                         })
                         .catch(function (error) {
                             switch (error.response.status) {
                                 case 401:
-                                    that.statusMessage = that.$t('reset.PasswordInstructions.errorResponse');
-                                    that.statusDescription = error.response.data.msg;
-                                    that.statusType = "error";
-                                    //that.show = true;
-                                    messageOpen();
+                                    that.messageOpen(that.$t('reset.PasswordInstructions.errorResponse'), error.response.data.msg, "error");
                                     break;
                                 case 404:
-                                    that.statusMessage = that.$t('reset.PasswordInstructions.errorResponse');
-                                    that.statusDescription = error.response.data.msg;
-                                    that.statusType = "error";
-                                    //that.show = true;
-                                    messageOpen();
+                                    that.messageOpen(that.$t('reset.PasswordInstructions.errorResponse'), error.response.data.msg, "error");
                                     break;
                             }
                         })
@@ -151,7 +142,7 @@
             },
             resetForm(resetFormEMail) {
                 this.$refs[resetFormEMail].resetFields();
-            },
+            }
         }
     }
 </script>

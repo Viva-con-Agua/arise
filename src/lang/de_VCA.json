@@ -175,7 +175,8 @@
     "PasswordInstructions" : {
       "title": "Du hast dein Password vergessen?",
       "description": "Kein Problem, trage hier einfach deine E-Mail Adresse ein und wir senden dir Anweisungen zum zurücksetzen zu.",
-      "errorResponse": "Ooops"
+      "errorResponse": "Ooops",
+      "successResponse": "Email gesendet!"
     },
     "PasswordInstructionsPool1" : {
       "title": "Bitte wähle ein neues Passwort!",
