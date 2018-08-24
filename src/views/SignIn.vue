@@ -1,12 +1,6 @@
 <template>
   <div id="signin">
     <el-card class="box-card">
-<!--      <span v-show="show">
-        <el-alert
-          :title="errormessage"
-          type="error"
-          show-icon/>
-      </span>-->
       <div
         slot="header"
         class="title">
@@ -68,7 +62,7 @@
     Checkbox,
     Form,
     FormItem,
-    Message,
+    Notification,
     Input
   } from 'element-ui'
 
@@ -78,8 +72,10 @@
   Vue.use(Checkbox);
   Vue.use(Form);
   Vue.use(FormItem);
-  Vue.use(Message);
+  Vue.use(Notification);
   Vue.use(Input);
+
+  Notification.closeAll();
 
   export default {
     name: "SignIn",
@@ -87,9 +83,6 @@
 
     data() {
       return {
-        show: false,
-        errormessage: "fail",
-
         signInForm: {
           email: '',
           password: '',
@@ -116,7 +109,7 @@
           if (valid) {
               var that = this;
               this.axios
-                  .post('http://localhost:3000/drops/webapp/authenticate', this.signInForm)
+                  .post('http://localhost/drops/webapp/authenticate', this.signInForm)
                   .then(function (response)
                   {
                       switch (response.status)
@@ -128,27 +121,23 @@
                   }).catch(function (error) {
                     switch (error.response.status) {
                         case 500:
-                            that.errormessage = error.response.data.msg;
-                            that.open();
+                            that.open(that.$t('signin.error'), error.response.data.msg, "error");
                             break;
                         case 412:
                             that.$router.push({path: '/resetPasswordInstructions?pool=1'});
                             break;
                         case 401:
-                            that.errormessage = error.response.data.msg;
-                            that.open();
+                            that.open(that.$t('signin.error'), error.response.data.msg, "error");
                     }
                   }).finally(() => this.loading = false)
           }
         });
       },
-
-
-
-      open() {
-        this.$message({
-          message: this.errormessage,
-          type: 'error'
+      open(title, message, type) {
+        Notification({
+          title:  title,
+          message: message,
+          type: type
         });
       }
 

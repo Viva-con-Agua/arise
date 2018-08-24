@@ -96,6 +96,7 @@
     "notasupportiklick": "Register",
     "lostpw": "You lost your password?",
     "lostpwklick": "Reset",
+    "error": "Error!",
 
     "alert" : {
       "code300": "",

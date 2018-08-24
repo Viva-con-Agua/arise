@@ -1,16 +1,5 @@
 <template>
   <div class="resetPasswordInstructions">
-    <!--<transition name="fade">-->
-      <!--<span v-show="show">
-        <el-alert
-          :title='statusMessage'
-          :description='statusDescription'
-          :type='statusType'
-          show-icon
-          @close="hintClosed"
-        />
-      </span> -->
-    <!--</transition>-->
     <div class="resetPasswordContent">
       <el-steps
         :active="1"
