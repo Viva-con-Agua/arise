@@ -1,11 +1,12 @@
 <template>
-  <div id="changeProfile">
+  <div id="Profile">
+    <!-- Profilepicture -->
     <el-upload
       :show-file-list="false"
       :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload">
+      :before-upload="beforeAvatarUpload"
       action="https://jsonplaceholder.typicode.com/posts/"
-      class="avatar-uploader"
+      class="avatar-uploader">
       <img
         v-if="imageUrl"
         :src="imageUrl"
@@ -14,60 +15,102 @@
         v-else
         class="el-icon-plus avatar-uploader-icon"/>
     </el-upload>
+    <!-- Account Information -->
+    <el-input
+      v-model="email"
+      :disabled="true"
+      :label="$t('profile.label.email')"
+      placeholder="this.emailaddress"
+      style="width: 80%"
+    />
+    <el-button
+      type="primary"
+      icon="el-icon-edit"
+      @click.prevent><router-link to="changeEMail"/></el-button>
+    <el-input
+      v-model="password"
+      :disabled="true"
+      :label="$t('profile.label.email')"
+      placeholder="this.password"
+      style="width: 80%"
+    />
+    <el-button
+      type="primary"
+      icon="el-icon-edit"
+      @click.prevent><router-link to="changePassword"/></el-button>
+
+    <!-- Personal Information -->
+    <el-button
+      type="primary"
+      icon="el-icon-edit"
+      @click="openAuthorization()">{{ $t('options.edit') }}</el-button>
     <el-form
       ref="profileForm"
       :model="profileForm"
       :rules="rules"
       class="profileForm">
       <el-form-item
-        :label="$t('changeProfile.firstname')"
-        prop="firstName">
+        :label="$t('profile.label.firstname')"
+        prop="firstname">
         <el-input
-          v-model="profileForm.firstname"/>
+          v-model="profileForm.firstName"/>
       </el-form-item>
       <el-form-item
-        :label="$t('chageProfile.lastname')"
-        prop="lastName">
+        :label="$t('profile.label.lastname')"
+        prop="lastname">
         <el-input
-          v-model="profileForm.lastname"/>
+          v-model="profileForm.lastName"/>
       </el-form-item>
       <el-form-item
-        :label="$t('profileForm.mobile')"
+        :label="$t('profile.label.mobile')"
         prop="mobile">
         <el-input
           v-model="profileForm.mobilePhone"/>
       </el-form-item>
       <el-form-item
-        :label="$t('profileForm.placeofresidence')"
+        :label="$t('profile.label.placeofresidence')"
         prop="placeofresidence">
         <el-input
           v-model="profileForm.placeOfResidence"/>
       </el-form-item>
       <el-form-item
-        :label="$t('profileForm.birthdate')"
+        :label="$t('profile.label.birthdate')"
         prop="birthdate">
-        <el-date-picker
-          v-model="profileForm.birthday"
-          :placeholder="$t('profileForm.birthdateInfo')"
-          type="date"/>
+        <div class="clear">
+          <el-date-picker
+            v-model="profileForm.birthday"
+            :placeholder="$t('profile.label.birthdateInfo')"
+            type="date"/>
+        </div>
       </el-form-item>
       <el-form-item
-        :label="$t('profileForm.gender')"
+        :label="$t('profile.label.gender')"
         prop="gender">
-        <el-radio-group
-          v-model="profileForm.sex"
-          size="small">
-          <el-radio
-            label="female">{{ $t('gender.female') }}</el-radio>
-          <el-radio
-            label="male">{{ $t('gender.male') }}</el-radio>
-          <el-radio
-            label="other">{{ $t('gender.other') }}</el-radio>
-          <el-radio
-            label="prefernottosay">{{ $t('gender.prefernottosay') }}</el-radio>
-        </el-radio-group>
+        <div class="clear">
+          <el-radio-group
+            v-model="profileForm.sex"
+            size="small">
+            <el-radio
+              label="female">{{ $t('gender.female') }}</el-radio>
+            <el-radio
+              label="male">{{ $t('gender.male') }}</el-radio>
+            <el-radio
+              label="other">{{ $t('gender.other') }}</el-radio>
+            <el-radio
+              label="prefernottosay">{{ $t('gender.prefernottosay') }}</el-radio>
+          </el-radio-group>
+        </div>
       </el-form-item>
     </el-form>
+    <el-button
+      class="buttonSave"
+      type="primary"
+      icon="el-icon-arrow-right"
+      @click.prevent="submitForm(profileForm)">{{ $t('options.save') }}</el-button>
+    <el-button
+      type="text"
+      icon="el-icon-close"
+      @click.prevent><router-link to="Profile">{{ $t('options.back') }}</router-link></el-button>
   </div>
 </template>
 
@@ -80,8 +123,10 @@
     DatePicker,
     Form,
     FormItem,
+    MessageBox,
     Radio,
     RadioGroup,
+    Upload,
     Input,
   } from 'element-ui'
 
@@ -90,8 +135,10 @@
   Vue.use(DatePicker);
   Vue.use(Form);
   Vue.use(FormItem);
+  Vue.use(MessageBox);
   Vue.use(Radio);
   Vue.use(RadioGroup);
+  Vue.use(Upload);
   Vue.use(Input);
 
   export default {
@@ -99,15 +146,17 @@
 
     data () {
       return {
-        imgageUrl: '',
+        imageUrl: '',
 
-        profilForm: {
+        profileForm: {
           firstName: '',
           lastName: '',
           mobilePhone: '',
           placeOfResidence: '',
           birthday: '',
           sex: ''
+        },
+        rules: {
         },
       };
     },
@@ -151,13 +200,22 @@
         }
         return isJPG && isLt2M;
       },
-      showFeedback ({suggestions, warning}) {
-        console.log('🙏', suggestions)
-        console.log('⚠', warning)
+      openAuthorization() {
+        this.$prompt(this.$t('profile.openAuth.description'), this.$t('profile.openAuth.title'), {
+          confirmButtonText: this.$t('options.ok'),
+          cancelButtonText: this.$t('options.cancel'),
+        }).then(value => {
+          this.$message({
+            type: 'success',
+            message: 'Can edit'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Permission denied'
+          });
+        });
       },
-      showScore (score) {
-        console.log('💯', score)
-      }
     }
   }
 </script>
@@ -186,5 +244,15 @@
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .buttonSave {
+    width: 70%;
+    padding-top: 2%;
+  }
+
+  #Profile {
+    max-width: 50%;
+    margin: 0 auto;
+    padding-top: 10%;
   }
 </style>

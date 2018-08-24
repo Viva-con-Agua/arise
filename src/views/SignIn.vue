@@ -42,7 +42,7 @@
         {{ $t('options.rememberme') }}
       </el-checkbox>
       <el-button
-        class="button_signin"
+        class="buttonSignin"
         type="primary"
         icon="el-icon-arrow-right"
         @click.prevent="submitForm(signInForm)"
@@ -156,7 +156,7 @@
   }
 </script>
 <style scoped>
-  .button_signin {
+  .buttonSignin {
     width: 100%;
     padding-top: 2%;
   }

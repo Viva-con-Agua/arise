@@ -7,7 +7,9 @@
     "sendEmail": "sende e-mail",
     "resetIt": "ändern",
     "signin": "Einloggen",
-    "rememberme" : "Eingeloggt bleiben"
+    "rememberme" : "Eingeloggt bleiben",
+    "back": "Zurück",
+    "edit": "Editieren"
   },
 
   "validationError": {
@@ -200,6 +202,37 @@
     "PasswordDone": {
       "title": "allet fertig!",
       "description": "Du wirst in den nächsten Sekunden zur SignIn Seite weitergeleitet... Click hier, sollte nichts passieren!"
+    }
+  },
+  "signup": {
+    "label": {
+      "firstname": "Vorname:",
+      "lastname": "Nachname:",
+      "mobile": "Mobiltelefonnummer:",
+      "placeofresidence": "Wohnort:",
+      "birthdate": "Geburtstag:",
+      "birthdateinfo": "Wann wurdest du Geboren?",
+      "gender": "Gender:"
+    }
+  },
+
+  "changePassword": {
+    "title": "Änder dein Passwort",
+    "description": "Gib bitte, zum ändern, erst dein altes Passwort ein.",
+    "label": {
+      "oldPassword": "Altes Passwort: ",
+      "newPassword": "Neues Passwort: ",
+      "checkNewPassword":"Neues Password (wiederholen): "
+    }
+  },
+
+  "changeEMail": {
+    "title": "Ändere deine E-Mail Adresse",
+    "description": "Gib bitte zuerst, deine alte e-Mail adresse ein.",
+    "label": {
+      "oldEMail": "Alte E-Mail Addresse: ",
+      "newEMail": "Neue E-Mail Addresse: ",
+      "checkNewEMail":"Neue E-Mail Addresse (wiederholen): "
     }
   },
 

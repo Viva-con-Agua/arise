@@ -38,6 +38,10 @@
     padding-top: 1px;
 }
 
+.clear {
+    clear: both;
+}
+
 .line {
     width: 70%;
     border-bottom: 1px solid black;
