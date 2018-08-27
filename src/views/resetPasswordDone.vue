@@ -22,7 +22,7 @@
         <h2>{{ $t("reset.PasswordDone.title") }}</h2>
       </div>
       <div class="content">
-        {{ $t("reset.PasswordDone.description") }}
+        {{ $t('reset.PasswordDone.description') }} <router-link to="signin">{{ $t('reset.PasswordDone.clickLabel') }}</router-link>
       </div>
     </el-card>
   </div>

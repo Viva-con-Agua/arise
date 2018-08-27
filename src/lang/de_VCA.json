@@ -202,7 +202,8 @@
     },
     "PasswordDone": {
       "title": "allet fertig!",
-      "description": "Du wirst in den nächsten Sekunden zur SignIn Seite weitergeleitet... Click hier, sollte nichts passieren!"
+      "description": "Du wirst in den nächsten Sekunden zur SignIn Seite weitergeleitet... Oder klicke ",
+      "clickLabel": "hier!"
     }
   },
   "signup": {

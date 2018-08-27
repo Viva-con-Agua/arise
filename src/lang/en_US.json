@@ -204,7 +204,8 @@
     },
     "PasswordDone": {
       "title": "all set up!",
-      "description": "you will be redirected to the sign in page in a few seconds... Or click here if nothing happens."
+      "description": "You will be redirected to the sign in page in a few seconds... Or click ",
+      "clickLabel": "here!"
     }
   },
 
