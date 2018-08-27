@@ -51,7 +51,7 @@
               default-class="el-input__inner"
               @feedback="showFeedback"/>
           </div>
-          <span> {{ showFeedback.suggestions }}</span>
+          <span class="suggestions">{{ this.suggestions[0] }}</span>
         </el-form-item>
         <el-form-item
           :label="$t('reset.label.checkPassword')"
@@ -79,6 +79,7 @@
     Card,
     Form,
     FormItem,
+    Notification,
     Step,
     Steps,
     Input
@@ -90,9 +91,12 @@
   Vue.use(Card);
   Vue.use(Form);
   Vue.use(FormItem);
+  Vue.use(Notification);
   Vue.use(Step);
   Vue.use(Steps);
   Vue.use(Input);
+
+  Notification.closeAll();
 
   export default {
         name: "ResetPassword",
@@ -111,70 +115,93 @@
 
             return {
               resetFormPassword: {
-                  password: '',
-                  checkPass: ''
-                },
+                password: '',
+                checkPass: ''
+              },
+              suggestions: [""],
 
-                rules: {
-                  password: [
-                    { required: true, trigger: 'blur'}
-                  ],
-                  checkPass: [
-                    { required: true, validator: checkPass, message: this.$t('validationError.checkPass'), trigger: 'blur' }
-                  ]
+              rules: {
+                password: [
+                  { required: true, trigger: 'blur'}
+                ],
+                checkPass: [
+                  { required: true, validator: checkPass, message: this.$t('validationError.checkPass'), trigger: 'blur' }
+                ]
               }
             }
         },
         methods: {
-            submitForm(resetFormPassword) {
-              this.$refs[resetFormPassword].validate((valid) => {
-                if(valid) {
-                this.axios
-                  .post('http://localhost:3000/test', {
-                    user: this.resetFormPassword,
-                  })
-                  .catch(error => {
-                    console.log(error)
-                    this.errored = true
-                  })
-                  .finally(() => this.loading = false)
-                  this.$router.push({path: '/resetPasswordDone'});
-                } else {
-                  console.log('error submit!!');
-                  return false;
+            messageOpen(title, message, type) {
+                if(typeof title !== 'undefined' && typeof message !== 'undefined' && typeof type !== 'undefined') {
+                    Notification({
+                        title: title,
+                        message: message,
+                        type: type,
+                        duration: 6000
+                    });
                 }
-              });
             },
+          submitForm(resetFormPassword) {
+            var that = this;
+            this.$refs[resetFormPassword].validate((valid) => {
+              if(valid) {
+                this.axios
+                  .post('http://localhost/drops/webapp/reset/' + this.$route.params.token, {
+                    password1: that.resetFormPassword.password,
+                    password2: that.resetFormPassword.checkPass
+                  })
+                  .then(function(response) {
+                      this.$router.push({path: '/resetPasswordDone'});
+                  })
+                  .catch(function(error) {
+                    switch (error.response.status) {
+                      case 401:
+                        that.messageOpen(that.$t('reset.PasswordInstructions.errorResponse'), error.response.data.msg, "error");
+                        break;
+                      case 404:
+                        that.messageOpen(that.$t('reset.PasswordInstructions.errorResponse'), error.response.data.msg, "error");
+                        break;
+                    }
+                  })
+                  .finally(() => this.loading = false);
+              }
+            });
+          },
           resetForm(resetFormPassword) {
             this.$refs[resetFormPassword].resetFields();
           },
 
           showFeedback ({suggestions, warning}) {
-            console.log('🙏', suggestions)
-            console.log('⚠', warning)
+            this.suggestions = suggestions;
+            // console.log('🙏', suggestions);
+            // console.log('⚠', warning);
           },
           showScore (score) {
-            console.log('💯', score)
+            // console.log('💯', score);
           },
         }
     }
 </script>
 <style scoped>
-    #resetPassword {
-      max-width: 50%;
-      padding-top: 15%;
+  #resetPassword {
+    max-width: 50%;
+    padding-top: 15%;
+    margin: 0 auto;
+  }
+  .title {
+      width: 50%;
       margin: 0 auto;
-    }
-    .title {
-        width: 50%;
-        margin: 0 auto;
-        text-align: center;
-    }
-    .content {
-        font-size: 16px;
-    }
-    .list {
-      font-size: 13px;
-    }
+      text-align: center;
+  }
+  .content {
+      font-size: 16px;
+  }
+  .list {
+    font-size: 13px;
+  }
+  .suggestions {
+    font-size: small;
+    color: #c0c4cc;
+  }
 
 </style>
