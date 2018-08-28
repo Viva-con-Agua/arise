@@ -19,31 +19,31 @@
           :label="$t('signup.label.firstname')"
           prop="firstname">
           <el-input
-            v-model="signUpForm.firstname"/>
+            v-model="signUpForm.firstName"/>
         </el-form-item>
         <el-form-item
           :label="$t('signup.label.lastname')"
           prop="lastname">
           <el-input
-            v-model="signUpForm.lastname"/>
+            v-model="signUpForm.lastName"/>
         </el-form-item>
         <el-form-item
           :label="$t('signup.label.mobile')"
           prop="mobile">
           <el-input
-            v-model="signUpForm.mobile"/>
+            v-model="signUpForm.mobilePhone"/>
         </el-form-item>
         <el-form-item
           :label="$t('signup.label.placeofresidence')"
           prop="placeofresidence">
           <el-input
-            v-model="signUpForm.placeofresidence"/>
+            v-model="signUpForm.placeOfResidence"/>
         </el-form-item>
         <el-form-item
           :label="$t('signup.label.birthdate')"
           prop="birthdate">
           <el-date-picker
-            v-model="signUpForm.birthdate"
+            v-model="signUpForm.birthday"
             :placeholder="$t('signup.label.birthdateinfo')"
             type="date"
             style="width: 100%;"/>
@@ -88,6 +88,7 @@
               default-class="el-input__inner"
               @feedback="showFeedback"/>
           </div>
+          <span class="suggestions">{{ this.suggestions[0] }}</span>
         </el-form-item>
         <el-form-item
           :label="$t('signup.label.confirmPassword')"
@@ -98,17 +99,19 @@
         </el-form-item>
       </el-form>
       <el-button
+        class="buttonSignup"
         type="primary"
         icon="el-icon-arrow-right"
         @click.prevent="submitForm"
         @keyup.enter="submitForm">{{ $t('options.signup') }}</el-button>
       <el-button
-        type="text"
+        class="buttonSignup"
+        type="secondary"
         icon="el-icon-close"
         @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
 
-      <div style="margin: 20px;">
-        <h5>{{ $t('signup.asupporti') }}<router-link to="signin">{{ $t('options.signin') }}</router-link></h5>
+      <div class="text-body">
+        <span>{{ $t('signup.asupporti') }} <router-link to="signin">{{ $t('options.signin') }}</router-link></span>
       </div>
     </el-card>
   </div>
@@ -127,6 +130,7 @@
     FormItem,
     Input,
     Radio,
+    Notification,
     RadioGroup
   } from 'element-ui'
 
@@ -137,8 +141,11 @@
   Vue.use(Form);
   Vue.use(FormItem);
   Vue.use(Input);
+  Vue.use(Notification);
   Vue.use(Radio);
   Vue.use(RadioGroup);
+
+  Notification.closeAll();
 
  //var axios = require('axios');
 
@@ -166,43 +173,33 @@
      };
 
      return {
+       suggestions: [""],
 
        signUpForm: {
-         firstname: '',
-         lastname: '',
-         mobile: '',
-         placeofresidence: '',
-         birthdate: '',
+           firstName: '',
+           lastName: '',
+           mobilePhone: '',
+           placeOfResidence: '',
+           birthday: '',
          gender: '',
          email: '',
          password: '',
-       },/*
-       signUpForm2: {
-         firstName: this.signUpForm.firstname,
-         lastName: this.signUpForm.lastname,
-         mobilePhone: this.signUpForm.mobile,
-         placeOfResidence: this.signUpForm.placeofresidence,
-         birthday: this.signUpForm.birthdate,
-         sex: this.signUpForm.gender,
-         emial: this.signUpForm.email,
-         password: this.signUpForm.password,
-         profileImageUrl: '',
-       },*/
+       },
 
        rules: {
-         firstname: [
+         firstName: [
            {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
              {message: this.$t('inputSample.firstname'), trigger: 'blur'}
-         ], lastname: [
+         ], lastName: [
            {required: true, message: this.$t('validationError.lastname'), trigger: 'change'},
                {message: this.$t('inputSample.lastname'), trigger: 'blur'}
-           ], mobile: [
+           ], mobilePhone: [
            {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
                {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
-           ], placeofresidence: [
+           ], placeOfResidence: [
            {required: true, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
                {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
-         ], birthdate: [
+         ], birthday: [
            {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
          ], gender: [
                {required: false}
@@ -223,31 +220,43 @@
          if (valid) {
            var that = this;
            this.axios
-             .post('http://localhost:3000/test', this.signUpForm)
+             .post('http://localhost/drops/webapp/signup', this.signUpForm)
              .then(function (response) {
-               if (response == 200) {
+               if (response.status == 200) {
                  that.$router.push({path: 'finishSignup'})
                }
              }
              .catch(function (error) {
-               console.log(error)
+                 switch (error.response.status) {
+                     case 500:
+                         that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                         break;
+                     case 401:
+                         that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                 }
               })
              .finally(() => this.loading = false))
-         } else {
-           console.log('error submit!!');
-           return false;
          }
        });
      },
      resetForm() {
       this.$refs.signUpForm.resetFields();
      },
+     open(title, message, type) {
+         Notification({
+             title:  title,
+             message: message,
+             type: type
+         });
+     },
+
      showFeedback ({suggestions, warning}) {
-       console.log('🙏', suggestions)
-       console.log('⚠', warning)
+         this.suggestions = suggestions;
+         // console.log('🙏', suggestions);
+         // console.log('⚠', warning);
      },
      showScore (score) {
-       console.log('💯', score)
+         // console.log('💯', score);
      },
 
    },
@@ -256,6 +265,10 @@
 </script>
 
 <style scoped>
+  .buttonSignup {
+    margin-bottom:1em;
+    /*padding-top: 0.6em;*/
+  }
 
   #signupform {
     width: 100%;
@@ -268,11 +281,6 @@
     margin: 0 auto;
     margin-top: 10%;
   }
-  /*#signupform {*/
-    /*!*position: relative;*!*/
-    /*!*left: 25%;*!*/
-    /*width: 50%;*/
-  /*}*/
 
   el-form-item {
       float: left;

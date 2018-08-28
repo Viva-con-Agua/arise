@@ -149,7 +149,7 @@
     margin-top:1em;
     margin-bottom:1em;
     width: 100%;
-    padding-top: 0.6em;
+    /*padding-top: 0.6em;*/
   }
 
   .box-card {
