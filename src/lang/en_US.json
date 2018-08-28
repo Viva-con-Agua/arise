@@ -70,6 +70,7 @@
   },
 
   "signup": {
+    "title": "Sign Up",
     "label": {
       "firstname": "Firstname:",
       "lastname": "Lastname:",

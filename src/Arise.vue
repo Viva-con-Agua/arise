@@ -51,10 +51,12 @@ export default {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: min-content;
   }
   #content {
     flex-grow: 1;
     display: flex;
+    overflow: auto;
   }
   #footer {
     /*flex-grow: 1;*/
