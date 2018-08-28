@@ -23,11 +23,19 @@
         </el-button-group>
       </el-menu-item>
     </el-menu>-->
-    <router-view/>
+    <div id="content">
+      <router-view/>
+    </div>
+    <div id="footer">
+      <a href="#">{{ $t('footer.imprint') }}</a>
+    </div>
   </div>
 </template>
 
 <script>
+import 'element-ui/lib/theme-chalk/index.css';
+import "@/assets/css/general.css";
+
 export default {
   name: 'Arise',
   components: {}
@@ -35,10 +43,30 @@ export default {
 </script>
 
 <style>
-    #arise {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
+  #arise {
+    /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  #content {
+    flex-grow: 1;
+    display: flex;
+  }
+  #footer {
+    /*flex-grow: 1;*/
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  #footer a {
+    padding-left: 1em;
+  }
 </style>

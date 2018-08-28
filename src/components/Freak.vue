@@ -48,9 +48,9 @@
 <style scoped>
   .freak {
     position: relative;
-    height: 90%;
-    width: 50%;
-    float: left;
+    /*height: 90%;*/
+    /*width: 50%;*/
+    /*float: left;*/
   }
   #freak {
     position: absolute;

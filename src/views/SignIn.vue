@@ -41,9 +41,9 @@
         icon="el-icon-arrow-right"
         @click.prevent="submitForm(signInForm)"
         @keyup.enter="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
-      <div style="margin: 20px;">
-        <h5>{{ $t('signin.notasupporti') }} <router-link to="signup">{{ $t('signin.notasupportiklick') }}</router-link></h5>
-        <h5>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: 'default' }}">{{ $t('signin.lostpwklick') }}</router-link></h5>
+      <div class="text-body">
+        <span>{{ $t('signin.notasupporti') }} <router-link to="signup">{{ $t('signin.notasupportiklick') }}</router-link></span><br />
+        <span>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: 'default' }}">{{ $t('signin.lostpwklick') }}</router-link></span>
       </div>
     </el-card>
     <Freak
@@ -146,20 +146,24 @@
 </script>
 <style scoped>
   .buttonSignin {
+    margin-top:1em;
+    margin-bottom:1em;
     width: 100%;
-    padding-top: 2%;
+    padding-top: 0.6em;
   }
 
   .box-card {
-    max-width: 30%;
+    width: 35%;
     margin: 0 auto;
-    margin-bottom: 15%;
+    margin-top: 10%;
   }
 
   #signin {
-    padding-top: 10%;
     width: 100%;
-    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   /*  background-repeat: repeat;
     background: -webkit-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
     background: -o-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
