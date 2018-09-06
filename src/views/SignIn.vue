@@ -142,7 +142,27 @@
           type: type
         });
       }
-
+    },  
+    beforeMount(){
+      var that = this;
+      this.axios
+        .get('/drops/webapp/identity')
+        .then(function (response) {
+           if (response.status == 200) {
+              var path = window.atob(that.$route.params.redirectUrl);
+              window.location = path;
+           }
+         })
+         .catch(function (error) {
+            switch (error.response.status) {
+               case 500:
+                 that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                         break;
+               case 401:
+                 that.open(that.$t('signin.error'), error.response.data.msg, "error");
+             }
+         })
+         .finally(() => this.loading = false)
     }
   }
 </script>
