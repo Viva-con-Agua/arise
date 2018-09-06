@@ -52,6 +52,7 @@
 </template>
 
 <script>
+
   import Vue from 'vue'
   import axios from 'axios'
   import VueAxios from 'vue-axios'
@@ -109,17 +110,18 @@
           if (valid) {
               var that = this;
               this.axios
-                  .post('http://localhost/drops/webapp/authenticate', this.signInForm)
+                  .post('/drops/webapp/authenticate', this.signInForm)
                   .then(function (response)
                   {
-                      switch (response.status)
+                    switch (response.status)
                       {
                         case 200:
-                            that.$router.push({path: '/'});
+                            var path = window.atob(that.$route.params.redirectUrl);
+                            window.location = path;
                             break;
                       }
                   }).catch(function (error) {
-                    switch (error.response.status) {
+                    switch (error.status) {
                         case 500:
                             that.open(that.$t('signin.error'), error.response.data.msg, "error");
                             break;
