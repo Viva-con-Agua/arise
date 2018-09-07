@@ -216,6 +216,7 @@
 
   "profile": {
     "label": {
+      "email": "Email",
       "firstname": "Firstname:",
       "lastname": "Lastname:",
       "mobile": "Mobilenr.:",

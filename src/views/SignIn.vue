@@ -143,7 +143,7 @@
         });
       }
     },  
-    beforeMount(){
+    created () {
       var that = this;
       this.axios
         .get('/drops/webapp/identity')

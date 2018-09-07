@@ -17,7 +17,7 @@
     </el-upload>
     <!-- Account Information -->
     <el-input
-      v-model="email"
+      v-model="emailaddress"
       :disabled="true"
       :label="$t('profile.label.email')"
       placeholder="this.emailaddress"
@@ -53,7 +53,8 @@
         :label="$t('profile.label.firstname')"
         prop="firstname">
         <el-input
-          v-model="profileForm.firstName"/>
+          v-model="profileForm.firstName"
+          :placeholder="profileForm.firstName"/>
       </el-form-item>
       <el-form-item
         :label="$t('profile.label.lastname')"
@@ -147,8 +148,9 @@
     data () {
       return {
         imageUrl: '',
-
+        emailaddress: '',
         profileForm: {
+          email: '',
           firstName: '',
           lastName: '',
           mobilePhone: '',
@@ -170,6 +172,11 @@
                 address: that.resetFormEMail.email,
               })
               .then(function (response) {
+                switch (response.status)
+                {
+                  case 200:
+
+                }
               })
               .catch(function (error) {
                 switch (error.response.status) {
@@ -215,8 +222,42 @@
             message: 'Permission denied'
           });
         });
-      },
+      }
+    },
+    created () {
+      var that = this;
+      this.axios
+        .get('/drops/webapp/profile/get')
+        .then(function (response) {
+          switch (response.status)
+          {
+            case 200:
+
+              var profiles = [];
+              profiles = response.data.additional_information;
+              that.profileForm = profiles[0];
+              that.emailaddress = that.profileForm.email;
+              break;
+          }
+        }).catch(function (error) {
+            switch (error.status) {
+                        case 500:
+                            that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                            break;
+                        case 412:
+                            that.$router.push({path: '/resetPasswordInstructions/pool'});
+                            break;
+                        case 401:
+                            that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                    
+                    }
+                  
+        }).finally(() => this.loading = false)
+          
     }
+  
+
+
   }
 </script>
 
