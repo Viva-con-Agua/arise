@@ -121,7 +121,7 @@
                             break;
                       }
                   }).catch(function (error) {
-                    switch (error.status) {
+                    switch (error.response.status) {
                         case 500:
                             that.open(that.$t('signin.error'), error.response.data.msg, "error");
                             break;
@@ -129,7 +129,7 @@
                             that.$router.push({path: '/resetPasswordInstructions/pool'});
                             break;
                         case 401:
-                            that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                            that.router.push(that.$t('signin.error'), error.response.data.msg, "error");
                     }
                   }).finally(() => this.loading = false)
           }

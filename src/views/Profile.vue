@@ -20,7 +20,6 @@
       v-model="emailaddress"
       :disabled="true"
       :label="$t('profile.label.email')"
-      placeholder="this.emailaddress"
       style="width: 80%"
     />
     <el-button
@@ -163,14 +162,10 @@
       };
     },
     methods: {
-      submitForm(resetFormEMail) {
-        this.$refs[resetFormEMail].validate((valid) => {
-          if (valid) {
+      submitForm(profileForm) {
             var that = this;
             this.axios
-              .post('http://localhost/drops/', {
-                address: that.resetFormEMail.email,
-              })
+              .post('/drops/webapp/profile/update', that.profileForm)
               .then(function (response) {
                 switch (response.status)
                 {
@@ -189,8 +184,7 @@
                 }
               })
               .finally(() => this.loading = false)
-          }
-        });
+          
       },
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
@@ -232,7 +226,6 @@
           switch (response.status)
           {
             case 200:
-
               var profiles = [];
               profiles = response.data.additional_information;
               that.profileForm = profiles[0];
@@ -240,7 +233,7 @@
               break;
           }
         }).catch(function (error) {
-            switch (error.status) {
+            switch (error.response.status) {
                         case 500:
                             that.open(that.$t('signin.error'), error.response.data.msg, "error");
                             break;
@@ -248,16 +241,12 @@
                             that.$router.push({path: '/resetPasswordInstructions/pool'});
                             break;
                         case 401:
-                            that.open(that.$t('signin.error'), error.response.data.msg, "error");
-                    
+                            that.$router.push({path: '/signin/L2FyaXNlLyMvcHJvZmlsZQ=='});
+                            break;
                     }
                   
         }).finally(() => this.loading = false)
-          
     }
-  
-
-
   }
 </script>
 
