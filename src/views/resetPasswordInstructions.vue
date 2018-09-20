@@ -109,7 +109,7 @@
                     if (valid) {
                       var that = this;
                       this.axios
-                        .post('http://localhost/drops/webapp/reset', {
+                        .post('/drops/webapp/reset', {
                           address: that.resetFormEMail.email,
                         })
                         .then(function (response) {

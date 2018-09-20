@@ -158,8 +158,6 @@
                case 500:
                  that.open(that.$t('signin.error'), error.response.data.msg, "error");
                          break;
-               case 401:
-                 that.open(that.$t('signin.error'), error.response.data.msg, "error");
              }
          })
          .finally(() => this.loading = false)
