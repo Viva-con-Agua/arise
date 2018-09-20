@@ -26,9 +26,6 @@
     <div id="content">
       <router-view/>
     </div>
-    <div id="footer">
-      <a href="#">{{ $t('footer.imprint') }}</a>
-    </div>
   </div>
 </template>
 

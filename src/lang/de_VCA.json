@@ -1,8 +1,5 @@
 {"hello": "Hallo Welt!",
 
-  "footer" : {
-    "imprint": "Impressum"
-  },
   "options": {
     "reset": "zurücksetzen",
     "submit": "hinzufügen",

@@ -1,10 +1,6 @@
 {
   "hello": "Hello World!",
 
-  "footer" : {
-    "imprint": "Imprint"
-  },
-
   "options": {
     "reset": "reset",
     "submit": "submit",
