@@ -3,6 +3,7 @@
 
   "options": {
     "reset": "reset",
+    "save": "save",
     "submit": "submit",
     "signup": "Sign Up",
     "signout": "logout",

@@ -107,10 +107,6 @@
       type="primary"
       icon="el-icon-arrow-right"
       @click.prevent="submitForm(profileForm)">{{ $t('options.save') }}</el-button>
-    <el-button
-      type="text"
-      icon="el-icon-close"
-      @click.prevent><router-link to="Profile">{{ $t('options.back') }}</router-link></el-button>
   </div>
 </template>
 

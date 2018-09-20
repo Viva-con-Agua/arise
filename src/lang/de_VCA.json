@@ -2,6 +2,7 @@
 
   "options": {
     "reset": "zurücksetzen",
+    "save": "speichern",
     "submit": "hinzufügen",
     "signup": "login",
     "signout": "logout",
