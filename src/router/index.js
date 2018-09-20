@@ -52,6 +52,11 @@ export default new Router({
           component: loadView('finishSignup')
         },
         {
+          path: '/signin',
+          name: 'SignInDefault',
+          redirect: '/signin/L2FyaXNlLyMvcHJvZmlsZQ=='
+        },
+        {
           path: "/signin/:redirectUrl",
             name: 'SignIn',
             component: loadView('SignIn')
