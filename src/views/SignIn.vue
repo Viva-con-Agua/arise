@@ -129,7 +129,7 @@
                             that.$router.push({path: '/resetPasswordInstructions/pool'});
                             break;
                         case 401:
-                            that.router.push(that.$t('signin.error'), error.response.data.msg, "error");
+                            that.open(that.$t('signin.error'), error.response.data.msg, "error");
                     }
                   }).finally(() => this.loading = false)
           }
