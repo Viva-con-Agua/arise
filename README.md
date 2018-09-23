@@ -19,7 +19,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ChangeLog
 =========
 
-## Version 0.0.6 (2018-05-08)
+## Version 0.0.6 (2018-09-23)
 
 * [[B] #60 - Default login route is needed](https://github.com/Viva-con-Agua/arise/issues/60)
 * [[I] #46 - Remove "Back" button](https://github.com/Viva-con-Agua/arise/issues/46)
