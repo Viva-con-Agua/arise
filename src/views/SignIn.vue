@@ -117,7 +117,7 @@
                       {
                         case 200:
                             var path = window.atob(that.$route.params.redirectUrl);
-                            window.location = path;
+                            window.location.reload();
                             break;
                       }
                   }).catch(function (error) {
@@ -143,7 +143,7 @@
         });
       }
     },  
-    created () {
+    beforeCreate () {
       var that = this;
       this.axios
         .get('/drops/webapp/identity')
