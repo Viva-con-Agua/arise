@@ -28,7 +28,8 @@
           <el-input
             v-model="signInForm.password"
             type="password"
-            @keyup.enter="submitForm(signInForm)"/>
+            @keyup.enter.native="submitForm(signInForm)"/>
+           </el-input>
         </el-form-item>
       </el-form>
       <el-checkbox
@@ -39,8 +40,9 @@
         class="buttonSignin"
         type="primary"
         icon="el-icon-arrow-right"
-        @click.prevent="submitForm(signInForm)"
-        @keyup.enter="submitForm(signInForm)">{{ $t('options.signin') }}</el-button>
+        @submit.native.prevent="submitForm(signInForm)">
+        {{ $t('options.signin') }}
+      </el-button>
       <div class="text-body">
         <span>{{ $t('signin.notasupporti') }} <router-link to="signup">{{ $t('signin.notasupportiklick') }}</router-link></span><br />
         <span>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: 'default' }}">{{ $t('signin.lostpwklick') }}</router-link></span>

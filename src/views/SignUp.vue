@@ -102,8 +102,7 @@
         class="buttonSignup"
         type="primary"
         icon="el-icon-arrow-right"
-        @click.prevent="submitForm"
-        @keyup.enter="submitForm">{{ $t('options.signup') }}</el-button>
+        @submit.native.prevent="submitForm">{{ $t('options.signup') }}</el-button>
       <el-button
         class="buttonSignup"
         type="secondary"
