@@ -64,10 +64,6 @@
           v-model="crewForm.country"/>
       </el-form-item>
       <el-button
-        type="text"
-        icon="el-icon-close"
-        @click.prevent="resetForm('crewForm')">{{ $t('options.reset') }}</el-button>
-      <el-button
         type="primary"
         icon="el-icon-arrow-right"
         @click.prevent="submitForm('crewForm')">{{ $t('options.submit') }}</el-button>

@@ -49,10 +49,6 @@
                 </div>
             </el-form-item>-->
       <el-button
-        type="text"
-        icon="el-icon-close"
-        @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
-      <el-button
         type="primary"
         icon="el-icon-arrow-right"
         @click.prevent="submitForm">{{ $t('options.submit') }}</el-button>

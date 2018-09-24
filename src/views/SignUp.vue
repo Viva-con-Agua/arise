@@ -102,13 +102,8 @@
         class="buttonSignup"
         type="primary"
         icon="el-icon-arrow-right"
-        @submit.native.prevent="submitForm">{{ $t('options.signup') }}</el-button>
-      <el-button
-        class="buttonSignup"
-        type="secondary"
-        icon="el-icon-close"
-        @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
-
+        @click.prevent="submitForm"
+        @keyup.enter="submitForm">{{ $t('options.signup') }}</el-button>
       <div class="text-body">
         <span>{{ $t('signup.asupporti') }} <router-link to="signin">{{ $t('options.signin') }}</router-link></span>
       </div>

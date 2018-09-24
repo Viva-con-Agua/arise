@@ -76,6 +76,7 @@
       "birthdateinfo": "Wann wurdest du Geboren?",
       "gender": "Gender:",
       "email": "E-Mail:",
+      "checkemail": "E-Mail bestätigen",
       "password": "Passwort:",
       "confirmPassword": "Passwort wiederholen:"
     },
