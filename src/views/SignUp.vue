@@ -14,6 +14,7 @@
         :model="signUpForm"
         :rules="rules"
         class="signUpForm"
+        @keyup.enter.native="submitForm"
         status-icon>
         <el-form-item
           :label="$t('signup.label.firstname')"
@@ -102,8 +103,10 @@
         class="buttonSignup"
         type="primary"
         icon="el-icon-arrow-right"
-        @click.prevent="submitForm"
-        @keyup.enter="submitForm">{{ $t('options.signup') }}</el-button>
+        @submit.native.prevent="submitForm">
+        {{ $t('options.signup') }}
+      </el-button>
+      
       <div class="text-body">
         <span>{{ $t('signup.asupporti') }} <router-link to="signin">{{ $t('options.signin') }}</router-link></span>
       </div>

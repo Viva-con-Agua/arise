@@ -47,6 +47,7 @@
       ref="profileForm"
       :model="profileForm"
       :rules="rules"
+      @keyup.enter.native="submitForm(profileForm)"
       class="profileForm">
       <el-form-item
         :label="$t('profile.label.firstname')"

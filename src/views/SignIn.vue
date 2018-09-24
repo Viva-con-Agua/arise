@@ -15,12 +15,14 @@
       <el-form
         :ref="signInForm"
         :model="signInForm"
+        @keyup.enter.native="submitForm(signInForm)"
         :rules="rules">
         <el-form-item
           :label="$t('signin.label.email')"
           prop="email">
           <el-input
-            v-model="signInForm.email"/>
+            v-model="signInForm.email"
+            />
         </el-form-item>
         <el-form-item
           :label="$t('signin.label.password')"
@@ -28,7 +30,7 @@
           <el-input
             v-model="signInForm.password"
             type="password"
-            @keyup.enter.native="submitForm(signInForm)"/>
+            />
            </el-input>
         </el-form-item>
       </el-form>

@@ -19,8 +19,9 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ChangeLog
 =========
 
-## Version 0.0.7 (2018-09-24)
+## Version 0.0.8 (2018-09-24)
 
+* [[B] #19 - Submit using enter](https://github.com/Viva-con-Agua/arise/issues/19)
 * [[I] #29 - Remove "Reset" button](https://github.com/Viva-con-Agua/arise/issues/29)
 * [[B] #60 - Default login route is needed](https://github.com/Viva-con-Agua/arise/issues/60)
 * [[I] #46 - Remove "Back" button](https://github.com/Viva-con-Agua/arise/issues/46)
