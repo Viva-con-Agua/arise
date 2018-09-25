@@ -26,10 +26,7 @@ export default new Router({
         {
             path: '/',
             name: 'Index',
-            component: loadView('index'),
-            meta: {
-              requiresAuth: true
-            }
+            redirect: '/',
         },
         {
           path: '*',
@@ -54,7 +51,7 @@ export default new Router({
         {
           path: '/signin',
           name: 'SignInDefault',
-          redirect: '/signin/L2FyaXNlLyMvcHJvZmlsZQ=='
+          component: loadView('defaultPage')
         },
         {
           path: "/signin/:redirectUrl",
