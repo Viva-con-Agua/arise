@@ -17,7 +17,7 @@ const i18n = new VueI18n({
     locale: locale,
     messages: {
         'en-US': require('@/lang/en_US'),
-        'de': require('@/lang/de_VCA'),
+        'de-DE': require('@/lang/de_VCA'),
         'ja-JA': require('../node_modules/element-ui/lib/locale/lang/ja')
     }
 });

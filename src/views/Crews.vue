@@ -6,50 +6,32 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import VueNativeSock from 'vue-native-websocket'
   import CrewForm from '@/components/CrewForm.vue'
   import CrewList from '@/components/CrewList.vue'
-
-  var initURL = 'http://localhost:3000/drops/rest/crew/query';
-  var initMethod = 'POST';
+  
+  Vue.use(VueNativeSock, 'ws://localhost/drops/webapp/crew/ws', { format: 'json'})
 
     //todo: 1. add crewfilter
+  export default {
+    name: "Crews",
+    components: {
+      CrewForm,
+      CrewList,
+    },
+    data() {
+      return {
+        crews: []
+      }
+    },
 
-    export default {
-      name: "Crews",
-      components: {
-        CrewForm,
-        CrewList,
-      },
-
-
-
-        data() {
-            return {
-                crews: []
-            }
-        },
-
-        created: function () {
-            this.init()
-        },
+    //created: function () {
+    //   this.init()
+    //},
         beforeDestroy: function () {
             this.crews = null
         },
-
-
-/*        mounted () {
-
-          this.axios
-                    .post('http://localhost:3000/drops/rest/crew/query')
-                    .then(response => {this.crews = response
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        this.errored = true
-                    })
-                    .finally(() => this.loading = false)
-        },*/
-
 
         methods: {
 

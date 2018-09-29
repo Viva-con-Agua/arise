@@ -42,7 +42,7 @@
         class="buttonSignin"
         type="primary"
         icon="el-icon-arrow-right"
-        @submit.native.prevent="submitForm(signInForm)">
+        @click.prevent="submitForm(signInForm)">
         {{ $t('options.signin') }}
       </el-button>
       <div class="text-body">
@@ -154,7 +154,7 @@
         .then(function (response) {
            if (response.status == 200) {
               var path = window.atob(that.$route.params.redirectUrl);
-              window.location = path;
+              window.location.replace(path);
            }
          })
          .catch(function (error) {

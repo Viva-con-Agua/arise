@@ -137,7 +137,7 @@
                 this.cityValue = (`${city}`);
                 console.log(`The user picked ${city}`);
                 this.handleInputConfirm();
-                this.cityValue = "";
+                //this.cityValue = "";
             });
 
         },
@@ -146,7 +146,7 @@
             submitForm(crewForm) {
                 this.$refs[crewForm].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                      this.$options.sockets.onopen = () => this.$socket.send(JSON.stringify({operation: 'INSERT', query: [{name: crewForm.CrewName, country: crewForm.Country, cities: crewForm.City}]}))  
                     } else {
                         console.log('error submit!!');
                         return false;

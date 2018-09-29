@@ -103,7 +103,7 @@
         class="buttonSignup"
         type="primary"
         icon="el-icon-arrow-right"
-        @submit.native.prevent="submitForm">
+        @click.prevent="submitForm">
         {{ $t('options.signup') }}
       </el-button>
       

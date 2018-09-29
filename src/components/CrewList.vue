@@ -56,8 +56,6 @@
     Table,
     TableColumn
   } from 'element-ui'
-
-
   Vue.use(Table);
   Vue.use(TableColumn);
 
@@ -67,10 +65,14 @@
       props: ['value'],
       data() {
         return {
+        limit: {
+          pageSize: this.pageSize,
+          offset: 0
+        },
           // multipleSelection: [],
             tableSize: "medium",
 
-          /*crewdata: [{
+          crewdata: [{
             crewname: 'Berlin',
             cities: 'Berlin',
             country: 'Deutschland'
@@ -82,24 +84,19 @@
             crewname: 'Amsterdamm',
             cities: 'Amsterdamm',
             country: 'Niederlande'
-          }],*/
-        }
+          }],
+        
+      }
       },
 
       methods: {
-/*        toggleSelection(rows) {
-          if (rows) {
-            rows.forEach(row => {
-              this.$refs.crewdata.toggleRowSelection(row);
-            });
-          } else {
-            this.$refs.crewdata.clearSelection();
-          }
+        getCrewList() {
+          this.$options.sockets.onopen = () => this.$socket.send(JSON.stringify({operation: 'INSERT', query: [ { limit: this.limit.pageSize, offset: this.limit.offset }]}))
+          this.$options.sockets.onmessage = (data) => console.log(data)
         },
-
         handleSelectionChange(val) {
           this.multipleSelection = val;
-        },*/
+        },
         handleEdit(index, row) {
               console.log(index, row);
           },
@@ -107,6 +104,9 @@
               console.log(index, row);
           }
       },
+      mounted() {
+        this.getCrewList()
+      }
 
 
     }
