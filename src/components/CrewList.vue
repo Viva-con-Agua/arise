@@ -90,10 +90,10 @@
       },
 
       methods: {
-        getCrewList() {
-          this.$options.sockets.onopen = () => this.$socket.send(JSON.stringify({operation: 'INSERT', query: [ { limit: this.limit.pageSize, offset: this.limit.offset }]}))
-          this.$options.sockets.onmessage = (data) => console.log(data)
-        },
+        //getCrewList() {
+        //  this.$options.sockets.onopen = () => this.$socket.send(JSON.stringify({operation: 'INSERT', query: [ { limit: this.limit.pageSize, offset: this.limit.offset }]}))
+        //  this.$options.sockets.onmessage = (data) => console.log(data)
+        //},
         handleSelectionChange(val) {
           this.multipleSelection = val;
         },
@@ -103,10 +103,10 @@
         handleDelete(index, row) {
               console.log(index, row);
           }
-      },
-      mounted() {
-        this.getCrewList()
       }
+      //mounted() {
+      //  this.getCrewList()
+      //}
 
 
     }
