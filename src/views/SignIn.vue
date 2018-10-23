@@ -71,6 +71,7 @@
     Input
   } from 'element-ui'
 
+
   Vue.use(VueAxios, axios);
   Vue.use(Button);
   Vue.use(Card);

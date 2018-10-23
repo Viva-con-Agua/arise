@@ -81,6 +81,7 @@ module.exports = {
       {
          test: /\.svg$/,
          loader: 'svg-inline-loader?classPrefix',
+
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,

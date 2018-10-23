@@ -29,7 +29,6 @@
 
 <script>
   var Freak = require('svg-inline-loader?classPrefix!@/assets/svg/freak.svg');
-
   export default {
     name: "404"
   }
@@ -74,9 +73,11 @@
   }
   #eye {
     position: absolute;
+
     /*left: 83%;
     bottom: 27%;
     width: 8%;*/
+
     left: 15vw;
     height: 1.5vw;
     width: 1.5vw;
@@ -86,8 +87,10 @@
   }
   #message {
     position: absolute;
+
     /*left:115%;
     bottom: 36%;*/
+
     left: 20vw;
     height: 33vw;
     bottom: 6vw;
@@ -108,4 +111,3 @@
   .left:hover #eye {
     transform: rotateX(70deg);
   }
-</style>
