@@ -1,11 +1,7 @@
 <template>
   <div class="body">
     <div class="left">
-      <Freak
-        message="hoppla"
-        fontstyle="bold"
-      ></Freak>
-     <!-- <span id="message">UPS!</span>
+      <span id="message">UPS!</span>
       <div
         id="freak"
         v-html="require('@/assets/svg/freak.svg')"/>
@@ -15,7 +11,7 @@
       <div
         id="eye"
         v-html="require('@/assets/svg/auge.svg')"/>
-        <img id="sign" src="./schild.svg">
+      <!--  <img id="sign" src="./schild.svg">
         <img id="freak" src="./freak.svg">
         <img id="eye" src="./auge.svg">
       --></div>
@@ -32,11 +28,9 @@
 </template>
 
 <script>
-  import Freak from '@/components/freak.vue'
-
+  var Freak = require('svg-inline-loader?classPrefix!@/assets/svg/freak.svg');
   export default {
-    name: "404",
-    components: {Freak}
+    name: "404"
   }
 </script>
 
@@ -58,20 +52,20 @@
     left: 35vw;
     float: right;
   }
-/*  #freak {
+  #freak {
     position: absolute;
-    !*left: 0px;
+    /*left: 0px;
     bottom: 0px;
-    width: 140%;*!
+    width: 140%;*/
     width: 25vw;
-    !*height: 46vh;*!
+    /*height: 46vh;*/
     bottom: 0vw;
   }
   #sign {
     position: absolute;
-    !*width: 130%;
+    /*width: 130%;
     left: 99%;
-    bottom: 3%;*!
+    bottom: 3%;*/
     width: 20vw;
     left: 18vw;
     bottom: 5vw;
@@ -79,9 +73,11 @@
   }
   #eye {
     position: absolute;
-    !*left: 83%;
+
+    /*left: 83%;
     bottom: 27%;
-    width: 8%;*!
+    width: 8%;*/
+
     left: 15vw;
     height: 1.5vw;
     width: 1.5vw;
@@ -91,8 +87,10 @@
   }
   #message {
     position: absolute;
-    !*left:115%;
-    bottom: 36%;*!
+
+    /*left:115%;
+    bottom: 36%;*/
+
     left: 20vw;
     height: 33vw;
     bottom: 6vw;
@@ -112,5 +110,4 @@
 
   .left:hover #eye {
     transform: rotateX(70deg);
-  }*/
-</style>
+  }

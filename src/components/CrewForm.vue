@@ -14,7 +14,7 @@
       <el-form-item
         :label="$t('crewform.label.cities')"
         prop="City">
-        <div id="tag">
+        <!--<div id="tag">
           <el-tag
             v-for="city in Cities"
             :key="city"
@@ -23,7 +23,7 @@
             @close="handleClose(city)">
             {{ city }}
           </el-tag>
-        </div>
+        </div>-->
         <!--            <input
                     class="input-new-city"
                     v-if="inputVisible"
@@ -35,7 +35,7 @@
         <input
           v-if="inputVisible"
           ref="autocomplete"
-          v-model="cityValue"
+          v-model="City"
           class="input-new-city"
           onfocus="value = ''"
           type="text"
@@ -49,7 +49,7 @@
         <div id="CountryContent">
           {{ $t('latest') }}
           <el-radio-group
-            v-model="crewForm.country"
+            v-model="crewForm.Country"
             size="mini">
             <el-radio-button
               label="Germany">{{ $t('country.de') }}</el-radio-button>
@@ -61,12 +61,8 @@
               label="Netherlands">{{ $t('country.nl') }}</el-radio-button>
         </el-radio-group></div>
         <el-input
-          v-model="crewForm.country"/>
+          v-model="crewForm.Country"/>
       </el-form-item>
-      <el-button
-        type="text"
-        icon="el-icon-close"
-        @click.prevent="resetForm('crewForm')">{{ $t('options.reset') }}</el-button>
       <el-button
         type="primary"
         icon="el-icon-arrow-right"
@@ -76,6 +72,23 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import {
+    Button,
+    Form,
+    FormItem,
+    Input,
+    RadioGroup,
+    RadioButton
+  } from 'element-ui'
+
+  Vue.use(Button);
+  Vue.use(Form);
+  Vue.use(FormItem);
+  Vue.use(Input);
+  Vue.use(RadioGroup);
+  Vue.use(RadioButton);
+
     export default {
         name: "CrewForm",
         components: {
@@ -89,6 +102,11 @@
                     CrewName: '',
                     City: '',
                     Country: '',
+                },
+                sendForm: {
+                  operation: '',
+                  query: [''],
+                  status: ''
                 },
                 Cities: [],
                 inputVisible: true,
@@ -121,19 +139,40 @@
                 let place = this.autocomplete.getPlace();
                 let ac = place.address_components;
                 let city = ac[0]["short_name"];
-                this.cityValue = (`${city}`);
+                this.crewForm.City = (`${city}`);
+                //this.crewForm.Country = (`${country}`); 
                 console.log(`The user picked ${city}`);
                 this.handleInputConfirm();
-                this.cityValue = "";
+                //this.cityValue = "";
             });
 
         },
 
         methods: {
-            submitForm(crewForm) {
-                this.$refs[crewForm].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
+          socketSend(operation, crewForm) {
+            this.$options.sockets.onopen = () => 
+              console.log('socket is open');
+              var cities = new Set(this.crewForm.City)
+              var crewJson = JSON.stringify({name: crewForm.CrewName, country: crewForm.Country, cities: this.cities})
+            this.$socket.send(JSON.stringify({operation: operation, query: [{name: this.crewForm.CrewName, country: this.crewForm.Country, cities: [this.crewForm.City]}]}));
+
+              this.$options.sockets.onmessage = (data) => console.log(data);
+            
+          },
+          submitForm(crewForm) {
+            this.$refs[crewForm].validate((valid) => {
+              if (valid) {
+                //this.sendForm.operation = 'INSERT';
+                //this.sendForm.query = JSON.stringify({name: crewForm.CrewName, country: crewForm.country, cities: crewForm.City})
+                this.socketSend('INSERT', crewForm);
+                      //console.log('crewForm is valid');
+                      //that.$options.sockets.onopen = () => {
+                      //  console.log('socket is open')
+                      //  this.$socket.send(JSON.stringify({operation: 'INSERT', query: [{name: crewForm.CrewName, country: crewForm.Country, cities: crewForm.City}]}))  
+
+
+                      //this.$options.sockets.onmessage = (data) => console.log(data);
+                     // }
                     } else {
                         console.log('error submit!!');
                         return false;

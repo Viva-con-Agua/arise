@@ -49,10 +49,6 @@
                 </div>
             </el-form-item>-->
       <el-button
-        type="text"
-        icon="el-icon-close"
-        @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
-      <el-button
         type="primary"
         icon="el-icon-arrow-right"
         @click.prevent="submitForm">{{ $t('options.submit') }}</el-button>
@@ -62,13 +58,25 @@
 
 <script>
     import Vue from 'vue'
-//    import treeTransfer from 'el-tree-transfer'
     import Transfer from '@/components/transfer'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
     import VueQuillEditor from 'vue-quill-editor'
+    import {
+      Button,
+      Form,
+      FormItem,
+      Input
+    } from 'element-ui'
 
-    Vue.use(VueAxios, axios, VueQuillEditor);
+
+
+    Vue.use(VueAxios, axios);
+    Vue.use(VueQuillEditor);
+    Vue.use(Button);
+    Vue.use(Form);
+    Vue.use(FormItem);
+    Vue.use(Input);
 
     export default {
         name: "TaskForm",

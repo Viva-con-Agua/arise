@@ -1,15 +1,5 @@
 <template>
   <div class="resetPasswordInstructions">
-    <transition name="fade">
-      <span v-show="show">
-        <el-alert
-          :title="$t('reset.alert.title')"
-          :description="$t('reset.alert.description')"
-          type="info"
-          show-icon
-        />
-      </span>
-    </transition>
     <div class="resetPasswordContent">
       <el-steps
         :active="1"
@@ -31,13 +21,14 @@
           <font-awesome-icon
             icon="user-lock"
             size="4x"/>
-          <h2>{{ $t("reset.PasswordInstructions.title") }}</h2>
+          <h2>{{ (this.$route.params.pool === "pool") ? $t("reset.PasswordInstructionsPool1.title") : $t("reset.PasswordInstructions.title") }}</h2>
         </div>
         <div class="content">
-          {{ $t("reset.PasswordInstructions.description") }}
+          {{ (this.$route.params.pool === "pool") ? $t("reset.PasswordInstructionsPool1.description") : $t("reset.PasswordInstructions.description") }}
         </div>
         <el-form
           :model="resetFormEMail"
+          :ref="resetFormEMail"
           :rules="rules"
           status-icon>
           <el-form-item
@@ -51,7 +42,8 @@
         <el-button
           type="primary"
           icon="el-icon-arrow-right"
-          @click.once="submitForm; show = !show">{{ $t('options.sendEmail') }}</el-button>
+          @click.once="submitForm(resetFormEMail)"
+          @keyup.enter="submitForm(signInForm)">{{ $t('options.sendEmail') }}</el-button>
       </el-card>
     </div>
   </div>
@@ -61,15 +53,34 @@
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
+    import {
+      Button,
+      Card,
+      Form,
+      FormItem,
+      Notification,
+      Step,
+      Steps,
+      Input
+    } from 'element-ui'
+
 
     Vue.use(VueAxios, axios);
+    Vue.use(Button);
+    Vue.use(Card);
+    Vue.use(Form);
+    Vue.use(FormItem);
+    Vue.use(Notification);
+    Vue.use(Step);
+    Vue.use(Steps);
+    Vue.use(Input);
+
+    Notification.closeAll();
 
     export default {
       name: "ResetPasswordInstructions",
         data() {
           return {
-            show: false,
-
             resetFormEMail: {
                     email: ''
                 },
@@ -83,20 +94,44 @@
             }
         },
         methods: {
+            messageOpen(title, message, type) {
+              if(typeof title !== 'undefined' && typeof message !== 'undefined' && typeof type !== 'undefined') {
+                Notification({
+                  title: title,
+                  message: message,
+                  type: type,
+                  duration: 6000
+                });
+              }
+            },
             submitForm(resetFormEMail) {
-
                 this.$refs[resetFormEMail].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
+                      var that = this;
+                      this.axios
+                        .post('/drops/webapp/reset', {
+                          address: that.resetFormEMail.email,
+                        })
+                        .then(function (response) {
+                          that.messageOpen(that.$t('reset.PasswordInstructions.successResponse'), this.$t('reset.alert.description'), 'success');
+                        })
+                        .catch(function (error) {
+                            switch (error.response.status) {
+                                case 401:
+                                    that.messageOpen(that.$t('reset.PasswordInstructions.errorResponse'), error.response.data.msg, "error");
+                                    break;
+                                case 404:
+                                    that.messageOpen(that.$t('reset.PasswordInstructions.errorResponse'), error.response.data.msg, "error");
+                                    break;
+                            }
+                        })
+                        .finally(() => this.loading = false)
                     }
                 });
             },
             resetForm(resetFormEMail) {
                 this.$refs[resetFormEMail].resetFields();
-            },
+            }
         }
     }
 </script>
@@ -114,7 +149,7 @@
     .resetPasswordContent {
         max-width: 50%;
         margin: 0 auto;
-        padding-top: 20px;
+        padding-top: 15%;
     }
     .title {
         width: 75%;

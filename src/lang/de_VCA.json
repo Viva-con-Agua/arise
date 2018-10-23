@@ -1,13 +1,17 @@
-{
-  "hello": "Hallo Welt!",
+{"hello": "Hallo Welt!",
+
   "options": {
     "reset": "zurücksetzen",
+    "save": "speichern",
     "submit": "hinzufügen",
     "signup": "login",
     "signout": "logout",
     "sendEmail": "sende e-mail",
     "resetIt": "ändern",
-    "signin": "Einloggen"
+    "signin": "Einloggen",
+    "rememberme" : "Eingeloggt bleiben",
+    "back": "Zurück",
+    "edit": "Editieren"
   },
 
   "validationError": {
@@ -62,6 +66,7 @@
   },
 
   "signup": {
+    "title": "Supporti werden",
     "label": {
       "firstname": "Vorname:",
       "lastname": "Nachname:",
@@ -71,9 +76,11 @@
       "birthdateinfo": "Wann wurdest du Geboren?",
       "gender": "Gender:",
       "email": "E-Mail:",
+      "checkemail": "E-Mail bestätigen",
       "password": "Passwort:",
       "confirmPassword": "Passwort wiederholen:"
     },
+    "asupporti": "Du bist bereits Supporter?",
     "finish" : {
       "title" : "Fast geschafft, Supporti!",
       "description" : "Du bist der Tropfen! Du bekommst sofort eine e-mail, klicke dort auf den Link und dein Account wird freigeschaltet."
@@ -85,7 +92,20 @@
       "password": "Passwort:"
     },
     "title": "Einloggen",
-    "description":"Bitte Log dich mit deinen Accountdaten ein."
+    "description":"Bitte Log dich mit deinen Accountdaten ein.",
+    "notasupporti": "Du bist noch nicht dabei?",
+    "notasupportiklick": "Registrieren",
+    "lostpw": "Du hast dein Passwort vergessen?",
+    "lostpwklick": "zurücksetzten",
+    "error": "Ooops!",
+
+    "alert" : {
+      "code300": "",
+      "code301": "",
+      "code302": "",
+      "code303": "",
+      "code304": ""
+    }
   },
 
   "crewform": {
@@ -161,8 +181,9 @@
     },
     "PasswordInstructions" : {
       "title": "Du hast dein Password vergessen?",
-      "description": "Kein Problem, trage hier einfach deine E-Mail Adresse ein und wir senden dir Anweisungen zum zurücksetzen zu."
-
+      "description": "Kein Problem, trage hier einfach deine E-Mail Adresse ein und wir senden dir Anweisungen zum zurücksetzen zu.",
+      "errorResponse": "Ooops",
+      "successResponse": "Email gesendet!"
     },
     "PasswordInstructionsPool1" : {
       "title": "Bitte wähle ein neues Passwort!",
@@ -185,9 +206,40 @@
     },
     "PasswordDone": {
       "title": "allet fertig!",
-      "description": "Du wirst in den nächsten Sekunden zur SignIn Seite weitergeleitet... Click hier, sollte nichts passieren!"
+      "description": "Du wirst in den nächsten Sekunden zur SignIn Seite weitergeleitet... Oder klicke ",
+      "clickLabel": "hier!"
+    }
+  },
+  "signup": {
+    "label": {
+      "firstname": "Vorname:",
+      "lastname": "Nachname:",
+      "mobile": "Mobiltelefonnummer:",
+      "placeofresidence": "Wohnort:",
+      "birthdate": "Geburtstag:",
+      "birthdateinfo": "Wann wurdest du Geboren?",
+      "gender": "Gender:"
     }
   },
 
-  "latest" : "zuletzt hinzugefügt"
-}
+  "changePassword": {
+    "title": "Änder dein Passwort",
+    "description": "Gib bitte, zum ändern, erst dein altes Passwort ein.",
+    "label": {
+      "oldPassword": "Altes Passwort: ",
+      "newPassword": "Neues Passwort: ",
+      "checkNewPassword":"Neues Password (wiederholen): "
+    }
+  },
+
+  "changeEMail": {
+    "title": "Ändere deine E-Mail Adresse",
+    "description": "Gib bitte zuerst, deine alte e-Mail adresse ein.",
+    "label": {
+      "oldEMail": "Alte E-Mail Addresse: ",
+      "newEMail": "Neue E-Mail Addresse: ",
+      "checkNewEMail":"Neue E-Mail Addresse (wiederholen): "
+    }
+  },
+
+  "latest" : "zuletzt hinzugefügt"}

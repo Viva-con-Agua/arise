@@ -1,62 +1,38 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Element from 'element-ui'
 import 'es6-promise/auto'
-
-//import Vuex from 'vuex'
-// import axios from 'axios'
-// import VueAxios from 'vue-axios'
-// import VeeValidate from 'vee-validate'
-// import Vuetify from 'vuetify'
-//import VueI18n from 'vue-i18n'
+import '@/assets/css/better_index.css'
 import locale from 'element-ui/lib/locale/lang/de'
 import 'element-ui/lib/theme-chalk/index.css'
-import '@/assets/css/better_index.css'
-// import DataTables from 'vue-data-table'
-// import VueQuillEditor from 'vue-quill-editor'
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
 import '@/assets/css/quill.vca.css'
-import {library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserLock, faLockOpen, faCheckCircle, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-//import different Views
-
-/*
-const SignIn = () => import('../views/SignIn');
-const SignUp = () => System.import('../views/SignUp');
-const Crews = () => System.import('../views/Crews');
-const Tasks = () => System.import('../views/Tasks');
-const OAuth = () => System.import('../views/OAuth');
-const finishSignup = () => System.import('../views/finishSignup');
-const resetPassword = () => System.import('../views/resetPassword');
-const resetPasswordDone = () => System.import('../views/resetPasswordDone');
-const resetPasswordInstructions = () => System.import('../views/resetPasswordInstructions');
-const resetPasswordInstructionsPool1 = () => System.import('../views/resetPasswordInstructionsPool1');
-const startResetPassword = () => System.import('../views/startResetPassword');*/
-
-
-Vue.component('font-awesome-icon', FontAwesomeIcon);
-
 //Font Awesome iCon Library
 library.add(faUserLock, faLockOpen, faCheckCircle, faSignInAlt);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Router);
-Vue.use(Element, {locale});
+Vue.use(locale);
+Vue.use(locale);
+
+
 
 function loadView(view) {
-  return () => import(/* webpackChunkName: "[request]" */ `@/views/${view}.vue`)
+  return () => import(/* webpackChunkName: '[request]' */ `@/views/${view}.vue`)
 }
 export default new Router({
     routes: [
-              {
+        {
             path: '/',
-            name: 'SignIn',
-            component: loadView('SignIn')
+            name: 'Index',
+            redirect: '/',
         },
-
+        {
+          path: '*',
+          name: '404',
+          component: loadView('404')
+        },
         {
             path: '/crews',
             name: 'Crews',
@@ -68,9 +44,19 @@ export default new Router({
             component: loadView('SignUp')
         },
         {
-            path: "/signin",
+          path: '/finishsignup',
+          name: 'finishSignup',
+          component: loadView('finishSignup')
+        },
+        {
+          path: '/signin',
+          name: 'SignInDefault',
+          component: loadView('defaultPage')
+        },
+        {
+          path: "/signin/:redirectUrl",
             name: 'SignIn',
-            component: loadView('Signin')
+            component: loadView('SignIn')
         },
         {
             path: "/tasks",
@@ -83,17 +69,12 @@ export default new Router({
             component: loadView('OAuth')
         },
         {
-            path: "/finishSignup",
-            name: 'finishSignup',
-            component: loadView('finishSignUp')
-        },
-        {
             path: "/startResetPassword",
             name: 'startResetPassword',
             component: loadView('startResetPassword')
         },
         {
-            path: "/resetPassword",
+            path: "/resetPassword/:token",
             name: 'resetPassword',
             component: loadView('resetPassword')
         },
@@ -102,19 +83,58 @@ export default new Router({
             name: 'resetPasswordDone',
             component: loadView('resetPasswordDone')
         },
-        {
+       /* {
             path: "/resetPasswordInstructions",
+            name: 'resetPasswordInstructions',
+            component: loadView('resetPasswordInstructions'),
+        },*/
+        {
+            path: "/resetPasswordInstructions/:pool",
             name: 'resetPasswordInstructions',
             component: loadView('resetPasswordInstructions')
         },
         {
-            path: "/resetPasswordInstructionsPool1",
-            name: 'resetPasswordInstructionsPool1',
-            component: loadView('resetPasswordInstructionsPool1')
-        }
+          path: "/Profile",
+          name: 'Profile',
+          component: loadView('Profile')
+        },
+        {
+          path: "/changePassword",
+          name: 'changePassword',
+          component: loadView('changePassword')
+        },
+        {
+          path: "/changeEMail",
+          name: 'changeEMail',
+          component: loadView('changeEMail')
+        },
 
     ]
 });
+
+/*var Auth = {
+  loggedIn: false,
+  signin: function() { this.loggedIn = true },
+  signout: function() { this.loggedIn = false }
+};
+
+var Login = {
+  template: '<input type="submit" value="Login" v-on:click="login">',
+  methods: {
+    : function() {
+      Auth.login();
+      router.push(this.$route.query.redirect);
+    }
+  }
+};
+
+Router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && !Auth.loggedIn) {
+    next({path: '/login', query: {redirect: to.fullPath}});
+  }else {
+    next();
+  }
+});*/
 
 //Vue.use(Vuex),
 //Vue.use(SuiVue),

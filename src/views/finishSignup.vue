@@ -17,6 +17,15 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+  import {
+    Card
+  }
+  from 'element-ui';
+
+  Vue.use(Card);
+
+
   export default {
     name: "FinishSignup",
 
@@ -24,9 +33,9 @@
       return {
       }
     },
-    created() {
+/*    created() {
       setTimeout( () => this.$router.push({path: '/signin'}), 50000);
-    }
+    }*/
   }
 </script>
 <style scoped>

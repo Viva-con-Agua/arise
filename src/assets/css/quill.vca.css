@@ -1,4 +1,3 @@
-
 /*
  * Quill Editor v1.3.6
  * https://quilljs.com/
@@ -72,7 +71,7 @@
 .ql-editor h6 {
   margin: 0;
   padding: 0;
-  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9 list-10;
 }
 .ql-editor ol,
 .ql-editor ul {
@@ -320,6 +319,12 @@
 .ql-editor li.ql-indent-9.ql-direction-rtl.ql-align-right {
   padding-right: 28.5em;
 }
+.ql-editor .ql-indent-10.ql-direction-rtl.ql-align-right {
+    padding-right: 27em;
+}
+.ql-editor li.ql-indent-10.ql-direction-rtl.ql-align-right {
+    padding-right: 28.5em;
+}
 .ql-editor .ql-video {
   display: block;
   max-width: 100%;
@@ -377,6 +382,9 @@
 }
 .ql-editor .ql-font-monospace {
   font-family: Monaco, Courier New, monospace;
+}
+.ql-editor .ql-font-museosans {
+    font-family: Museo, Museo Sans, sans-serif;
 }
 .ql-editor .ql-size-small {
   font-size: 0.75em;
@@ -452,7 +460,10 @@
 .ql-snow.ql-toolbar .ql-picker-item:hover,
 .ql-snow .ql-toolbar .ql-picker-item:hover,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
-.ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected,
+.ql-snow.ql-toolbar .ql-picker-label:hover,
+.ql-snow .ql-toolbar .ql-picker-label:hover
+{
   color: #06c;
 }
 .ql-snow.ql-toolbar button:hover .ql-fill,
@@ -755,17 +766,82 @@
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-label]:not([data-label=''])::before,
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-label]:not([data-label=''])::before,
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-label]:not([data-label=''])::before,
+/*VcA Styles*/
+.ql-snow .ql-picker.ql-vca .ql-picker-label[data-label]:not([data-label=''])::before,
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-label]:not([data-label=''])::before,
+/* ^^VcA Styles */
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-label]:not([data-label=''])::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-label]:not([data-label=''])::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-label]:not([data-label=''])::before {
   content: attr(data-label);
 }
+
+/*VcA Stlyes */
+.ql-snow .ql-picker.ql-vca {
+    width: 98px;
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-label::before,
+.ql-snow .ql-picker.ql-vca .ql-picker-item::before {
+    content: 'normal';
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-label[data-value="1"]::before,
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="1"]::before {
+    content: 'VcA Headline';
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-label[data-value="2"]::before,
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="2"]::before {
+    content: 'VcA Subline';
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-label[data-value="3"]::before,
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="3"]::before {
+    content: 'VcA Aufmachen';
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-label[data-value="4"]::before,
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="4"]::before {
+    content: 'VcA normaler Absatz';
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-label[data-value="5"]::before,
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="5"]::before {
+    content: 'VcA Callout, blau';
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-label[data-value="6"]::before,
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="6"]::before {
+    content: 'VcA Callout, magenta';
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="1"]::before {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0px 0px 14px;
+    color: #008FC7;
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="2"]::before {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0px 0px 21px;
+    color: #002A3D;
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="3"]::before {
+    font-size: 1.17em;
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="4"]::before {
+    font-size: 1em;
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="5"]::before {
+    font-size: 0.83em;
+}
+.ql-snow .ql-picker.ql-vca .ql-picker-item[data-value="6"]::before {
+    font-size: 0.67em;
+}
+
+/* ^^VcA Styles */
+
+
 .ql-snow .ql-picker.ql-header {
   width: 98px;
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item::before {
-  content: 'Normalo';
+  content: 'normal';
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
@@ -824,12 +900,20 @@
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
   content: 'Monospace';
 }
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=museosans]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=museosans]::before {
+    content: 'Museo Sans';
+}
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
   font-family: Georgia, Times New Roman, serif;
 }
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
   font-family: Monaco, Courier New, monospace;
 }
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
+    font-family: Freddy, Museo Sans, sans-serif;
+}
+
 .ql-snow .ql-picker.ql-size {
   width: 98px;
 }
@@ -847,7 +931,7 @@
 }
 .ql-snow .ql-picker.ql-size .ql-picker-label[data-value=huge]::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
-  content: 'Hugo';
+  content: 'Huge';
 }
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
   font-size: 10px;

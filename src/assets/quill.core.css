@@ -3,7 +3,7 @@
  * https://quilljs.com/
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
- */
+ *
 .ql-container {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
@@ -114,7 +114,7 @@
   padding-right: 1.5em;
 }
 .ql-editor ol li {
-  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9 list-10;
   counter-increment: list-0;
 }
 .ql-editor ol li:before {
@@ -127,7 +127,7 @@
   content: counter(list-1, lower-alpha) '. ';
 }
 .ql-editor ol li.ql-indent-1 {
-  counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9 list-10;
 }
 .ql-editor ol li.ql-indent-2 {
   counter-increment: list-2;
@@ -136,7 +136,7 @@
   content: counter(list-2, lower-roman) '. ';
 }
 .ql-editor ol li.ql-indent-2 {
-  counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9 list-10;
 }
 .ql-editor ol li.ql-indent-3 {
   counter-increment: list-3;
@@ -145,7 +145,7 @@
   content: counter(list-3, decimal) '. ';
 }
 .ql-editor ol li.ql-indent-3 {
-  counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-reset: list-4 list-5 list-6 list-7 list-8 list-9 list-10;
 }
 .ql-editor ol li.ql-indent-4 {
   counter-increment: list-4;
@@ -154,7 +154,7 @@
   content: counter(list-4, lower-alpha) '. ';
 }
 .ql-editor ol li.ql-indent-4 {
-  counter-reset: list-5 list-6 list-7 list-8 list-9;
+  counter-reset: list-5 list-6 list-7 list-8 list-9 list-10;
 }
 .ql-editor ol li.ql-indent-5 {
   counter-increment: list-5;
@@ -163,7 +163,7 @@
   content: counter(list-5, lower-roman) '. ';
 }
 .ql-editor ol li.ql-indent-5 {
-  counter-reset: list-6 list-7 list-8 list-9;
+  counter-reset: list-6 list-7 list-8 list-9 list-10;
 }
 .ql-editor ol li.ql-indent-6 {
   counter-increment: list-6;
@@ -172,7 +172,7 @@
   content: counter(list-6, decimal) '. ';
 }
 .ql-editor ol li.ql-indent-6 {
-  counter-reset: list-7 list-8 list-9;
+  counter-reset: list-7 list-8 list-9 list-10;
 }
 .ql-editor ol li.ql-indent-7 {
   counter-increment: list-7;
@@ -181,7 +181,7 @@
   content: counter(list-7, lower-alpha) '. ';
 }
 .ql-editor ol li.ql-indent-7 {
-  counter-reset: list-8 list-9;
+  counter-reset: list-8 list-9 list-10;
 }
 .ql-editor ol li.ql-indent-8 {
   counter-increment: list-8;
@@ -190,13 +190,19 @@
   content: counter(list-8, lower-roman) '. ';
 }
 .ql-editor ol li.ql-indent-8 {
-  counter-reset: list-9;
+  counter-reset: list-9 list-10;
 }
 .ql-editor ol li.ql-indent-9 {
   counter-increment: list-9;
 }
 .ql-editor ol li.ql-indent-9:before {
   content: counter(list-9, decimal) '. ';
+}
+.ql-editor ol li.ql-indent-10 {
+    counter-increment: list-10;
+}
+.ql-editor ol li.ql-indent-10:before {
+    content: counter(list-10, decimal) '. ';
 }
 .ql-editor .ql-indent-1:not(.ql-direction-rtl) {
   padding-left: 3em;
@@ -395,3 +401,4 @@
   position: absolute;
   right: 15px;
 }
+*/

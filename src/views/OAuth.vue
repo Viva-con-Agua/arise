@@ -43,10 +43,6 @@
         </div>
       </el-form-item>
       <el-button
-        type="text"
-        icon="el-icon-close"
-        @click.prevent="resetForm">{{ $t('options.reset') }}</el-button>
-      <el-button
         type="primary"
         icon="el-icon-arrow-right"
         @click.prevent="submitForm">{{ $t('options.submit') }}</el-button>
@@ -58,8 +54,22 @@
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
+    import {
+      Button,
+      Checkbox,
+      CheckboxGroup,
+      Form,
+      FormItem,
+      Input
+    } from 'element-ui'
 
     Vue.use(VueAxios, axios);
+    Vue.use(Button);
+    Vue.use(Checkbox);
+    Vue.use(CheckboxGroup);
+    Vue.use(Form);
+    Vue.use(FormItem);
+    Vue.use(Input);
 
     const typesOptions = [  {authorization_code: 'Authorization Code'},
                             { asasd:'Implicit'},

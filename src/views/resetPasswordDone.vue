@@ -22,13 +22,25 @@
         <h2>{{ $t("reset.PasswordDone.title") }}</h2>
       </div>
       <div class="content">
-        {{ $t("reset.PasswordDone.description") }}
+        {{ $t('reset.PasswordDone.description') }} <router-link to="signin">{{ $t('reset.PasswordDone.clickLabel') }}</router-link>
       </div>
     </el-card>
   </div>
 </template>
 
 <script>
+  import Vue from 'vue'
+  import {
+    Card,
+    Step,
+    Steps
+  } from 'element-ui'
+
+
+  Vue.use(Card);
+  Vue.use(Step);
+  Vue.use(Steps);
+
   export default {
     name: "ResetPasswordDone",
 
@@ -44,6 +56,7 @@
 <style scoped>
   #resetPasswordDone {
     max-width: 50%;
+    padding-top: 15%;
     margin: 0 auto;
   }
   .title {

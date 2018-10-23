@@ -38,6 +38,7 @@
         </div>
         <el-form
           :model="resetFormEMail"
+          :ref="resetFormEMail"
           :rules="rules"
           status-icon>
           <el-form-item
@@ -51,7 +52,7 @@
         <el-button
           type="primary"
           icon="el-icon-arrow-right"
-          @click.once="submitForm; show = !show">{{ $t('options.sendEmail') }}</el-button>
+          @click.once="submitForm(resetFormEMail)">{{ $t('options.sendEmail') }}</el-button>
       </el-card>
     </div>
   </div>
@@ -61,8 +62,27 @@
   import Vue from 'vue'
   import axios from 'axios'
   import VueAxios from 'vue-axios'
+  import {
+    Alert,
+    Button,
+    Card,
+    Form,
+    FormItem,
+    Step,
+    Steps,
+    Input
+  } from 'element-ui'
+
 
   Vue.use(VueAxios, axios);
+  Vue.use(Alert);
+  Vue.use(Button);
+  Vue.use(Card);
+  Vue.use(Form);
+  Vue.use(FormItem);
+  Vue.use(Step);
+  Vue.use(Steps);
+  Vue.use(Input);
 
   export default {
     name: "ResetPasswordInstructions",
@@ -87,7 +107,16 @@
 
         this.$refs[resetFormEMail].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.show = !this.show;
+            this.axios
+              .post('http://localhost:3000/test', {
+                user: this.resetFormEMail,
+              })
+              .catch(error => {
+                console.log(error)
+                this.errored = true
+              })
+              .finally(() => this.loading = false)
           } else {
             console.log('error submit!!');
             return false;
@@ -114,7 +143,7 @@
   .resetPasswordContent {
     max-width: 50%;
     margin: 0 auto;
-    padding-top: 20px;
+    padding-top: 15%;
   }
   .title {
     width: 75%;
