@@ -45,7 +45,10 @@
               }
               xhr.send()
           },
-      }
+      },
+    mounted() {
+      this.$options.sockets.onmessage = (data) => console.log(data);
+    }
     }
 </script>
 <style scoped>

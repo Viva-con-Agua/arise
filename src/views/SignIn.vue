@@ -46,7 +46,7 @@
         {{ $t('options.signin') }}
       </el-button>
       <div class="text-body">
-        <span>{{ $t('signin.notasupporti') }} <router-link to="signup">{{ $t('signin.notasupportiklick') }}</router-link></span><br />
+        <span>{{ $t('signin.notasupporti') }} <router-link :to="{name: 'SignUp'}">{{ $t('signin.notasupportiklick') }}</router-link></span><br />
         <span>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: 'default' }}">{{ $t('signin.lostpwklick') }}</router-link></span>
       </div>
     </el-card>
@@ -70,7 +70,6 @@
     Notification,
     Input
   } from 'element-ui'
-
 
   Vue.use(VueAxios, axios);
   Vue.use(Button);
