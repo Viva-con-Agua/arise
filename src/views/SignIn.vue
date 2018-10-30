@@ -147,7 +147,7 @@
           type: type
         });
       }
-    },  
+    },
     beforeCreate () {
       var that = this;
       this.axios

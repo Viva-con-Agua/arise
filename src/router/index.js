@@ -14,7 +14,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Router);
 Vue.use(locale);
-Vue.use(locale);
 
 
 
@@ -26,7 +25,7 @@ export default new Router({
         {
             path: '/',
             name: 'Index',
-            redirect: '/',
+            redirect: 'profile',
         },
         {
           path: '*',
@@ -94,7 +93,7 @@ export default new Router({
             component: loadView('resetPasswordInstructions')
         },
         {
-          path: "/Profile",
+          path: "/profile",
           name: 'Profile',
           component: loadView('Profile')
         },
@@ -107,6 +106,11 @@ export default new Router({
           path: "/changeEMail",
           name: 'changeEMail',
           component: loadView('changeEMail')
+        },
+        {
+            path: "/users",
+            name: 'Users',
+            component: loadView('users')
         },
 
     ]
