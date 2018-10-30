@@ -1,17 +1,15 @@
 <template>
-    <div>
-        <WidgetUserList :options="options" />
-    </div>
+    <WidgetUserList :options="options" />
 </template>
 
 <script>
     import Vue from 'vue'
-    import { WidgetUser, WidgetUserList } from 'vca-widget-user'
+    import WidgetUserList from 'vca-widget-user'
     import 'vca-widget-user/dist/vca-widget-user.css'
 
     export default {
         name: "users",
-        components: { WidgetUser, WidgetUserList },
+        components: { WidgetUserList },
         data () {
             return {
                 options: {

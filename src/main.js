@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Arise from './Arise';
 import router from './router';
 import VueI18n from 'vue-i18n';
+import WidgetUserList from 'vca-widget-user'
 const $t = Vue.t;
 
 
@@ -22,6 +23,7 @@ const i18n = new VueI18n({
     }
 });
 
+Vue.use(WidgetUserList, { 'i18n': i18n })
 
 /* eslint-disable no-new */
 
@@ -30,7 +32,7 @@ new Vue({
   router,
   i18n,
   show: true,
-  components: { Arise },
+  components: { Arise, WidgetUserList },
   template: '<App/>',
   render: h => h(Arise)
 }).$mount('#arise');
