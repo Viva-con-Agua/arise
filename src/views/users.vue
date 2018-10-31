@@ -15,7 +15,7 @@
                 options: {
                     'type': { 'menue': true, 'value': 'table' },
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
-                    'lang': 'de'
+                    'lang': this.$i18n.locale //'de-DE'
                 }
             }
         }
