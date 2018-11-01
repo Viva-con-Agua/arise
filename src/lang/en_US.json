@@ -112,6 +112,7 @@
 
   "crewform": {
     "label": {
+      "location": "Location:",
       "crewname": "Crewname:",
       "cities": "City / Cities:",
       "country": "Country:"
