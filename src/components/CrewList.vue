@@ -1,92 +1,60 @@
 <template>
-  <div id="CrewList">
-    <!--    <div id="ListMenu">
-      <el-radio-group
-      v-model="tableSize"
-      size="small">
-      <el-radio-button label="medium" value="medium">medium</el-radio-button>
-      <el-radio-button label="small" value="small" >small</el-radio-button>
-      <el-radio-button label="mini" value="mini" ><i class="el-icon-minus"></i></el-radio-button>
-    </el-radio-group>
-      <el-button size="small" icon="el-icon-search">Search</el-button>
-    </div>-->
-    <el-table
-      :size="tableSize"
-      :data="value"
-      style="width: 100%">
-      <!--      <el-table-column
-        type="selection"
-        fixed="left">
-      </el-table-column>-->
-      <el-table-column
-        :label="$t('crewlist.label.crewname')"
-        sortable
-        prop="crewname"
-        align="left"/>
-      <el-table-column
-        :label="$t('crewlist.label.cities')"
-        sortable
-        prop="cities"
-        align="left"/>
-      <el-table-column
-        :label="$t('crewlist.label.country')"
-        sortable
-        prop="country"
-        align="left"/>
-      <el-table-column
-        :label="$t('crewlist.label.operations')"
-        align="left">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-edit"/></el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"/></el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div v-if="hasError()" class="crew-list error">
+    <span v-if="errorState === 401">{{ $vcaI18n.t('error.notAuthenticated') }}</span>
+    <span v-else-if="errorState === 403">{{ $vcaI18n.t('error.forbidden') }}</span>
+    <span v-else>{{ $vcaI18n.t('error.unknown') }}</span>
+  </div>
+  <div v-else class="crew-list">
+    <SearchField v-bind:query="query" v-on:newQuery="setQuery" />
+    <ListMenu v-bind:type="type"
+              v-bind:sorting="sorting"
+              v-on:typeSelect="setType"
+              v-on:sortDirSelect="setSortingDir"
+              v-on:sortFieldSelect="setSortingField"
+              v-if="config.hasMenue()"
+              v-bind:config="config"
+    />
+    <button v-if="config.hasPagination() && page.hasPrevious()" v-on:click="removePage" class="paginate">
+      {{ $vcaI18n.tc('label.pagination.button.previous', page.howManyPrevious(), { 'number': page.howManyPrevious() }) }}
+    </button>
+    <WidgetUsers v-if="type !== 'tableRow'" :users="users" :type="type" />
+    <TableUsers v-else :users="users" />
+    <button v-if="config.hasPagination() && page.hasNext()" v-on:click="addPage" class="paginate">
+      {{ $vcaI18n.tc('label.pagination.button.next', page.howManyNext(), { 'number': page.howManyNext() }) }}
+    </button>
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
-  import {
-    Table,
-    TableColumn
-  } from 'element-ui'
-  Vue.use(Table);
-  Vue.use(TableColumn);
+  import CrewModel from './CrewModel'
+  export default {
+    name: "CrewList",
+    props: ['value'],
+    data() {
+      return {
+      limit: {
+        pageSize: this.pageSize,
+        offset: 0
+      },
+        // multipleSelection: [],
+          tableSize: "medium",
 
-
-    export default {
-      name: "CrewList",
-      props: ['value'],
-      data() {
-        return {
-        limit: {
-          pageSize: this.pageSize,
-          offset: 0
-        },
-          // multipleSelection: [],
-            tableSize: "medium",
-
-          crewdata: [{
-            crewname: 'Berlin',
-            cities: 'Berlin',
-            country: 'Deutschland'
-          }, {
-            crewname: 'Airfurt',
-            cities: 'Erfurt, Weimar',
-            country: 'Deutschland'
-          },{
-            crewname: 'Amsterdamm',
-            cities: 'Amsterdamm',
-            country: 'Niederlande'
-          }],
-        
-      }
+        crewdata: [{
+          crewname: 'Berlin',
+          cities: 'Berlin',
+          country: 'Deutschland'
+        }, {
+          crewname: 'Airfurt',
+          cities: 'Erfurt, Weimar',
+          country: 'Deutschland'
+        },{
+          crewname: 'Amsterdamm',
+          cities: 'Amsterdamm',
+          country: 'Niederlande'
+        }],
+      
+    }
       },
 
       methods: {
