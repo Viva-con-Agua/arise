@@ -242,4 +242,17 @@
     }
   },
 
-  "latest" : "zuletzt hinzugefügt"}
+  "latest" : "zuletzt hinzugefügt",
+  "errorState": {
+    "header": "Uuups",
+    "message" : {
+      "401": "Um diese Seite sehen zu können, musst du eingeloggt sein.",
+      "403": "Du darfst auf diese Seite nicht zugreifen.",
+      "404": "Wir konnten die Seite leider nicht finden.",
+      "500": "Da ist ein Fehler im Pool aufgetreten!",
+      "default": "Da ist ein Fehler aufgetreten."
+    },
+    "status": "Fehlercode: {code}"
+  }
+
+}
