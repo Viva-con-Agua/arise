@@ -245,4 +245,17 @@
     }
   },
 
-  "latest" : "frequently added"}
+  "latest" : "frequently added",
+  "errorState": {
+    "header": "Uuups",
+    "message" : {
+      "401": "You have to be logged in to visit this page.",
+      "403": "You have no permission to access this page.",
+      "404": "Not found.",
+      "500": "Internal error.",
+      "default": "Unknown error occured."
+    },
+    "status": "Error code: {code}"
+  }
+
+}
