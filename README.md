@@ -19,11 +19,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ChangeLog
 =========
 
-## Version 0.1.5 (2018-09-25)
+## Version 0.1.10 (2018-11-09)
 
 * [[F] #1 - SignUp-form](https://github.com/Viva-con-Agua/arise/issues/1)
 * [[I] #21 - Landing Page redirect](https://github.com/Viva-con-Agua/arise/issues/21)
-* [[B] #26 - Missing i18n translations(https://github.com/Viva-con-Agua/arise/issues/26)
+* [[B] #26 - Missing i18n translations](https://github.com/Viva-con-Agua/arise/issues/26)
 * [[B] #19 - Submit using enter](https://github.com/Viva-con-Agua/arise/issues/19)
 * [[I] #29 - Remove "Reset" button](https://github.com/Viva-con-Agua/arise/issues/29)
 * [[B] #60 - Default login route is needed](https://github.com/Viva-con-Agua/arise/issues/60)
