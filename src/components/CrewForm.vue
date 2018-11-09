@@ -1,15 +1,16 @@
 <template>
   <div id="form-vertical">
-    <div class="form-group" :class="{'has-error': errors.has('required')}">
+    <div class="form-group" :class="{'has-error': errors.has('name')}">
       <p v-html="$t('crewform.label.crewname')"></p>
-      <label class="control-label" for="crewForm.CrewName">Email</label>
+      <label class="control-label" for="crewForm.CrewName"></label>
       <input 
         v-model="crewForm.CrewName" 
         placeholder=""
-        v-validate="crewForm.CrewName"
+        name="name"
+        v-validate="{ required: true }"
         data-rules="required"
         prop="CrewName">
-      <p class="text-danger" v-if="errors.has('required')">{{ errors.first('required') }}</p> 
+      <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p> 
     </div>
     <div class="form-group">
       <p v-html="$t('crewform.label.location')"></p>
@@ -27,6 +28,7 @@
         type="primary"
         icon="el-icon-arrow-right"
         class="btn btn-primary"
+        @click="$validator.validate()"
         v-on:click="submitForm(crewForm)">{{ $t('options.submit') }}
       </button>
     </div>
