@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <CrewForm/>
-    <CrewList v-model="crews"/>
+    <CrewList/>
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
   import VueNativeSock from 'vue-native-websocket'
-  import CrewForm from '@/components/CrewForm.vue'
-  import CrewList from '@/components/CrewList.vue'
+  import CrewForm from '@/components/crews/CrewForm.vue'
+  import CrewList from '@/components/crews/CrewList.vue'
   
   Vue.use(VueNativeSock, 'ws://localhost/drops/webapp/crew/ws', { format: 'json'})
 

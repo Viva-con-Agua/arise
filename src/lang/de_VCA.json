@@ -1,4 +1,60 @@
 {"hello": "Hallo Welt!",
+  "label": {
+    "separator": ": ",
+    "asp": "Manager",
+    "aspOfCrew": "Manager {crewName}",
+    "sorting": {
+      "dirButton" : {
+        "ASC": "Click to sort descending",
+        "DESC": "Click to sort ascending"
+      },
+      "fields": {
+        "crewName" : "Crew name",
+        "cityName" : " Crew city",
+        "cityCountry" : "Crew country "
+      }
+    },
+    "typeSelection": {
+      "large": "Big Widgets",
+      "medium": "Small Widgets",
+      "small": "Tags",
+      "table": "Table"
+    },
+    "pagination": {
+      "button": {
+        "previous": "No more supporter | Show first | Show previous (%{number})",
+        "next": "No more supporter | Show last | Show next (%{number})"
+      }
+    },
+    "table" : {
+      "name": "Name",
+      "city": "City",
+      "country": "Country"
+    },
+    "placeholder": {
+      "search": "Search..."
+    },
+    "search": {
+      "Supporter_firstName": "First name",
+      "Supporter_lastName": "Last name",
+      "Profile_email": "Email",
+      "User_created": "Since",
+      "Supporter_placeOfResidence": "Place of residence",
+      "Supporter_mobilePhone": "Mobile phone",
+      "Supporter_birthday": "Age",
+      "Supporter_sex": "Gender",
+      "Supporter_Crew_name": "Crew",
+      "User_roles": "Employee?",
+      "Supporter_Crew_role": "Crew Manager?",
+      "Supporter_Crew_pillar": "Section",
+      "remove": {
+        "tag": "Remove query condition"
+      },
+      "button": {
+        "and": "Add condition"
+      }
+    }
+  },
 
   "options": {
     "reset": "zurücksetzen",
