@@ -36,7 +36,7 @@
     "sass-loader": "^7.0.3",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "v-tooltip": "^2.0.0-rc.33",
-    "vca-widget-user": "^0.3.3",
+    "vca-widget-user": "^0.3.6",
     "vee-validate": "^2.1.0-beta.6",
     "vue": "^2.5.16",
     "vue-axios": "^2.1.2",
