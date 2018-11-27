@@ -19,8 +19,9 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ChangeLog
 =========
 
-## Version 0.1.10 (2018-11-09)
+## Version 0.2.10 (2018-11-27)
 
+* [[F] #79 - Use RbAC in authentification](https://github.com/Viva-con-Agua/arise/issues/79)
 * [[F] #1 - SignUp-form](https://github.com/Viva-con-Agua/arise/issues/1)
 * [[I] #21 - Landing Page redirect](https://github.com/Viva-con-Agua/arise/issues/21)
 * [[B] #26 - Missing i18n translations](https://github.com/Viva-con-Agua/arise/issues/26)
