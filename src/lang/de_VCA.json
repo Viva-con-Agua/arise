@@ -66,24 +66,44 @@
   },
 
   "signup": {
-    "title": "Supporti werden",
+    "title": {
+      "view": "Account erstellen",
+      "supporter": "Supporterdaten",
+      "credentials": "Login und Passwort",
+      "register": "Registrieren"
+    },
     "label": {
       "firstname": "Vorname:",
       "lastname": "Nachname:",
-      "mobile": "Mobiltelefonnummer:",
+      "mobile": "Handynummer:",
       "placeofresidence": "Wohnort:",
       "birthdate": "Geburtstag:",
       "birthdateinfo": "Wann wurdest du Geboren?",
       "gender": "Gender:",
       "email": "E-Mail:",
       "checkemail": "E-Mail bestätigen",
-      "password": "Passwort:",
+      "password": {
+        "title": "Passwort:",
+        "placeholder": "Bitte geben Sie ihr Passwort ein"
+      },
       "confirmPassword": "Passwort wiederholen:"
     },
+    "infoBox": "Euren Namen, das Alter und den Wohnort benötigen wir, um euch bei einigen Veranstaltern als Teilnehmer von Aktionen anzumelden. Euer Geschlecht wird für eine faire Verteilung der Teilnehmer an Aktionen erhoben und die Telefonnummer wird benötigt, um ggf. schnelle Absprachen im Vorfeld von Aktionen abzuwickeln.",
     "asupporti": "Du bist bereits Supporter?",
     "finish" : {
       "title" : "Fast geschafft, Supporti!",
       "description" : "Du bist der Tropfen! Du bekommst sofort eine e-mail, klicke dort auf den Link und dein Account wird freigeschaltet."
+    },
+    "formSubmit": "Mitmachen",
+    "error": {
+      "password": {
+        "empty": "Du hast nichts eingegeben...",
+        "unequal": "Die beiden eingegebenen Passwörter stimmen nicht überein."
+      },
+      "email": {
+        "empty": "Du hast nichts eingegeben...",
+        "unequal": "Die beiden eingegebenen Email-Adressen stimmen nicht überein."
+      }
     }
   },
   "signin": {
@@ -209,17 +229,6 @@
       "title": "allet fertig!",
       "description": "Du wirst in den nächsten Sekunden zur SignIn Seite weitergeleitet... Oder klicke ",
       "clickLabel": "hier!"
-    }
-  },
-  "signup": {
-    "label": {
-      "firstname": "Vorname:",
-      "lastname": "Nachname:",
-      "mobile": "Mobiltelefonnummer:",
-      "placeofresidence": "Wohnort:",
-      "birthdate": "Geburtstag:",
-      "birthdateinfo": "Wann wurdest du Geboren?",
-      "gender": "Gender:"
     }
   },
 
