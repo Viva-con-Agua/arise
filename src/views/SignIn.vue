@@ -22,7 +22,7 @@
           prop="email">
           <el-input
             v-model="signInForm.email"
-            autocomplete="on"
+            autoComplete="on"
             />
         </el-form-item>
         <el-form-item

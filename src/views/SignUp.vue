@@ -259,17 +259,26 @@
                if (response.status == 200) {
                  that.$router.push({path: 'finishSignup'})
                }
-             }
+             })
              .catch(function (error) {
                  switch (error.response.status) {
                      case 500:
-                         that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                         if(error.response.data.hasOwnProperty("msg")) {
+                             that.open(that.$t('signup.error.serverError.title'), error.response.data.msg, "error");
+                         } else {
+                             that.open(that.$t('signup.error.serverError.title'), that.$t('signup.error.serverError.msg'), "error");
+                         }
                          break;
                      case 401:
-                         that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                         if(error.response.data.hasOwnProperty("msg")) {
+                             that.open(that.$t('signup.error.unAuthorized.title'), error.response.data.msg, "error");
+                         } else {
+                             that.open(that.$t('signup.error.unAuthorized.title'), that.$t('signup.error.unAuthorized.msg'), "error");
+                         }
+                         break;
                  }
               })
-             .finally(() => this.loading = false))
+             .finally(() => this.loading = false)
          }
        });
      },

@@ -91,7 +91,7 @@
     "infoBox": "Euren Namen, das Alter und den Wohnort benötigen wir, um euch bei einigen Veranstaltern als Teilnehmer von Aktionen anzumelden. Euer Geschlecht wird für eine faire Verteilung der Teilnehmer an Aktionen erhoben und die Telefonnummer wird benötigt, um ggf. schnelle Absprachen im Vorfeld von Aktionen abzuwickeln.",
     "asupporti": "Du bist bereits Supporter?",
     "finish" : {
-      "title" : "Fast geschafft, Supporti!",
+      "title" : "Fast geschafft!",
       "description" : "Du bist der Tropfen! Du bekommst sofort eine e-mail, klicke dort auf den Link und dein Account wird freigeschaltet."
     },
     "formSubmit": "Mitmachen",
@@ -103,6 +103,14 @@
       "email": {
         "empty": "Du hast nichts eingegeben...",
         "unequal": "Die beiden eingegebenen Email-Adressen stimmen nicht überein."
+      },
+      "unAuthorized": {
+        "title": "Zugriff verweigert",
+        "msg": "Du darfst auf dich gerade nicht registrieren. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+      },
+      "serverError": {
+        "title": "Interner Fehler",
+        "msg": "Es ist ein Fehler auf dem Server aufgetreten. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
       }
     }
   },
