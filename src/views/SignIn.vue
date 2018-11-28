@@ -22,6 +22,7 @@
           prop="email">
           <el-input
             v-model="signInForm.email"
+            autocomplete="on"
             />
         </el-form-item>
         <el-form-item
@@ -38,20 +39,25 @@
         v-model="signInForm.rememberMe">
         {{ $t('options.rememberme') }}
       </el-checkbox>
-      <el-button
-        class="buttonSignin"
-        type="primary"
-        icon="el-icon-arrow-right"
-        @click.prevent="submitForm(signInForm)">
+      <!--<el-button-->
+        <!--class="vca-button-primary buttonSignin"-->
+        <!--type="primary"-->
+        <!--icon="el-icon-arrow-right"-->
+        <!--@click.prevent="submitForm(signInForm)">-->
+        <!--{{ $t('options.signin') }}-->
+      <!--</el-button>-->
+
+      <button
+              class="vca-button-primary buttonSignin"
+              @click.prevent="submitForm(signInForm)">
         {{ $t('options.signin') }}
-      </el-button>
+      </button>
       <div class="text-body">
         <span>{{ $t('signin.notasupporti') }} <router-link :to="{name: 'SignUp'}">{{ $t('signin.notasupportiklick') }}</router-link></span><br />
         <span>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: 'default' }}">{{ $t('signin.lostpwklick') }}</router-link></span>
       </div>
     </el-card>
-    <Freak
-      message="Schon dabei?"></Freak>
+    <Freak :message="$t('freak.signin')" />
   </div>
 </template>
 
@@ -96,10 +102,15 @@
 
         rules: {
               email: [
-                  { required: true, message: this.$t('validationError.email'), trigger: 'blur' },
+                  {
+                      required: true,
+                      message: this.$t('validationError.email'),
+                      trigger: 'blur'
+                  },
                   {
                       pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: this.$t('inputSample.email'), trigger: 'blur'
+                      message: this.$t('inputSample.email'),
+                      trigger: 'blur'
                   }
               ],
               password: [
@@ -188,12 +199,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  /*  background-repeat: repeat;
-    background: -webkit-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
-    background: -o-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
-    background: -moz-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
-    background: linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
-  */
   }
 
   .title {
@@ -206,6 +211,10 @@
   }
   .list {
     font-size: 13px;
+  }
+  .freak {
+    left: 1em;
+    width: 10%;
   }
 
 </style>

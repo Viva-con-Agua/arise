@@ -254,6 +254,10 @@
       "default": "Da ist ein Fehler aufgetreten."
     },
     "status": "Fehlercode: {code}"
-  }
+  },
 
+  "freak": {
+    "default": "Ups!",
+    "signin": "Schon dabei?"
+  }
 }

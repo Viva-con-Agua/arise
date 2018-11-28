@@ -256,6 +256,11 @@
       "default": "Unknown error occured."
     },
     "status": "Error code: {code}"
+  },
+
+  "freak": {
+    "default": "Ups!",
+    "signin": "Join!"
   }
 
 }
