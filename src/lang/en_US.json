@@ -71,7 +71,8 @@
       "view": "Create an account",
       "supporter": "Supporter",
       "credentials": "Login and Password",
-      "register": "Register"
+      "register": "Register",
+      "token": "Check new user"
     },
     "label": {
       "firstname": "Firstname:",
@@ -90,6 +91,9 @@
       "confirmPassword": "Confirm Password:"
     },
     "infoBox": "Your name, age and place of residence are sometimes required to register you for activities (like some festivals). We would like to select the supporter for concerts and festivals fairly, thus we try to distribute the slots balanced between different genders. Additionally, your mobile phone will be used for quick clarification before an action.",
+    "info": {
+      "token": "Redirect follows soon. Please contact us via email, if an error occurs."
+    },
     "asupporti": "You are registered?",
     "finish" : {
       "title" : "You're almost done!",
@@ -112,6 +116,10 @@
       "serverError": {
         "title": "Internal error",
         "msg": "An internal error occurred. Please send us an email to alert us about this problem."
+      },
+      "badRequest": {
+        "title": "Problem with your data",
+        "msg": "Your data has issued an error. Please send us an email to alert us about this problem."
       }
     }
   },

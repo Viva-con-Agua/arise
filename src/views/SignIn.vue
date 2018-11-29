@@ -1,62 +1,47 @@
 <template>
   <div id="signin">
-    <el-card class="box-card">
-      <div
-        slot="header"
-        class="title">
-        <font-awesome-icon
-          icon="sign-in-alt"
-          size="4x"/>
-        <h2>{{ $t("signin.title") }}</h2>
-      </div>
-      <!-- <div class="description">
-        {{ $t("signin.description") }}
-      </div>-->
-      <el-form
-        :ref="signInForm"
-        :model="signInForm"
-        @keyup.enter.native="submitForm(signInForm)"
-        :rules="rules">
-        <el-form-item
-          :label="$t('signin.label.email')"
-          prop="email">
-          <el-input
-            v-model="signInForm.email"
-            autoComplete="on"
-            />
-        </el-form-item>
-        <el-form-item
-          :label="$t('signin.label.password')"
-          prop="password">
-          <el-input
-            v-model="signInForm.password"
-            type="password"
-            />
-           </el-input>
-        </el-form-item>
-      </el-form>
-      <el-checkbox
-        v-model="signInForm.rememberMe">
-        {{ $t('options.rememberme') }}
-      </el-checkbox>
-      <!--<el-button-->
-        <!--class="vca-button-primary buttonSignin"-->
-        <!--type="primary"-->
-        <!--icon="el-icon-arrow-right"-->
-        <!--@click.prevent="submitForm(signInForm)">-->
-        <!--{{ $t('options.signin') }}-->
-      <!--</el-button>-->
-
-      <button
-              class="vca-button-primary buttonSignin"
-              @click.prevent="submitForm(signInForm)">
-        {{ $t('options.signin') }}
-      </button>
-      <div class="text-body">
-        <span>{{ $t('signin.notasupporti') }} <router-link :to="{name: 'SignUp'}">{{ $t('signin.notasupportiklick') }}</router-link></span><br />
-        <span>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: 'default' }}">{{ $t('signin.lostpwklick') }}</router-link></span>
-      </div>
-    </el-card>
+    <VcAFrame>
+      <VcAColumn>
+        <VcABox :title="$t('signin.title')">
+          <el-form
+                  :ref="signInForm"
+                  :model="signInForm"
+                  @keyup.enter.native="submitForm(signInForm)"
+                  :rules="rules">
+            <el-form-item
+                    :label="$t('signin.label.email')"
+                    prop="email">
+              <el-input
+                      v-model="signInForm.email"
+                      autoComplete="on"
+              />
+            </el-form-item>
+            <el-form-item
+                    :label="$t('signin.label.password')"
+                    prop="password">
+              <el-input
+                      v-model="signInForm.password"
+                      type="password"
+              />
+              </el-input>
+            </el-form-item>
+          </el-form>
+          <el-checkbox
+                  v-model="signInForm.rememberMe">
+            {{ $t('options.rememberme') }}
+          </el-checkbox>
+          <button
+                  class="vca-button-primary buttonSignin"
+                  @click.prevent="submitForm(signInForm)">
+            {{ $t('options.signin') }}
+          </button>
+          <div class="text-body">
+            <span>{{ $t('signin.notasupporti') }} <router-link :to="{name: 'SignUp'}">{{ $t('signin.notasupportiklick') }}</router-link></span><br />
+            <span>{{ $t('signin.lostpw') }} <router-link :to="{ name: 'resetPasswordInstructions', params: { pool: 'default' }}">{{ $t('signin.lostpwklick') }}</router-link></span>
+          </div>
+        </VcABox>
+      </VcAColumn>
+    </VcAFrame>
     <Freak :message="$t('freak.signin')" />
   </div>
 </template>
@@ -67,9 +52,11 @@
   import axios from 'axios'
   import VueAxios from 'vue-axios'
   import Freak from '@/components/Freak.vue'
+  import VcAFrame from '@/components/page/VcAFrame.vue';
+  import VcAColumn from '@/components/page/VcAColumn.vue';
+  import VcABox from '@/components/page/VcABox.vue';
   import {
     Button,
-    Card,
     Checkbox,
     Form,
     FormItem,
@@ -79,7 +66,6 @@
 
   Vue.use(VueAxios, axios);
   Vue.use(Button);
-  Vue.use(Card);
   Vue.use(Checkbox);
   Vue.use(Form);
   Vue.use(FormItem);
@@ -90,7 +76,7 @@
 
   export default {
     name: "SignIn",
-    components: {Freak},
+    components: {Freak, VcAFrame, VcAColumn, VcABox},
 
     data() {
       return {
@@ -184,13 +170,6 @@
     margin-top:1em;
     margin-bottom:1em;
     width: 100%;
-    /*padding-top: 0.6em;*/
-  }
-
-  .box-card {
-    width: 35%;
-    margin: 0 auto;
-    margin-top: 10%;
   }
 
   #signin {
@@ -199,18 +178,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  }
-
-  .title {
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .content {
-    font-size: 16px;
-  }
-  .list {
-    font-size: 13px;
   }
   .freak {
     left: 1em;

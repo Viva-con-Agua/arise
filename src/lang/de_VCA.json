@@ -70,7 +70,8 @@
       "view": "Account erstellen",
       "supporter": "Supporterdaten",
       "credentials": "Login und Passwort",
-      "register": "Registrieren"
+      "register": "Registrieren",
+      "token": "Prüfe neuen Nutzer"
     },
     "label": {
       "firstname": "Vorname:",
@@ -89,6 +90,9 @@
       "confirmPassword": "Passwort wiederholen:"
     },
     "infoBox": "Euren Namen, das Alter und den Wohnort benötigen wir, um euch bei einigen Veranstaltern als Teilnehmer von Aktionen anzumelden. Euer Geschlecht wird für eine faire Verteilung der Teilnehmer an Aktionen erhoben und die Telefonnummer wird benötigt, um ggf. schnelle Absprachen im Vorfeld von Aktionen abzuwickeln.",
+    "info": {
+      "token": "Weiterleitung erfolgt gleich. Sollte es zu einem Fehler kommen, wenden Sie sich bitte via Email an uns."
+    },
     "asupporti": "Du bist bereits Supporter?",
     "finish" : {
       "title" : "Fast geschafft!",
@@ -111,6 +115,14 @@
       "serverError": {
         "title": "Interner Fehler",
         "msg": "Es ist ein Fehler auf dem Server aufgetreten. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+      },
+      "badRequest": {
+        "title": "Problem mit den Angaben",
+        "msg": "Deine angegebenen Daten haben einen Fehler verursacht. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+      },
+      "notFound": {
+        "title": "Nichts gefunden",
+        "msg": "Dazu konnte nichts gefunden werden. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
       }
     }
   },

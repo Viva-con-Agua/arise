@@ -68,6 +68,11 @@ const router = new Router({
             component: loadView('SignUp')
         },
         {
+            path: '/signupCompletion/:token',
+            name: 'SignUpToken',
+            component: loadView('SignUpToken')
+        },
+        {
           path: '/finishsignup',
           name: 'finishSignup',
           component: loadView('finishSignup')
