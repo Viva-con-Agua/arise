@@ -8,45 +8,45 @@
         @keyup.enter.native="submitForm"
         status-icon>
       <VcAColumn>
-        <VcABox :first="true" :title="$t('signup.title.supporter')">
-          <p class="infoBox">
-            {{ $t('signup.infoBox') }}
-          </p>
+        <VcABox :first="true" :title="$t('supporterForm.title')">
+          <VcAInfoBox>
+            {{ $t('supporterForm.infoBox') }}
+          </VcAInfoBox>
           <el-form-item
-            :label="$t('signup.label.firstname')"
+            :label="$t('supporterForm.label.firstname')"
             prop="firstname">
             <el-input
               v-model="signUpForm.firstName"/>
           </el-form-item>
           <el-form-item
-            :label="$t('signup.label.lastname')"
+            :label="$t('supporterForm.label.lastname')"
             prop="lastname">
             <el-input
               v-model="signUpForm.lastName"/>
           </el-form-item>
           <el-form-item
-            :label="$t('signup.label.mobile')"
+            :label="$t('supporterForm.label.mobile')"
             prop="mobile">
             <el-input
               v-model="signUpForm.mobilePhone"/>
           </el-form-item>
           <el-form-item
-            :label="$t('signup.label.placeofresidence')"
+            :label="$t('supporterForm.label.placeofresidence')"
             prop="placeofresidence">
             <el-input
               v-model="signUpForm.placeOfResidence"/>
           </el-form-item>
           <el-form-item
-            :label="$t('signup.label.birthdate')"
+            :label="$t('supporterForm.label.birthdate')"
             prop="birthdate">
             <el-date-picker
               v-model="signUpForm.birthday"
-              :placeholder="$t('signup.label.birthdateinfo')"
+              :placeholder="$t('supporterForm.label.birthdateinfo')"
               type="date"
               style="width: 100%;"/>
           </el-form-item>
           <el-form-item
-            :label="$t('signup.label.gender')"
+            :label="$t('supporterForm.label.gender')"
             prop="gender">
             <div id="genContent">
               <el-radio-group
@@ -129,6 +129,7 @@
   import VcAFrame from '@/components/page/VcAFrame.vue';
   import VcAColumn from '@/components/page/VcAColumn.vue';
   import VcABox from '@/components/page/VcABox.vue';
+  import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
   import {
     Button,
     DatePicker,
@@ -156,7 +157,7 @@
 
 
  export default {
-   components: { Password, VcAFrame, VcAColumn, VcABox },
+   components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
    data () {
        var checkPass = (rule, value, callback) => {
            if (value === '') {
@@ -304,15 +305,6 @@
     margin-bottom:1em;
     width: 100%;
     /*padding-top: 0.6em;*/
-  }
-
-  .infoBox {
-    background-color: rgba(165, 119, 64, 0.6);
-    border: 1px dashed rgba(165, 119, 64, 1);
-    -webkit-border-radius: 0.3em;
-    -moz-border-radius: 0.3em;
-    border-radius: 0.3em;
-    padding: 0.5em;
   }
 
   /*.suggestions {*/

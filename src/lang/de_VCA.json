@@ -11,7 +11,8 @@
     "signin": "Einloggen",
     "rememberme" : "Eingeloggt bleiben",
     "back": "Zurück",
-    "edit": "Editieren"
+    "edit": "Editieren",
+    "delete": "Löschen"
   },
 
   "validationError": {
@@ -65,14 +66,8 @@
     "prefernottosay": "keine Antwort"
   },
 
-  "signup": {
-    "title": {
-      "view": "Account erstellen",
-      "supporter": "Supporterdaten",
-      "credentials": "Login und Passwort",
-      "register": "Registrieren",
-      "token": "Prüfe neuen Nutzer"
-    },
+  "supporterForm": {
+    "title": "Supporterdaten",
     "label": {
       "firstname": "Vorname:",
       "lastname": "Nachname:",
@@ -80,7 +75,28 @@
       "placeofresidence": "Wohnort:",
       "birthdate": "Geburtstag:",
       "birthdateinfo": "Wann wurdest du Geboren?",
-      "gender": "Gender:",
+      "gender": "Gender:"
+    },
+    "infoBox": "Euren Namen, das Alter und den Wohnort benötigen wir, um euch bei einigen Veranstaltern als Teilnehmer von Aktionen anzumelden. Euer Geschlecht wird für eine faire Verteilung der Teilnehmer an Aktionen erhoben und die Telefonnummer wird benötigt, um ggf. schnelle Absprachen im Vorfeld von Aktionen abzuwickeln."
+  },
+
+  "profile": {
+    "title": {
+      "account": "Account",
+      "avatar": "Profilbild",
+      "update": "Aktualisieren",
+      "crew": "Crew-Auswahl"
+    }
+  },
+
+  "signup": {
+    "title": {
+      "view": "Account erstellen",
+      "credentials": "Login und Passwort",
+      "register": "Registrieren",
+      "token": "Prüfe neuen Nutzer"
+    },
+    "label": {
       "email": "E-Mail:",
       "checkemail": "E-Mail bestätigen",
       "password": {
@@ -89,7 +105,6 @@
       },
       "confirmPassword": "Passwort wiederholen:"
     },
-    "infoBox": "Euren Namen, das Alter und den Wohnort benötigen wir, um euch bei einigen Veranstaltern als Teilnehmer von Aktionen anzumelden. Euer Geschlecht wird für eine faire Verteilung der Teilnehmer an Aktionen erhoben und die Telefonnummer wird benötigt, um ggf. schnelle Absprachen im Vorfeld von Aktionen abzuwickeln.",
     "info": {
       "token": "Weiterleitung erfolgt gleich. Sollte es zu einem Fehler kommen, wenden Sie sich bitte via Email an uns."
     },
