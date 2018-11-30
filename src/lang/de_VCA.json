@@ -86,6 +86,22 @@
       "avatar": "Profilbild",
       "update": "Aktualisieren",
       "crew": "Crew-Auswahl"
+    },
+    "messages": {
+      "update" : {
+        "success" : {
+          "title": "Erfolgreich gespeichert",
+          "message": "Dein Profil wurde aktualisiert."
+        },
+        "notAuthorized": {
+          "title": "Nicht gespeichert",
+          "message": "Du bist ausgeloggt, deshalb konnte nichts gespeichert werden."
+        },
+        "notFound": {
+          "title": "Nicht gespeichert",
+          "message": "Dein Profil konnte nicht gefunden werden, weshalb es nicht aktualisiert werden kann."
+        }
+      }
     }
   },
 

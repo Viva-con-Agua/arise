@@ -135,7 +135,7 @@
     DatePicker,
     Form,
     FormItem,
-    MessageBox,
+    Notification,
     Radio,
     RadioGroup,
     Upload,
@@ -147,11 +147,13 @@
   Vue.use(DatePicker);
   Vue.use(Form);
   Vue.use(FormItem);
-  Vue.use(MessageBox);
+  Vue.use(Notification);
   Vue.use(Radio);
   Vue.use(RadioGroup);
   Vue.use(Upload);
   Vue.use(Input);
+
+  Notification.closeAll();
 
   export default {
     name: "ChangeProfile",
@@ -209,19 +211,32 @@
                   this.axios
                       .post('/drops/webapp/profile/update', toProfileSubmit(that.profileForm, that.emailaddress))
                       .then(function (response) {
+                          console.log(response)
                           switch (response.status) {
                               case 200:
-                                  // Todo: Show message!
+                                  that.open(
+                                      that.$t('profile.messages.update.success.title'),
+                                      that.$t('profile.messages.update.success.message'),
+                                      "success"
+                                  )
                                   break;
                           }
                       })
                       .catch(function (error) {
                           switch (error.response.status) {
                               case 401:
-                                  // Todo: Show message!
+                                  that.open(
+                                      that.$t('profile.messages.update.notAuthorized.title'),
+                                      that.$t('profile.messages.update.notAuthorized.message'),
+                                      "error"
+                                  )
                                   break;
                               case 404:
-                                  // Todo: Show message!
+                                  that.open(
+                                      that.$t('profile.messages.update.notFound.title'),
+                                      that.$t('profile.messages.update.notFound.message'),
+                                      "error"
+                                  )
                                   break;
                           }
                       })
@@ -244,6 +259,13 @@
           this.$message.error('Avatar picture size can not exceed 2MB!');
         }
         return isJPG && isLt2M;
+      },
+      open(title, message, type) {
+          Notification({
+              title:  title,
+              message: message,
+              type: type
+          });
       }
     },
     created () {
