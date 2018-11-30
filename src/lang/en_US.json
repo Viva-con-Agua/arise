@@ -300,13 +300,13 @@
   "errorState": {
     "header": "Uuups",
     "message" : {
-      "401": "You have to be logged in to visit this page.",
-      "403": "You have no permission to access this page.",
-      "404": "Not found.",
-      "500": "Internal error.",
-      "default": "Unknown error occured."
+      "401": "You have to be logged in to visit this page",
+      "403": "You have no permission to access this page",
+      "404": "Not found",
+      "500": "Internal error",
+      "default": "Unknown error occured"
     },
-    "status": "Error code: {code}"
+    "status": "Please write us an email, if need additional support. The mail should contain the address that you would like to access, the error code ({code}) and your pool account's email address."
   },
 
   "freak": {
