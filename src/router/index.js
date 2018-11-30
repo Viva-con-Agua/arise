@@ -88,6 +88,14 @@ const router = new Router({
             component: loadView('SignIn')
         },
         {
+            path: "/out/",
+            name: 'SignOut',
+            component: loadView('SignOut'),
+            meta: {
+                'roles': ['Supporter']
+            }
+        },
+        {
             path: "/tasks",
             name: 'Tasks',
             component: loadView('Tasks'),

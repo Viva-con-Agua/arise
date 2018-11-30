@@ -106,6 +106,21 @@
     }
   },
 
+  "signOut" : {
+    "title": "Sign out",
+    "info": "You will be signed out...",
+    "error": {
+      "serverError": {
+        "title": "Internal Error",
+        "msg": "Unfortunately, an internal error occurred. Please try again later."
+      },
+      "unAuthorized": {
+        "title": "Not identified",
+        "msg": "We can not identify your user. Thus, we are not able to sign you out."
+      }
+    }
+  },
+
   "signup": {
     "title": {
       "view": "Create an account",

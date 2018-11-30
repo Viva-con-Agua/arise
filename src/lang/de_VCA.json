@@ -105,6 +105,21 @@
     }
   },
 
+  "signOut" : {
+    "title": "Ausloggen",
+    "info": "Du wirst jetzt ausgeloggt...",
+    "error": {
+      "serverError": {
+        "title": "Interner Fehler",
+        "msg": "Leider ist ein interner Fehler aufgetreten. Bitte versuche es nocheinmal."
+      },
+      "unAuthorized": {
+        "title": "Nicht identifiziert",
+        "msg": "Wir konnte dich nicht identifizieren. Daher kannst du nicht ausgeloggt werden."
+      }
+    }
+  },
+
   "signup": {
     "title": {
       "view": "Account erstellen",
