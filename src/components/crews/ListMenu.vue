@@ -5,9 +5,11 @@
     </li>
     <li v-if="config.hasSortingSelect() || this.hasSortingDirButton()" class="sorting">
       <v-select v-if="config.hasSortingSelect()" v-model="sorting.getCurrentField()" @input="fireFieldSelection" :options="sorting.getFields()" :clearable="false"></v-select>
-      <button v-if="config.hasSortingDirButton()" v-bind:value="sorting.sortDir" @click="fireSortDirSelection" :title="$vcaI18n.t('label.sorting.dirButton.' + sorting.sortDir)">
-        <div v-if="sorting.is('ASC')" src="/images/sort-alpha-down.svg" />
-         <div v-if="sorting.is('DESC')" src="/images/sort-alpha-up.svg" /> 
+      <button v-if="config.hasSortingDirButton()" v-bind:value="sorting.sortDir" @click="fireSortDirSelection" :title="$t('crewlist.sorting.dirButton.' + sorting.sortDir)">
+        <div v-if="sorting.is('ASC')" v-html="require('./images/sort-alpha-down.svg')" />
+        </div>
+        <div v-if="sorting.is('DESC')" v-html="require('./images/sort-alpha-up.svg')">
+          </div>
       </button>
     </li>
   </ul>
@@ -99,19 +101,6 @@
   }
   .listMenu li button {
     .svgButton()
+    
   }
-  /*.listMenu li button {*/
-    /*margin-left: 1em;*/
-    /*background: none;*/
-    /*border: 1px solid rgba(60, 60, 60, 0.26);*/
-    /*border-radius: 4px;*/
-  /*}*/
-  /*.listMenu li button /deep/ div {*/
-    /*pointer-events: none;*/
-  /*}*/
-  /*.listMenu li button /deep/ svg {*/
-    /*width: 1.5em;*/
-    /*pointer-events: none;*/
-    /*cursor: pointer;*/
-  /*}*/
 </style>

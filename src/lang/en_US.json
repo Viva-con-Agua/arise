@@ -1,19 +1,25 @@
 {
-  "hello": "Hello World!",
-
   "label": {
     "separator": ": ",
+    "email": "e-mail:",
+    "password": "Passwort:",
+    "checkPassword": "Password überprüfen:",
     "asp": "Manager",
     "aspOfCrew": "Manager {crewName}",
+    "table" : {
+      "name": "Name",
+      "city": "City",
+      "country": "Country"
+    },
     "sorting": {
       "dirButton" : {
         "ASC": "Click to sort descending",
         "DESC": "Click to sort ascending"
       },
       "fields": {
-        "crewName" : "Crew name",
-        "cityName" : " Crew city",
-        "cityCountry" : "Crew country "
+        "crewName": "Crew name",
+        "cityName": "Crew city",
+        "cityCountry": "Crew country "
       }
     },
     "typeSelection": {
@@ -28,11 +34,7 @@
         "next": "No more supporter | Show last | Show next (%{number})"
       }
     },
-    "table" : {
-      "name": "Name",
-      "city": "City",
-      "country": "Country"
-    },
+
     "placeholder": {
       "search": "Search..."
     },
@@ -178,10 +180,21 @@
 
   "crewlist": {
     "label": {
-      "crewname": "Crewname:",
-      "cities": "City / Cities:",
-      "country": "Country:",
-      "operations": "Options:"
+      "crewname": "Name: ",
+      "cities": "City:",
+      "country": "Country: ",
+      "operations": "Optionen:"
+    },
+    "sorting": {
+      "dirButton" : {
+        "ASC": "Click to sort descending",
+        "DESC": "Click to sort ascending"
+      },
+      "fields": {
+        "crewName": "Crew name",
+        "cityName": "Crew city",
+        "cityCountry": "Crew country "
+      }
     }
   },
 
@@ -229,11 +242,7 @@
         "3" : "finish"
       }
     },
-    "label": {
-      "email": "e-mail:",
-      "password": "Password:",
-      "checkPassword": "Check password:"
-    },
+
     "alert": {
       "title": "e-mail was sent",
       "description":"You will receive the e-mail in the next few minutes. Please hold the line ;-)"

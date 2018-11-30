@@ -1,6 +1,10 @@
-{"hello": "Hallo Welt!",
+{
+  "hello": "Hallo Welt!",
   "label": {
     "separator": ": ",
+    "email": "e-mail:",
+    "password": "Passwort:",
+    "checkPassword": "Password überprüfen:",
     "asp": "Manager",
     "aspOfCrew": "Manager {crewName}",
     "sorting": {
@@ -9,9 +13,9 @@
         "DESC": "Click to sort ascending"
       },
       "fields": {
-        "crewName" : "Crew name",
-        "cityName" : " Crew city",
-        "cityCountry" : "Crew country "
+        "crewName": "Crew name",
+        "cityName": "Crew city",
+        "cityCountry": "Crew country "
       }
     },
     "typeSelection": {
@@ -175,10 +179,21 @@
 
   "crewlist": {
     "label": {
-      "crewname": "Crewname:",
-      "cities": "Stadt / Städte:",
-      "country": "Land:",
+      "crewname": "Name: ",
+      "cities": "Stadt:",
+      "country": "Land: ",
       "operations": "Optionen:"
+    },
+    "sorting": {
+      "dirButton" : {
+        "ASC": "Hier klicken, um absteigend zu sortieren",
+        "DESC": "Hier klicken, um aufsteigend zu sortieren"
+      },
+      "fields": {
+        "crewName": "Name",
+        "cityName": "Stadt",
+        "cityCountry": "Land"
+      }
     }
   },
 
@@ -227,11 +242,7 @@
         "3" : "fertig"
       }
     },
-    "label": {
-      "email": "e-mail:",
-      "password": "Passwort:",
-      "checkPassword": "Password überprüfen:"
-    },
+ 
     "alert": {
       "title": "Die E-Mail wurde versandt",
       "description":"Du bekommst in den nächsten Minuten eine E-Mail. Bitte hab etwas Geduld"

@@ -28,15 +28,15 @@
 <script>
   import Vue from 'vue'
   import axios from 'axios'
-  import Config from '../utils/Config'
-  import Page from '../utils/Page'
-  import Sorting from '../utils/Sorting'
+  import Config from './utils/Config'
+  import Page from './utils/Page'
+  import Sorting from './utils/Sorting'
   import ListMenu from './ListMenu'
   import SearchField from './SearchField'
   import TableCrews from './TableCrews'
   export default {
     name: 'CrewList',
-    props: ['options'],
+    props: ['options', 'webSocket'],
     components: {
       'ListMenu': ListMenu,
       'SearchField': SearchField,
@@ -56,9 +56,8 @@
       }
     },
     created () {
-      var lang = this.config.getLang()
-      Vue.config.lang = lang
-      this.$vcaI18n.locale = lang
+      
+      this.$options.sockets.onmessage = (data) => this.checkPageUpdates(data);
       this.sorting = new Sorting(this.config.getType(), this.$vcaI18n, this.config.getSortingInit())
       this.getCount()
       this.getPage()
@@ -69,6 +68,10 @@
           this.page = this.page.next()
           this.getPage()
         }
+      },
+      checkPageUpdates: function (data) {
+          console.log(data)
+          this.getPage()
       },
       removePage: function (event) {
         if (this.page.hasPrevious()) {
@@ -85,7 +88,7 @@
         }
         if(this.query.query !== null && (typeof this.query.query !== "undefined") && this.query.query !== "") {
           request['query'] = this.query.query
-        }
+   }
         axios.post('/drops/webapp/crew/list', request)
               .then(response => {
                 switch (response.status) {
@@ -143,7 +146,7 @@
 
 <style scoped lang="less">
   @import './assets/general.less';
-  .user-widget-list {
+  .crew-list {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -152,7 +155,6 @@
       text-align: center;
       span {
         .colorProfileThirdly();
-        width: 30em;
         border-radius: @radius;
         height: 2em;
         box-shadow: #shadow[primary];

@@ -47,6 +47,7 @@
   export default {
     name: "CrewForm",
     components: {},
+    props:['webSocket'],
     data() {
       return {
         address: '',
@@ -75,7 +76,6 @@
       }
     },
     mounted() {
-      this.$options.sockets.onmessage = (data) => console.log(data);
       this.autocomplete = new google.maps.places.Autocomplete(
           (this.$refs.autocomplete),
           {types: ['(cities)']}
@@ -98,10 +98,12 @@
             {name: this.crewForm.CrewName, cities: this.crewForm.Cities}
           ]
         }));
-        this.$options.sockets.onmessage = (data) => console.log(data);
       },
       submitForm(crewForm) {
         this.socketSend('INSERT', crewForm);
+        this.rules.CrewName[0].required = true;
+        this.crewForm.Cities = [];
+        this.crewForm.CrewName = '';
         console.log('socket Send call with');
         console.log(crewForm);
       },
@@ -126,9 +128,7 @@
 <style scoped>
 
     input {
-        position: relative;
         font-size: 14px;
-        display: inline-block;
         width: 100%;
         background-color: #fff;
         border-radius: 4px;
@@ -138,7 +138,7 @@
         height: 40px;
         line-height: 40px;
         outline: 0;
-        padding: 0 15px;
+        padding: 15px;
         transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     }
 

@@ -97,6 +97,5 @@ Config.default = {
     "activated": true,
     "size": 40,
     "sliding": 20
-  },
-  "lang": "de-DE"
+  }
 }

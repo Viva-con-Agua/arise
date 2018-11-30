@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <CrewForm/>
-    <CrewList/>
+  <div id ="crews" class="crews">
+    <div><CrewList/></div>
+    <div><CrewForm/></div>
   </div>
 </template>
 
@@ -10,8 +10,13 @@
   import VueNativeSock from 'vue-native-websocket'
   import CrewForm from '@/components/crews/CrewForm.vue'
   import CrewList from '@/components/crews/CrewList.vue'
-  
-  Vue.use(VueNativeSock, 'ws://localhost/drops/webapp/crew/ws', { format: 'json'})
+  var host = window.location.hostname
+  Vue.use(VueNativeSock, 'ws://' + host +'/drops/webapp/crew/ws', { 
+    reconnection: true,
+    reconnectionAttempts: 5,
+    reconnectionDelay: 3000,
+    format: 'json',
+  })
 
     //todo: 1. add crewfilter
   export default {
@@ -29,30 +34,20 @@
     //created: function () {
     //   this.init()
     //},
-        beforeDestroy: function () {
-            this.crews = null
-        },
-
-        methods: {
-
-          init: function () {
-              var xhr = new XMLHttpRequest()
-              var self = this
-              xhr.open(initMethod, initURL)
-              xhr.setRequestHeader('Accept', 'application/json; charset=utf-8')
-              xhr.onload = function () {
-                  self.crews = JSON.parse(xhr.responseText)
-              }
-              xhr.send()
-          },
-      },
+    beforeDestroy: function () {
+      this.crews = null
+    },
     mounted() {
-      this.$options.sockets.onmessage = (data) => console.log(data);
+      this.$options.sockets.onclose = (data) => console.log(data);
+      this.$options.sockets.onmessage = (data) => console.log(JSON.stringify(data));
     }
     }
 </script>
 <style scoped>
-    @import '/src/router/index.css';
-/*@import url('https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.1/theme-chalk/index.css');*/
-/*@import './src/assets/index.css';*/
+    .crews {
+      margin:30px;
+      display: flex;
+      flex-direction: row;
+      padding:5px;
+    }
 </style>

@@ -4,7 +4,7 @@
         <TableRow type="header" />
       </thead>
       <tbody>
-        <TableRow v-for="(crew, i) of crews" type="row" :className="(i % 2 == 0) ? 'even' : 'odd'" :crew="crew" :key="crew.id" />
+        <TableRow v-for="(crew, i) of crews" :type="row" :className="odd" :crew="crew" :key="crew.id" />
       </tbody>
     </table>
 </template>
@@ -19,7 +19,7 @@
 </script>
 <style scoped lang="less">
   @import "./assets/general.less";
-  .users-table {
+  .crews-table {
     border: 0.3em;
     border-color: #colors[primary];
     border-spacing: 0.5rem;

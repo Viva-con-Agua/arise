@@ -5,7 +5,7 @@
         <span class="keyword">{{ getKeyword() }}</span>
       </div>
       <button class="remove" :title="$vcaI18n.t('label.search.remove.tag')" v-on:click="fireRemove">
-        <img src="/images/times-circle.svg" />
+        <div v-html="require('./images/times-circle.svg')"></div>
       </button>
     </div>
 </template>

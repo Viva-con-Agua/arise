@@ -1,10 +1,10 @@
 <template>
   <tr v-if="type === 'header'" :class="getClass()" class="rowWrapper">
-    <th class="name">{{ $vcaI18n.t('label.table.name') }}</th>
-    <th class="city">{{ $t('label.table.city') }}</th>
-    <th class="country">{{ $t('label.table.country') }}</th>
+    <th class="name">{{ $t('crewlist.label.crewname') }}</th>
+    <th class="city">{{ $t('crewlist.label.cities') }}</th>
+    <th class="country">{{ $t('crewlist.label.country') }}</th>
   </tr>
-  <tr v-else :class="getClass()" class="rowWrapper content" v-on:click="callLink()">
+  <tr v-else :class="getClass()" class="rowWrapper content">
     <td class="name">{{ crew.name }}</td>
     <td class="city">{{ crew.cities[0].name}}</td>
     <td class="country">{{ crew.cities[0].country }}</td>
@@ -21,12 +21,6 @@
         getClass: function () {
           return this.type + ' ' + this.className
         },
-        getCity: function () {
-
-        },
-        callLink: function () {
-          this.$refs.profileLink.click()
-        }
       }
     }
 </script>
@@ -38,10 +32,10 @@
   .rowWrapper {
     height: 2em;
     padding: 1em 0;
+    text-align: center;
     &.content {
       .colorProfileSecundary();
       cursor: pointer;
-      text-align: center;
       &:hover {
         box-shadow: #shadow[secundary];
       }
@@ -60,14 +54,6 @@
     font-size: 0.7em;
     border-radius: 0.5em;
     margin: 0.2em;
-  }
-  .image {
-    width: 4em;
-  }
-  .noPhone {
-    @media @small-tablet-down {
-      display: none;
-    }
   }
   .noTablet {
     @media @tablet-down {

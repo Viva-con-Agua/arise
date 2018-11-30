@@ -19,15 +19,15 @@ export default class Sorting {
     return {
       'table': [
         {
-          'label': i18n.t("label.sorting.fields.crewName"),
+          'label': i18n.t("crewlist.sorting.fields.crewName"),
           'value': 'Crew_name'
         },
         {
-          'label': i18n.t("label.sorting.fields.cityName"),
+          'label': i18n.t("crewlist.sorting.fields.cityName"),
           'value': 'City_name'
         },
         {
-          'label': i18n.t("label.sorting.fields.cityCountry"),
+          'label': i18n.t("crewlist.sorting.fields.cityCountry"),
           'value': 'City_country'
         },
       ]

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import FilterQuery from '../utils/FilterQuery'
+  import FilterQuery from './utils/FilterQuery'
   import SearchTagQuery from './SearchTagQuery'
   import VueScrollbar from 'vue2-scrollbar'
     export default {
