@@ -1,12 +1,26 @@
 <template>
-    <div class="column">
+    <div class="column" :style="calcSize()">
         <slot></slot>
     </div>
 </template>
 
 <script>
     export default {
-        name: "VcAColumn"
+        name: "VcAColumn",
+        props: {
+            'size': {
+                'required': false
+            }
+        },
+        methods: {
+            calcSize: function() {
+                var res = ""
+                if((typeof this.size !== "undefined") && this.size !== null) {
+                    res = "width: " + this.size
+                }
+                return res
+            }
+        }
     }
 </script>
 
