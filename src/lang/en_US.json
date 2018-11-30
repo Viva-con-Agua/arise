@@ -87,6 +87,22 @@
       "avatar": "Profile image",
       "update": "Update",
       "crew": "Select your Crew"
+    },
+    "messages": {
+      "update" : {
+        "success" : {
+          "title": "Successfully saved",
+          "message": "Your profile has been updated."
+        },
+        "notAuthorized": {
+          "title": "Not saved",
+          "message": "You are not authorized, thus you are not allowed to update your profile."
+        },
+        "notFound": {
+          "title": "Not saved",
+          "message": "Since your profile has not been found, it can not be updated."
+        }
+      }
     }
   },
 
