@@ -199,7 +199,7 @@ router.beforeEach((to, from, next) => {
               }
           })
           .catch(function (error) {
-              switch (error.status) {
+              switch (error.response.status) {
                   case 401:
                     // Not Authenticated!
                     next({path: '/signin', query: {redirect: to.fullPath}})
