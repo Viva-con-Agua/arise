@@ -1,6 +1,6 @@
 {
   "name": "arise",
-  "version": "0.0.0",
+  "version": "0.2.10",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -36,8 +36,9 @@
     "sass-loader": "^7.0.3",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "v-tooltip": "^2.0.0-rc.33",
-    "vca-widget-user": "^0.3.3",
-    "vee-validate": "^2.1.2",
+    "vca-widget-navigation": "^0.2.2",
+    "vca-widget-user": "^0.3.6",
+    "vee-validate": "^2.1.0-beta.6",
     "vue": "^2.5.16",
     "vue-axios": "^2.1.2",
     "vue-data-table": "^0.1.1",

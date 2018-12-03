@@ -3,11 +3,12 @@
     <div class="form-group" :class="{'has-error': errors.has('name')}">
       <p v-html="$t('crews.crewform.label.crewname')"></p>
       <input 
-        :v-model="crew.name" 
+        v-model="crew.name" 
         placeholder=""
         name="name"
         v-validate="{ required: true }"
-        data-rules="required">
+        data-rules="required"
+        prop="name">
       <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p> 
     </div>
     <div class="form-group">
@@ -27,7 +28,7 @@
         icon="el-icon-arrow-right"
         class="btn btn-primary"
         @click="$validator.validate()"
-        v-on:click="submitForm(crewForm)">{{ $t('options.submit') }}
+        v-on:click="submitForm(crew)">{{ $t('options.submit') }}
       </button>
     </div>
      <div class="form-group">
@@ -45,11 +46,10 @@
   export default {
     name: "CrewForm",
     components: {},
-    props:['selected', 'crew'],
     data() {
       return {
         address: '',
-        City: {
+        city: {
           name: '',
           country: ''
         },
@@ -66,7 +66,7 @@
         inputVisible: true,
         cityValue: '',
         rules: {
-          CrewName: [
+          name: [
             {required: true, message: this.$t('validationError.crewname'), trigger: 'blur',},
             {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.name'), trigger: 'blur'}
           ]
@@ -83,27 +83,27 @@
         let ac = place.address_components;
         let city = ac[0]["long_name"];
         let country = ac[2]["long_name"];
-        this.crewForm.Cities.push({name: (`${city}`), country: (`${country}`)});
+        this.crew.cities.push({name: (`${city}`), country: (`${country}`)});
         console.log(`The user picked ${city}`);
       });
     },
     methods: {
-      socketSend(operation, crewForm) {
+      socketSend(operation, crew) {
         this.$options.sockets.onopen = () => console.log('socket is open');
         this.$socket.send(JSON.stringify({
           operation: operation, 
           query: [
-            {name: this.crewForm.CrewName, cities: this.crewForm.Cities}
+            {name: crew.name, cities: crew.cities}
           ]
         }));
       },
-      submitForm(crewForm) {
-        this.socketSend('INSERT', crewForm);
-        this.rules.CrewName[0].required = true;
-        this.crewForm.Cities = [];
-        this.crewForm.CrewName = '';
+      submitForm(crew) {
+        this.rules.name[0].required = true;
+        this.socketSend('INSERT', crew);
+        this.crew.cities = [];
+        this.crew.name = '';
         console.log('socket Send call with');
-        console.log(crewForm);
+        console.log(crew);
       },
       resetForm(crewForm) {
         this.$refs[crewForm].resetFields();

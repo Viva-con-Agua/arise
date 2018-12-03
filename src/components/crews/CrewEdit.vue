@@ -1,51 +1,90 @@
 <template>
   <div id="crew-selected">
-     <p v-html="$t('crews.crewform.label.crewname')">
-      </p>
-    <div v-if="crewEditName === false" class="crew-name">
-      {{crew.name}}
-    </div>
-    <div v-else class="crew-name-edit">
-      <label class="control-label" for="crewForm.CrewName"></label>
-      <input 
-        v-model="crewForm.CrewName" 
+    <div class="crew-name">
+      <p>{{ $t('crews.crewform.label.crewname') }} {{ crew.name }}</p>
+      <button v-on:click="handleEditName"></button>
+      <input
+        v-if="editName"
+        v-model="crew.name" 
         placeholder=""
-        name="name"
         v-validate="{ required: true }"
-        data-rules="required"
-        prop="CrewName">
+        data-rules="required">
     </div>
-    <button v-on:click="handleCrewEditName"></button>
-    <input v-if="crew-name-edit === true"
-      {{crew.name}}
-    <p v-html="$t('crews.crewform.label.cities')">
-    </p>
-    <VcABox>
+    <div class="crew-cities">
       <span v-for="city, index in crew.cities">
         {{city.name}}, {{city.country}}
-      </span>  
-    </VcABox>
+      </span> 
+      <button v-on:click="handleAddCity"></button>
+      <input
+          v-if="addCity"
+          ref="autocomplete"
+          v-model="Location"
+          class="input-new-city"
+          onfocus="value = ''"
+          type="text"
+        >
+    </div>
  </div>
 </template>
 
 <script>
   import Vue from 'vue'
+   import VcABox from '@/components/page/VcABox.vue'
+
   export default {
     name: "CrewSelected",
     props: ['crew'],
+    components: { VcABox },
     data (){
       return {
-        crewEditName: false,
+        Location: "",
+        editName: false,
+        addCity: false,
       }
     },
     methods: {
-      handleCrewEditName: function() {
-        if(this.crewEditName === false) {
-          this.crewEditName = true
+      handleEditName: function() {
+        if(this.editName === false) {
+          this.editName = true
         }else{
-          this.crewEditName = false
+          this.editName = false
         }
+      },
+      handleAddCity: function() {
+        if(this.addCity === false) {
+          this.initialAC()
+          this.addCity = true
+        }else{
+          this.addCity = false
+          this.clearAC()
+        }
+      },
+      initialAC: function() {
+        this.autocomplete = new google.maps.places.Autocomplete(
+          (this.$refs.autocomplete),
+          {types: ['(cities)']}
+        );
+        this.autocomplete.addListener('place_changed', () => {
+          let place = this.autocomplete.getPlace();
+          let ac = place.address_components;
+          let city = ac[0]["long_name"];
+          let country = ac[2]["long_name"];
+          this.crew.cities.push({name: (`${city}`), country: (`${country}`)});
+          console.log(`The user picked ${city}`);
+        });
+      },
+      cleanAC: function() {
+        this.autocomplete = ''
       }
+
     }
+
   }
 </script>
+
+<style scoped>
+  .crew-name {
+    display: flex;
+    flex-direction: row;
+  }
+</style>

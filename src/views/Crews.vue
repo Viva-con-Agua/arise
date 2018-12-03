@@ -4,21 +4,19 @@
       <VcAColumn>
         <VcABox :first="true" :title="$t('crews.list.title')">
           <div>
-            <CrewList
-              v-on:select-crew="selectedCrew"
-            >
+            <CrewList v-on:select-crew="selectedCrew"/>
             </CrewList>
           </div>
         </VcaBox>
       </VcAColumn> 
       <VcAColumn>
         <VcABox :title="$t('crews.form.title')">
-            <div><CrewForm :crewForm="selected"/></div>
+            <div><CrewForm/></div>
           </VcaBox>  
       </VcAColumn>
       <VcAColumn>
         <VcABox :title="$t('crews.form.selected')">
-        <div><CrewSelected/></div>
+        <div><CrewSelected :crew="selected"/></div>
           </VcaBox>  
       </VcAColumn>
 
@@ -32,6 +30,10 @@
   import CrewForm from '@/components/crews/CrewForm.vue'
   import CrewList from '@/components/crews/CrewList.vue'
   import CrewSelected from'@/components/crews/CrewEdit.vue'
+  import VcAFrame from '@/components/page/VcAFrame.vue';
+  import VcAColumn from '@/components/page/VcAColumn.vue';
+  import VcABox from '@/components/page/VcABox.vue';
+  import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
   var host = window.location.hostname
   Vue.use(VueNativeSock, 'ws://' + host +'/drops/webapp/crew/ws', { 
     reconnection: true,
@@ -44,6 +46,10 @@
   export default {
     name: "Crews",
     components: {
+      VcAFrame, 
+      VcAColumn, 
+      VcABox, 
+      VcAInfoBox,
       CrewForm,
       CrewList,
       CrewSelected,
@@ -75,8 +81,7 @@
     },
     methods: {
       selectedCrew: function (event) {
-        this.selected.CrewName = event.name
-        this.selected.Cities = event.cities
+        this.selected = event
       }
     }
     }

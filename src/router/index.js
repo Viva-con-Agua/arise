@@ -22,6 +22,26 @@ Vue.use(locale);
 function loadView(view) {
   return () => import(/* webpackChunkName: '[request]' */ `@/views/${view}.vue`)
 }
+
+/**
+ * You can add roles that a user has to have to get access. Add a `meta` attribute to the route, that contains an array
+ * of roles with granted access. Roles can be Strings of more complex objects. Currently, the values
+ *
+ * `Admin`, `Employee`, `Supporter` and `VolunteerManager`
+ *
+ * can be used as string values. If you need a more complex description of the
+ * volunteer manager (e.g. only finance managers or only managers of a specific crew), you can add an object to the array
+ * of roles:
+ *
+ * { 'name': 'VolunteerManager', 'crew': '<CrewName>', 'pillar': '<Pillar name>' }
+ *
+ * Note: `crew` and `pillar` are optional elements of the role. While `crew` has to be the name of any existing crew (that
+ * means a crew saved in the drops database), `pillar` has to be a value of the following range:
+ *
+ * ['network', `finance`, `operation`, `education`]
+ *
+ * (as defined by the Companion object of [models.Pillar](https://github.com/Viva-con-Agua/drops/blob/2b5b3c0d94b849b4966082c11173d276c6574284/app/models/Pillar.scala#L12))
+ */
 const router = new Router({
     routes: [
         {
@@ -39,13 +59,18 @@ const router = new Router({
             name: 'Crews',
             component: loadView('Crews'),
             meta: {
-                'requiresAuth': true
+                'roles': ['Admin', 'Employee']
             }
         },
         {
             path: '/signup',
             name: 'SignUp',
             component: loadView('SignUp')
+        },
+        {
+            path: '/signupCompletion/:token',
+            name: 'SignUpToken',
+            component: loadView('SignUpToken')
         },
         {
           path: '/finishsignup',
@@ -63,11 +88,19 @@ const router = new Router({
             component: loadView('SignIn')
         },
         {
+            path: "/out/",
+            name: 'SignOut',
+            component: loadView('SignOut'),
+            meta: {
+                'roles': ['Supporter']
+            }
+        },
+        {
             path: "/tasks",
             name: 'Tasks',
             component: loadView('Tasks'),
             meta: {
-                'requiresAuth': true
+                'roles': ['Supporter']
             }
         },
         {
@@ -75,7 +108,7 @@ const router = new Router({
             name: 'OAuth',
             component: loadView('OAuth'),
             meta: {
-                'requiresAuth': true
+                'roles': ['Admin']
             }
         },
         {
@@ -108,7 +141,7 @@ const router = new Router({
           name: 'Profile',
           component: loadView('Profile'),
             meta: {
-                'requiresAuth': true
+                'roles': ['Supporter']
             }
         },
         {
@@ -126,7 +159,7 @@ const router = new Router({
             name: 'Users',
             component: loadView('users'),
             meta: {
-                'requiresAuth': true
+                'roles': ['Employee', { 'name': 'VolunteerManager' }] //'Admin',
             }
         },
         {
@@ -140,11 +173,37 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.hasOwnProperty("roles"))) {
       axios.get('/drops/webapp/identity')
           .then((response) => {
-              if (response.status == 200) {
-                  next();
+              if (response.status === 200) {
+                  var userRoles = response.data.additional_information.roles.map((role) => role.role)
+                  var supporterRoles = response.data.additional_information.profiles[0].supporter.roles
+                  var records = to.matched.filter(record => record.meta.hasOwnProperty("roles"))
+                  var fulfillsRole = records.reduce((fulfills, record) => {
+                      return fulfills || record.meta.roles.reduce((hasItAlready, requiredRole) => {
+                          var has = false
+                          if((typeof requiredRole === "string") && requiredRole !== "VolunteerManager") {
+                              has = userRoles.some((userRole) => userRole === requiredRole.toLowerCase())
+                          } else if(requiredRole === "VolunteerManager") {
+                              has = supporterRoles.reduce((found, supporterRole) => (found || supporterRole.name === requiredRole), false)
+                          } else {
+                              has = supporterRoles.reduce((found, supporterRole) =>
+                                  (found || (supporterRole.name === requiredRole.name &&
+                                      ((requiredRole.hasOwnProperty("crew") && supporterRole.crew.name === requiredRole.crew) || !requiredRole.hasOwnProperty("crew")) &&
+                                      ((requiredRole.hasOwnProperty("pillar") && supporterRole.pillar.pillar === requiredRole.pillar) || !requiredRole.hasOwnProperty("pillar"))
+                                  )),
+                                  false
+                              )
+                          }
+                        return hasItAlready || has
+                      }, false)
+                  }, records.length === 0)
+                  if(fulfillsRole) {
+                      next();
+                  } else {
+                      next({path: '/error/403'})
+                  }
               }
           })
           .catch(function (error) {
