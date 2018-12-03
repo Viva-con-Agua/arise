@@ -1,56 +1,31 @@
 <template>
-  <div id="finishSignup">
-    <el-card class="box-card">
-      <div
-        slot="header"
-        class="title">
-        <font-awesome-icon
-          icon="check-circle"
-          size="4x"/>
-        <h2>{{ $t("signup.finish.title") }}</h2>
-      </div>
-      <div class="content">
-        {{ $t("signup.finish.description") }}
-      </div>
-    </el-card>
-  </div>
+  <VcAFrame>
+    <VcAColumn>
+      <VcABox :title="$t('signup.finish.title')">
+        <div class="content">
+          {{ $t("signup.finish.description") }}
+        </div>
+      </VcABox>
+    </VcAColumn>
+  </VcAFrame>
 </template>
 
 <script>
   import Vue from 'vue';
-  import {
-    Card
-  }
-  from 'element-ui';
-
-  Vue.use(Card);
-
+  import VcAFrame from '@/components/page/VcAFrame.vue';
+  import VcAColumn from '@/components/page/VcAColumn.vue';
+  import VcABox from '@/components/page/VcABox.vue';
 
   export default {
     name: "FinishSignup",
+    components: { VcAFrame, VcAColumn, VcABox },
 
     data() {
       return {
       }
-    },
-/*    created() {
-      setTimeout( () => this.$router.push({path: '/signin'}), 50000);
-    }*/
+    }
   }
 </script>
 <style scoped>
-  #finishSignup {
-    max-width: 50%;
-    margin: 0 auto;
-    padding-top: 10%;
-  }
-  .title {
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .content {
-    font-size: 16px;
-  }
 
 </style>

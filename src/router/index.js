@@ -68,6 +68,11 @@ const router = new Router({
             component: loadView('SignUp')
         },
         {
+            path: '/signupCompletion/:token',
+            name: 'SignUpToken',
+            component: loadView('SignUpToken')
+        },
+        {
           path: '/finishsignup',
           name: 'finishSignup',
           component: loadView('finishSignup')
@@ -81,6 +86,14 @@ const router = new Router({
           path: "/signin/:redirectUrl",
             name: 'SignIn',
             component: loadView('SignIn')
+        },
+        {
+            path: "/out/",
+            name: 'SignOut',
+            component: loadView('SignOut'),
+            meta: {
+                'roles': ['Supporter']
+            }
         },
         {
             path: "/tasks",
@@ -194,7 +207,7 @@ router.beforeEach((to, from, next) => {
               }
           })
           .catch(function (error) {
-              switch (error.status) {
+              switch (error.response.status) {
                   case 401:
                     // Not Authenticated!
                     next({path: '/signin', query: {redirect: to.fullPath}})
