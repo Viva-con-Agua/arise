@@ -17,7 +17,7 @@
     <button v-if="config.hasPagination() && page.hasPrevious()" v-on:click="removePage" class="paginate">
       {{ $vcaI18n.tc('label.pagination.button.previous', page.howManyPrevious(), { 'number': page.howManyPrevious() }) }}
     </button>
-    <TableCrews v-else :crews="crews" />
+    <TableCrews v-else :crews="crews" v-on:select-crew="selectCrew"/>
     <button v-if="config.hasPagination() && page.hasNext()" v-on:click="addPage" class="paginate">
       {{ $vcaI18n.tc('label.pagination.button.next', page.howManyNext(), { 'number': page.howManyNext() }) }}
     </button>
@@ -63,6 +63,9 @@
       this.getPage()
     },
     methods: {
+      selectCrew: function (event) {
+          this.$emit('select-crew', event)
+      },
       addPage: function (event) {
         if (this.page.hasNext()) {
           this.page = this.page.next()

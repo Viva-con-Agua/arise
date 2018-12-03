@@ -1,19 +1,17 @@
 <template>
   <div id="form-vertical">
     <div class="form-group" :class="{'has-error': errors.has('name')}">
-      <p v-html="$t('crewform.label.crewname')"></p>
-      <label class="control-label" for="crewForm.CrewName"></label>
+      <p v-html="$t('crews.crewform.label.crewname')"></p>
       <input 
-        v-model="crewForm.CrewName" 
+        :v-model="crew.name" 
         placeholder=""
         name="name"
         v-validate="{ required: true }"
-        data-rules="required"
-        prop="CrewName">
+        data-rules="required">
       <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p> 
     </div>
     <div class="form-group">
-      <p v-html="$t('crewform.label.location')"></p>
+      <p v-html="$t('crews.crewform.label.location')"></p>
       <input
           v-if="inputVisible"
           ref="autocomplete"
@@ -33,7 +31,7 @@
       </button>
     </div>
      <div class="form-group">
-       <span v-for="city, index in crewForm.Cities">
+       <span v-for="city, index in crew.cities">
          {{city.name}}, {{city.country}} <br>
        </span>
      </div>
@@ -47,7 +45,7 @@
   export default {
     name: "CrewForm",
     components: {},
-    props:['webSocket'],
+    props:['selected', 'crew'],
     data() {
       return {
         address: '',
@@ -55,9 +53,9 @@
           name: '',
           country: ''
         },
-        crewForm: {
-            CrewName: '',
-            Cities: [],
+        crew: {
+          name: '',
+          cities: []
         },
         Location: '',
         sendForm: {

@@ -1,65 +1,4 @@
 {
-  "hello": "Hallo Welt!",
-  "label": {
-    "separator": ": ",
-    "email": "e-mail:",
-    "password": "Passwort:",
-    "checkPassword": "Password überprüfen:",
-    "asp": "Manager",
-    "aspOfCrew": "Manager {crewName}",
-    "sorting": {
-      "dirButton" : {
-        "ASC": "Click to sort descending",
-        "DESC": "Click to sort ascending"
-      },
-      "fields": {
-        "crewName": "Crew name",
-        "cityName": "Crew city",
-        "cityCountry": "Crew country "
-      }
-    },
-    "typeSelection": {
-      "large": "Big Widgets",
-      "medium": "Small Widgets",
-      "small": "Tags",
-      "table": "Table"
-    },
-    "pagination": {
-      "button": {
-        "previous": "No more supporter | Show first | Show previous (%{number})",
-        "next": "No more supporter | Show last | Show next (%{number})"
-      }
-    },
-    "table" : {
-      "name": "Name",
-      "city": "City",
-      "country": "Country"
-    },
-    "placeholder": {
-      "search": "Search..."
-    },
-    "search": {
-      "Supporter_firstName": "First name",
-      "Supporter_lastName": "Last name",
-      "Profile_email": "Email",
-      "User_created": "Since",
-      "Supporter_placeOfResidence": "Place of residence",
-      "Supporter_mobilePhone": "Mobile phone",
-      "Supporter_birthday": "Age",
-      "Supporter_sex": "Gender",
-      "Supporter_Crew_name": "Crew",
-      "User_roles": "Employee?",
-      "Supporter_Crew_role": "Crew Manager?",
-      "Supporter_Crew_pillar": "Section",
-      "remove": {
-        "tag": "Remove query condition"
-      },
-      "button": {
-        "and": "Add condition"
-      }
-    }
-  },
-
   "options": {
     "reset": "zurücksetzen",
     "save": "speichern",
@@ -167,32 +106,33 @@
       "code304": ""
     }
   },
-
-  "crewform": {
-    "label": {
-      "location": "Location:",
-      "crewname": "Crewname:",
-      "cities": "Stadt / Städte:",
-      "country": "Land:"
-    }
-  },
-
-  "crewlist": {
-    "label": {
-      "crewname": "Name: ",
-      "cities": "Stadt:",
-      "country": "Land: ",
-      "operations": "Optionen:"
+  
+  "crews":{
+    "crewform": {
+      "label": {
+        "location": "Location:",
+        "crewname": "Crew Name:",
+        "cities": "Städte:",
+        "country": "Land:"
+      }
     },
-    "sorting": {
-      "dirButton" : {
-        "ASC": "Hier klicken, um absteigend zu sortieren",
-        "DESC": "Hier klicken, um aufsteigend zu sortieren"
+    "crewlist": {
+      "label": {
+        "crewname": "Name",
+        "cities": "Stadt",
+        "country": "Land",
+        "operations": "Optionen"
       },
-      "fields": {
-        "crewName": "Name",
-        "cityName": "Stadt",
-        "cityCountry": "Land"
+      "sorting": {
+        "dirButton" : {
+          "ASC": "Hier klicken, um absteigend zu sortieren",
+          "DESC": "Hier klicken, um aufsteigend zu sortieren"
+        },
+        "fields": {
+          "crewName": "Name",
+          "cityName": "Stadt",
+          "cityCountry": "Land"
+        }
       }
     }
   },

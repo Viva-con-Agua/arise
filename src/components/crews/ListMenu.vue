@@ -1,8 +1,5 @@
 <template>
   <ul class="listMenu">
-    <li v-if="config.hasTypeSelect()" class="view">
-      <v-select v-model="typeData" @input="fireTypeSelection" :options="types" :clearable="false"></v-select>
-    </li>
     <li v-if="config.hasSortingSelect() || this.hasSortingDirButton()" class="sorting">
       <v-select v-if="config.hasSortingSelect()" v-model="sorting.getCurrentField()" @input="fireFieldSelection" :options="sorting.getFields()" :clearable="false"></v-select>
       <button v-if="config.hasSortingDirButton()" v-bind:value="sorting.sortDir" @click="fireSortDirSelection" :title="$t('crewlist.sorting.dirButton.' + sorting.sortDir)">

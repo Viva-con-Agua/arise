@@ -1,10 +1,10 @@
 <template>
   <tr v-if="type === 'header'" :class="getClass()" class="rowWrapper">
-    <th class="name">{{ $t('crewlist.label.crewname') }}</th>
-    <th class="city">{{ $t('crewlist.label.cities') }}</th>
-    <th class="country">{{ $t('crewlist.label.country') }}</th>
+    <th class="name">{{ $t('crews.crewlist.label.crewname') }}</th>
+    <th class="city">{{ $t('crews.crewlist.label.cities') }}</th>
+    <th class="country">{{ $t('crews.crewlist.label.country') }}</th>
   </tr>
-  <tr v-else :class="getClass()" class="rowWrapper content">
+  <tr v-else class="rowWrapper content" v-on:click="selectCrew()">
     <td class="name">{{ crew.name }}</td>
     <td class="city">{{ crew.cities[0].name}}</td>
     <td class="country">{{ crew.cities[0].country }}</td>
@@ -20,6 +20,9 @@
       methods: {
         getClass: function () {
           return this.type + ' ' + this.className
+        },
+        selectCrew: function () {
+          this.$emit('select-crew', this.crew)
         },
       }
     }

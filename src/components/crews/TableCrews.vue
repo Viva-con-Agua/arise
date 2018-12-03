@@ -4,7 +4,7 @@
         <TableRow type="header" />
       </thead>
       <tbody>
-        <TableRow v-for="(crew, i) of crews" :type="row" :className="odd" :crew="crew" :key="crew.id" />
+        <TableRow v-for="(crew, i) of crews" :crew="crew" :key="crew.id" v-on:select-crew="selectCrew" />
       </tbody>
     </table>
 </template>
@@ -14,7 +14,17 @@
     export default {
       name: 'TableCrews',
       components: { TableRow },
-      props: ['crews']
+      props: ['crews'],
+      data () {
+        return {
+          selected: ''
+        }
+      },
+      methods:{
+        selectCrew: function (event) {
+          this.$emit('select-crew', event)
+        },
+      }
     }
 </script>
 <style scoped lang="less">
