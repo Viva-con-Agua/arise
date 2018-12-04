@@ -1,14 +1,14 @@
 <template>
   <div id="crew-selected">
     <div class="crew-name">
-      <p>{{ $t('crews.crewform.label.crewname') }} {{ crew.name }}</p>
-      <button v-on:click="handleEditName">{{ $t('crews.button.editName') }}</button>
+      <p class="crewNameEdit" v-if="!editName">{{ $t('crews.crewform.label.crewname') }} {{ crew.name }}</p>
       <input
-        v-if="editName"
+        v-else="editName"
         v-model="crew.name" 
-        placeholder=""
+        placeholder="crew.name"
         v-validate="{ required: true }"
         data-rules="required">
+     <button v-on:click="handleEditName">{{ $t('crews.button.editName') }}</button>
     </div>
     <div class="crew-cities">
       <span v-for="city, index in crew.cities">
@@ -25,8 +25,12 @@
         >
     </div>
     <div class="submit-crew">
-      <button v-on:click="handleSubmit(crew)">{{ $t('crews.button.update')}}</button>
-      <button v-on:click="handleDelete(crew)">{{ $t('crews.button.delete')}}</button>
+      <button
+        class="vca-button-primary buttonUpdate"
+        v-on:click="handleSubmit(crew)">{{ $t('crews.button.update')}}</button>
+      <button
+        class="vca-button-primary buttonDelete"
+        v-on:click="handleDelete(crew)">{{ $t('crews.button.delete')}}</button>
     </div>
  </div>
 </template>
@@ -102,5 +106,36 @@
   .crew-name {
     display: flex;
     flex-direction: row;
+  }
+  .buttonUpdate {
+     width: 20%;
+     margin-top:1em;
+     margin-bottom:1em;
+  } 
+  .crewNameEdit {
+    width: 95%;
+    font-size: 14px;
+    box-sizing: border-box;
+    height: 40px;
+  }
+    input {
+        font-size: 14px;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 4px;
+        border: 1px solid #dcdfe6;
+        box-sizing: border-box;
+        color: #606266;
+        height: 40px;
+        line-height: 40px;
+        outline: 0;
+        padding: 15px;
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    }
+  .buttonDelete {
+    width: 20%;
+    margin-top:1em;
+    margin-bottom:1em;
+    background-color: #f44336;
   }
 </style>

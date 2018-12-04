@@ -26,7 +26,7 @@
       <button
         type="primary"
         icon="el-icon-arrow-right"
-        class="btn btn-primary"
+        class="vca-button-primary buttonSave"
         @click="$validator.validate()"
         v-on:click="submitForm(crew)">{{ $t('options.submit') }}
       </button>
@@ -141,6 +141,11 @@
 
     #CountryContent {
         float: left;
+    }
+    .buttonSave {
+      width: 20%;
+      margin-top:1em;
+      margin-bottom:1em;
     }
 
     #tag {

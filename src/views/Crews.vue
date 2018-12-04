@@ -1,7 +1,6 @@
 <template>
-  <div id ="crews" class="crews">
     <VcAFrame>
-      <VcAColumn>
+      <VcAColumn size="60%">
         <VcABox :first="true" :title="$t('crews.title.list')">
           <div>
             <CrewList v-on:select-crew="selectedCrew"/>
@@ -10,18 +9,14 @@
         </VcaBox>
       </VcAColumn> 
       <VcAColumn>
-        <VcABox :title="$t('crews.title.form')">
+        <VcABox :first="true" v-if="selectedView" :title="$t('crews.title.selected')">
+        <div><CrewSelected :crew="selected" v-on:delete-crew="deleteCrew"/></div>
+       </VcaBox> 
+        <VcABox :first="false" :title="$t('crews.title.form')">
             <div><CrewForm/></div>
           </VcaBox>  
       </VcAColumn>
-      <VcAColumn>
-        <VcABox :title="$t('crews.title.selected')">
-        <div v-if="selectedView"><CrewSelected :crew="selected" v-on:delete-crew="deleteCrew"/></div>
-          </VcaBox>  
-      </VcAColumn>
-
     </VcAFrame>
-  </div>
 </template>
 
 <script>
@@ -99,4 +94,8 @@
       flex-direction: row;
       padding:5px;
     }
+  #genContent {
+    float: left;
+    clear: both;
+  }
 </style>
