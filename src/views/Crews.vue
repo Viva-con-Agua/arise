@@ -2,7 +2,7 @@
   <div id ="crews" class="crews">
     <VcAFrame>
       <VcAColumn>
-        <VcABox :first="true" :title="$t('crews.list.title')">
+        <VcABox :first="true" :title="$t('crews.title.list')">
           <div>
             <CrewList v-on:select-crew="selectedCrew"/>
             </CrewList>
@@ -10,13 +10,13 @@
         </VcaBox>
       </VcAColumn> 
       <VcAColumn>
-        <VcABox :title="$t('crews.form.title')">
+        <VcABox :title="$t('crews.title.form')">
             <div><CrewForm/></div>
           </VcaBox>  
       </VcAColumn>
       <VcAColumn>
-        <VcABox :title="$t('crews.form.selected')">
-        <div><CrewSelected :crew="selected"/></div>
+        <VcABox :title="$t('crews.title.selected')">
+        <div v-if="selectedView"><CrewSelected :crew="selected" v-on:delete-crew="deleteCrew"/></div>
           </VcaBox>  
       </VcAColumn>
 
@@ -56,6 +56,7 @@
     },
     data() {
       return {
+        selectedView: false,
         selected: {
           name: '',
           Cities: [ 
@@ -81,7 +82,12 @@
     },
     methods: {
       selectedCrew: function (event) {
+        this.selectedView = true
         this.selected = event
+      },
+      deleteCrew: function () {
+        this.selectedView = false
+        this.selected = ''
       }
     }
     }

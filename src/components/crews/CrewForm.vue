@@ -84,7 +84,6 @@
         let city = ac[0]["long_name"];
         let country = ac[2]["long_name"];
         this.crew.cities.push({name: (`${city}`), country: (`${country}`)});
-        console.log(`The user picked ${city}`);
       });
     },
     methods: {
@@ -93,7 +92,7 @@
         this.$socket.send(JSON.stringify({
           operation: operation, 
           query: [
-            {name: crew.name, cities: crew.cities}
+            {name: this.crew.name, cities: this.crew.cities}
           ]
         }));
       },

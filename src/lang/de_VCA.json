@@ -194,6 +194,17 @@
   },
   
   "crews":{
+    "button": {
+      "addCity": "+",
+      "editName": "edit",
+      "update": "update",
+      "delete": "delete"
+    },
+    "title": {
+      "selected": "Crew",
+      "form": "Neu Crew",
+      "list": "Crew Liste"
+    },
     "crewform": {
       "label": {
         "location": "Location:",

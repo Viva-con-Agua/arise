@@ -2,7 +2,7 @@
   <ul class="listMenu">
     <li v-if="config.hasSortingSelect() || this.hasSortingDirButton()" class="sorting">
       <v-select v-if="config.hasSortingSelect()" v-model="sorting.getCurrentField()" @input="fireFieldSelection" :options="sorting.getFields()" :clearable="false"></v-select>
-      <button v-if="config.hasSortingDirButton()" v-bind:value="sorting.sortDir" @click="fireSortDirSelection" :title="$t('crewlist.sorting.dirButton.' + sorting.sortDir)">
+      <button v-if="config.hasSortingDirButton()" v-bind:value="sorting.sortDir" @click="fireSortDirSelection" :title="$t('crews.crewlist.sorting.dirButton.' + sorting.sortDir)">
         <div v-if="sorting.is('ASC')" v-html="require('./images/sort-alpha-down.svg')" />
         </div>
         <div v-if="sorting.is('DESC')" v-html="require('./images/sort-alpha-up.svg')">

@@ -190,6 +190,17 @@
     }
   },
   "crews": {
+    "button": {
+      "addCity": "+",
+      "editName": "edit",
+      "update": "update",
+      "delete": "delete"
+    },
+    "title": {
+      "selected": "Selected Crew",
+      "form": "Insert Crew",
+      "list": "Crew List"
+    },
     "crewform": {
       "label": {
         "location": "Location:",
