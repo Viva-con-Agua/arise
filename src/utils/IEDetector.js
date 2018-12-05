@@ -3,7 +3,6 @@ const defaultVersion = -1
 export default class IEDetector {
     constructor() {
         this.version = IEDetector.getInternetExplorerVersion()
-        console.log(this.version)
     }
 
     isIE () {
