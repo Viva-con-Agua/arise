@@ -190,6 +190,9 @@
     }
   },
   "crews": {
+    "edit": {
+      "addCity": "add City"
+    },
     "button": {
       "addCity": "+",
       "editName": "edit",
@@ -197,9 +200,10 @@
       "delete": "delete"
     },
     "title": {
-      "selected": "Selected Crew",
-      "form": "Insert Crew",
-      "list": "Crew List"
+      "view": "Crew",
+      "selected": "Edit",
+      "form": "Insert",
+      "list": "List"
     },
     "crewform": {
       "label": {

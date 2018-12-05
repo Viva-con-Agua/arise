@@ -1,29 +1,28 @@
 <template>
   <div id="crew-selected">
     <div class="crew-name">
-      <p class="crewNameEdit" v-if="!editName">{{ $t('crews.crewform.label.crewname') }} {{ crew.name }}</p>
+      <p v-html="$t('crews.crewform.label.crewname')"></p>
       <input
-        v-else="editName"
         v-model="crew.name" 
         placeholder="crew.name"
         v-validate="{ required: true }"
         data-rules="required">
-     <button v-on:click="handleEditName">{{ $t('crews.button.editName') }}</button>
     </div>
     <div class="crew-cities">
-      <span v-for="city, index in crew.cities">
-        {{city.name}}, {{city.country}}
-      </span> 
-      <button v-on:click="handleAddCity">{{ $t('crews.button.addCity') }}</button>
+      <p v-html="$t('crews.crewform.label.location')"></p>
       <input
-          v-show="addCity"
           ref="autocomplete"
           v-model="Location"
+          v-bind:placeholder="$t('crews.edit.addCity')"
           class="input-new-city"
           onfocus="value = ''"
           type="text"
         >
     </div>
+      <span v-for="city, index in crew.cities">
+        {{city.name}}, {{city.country}} <br>
+      </span>
+
     <div class="submit-crew">
       <button
         class="vca-button-primary buttonUpdate"
@@ -103,10 +102,6 @@
 </script>
 
 <style scoped>
-  .crew-name {
-    display: flex;
-    flex-direction: row;
-  }
   .buttonUpdate {
      width: 20%;
      margin-top:1em;

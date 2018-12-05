@@ -1,5 +1,5 @@
 <template>
-    <VcAFrame>
+    <VcAFrame :title="$t('crews.title.view')">
       <VcAColumn size="60%">
         <VcABox :first="true" :title="$t('crews.title.list')">
           <div>

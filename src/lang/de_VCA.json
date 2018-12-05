@@ -194,6 +194,9 @@
   },
   
   "crews":{
+    "edit": {
+      "addCity": "Stadt hinzufügen"
+    },
     "button": {
       "addCity": "+",
       "editName": "edit",
@@ -201,9 +204,10 @@
       "delete": "delete"
     },
     "title": {
-      "selected": "Crew",
-      "form": "Neu Crew",
-      "list": "Crew Liste"
+      "view": "Crew",
+      "selected": "Bearbeiten",
+      "form": "Hinzufügen",
+      "list": "Liste"
     },
     "crewform": {
       "label": {

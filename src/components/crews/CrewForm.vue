@@ -18,6 +18,7 @@
           ref="autocomplete"
           v-model="Location"
           class="input-new-city"
+          v-bind:placeholder="$t('crews.edit.addCity')"
           onfocus="value = ''"
           type="text"
         >
