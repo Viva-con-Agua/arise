@@ -40,5 +40,23 @@ new Vue({
     show: true,
     components: { Arise, WidgetUserList, WidgetTopNavigation, WidgetBottomNavigation },
     template: '<App/>',
-render: h => h(Arise)
+    mounted() {
+        /**
+         * Required workaround for routing in IE
+         * @type {mounted}
+         */
+        var app = this;
+
+        if ("-ms-scroll-limit" in document.documentElement.style && "-ms-ime-align" in document.documentElement.style) {
+            window.addEventListener("hashchange",
+                function () {
+                    var currentPath = window.location.hash.slice(1);
+                    if (app.$route.path !== currentPath) {
+                        app.$router.replace(currentPath);
+                    }
+                },
+                false);
+        }
+    },
+    render: h => h(Arise)
 }).$mount('#app')
