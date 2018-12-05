@@ -106,7 +106,7 @@
             <p v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">
                 <span>{{ $t('profile.rolesDescription') }}</span>
                 <div class="roles">
-                    <VcARole v-for="role in userRoles.filter((role) => role !== 'supporter')" :name="role" />
+                    <VcARole v-for="role in userRoles.filter((role) => role !== 'supporter')" :name="role" :key="role" />
                 </div>
             </p>
         </VcABox>
