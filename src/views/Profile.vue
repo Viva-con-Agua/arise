@@ -84,17 +84,29 @@
         </VcABox>
         <VcABox :first="false" :title="$t('profile.title.crew')">
           <span>Todo</span>
+            <ul>
+                <li>Auswahl der Crew selbst</li>
+                <li>Rollen in der Crew ausgeben</li>
+                <li>Ehrenamtsbescheinigung (Link auf Pool 1)</li>
+                <li>Stimmrechtslose Mitgliedschaft</li>
+            </ul>
         </VcABox>
       </VcAColumn>
       <VcAColumn>
         <VcABox :first="true" :title="$t('profile.title.account')">
-          <a class="vca-button-primary vca-full-width" href="#">
-              {{ $t('profile.change.email') }}
-          </a>
-          <a class="vca-button-primary vca-full-width" href="#">
-              {{ $t('profile.change.password') }}
-          </a>
-          <a href="#">{{ $t("options.delete") }}</a>
+            <a class="vca-button-primary vca-full-width" href="#">
+                {{ $t('profile.change.email') }}
+            </a>
+            <a class="vca-button-primary vca-full-width" href="#">
+                {{ $t('profile.change.password') }}
+            </a>
+            <a href="#">{{ $t("options.delete") }}</a>
+            <p v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">
+                <span>{{ $t('profile.rolesDescription') }}</span>
+                <div class="roles">
+                    <VcARole v-for="role in userRoles.filter((role) => role !== 'supporter')" :name="role" />
+                </div>
+            </p>
         </VcABox>
         <VcABox :first="false" :title="$t('profile.title.update')">
           <button
@@ -112,6 +124,7 @@
   import Vue from 'vue'
   import axios from 'axios'
   import VueAxios from 'vue-axios'
+  import { VcARole } from 'vca-widget-user'
   import VcAFrame from '@/components/page/VcAFrame.vue';
   import VcAColumn from '@/components/page/VcAColumn.vue';
   import VcABox from '@/components/page/VcABox.vue';
@@ -143,10 +156,11 @@
 
   export default {
     name: "ChangeProfile",
-    components: { VcAFrame, VcAColumn, VcABox, VcAInfoBox },
+    components: { VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
 
     data () {
       return {
+          userRoles: [],
         imageUrl: '',
         emailaddress: '',
         profileForm: {
@@ -184,6 +198,14 @@
       };
     },
     methods: {
+        getUser() {
+            this.axios.get('/drops/webapp/identity')
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.userRoles = response.data.additional_information.roles.map((role) => role.role)
+                    }
+                })
+        },
       submitForm(profileForm) {
           function toProfileSubmit(form, email) {
               var gender = form.gender
@@ -255,6 +277,7 @@
       }
     },
     created () {
+        this.getUser()
         function profileToForm(profile) {
             profile['gender'] = profile['sex']
             return profile

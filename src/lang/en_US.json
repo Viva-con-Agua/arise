@@ -107,7 +107,8 @@
     "change": {
       "email": "Email ändern",
       "password": "Passwort ändern"
-    }
+    },
+    "rolesDescription": "Your VcA roles:"
   },
 
   "signOut" : {
