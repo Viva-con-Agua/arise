@@ -226,19 +226,42 @@
   },
 
   "oauth":{
+    "title": {
+      "list": "OAuth Clients",
+      "form": "Neuen erstellen"
+    },
     "label": {
-      "id":"ID:",
-      "secret":"Secret:",
-      "uri":"Redirect URI:",
-      "types":"Grant Types:"
+      "id":"ID",
+      "secret":"Secret",
+      "uri":"Redirect URI",
+      "types":"Grant Types"
     },
-    "sublabel": {
-      "id":"",
-      "secret":"",
-      "uri":"",
-      "types":"Die katze rennt um den grünen großen Baum"
+    "grantTypes": {
+      "authorization_code": "Authorization Code",
+      "implicit": "Implicit",
+      "password": "Password",
+      "client_credentials": "Client Credentials"
     },
-    "descriptionPlaceholder":""
+    "descriptionPlaceholder":"",
+    "error": {
+      "serverError": {
+        "title": "Interner Fehler",
+        "msg": "Leider ist ein interner Fehler aufgetreten. Bitte versuche es nocheinmal."
+      },
+      "bogus": {
+        "title": "Problem mit den Angaben",
+        "msg": "Deine angegebenen Daten haben einen Fehler verursacht. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+      },
+      "default": {
+        "title": "Fehler aufgetreten",
+        "msg": "Es ist ein Fehler aufgetreten. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+      }
+    },
+    "success": {
+      "title": "Erfolgreich hinzugefügt",
+      "msg": "Der neue OAuth Client ist jetzt verfügbar und kann über Drops Nutzer authentifizieren."
+    },
+    "noClients": "Im Moment sind keine OAuth clients angelegt..."
   },
 
   "country": {

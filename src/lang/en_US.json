@@ -223,19 +223,42 @@
   },
 
   "oauth":{
+    "title": {
+      "list": "OAuth Clients",
+      "form": "Create"
+    },
     "label": {
       "id":"ID:",
       "secret":"Secret:",
       "uri":"Redirect URI:",
       "types":"Grant Types:"
     },
-    "sublabel": {
-      "id":"",
-      "secret":"",
-      "uri":"",
-      "types":"Die katze rennt um den grünen großen Baum"
+    "grantTypes": {
+      "authorization_code": "Authorization Code",
+      "implicit": "Implicit",
+      "password": "Password",
+      "client_credentials": "Client Credentials"
     },
-    "descriptionPlaceholder":""
+    "descriptionPlaceholder":"",
+    "error": {
+      "serverError": {
+        "title": "Internal error",
+        "msg": "An internal error occurred. Please send us an email to alert us about this problem."
+      },
+      "bogus": {
+        "title": "Problem with your data",
+        "msg": "Your data has issued an error. Please send us an email to alert us about this problem."
+      },
+      "default": {
+        "title": "An error occurred",
+        "msg": "An error occurred. Please send us an email to alert us about this problem."
+      }
+    },
+    "success": {
+      "title": "Created",
+      "msg": "The new OAuth client has been added. It can authenticate users of Drops."
+    },
+    "noClients": "Currently, there are no OAuth clients..."
   },
 
   "country": {
