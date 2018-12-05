@@ -100,7 +100,9 @@
             <a class="vca-button-primary vca-full-width" href="#">
                 {{ $t('profile.change.password') }}
             </a>
-            <a href="#">{{ $t("options.delete") }}</a>
+            <a class="vca-button-warn vca-full-width" href="#">
+                {{ $t("options.delete") }}
+            </a>
             <p v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">
                 <span>{{ $t('profile.rolesDescription') }}</span>
                 <div class="roles">
@@ -219,7 +221,6 @@
                   this.axios
                       .post('/drops/webapp/profile/update', toProfileSubmit(that.profileForm, that.emailaddress))
                       .then(function (response) {
-                          console.log(response)
                           switch (response.status) {
                               case 200:
                                   that.open(
@@ -336,18 +337,6 @@
     width: 178px;
     height: 178px;
     display: block;
-  }
-  a.vca-button-primary {
-      text-decoration: none;
-  }
-  a.vca-full-width {
-      display: block;
-      text-align: center;
-  }
-  .vca-full-width {
-    width: 100%;
-    margin-top:1em;
-    margin-bottom:1em;
   }
 
   el-form-item {
