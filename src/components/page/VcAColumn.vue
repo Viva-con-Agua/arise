@@ -32,7 +32,7 @@
         flex-direction: column;
         align-items: flex-start;
         width: 30%;
-        height: 100%;
+        min-height: 100%;
 
         &:not(:first-child) {
             margin-left: 3em;
