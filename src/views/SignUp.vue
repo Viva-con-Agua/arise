@@ -1,117 +1,125 @@
 <template>
-  <div id="signupform">
-    <el-card class="box-card">
-      <div
-              slot="header"
-              class="title">
-        <font-awesome-icon
-                icon="sign-up-alt"
-                size="4x"/>
-        <h2>{{ $t("signup.title") }}</h2>
-      </div>
-      <el-form
+  <VcAFrame :title="$t('signup.title.view')" hasContainer="true">
+    <el-form
         ref="signUpForm"
         :model="signUpForm"
         :rules="rules"
-        class="signUpForm"
+        class="columns-container"
         @keyup.enter.native="submitForm"
         status-icon>
-        <el-form-item
-          :label="$t('signup.label.firstname')"
-          prop="firstname">
-          <el-input
-            v-model="signUpForm.firstName"/>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.lastname')"
-          prop="lastname">
-          <el-input
-            v-model="signUpForm.lastName"/>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.mobile')"
-          prop="mobile">
-          <el-input
-            v-model="signUpForm.mobilePhone"/>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.placeofresidence')"
-          prop="placeofresidence">
-          <el-input
-            v-model="signUpForm.placeOfResidence"/>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.birthdate')"
-          prop="birthdate">
-          <el-date-picker
-            v-model="signUpForm.birthday"
-            :placeholder="$t('signup.label.birthdateinfo')"
-            type="date"
-            style="width: 100%;"/>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.gender')"
-          prop="gender">
-          <div id="genContent">
-            <el-radio-group
-              v-model="signUpForm.gender"
-              size="small">
-              <el-radio
-                label="female">{{ $t('gender.female') }}</el-radio>
-              <el-radio
-                label="male">{{ $t('gender.male') }}</el-radio>
-              <el-radio
-                label="other">{{ $t('gender.other') }}</el-radio>
-              <el-radio
-                label="prefernottosay">{{ $t('gender.prefernottosay') }}</el-radio>
-          </el-radio-group></div>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.email')"
-          prop="email">
-          <el-input
-            v-model="signUpForm.email"/>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.checkemail')"
-          prop="checkemail">
-          <el-input
-            v-model="signUpForm.checkemail"/>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.password')"
-          prop="password">
-          <div id="pw">
-            <password
-              v-model="signUpForm.password"
-              :toggle="true"
-              class="input"
-              default-class="el-input__inner"
-              @feedback="showFeedback"/>
+      <VcAColumn>
+        <VcABox :first="true" :title="$t('supporterForm.title')">
+          <VcAInfoBox>
+            {{ $t('supporterForm.infoBox') }}
+          </VcAInfoBox>
+          <el-form-item
+            :label="$t('supporterForm.label.firstname')"
+            prop="firstname">
+            <el-input
+              v-model="signUpForm.firstName"/>
+          </el-form-item>
+          <el-form-item
+            :label="$t('supporterForm.label.lastname')"
+            prop="lastname">
+            <el-input
+              v-model="signUpForm.lastName"/>
+          </el-form-item>
+          <el-form-item
+            :label="$t('supporterForm.label.mobile')"
+            prop="mobile">
+            <el-input
+              v-model="signUpForm.mobilePhone"/>
+          </el-form-item>
+          <el-form-item
+            :label="$t('supporterForm.label.placeofresidence')"
+            prop="placeofresidence">
+            <el-input
+              v-model="signUpForm.placeOfResidence"/>
+          </el-form-item>
+          <el-form-item
+            :label="$t('supporterForm.label.birthdate')"
+            prop="birthdate">
+            <el-date-picker
+              v-model="signUpForm.birthday"
+              :placeholder="$t('supporterForm.label.birthdateinfo')"
+              type="date"
+              style="width: 100%;"/>
+          </el-form-item>
+          <el-form-item
+            :label="$t('supporterForm.label.gender')"
+            prop="gender">
+            <div id="genContent">
+              <el-radio-group
+              class="genderOptions"
+                v-model="signUpForm.gender"
+                size="small">
+                <el-radio
+                  label="female">{{ $t('gender.female') }}</el-radio>
+                <el-radio
+                  label="male">{{ $t('gender.male') }}</el-radio>
+                <el-radio
+                  label="other">{{ $t('gender.other') }}</el-radio>
+                <el-radio
+                  label="undefined">{{ $t('gender.undefined') }}</el-radio>
+            </el-radio-group></div>
+          </el-form-item>
+        </VcABox>
+      </VcAColumn>
+      <VcAColumn>
+        <VcABox :first="true" :title="$t('signup.title.credentials')">
+          <el-form-item
+            :label="$t('signup.label.email')"
+            prop="email">
+            <el-input
+              v-model="signUpForm.email"/>
+          </el-form-item>
+          <el-form-item
+            :label="$t('signup.label.checkemail')"
+            prop="checkemail">
+            <el-input
+              v-model="signUpForm.checkemail"/>
+          </el-form-item>
+          <el-form-item
+            :label="$t('signup.label.password.title')"
+            prop="password">
+            <div id="pw">
+              <password
+                v-model="signUpForm.password"
+                :toggle="true"
+                class="input"
+                default-class="el-input__inner"
+                :placeholder="$t('signup.label.password.placeholder')"
+                @feedback="showFeedback"/>
+            </div>
+            <p v-if="suggestions.length !== 0" class="el-form-item__error">
+              <span class="suggestions">{{ suggestions[0] }}</span><br v-if="suggestions.length >= 2" />
+              <span v-if="suggestions.length >= 2" class="suggestions">{{ suggestions[1] }}</span><br v-if="suggestions.length >= 3" />
+              <span v-if="suggestions.length >= 3" class="suggestions">{{ suggestions[2] }}</span>
+            </p>
+          </el-form-item>
+          <el-form-item
+            :label="$t('signup.label.confirmPassword')"
+            prop="checkPass">
+            <el-input
+              v-model="signUpForm.checkPass"
+              type="password"/>
+          </el-form-item>
+        </VcABox>
+        <VcABox :first="false" :title="$t('signup.title.register')">
+          <button
+                  class="vca-button-primary buttonSignUp"
+                  @click.prevent="submitForm">
+            {{ $t('signup.formSubmit') }}
+          </button>
+
+          <div class="text-body">
+            <span>{{ $t('signup.asupporti') }} <router-link to="signin">{{ $t('options.signin') }}</router-link></span>
           </div>
-          <span class="suggestions">{{ this.suggestions[0] }}</span>
-        </el-form-item>
-        <el-form-item
-          :label="$t('signup.label.confirmPassword')"
-          prop="checkPass">
-          <el-input
-            v-model="signUpForm.checkPass"
-            type="password"/>
-        </el-form-item>
-      </el-form>
-      <el-button
-        class="buttonSignup"
-        type="primary"
-        icon="el-icon-arrow-right"
-        @click.prevent="submitForm">
-        {{ $t('options.signup') }}
-      </el-button>
-      
-      <div class="text-body">
-        <span>{{ $t('signup.asupporti') }} <router-link to="signin">{{ $t('options.signin') }}</router-link></span>
-      </div>
-    </el-card>
-  </div>
+        </VcABox>
+      </VcAColumn>
+
+    </el-form>
+  </VcAFrame>
 </template>
 
 <script>
@@ -119,10 +127,13 @@
  import Password from 'vue-password-strength-meter';
  import axios from 'axios'
  import VueAxios from 'vue-axios'
+  import VcAFrame from '@/components/page/VcAFrame.vue';
+  import VcAColumn from '@/components/page/VcAColumn.vue';
+  import VcABox from '@/components/page/VcABox.vue';
+  import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
   import {
     Button,
     DatePicker,
-    Card,
     Form,
     FormItem,
     Input,
@@ -132,7 +143,6 @@
   } from 'element-ui'
 
  Vue.use(VueAxios, axios);
-  Vue.use(Card);
   Vue.use(Button);
   Vue.use(DatePicker);
   Vue.use(Form);
@@ -148,29 +158,29 @@
 
 
  export default {
-   components: {Password},
+   components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
    data () {
        var checkPass = (rule, value, callback) => {
            if (value === '') {
-               callback(new Error('Please input the password again'));
+               callback(new Error(this.$t('signup.error.password.empty')));
            } else if (value !== this.signUpForm.password) {
-               callback(new Error('Two inputs don\'t match!'));
+               callback(new Error(this.$t('signup.error.password.unequal')));
            } else {
                callback();
            }
        };
      var checkeMail = (rule, value, callback) => {
        if (value === '') {
-         callback(new Error('Please input the password again'));
+         callback(new Error(this.$t('signup.error.email.empty')));
        } else if (value !== this.signUpForm.email) {
-         callback(new Error('Two inputs don\'t match!'));
+         callback(new Error(this.$t('signup.error.email.unequal')));
        } else {
          callback();
        }
      };
 
      return {
-       suggestions: [""],
+       suggestions: [],
 
        signUpForm: {
            firstName: '',
@@ -186,26 +196,40 @@
        rules: {
          firstName: [
            {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
-             {message: this.$t('inputSample.firstname'), trigger: 'blur'}
-         ], lastName: [
+           {message: this.$t('inputSample.firstname'), trigger: 'blur'}
+         ],
+         lastName: [
            {required: true, message: this.$t('validationError.lastname'), trigger: 'change'},
-               {message: this.$t('inputSample.lastname'), trigger: 'blur'}
-           ], mobilePhone: [
+           {message: this.$t('inputSample.lastname'), trigger: 'blur'}
+         ],
+         mobilePhone: [
            {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
-               {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
-           ], placeOfResidence: [
+           {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+         ],
+         placeOfResidence: [
            {required: true, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
-               {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
-         ], birthday: [
+           {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
+         ],
+         birthday: [
            {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
-         ], gender: [
-               {required: false}
-           ],email: [
-           {required: true, validator: checkeMail, message: this.$t('validationError.email'), trigger: 'blur'},
-               {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
-         ], checkPass: [
-               { required: true, validator: checkPass, message: this.$t('validationError.checkPass'), trigger: 'blur' }
-           ]
+         ],
+         gender: [
+           {required: false}
+         ],
+         email: [
+           {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
+           {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
+         ],
+         checkemail: [
+           {required: true, validator: checkeMail, trigger: 'blur'},
+           {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
+         ],
+         password: [
+             { required: true, message: this.$t('validationError.checkPass'), trigger: 'blur' }
+         ],
+         checkPass: [
+           { required: true, validator: checkPass, trigger: 'blur' }
+         ]
        }
      }
    },
@@ -217,22 +241,38 @@
          if (valid) {
            var that = this;
            this.axios
-             .post('http://localhost/drops/webapp/signup', this.signUpForm)
+             .post('/drops/webapp/signup', this.signUpForm)
              .then(function (response) {
                if (response.status == 200) {
                  that.$router.push({path: 'finishSignup'})
                }
-             }
+             })
              .catch(function (error) {
                  switch (error.response.status) {
                      case 500:
-                         that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                         if(error.response.data.hasOwnProperty("msg")) {
+                             that.open(that.$t('signup.error.serverError.title'), error.response.data.msg, "error");
+                         } else {
+                             that.open(that.$t('signup.error.serverError.title'), that.$t('signup.error.serverError.msg'), "error");
+                         }
                          break;
                      case 401:
-                         that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                         if(error.response.data.hasOwnProperty("msg")) {
+                             that.open(that.$t('signup.error.unAuthorized.title'), error.response.data.msg, "error");
+                         } else {
+                             that.open(that.$t('signup.error.unAuthorized.title'), that.$t('signup.error.unAuthorized.msg'), "error");
+                         }
+                         break;
+                     case 400:
+                         if(error.response.data.hasOwnProperty("msg")) {
+                             that.open(that.$t('signup.error.badRequest.title'), error.response.data.msg, "error");
+                         } else {
+                             that.open(that.$t('signup.error.badRequest.title'), that.$t('signup.error.badRequest.msg'), "error");
+                         }
+                         break;
                  }
               })
-             .finally(() => this.loading = false))
+             .finally(() => this.loading = false)
          }
        });
      },
@@ -249,43 +289,48 @@
 
      showFeedback ({suggestions, warning}) {
          this.suggestions = suggestions;
-         // console.log('🙏', suggestions);
-         // console.log('⚠', warning);
-     },
-     showScore (score) {
-         // console.log('💯', score);
-     },
+     }
 
    },
 
  };
 </script>
 
-<style scoped>
-  .buttonSignup {
+<style scoped lang="less">
+
+  .buttonSignUp {
+    margin-top:1em;
     margin-bottom:1em;
+    width: 100%;
     /*padding-top: 0.6em;*/
   }
 
-  #signupform {
-    width: 100%;
-    flex: 1;
-    padding-bottom: 1em;
-  }
-
-  .box-card {
-    width: 35%;
-    margin: 0 auto;
-    margin-top: 10%;
-  }
+  /*.suggestions {*/
+    /*line-height: 1em;*/
+  /*}*/
 
   el-form-item {
       float: left;
   }
 
+  .genderOptions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 0.5em;
+
+      .el-radio {
+          margin: 0em;
+          padding-left: 0.5em;
+      }
+  }
+
   #genContent {
       float: left;
       clear: both;
+      width: 100%;
   }
 
 

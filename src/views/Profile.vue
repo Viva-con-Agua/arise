@@ -1,126 +1,127 @@
 <template>
-  <div id="Profile">
-    <!-- Profilepicture -->
-    <el-upload
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      class="avatar-uploader">
-      <img
-        v-if="imageUrl"
-        :src="imageUrl"
-        class="avatar">
-      <i
-        v-else
-        class="el-icon-plus avatar-uploader-icon"/>
-    </el-upload>
-    <!-- Account Information -->
-    <el-input
-      v-model="emailaddress"
-      :disabled="true"
-      :label="$t('profile.label.email')"
-      style="width: 80%"
-    />
-    <el-button
-      type="primary"
-      icon="el-icon-edit"
-      @click.prevent><router-link to="changeEMail"/></el-button>
-    <el-input
-      v-model="password"
-      :disabled="true"
-      :label="$t('profile.label.email')"
-      placeholder="this.password"
-      style="width: 80%"
-    />
-    <el-button
-      type="primary"
-      icon="el-icon-edit"
-      @click.prevent><router-link to="changePassword"/></el-button>
-
-    <!-- Personal Information -->
-    <el-button
-      type="primary"
-      icon="el-icon-edit"
-      @click="openAuthorization()">{{ $t('options.edit') }}</el-button>
+  <VcAFrame>
     <el-form
-      ref="profileForm"
-      :model="profileForm"
-      :rules="rules"
-      @keyup.enter.native="submitForm(profileForm)"
-      class="profileForm">
-      <el-form-item
-        :label="$t('profile.label.firstname')"
-        prop="firstname">
-        <el-input
-          v-model="profileForm.firstName"
-          :placeholder="profileForm.firstName"/>
-      </el-form-item>
-      <el-form-item
-        :label="$t('profile.label.lastname')"
-        prop="lastname">
-        <el-input
-          v-model="profileForm.lastName"/>
-      </el-form-item>
-      <el-form-item
-        :label="$t('profile.label.mobile')"
-        prop="mobile">
-        <el-input
-          v-model="profileForm.mobilePhone"/>
-      </el-form-item>
-      <el-form-item
-        :label="$t('profile.label.placeofresidence')"
-        prop="placeofresidence">
-        <el-input
-          v-model="profileForm.placeOfResidence"/>
-      </el-form-item>
-      <el-form-item
-        :label="$t('profile.label.birthdate')"
-        prop="birthdate">
-        <div class="clear">
-          <el-date-picker
-            v-model="profileForm.birthday"
-            :placeholder="$t('profile.label.birthdateInfo')"
-            type="date"/>
-        </div>
-      </el-form-item>
-      <el-form-item
-        :label="$t('profile.label.gender')"
-        prop="gender">
-        <div class="clear">
-          <el-radio-group
-            v-model="profileForm.sex"
-            size="small">
-            <el-radio
-              label="female">{{ $t('gender.female') }}</el-radio>
-            <el-radio
-              label="male">{{ $t('gender.male') }}</el-radio>
-            <el-radio
-              label="other">{{ $t('gender.other') }}</el-radio>
-            <el-radio
-              label="prefernottosay">{{ $t('gender.prefernottosay') }}</el-radio>
-          </el-radio-group>
-        </div>
-      </el-form-item>
+            ref="profileForm"
+            :model="profileForm"
+            :rules="rules"
+            @keyup.enter.native="submitForm(profileForm)"
+            class="columns-container">
+      <VcAColumn>
+        <VcABox :first="true" :title="$t('supporterForm.title')">
+
+            <VcAInfoBox>
+              {{ $t('supporterForm.infoBox') }}
+            </VcAInfoBox>
+            <el-form-item
+                    :label="$t('supporterForm.label.firstname')"
+                    prop="firstname">
+              <el-input
+                      v-model="profileForm.firstName"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.lastname')"
+                    prop="lastname">
+              <el-input
+                      v-model="profileForm.lastName"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.mobile')"
+                    prop="mobile">
+              <el-input
+                      v-model="profileForm.mobilePhone"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.placeofresidence')"
+                    prop="placeofresidence">
+              <el-input
+                      v-model="profileForm.placeOfResidence"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.birthdate')"
+                    prop="birthdate">
+              <el-date-picker
+                      v-model="profileForm.birthday"
+                      :placeholder="$t('supporterForm.label.birthdateinfo')"
+                      type="date"
+                      style="width: 100%;"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.gender')"
+                    prop="gender">
+              <div id="genContent">
+                <el-radio-group
+                        class="genderOptions"
+                        v-model="profileForm.gender"
+                        size="small">
+                  <el-radio
+                          label="female">{{ $t('gender.female') }}</el-radio>
+                  <el-radio
+                          label="male">{{ $t('gender.male') }}</el-radio>
+                  <el-radio
+                          label="other">{{ $t('gender.other') }}</el-radio>
+                  <el-radio
+                          label="undefined">{{ $t('gender.undefined') }}</el-radio>
+                </el-radio-group></div>
+            </el-form-item>
+        </VcABox>
+      </VcAColumn>
+      <VcAColumn>
+        <VcABox :first="true" :title="$t('profile.title.avatar')">
+          <el-upload
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  class="avatar-uploader">
+            <img
+                    v-if="imageUrl"
+                    :src="imageUrl"
+                    class="avatar">
+            <i
+                    v-else
+                    class="el-icon-plus avatar-uploader-icon"/>
+          </el-upload>
+        </VcABox>
+        <VcABox :first="false" :title="$t('profile.title.crew')">
+          <span>Todo</span>
+        </VcABox>
+      </VcAColumn>
+      <VcAColumn>
+        <VcABox :first="true" :title="$t('profile.title.account')">
+          <a class="vca-button-primary vca-full-width" href="#">
+              {{ $t('profile.change.email') }}
+          </a>
+          <a class="vca-button-primary vca-full-width" href="#">
+              {{ $t('profile.change.password') }}
+          </a>
+          <a href="#">{{ $t("options.delete") }}</a>
+        </VcABox>
+        <VcABox :first="false" :title="$t('profile.title.update')">
+          <button
+                  class="vca-button-primary vca-full-width"
+                  @click.prevent="submitForm(profileForm)">
+            {{ $t('options.save') }}
+          </button>
+        </VcABox>
+      </VcAColumn>
     </el-form>
-    <el-button
-      class="buttonSave"
-      type="primary"
-      icon="el-icon-arrow-right"
-      @click.prevent="submitForm(profileForm)">{{ $t('options.save') }}</el-button>
-  </div>
+  </VcAFrame>
 </template>
 
 <script>
   import Vue from 'vue'
   import axios from 'axios'
   import VueAxios from 'vue-axios'
+  import VcAFrame from '@/components/page/VcAFrame.vue';
+  import VcAColumn from '@/components/page/VcAColumn.vue';
+  import VcABox from '@/components/page/VcABox.vue';
+  import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
   import {
     Button,
     DatePicker,
     Form,
     FormItem,
-    MessageBox,
+    Notification,
     Radio,
     RadioGroup,
     Upload,
@@ -132,55 +133,102 @@
   Vue.use(DatePicker);
   Vue.use(Form);
   Vue.use(FormItem);
-  Vue.use(MessageBox);
+  Vue.use(Notification);
   Vue.use(Radio);
   Vue.use(RadioGroup);
   Vue.use(Upload);
   Vue.use(Input);
 
+  Notification.closeAll();
+
   export default {
     name: "ChangeProfile",
+    components: { VcAFrame, VcAColumn, VcABox, VcAInfoBox },
 
     data () {
       return {
         imageUrl: '',
         emailaddress: '',
         profileForm: {
-          email: '',
-          firstName: '',
-          lastName: '',
-          mobilePhone: '',
-          placeOfResidence: '',
-          birthday: '',
-          sex: ''
+            firstName: '',
+            lastName: '',
+            mobilePhone: '',
+            placeOfResidence: '',
+            birthday: '',
+            gender: ''
         },
         rules: {
+            firstName: [
+                {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
+                {message: this.$t('inputSample.firstname'), trigger: 'blur'}
+            ],
+            lastName: [
+                {required: true, message: this.$t('validationError.lastname'), trigger: 'change'},
+                {message: this.$t('inputSample.lastname'), trigger: 'blur'}
+            ],
+            mobilePhone: [
+                {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
+                {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+            ],
+            placeOfResidence: [
+                {required: true, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
+                {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
+            ],
+            birthday: [
+                {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
+            ],
+            gender: [
+                {required: false}
+            ],
         },
       };
     },
     methods: {
       submitForm(profileForm) {
-            var that = this;
-            this.axios
-              .post('/drops/webapp/profile/update', that.profileForm)
-              .then(function (response) {
-                switch (response.status)
-                {
-                  case 200:
-
-                }
-              })
-              .catch(function (error) {
-                switch (error.response.status) {
-                  case 401:
-
-                    break;
-                  case 404:
-
-                    break;
-                }
-              })
-              .finally(() => this.loading = false)
+          function toProfileSubmit(form, email) {
+              var gender = form.gender
+              form['sex'] = gender
+              form['email'] = email
+              return form
+          }
+          var that = this;
+          this.$refs.profileForm.validate((valid) => {
+              if(valid) {
+                  this.axios
+                      .post('/drops/webapp/profile/update', toProfileSubmit(that.profileForm, that.emailaddress))
+                      .then(function (response) {
+                          console.log(response)
+                          switch (response.status) {
+                              case 200:
+                                  that.open(
+                                      that.$t('profile.messages.update.success.title'),
+                                      that.$t('profile.messages.update.success.message'),
+                                      "success"
+                                  )
+                                  break;
+                          }
+                      })
+                      .catch(function (error) {
+                          switch (error.response.status) {
+                              case 401:
+                                  that.open(
+                                      that.$t('profile.messages.update.notAuthorized.title'),
+                                      that.$t('profile.messages.update.notAuthorized.message'),
+                                      "error"
+                                  )
+                                  break;
+                              case 404:
+                                  that.open(
+                                      that.$t('profile.messages.update.notFound.title'),
+                                      that.$t('profile.messages.update.notFound.message'),
+                                      "error"
+                                  )
+                                  break;
+                          }
+                      })
+                      .finally(() => this.loading = false)
+              }
+          })
           
       },
       handleAvatarSuccess(res, file) {
@@ -198,24 +246,19 @@
         }
         return isJPG && isLt2M;
       },
-      openAuthorization() {
-        this.$prompt(this.$t('profile.openAuth.description'), this.$t('profile.openAuth.title'), {
-          confirmButtonText: this.$t('options.ok'),
-          cancelButtonText: this.$t('options.cancel'),
-        }).then(value => {
-          this.$message({
-            type: 'success',
-            message: 'Can edit'
+      open(title, message, type) {
+          Notification({
+              title:  title,
+              message: message,
+              type: type
           });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: 'Permission denied'
-          });
-        });
       }
     },
     created () {
+        function profileToForm(profile) {
+            profile['gender'] = profile['sex']
+            return profile
+        }
       var that = this;
       this.axios
         .get('/drops/webapp/profile/get')
@@ -223,10 +266,9 @@
           switch (response.status)
           {
             case 200:
-              var profiles = [];
-              profiles = response.data.additional_information;
-              that.profileForm = profiles[0];
-              that.emailaddress = that.profileForm.email;
+              var profile = response.data.additional_information[0];
+              that.profileForm = profileToForm(profile);
+              that.emailaddress = profile.email;
               break;
           }
         }).catch(function (error) {
@@ -248,7 +290,7 @@
 </script>
 
 
-<style scoped>
+<style scoped lang="less">
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
@@ -272,14 +314,40 @@
     height: 178px;
     display: block;
   }
-  .buttonSave {
-    width: 70%;
-    padding-top: 2%;
+  a.vca-button-primary {
+      text-decoration: none;
+  }
+  a.vca-full-width {
+      display: block;
+      text-align: center;
+  }
+  .vca-full-width {
+    width: 100%;
+    margin-top:1em;
+    margin-bottom:1em;
   }
 
-  #Profile {
-    max-width: 50%;
-    margin: 0 auto;
-    padding-top: 10%;
+  el-form-item {
+    float: left;
+  }
+
+  .genderOptions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 0.5em;
+
+      .el-radio {
+          margin: 0em;
+          padding-left: 0.5em;
+      }
+  }
+
+  #genContent {
+      float: left;
+      clear: both;
+      width: 100%;
   }
 </style>

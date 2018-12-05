@@ -1,28 +1,7 @@
 <template>
-  <div class="resetPasswordInstructions">
-    <div class="resetPasswordContent">
-      <el-steps
-        :active="1"
-      >
-        <el-step 
-          :title="$t('reset.steps.title.1')" 
-          :description="$t('reset.steps.description.1')"/>
-        <el-step 
-          :title="$t('reset.steps.title.2')" 
-          :description="$t('reset.steps.description.2')"/>
-        <el-step 
-          :title="$t('reset.steps.title.3')" 
-          :description="$t('reset.steps.description.3')"/>
-      </el-steps>
-      <el-card class="box-card">
-        <div 
-          slot="header" 
-          class="title">
-          <font-awesome-icon
-            icon="user-lock"
-            size="4x"/>
-          <h2>{{ (this.$route.params.pool === "pool") ? $t("reset.PasswordInstructionsPool1.title") : $t("reset.PasswordInstructions.title") }}</h2>
-        </div>
+  <VcAFrame>
+    <VcAColumn>
+      <VcABox :first="true" :title="getTitle()">
         <div class="content">
           {{ (this.$route.params.pool === "pool") ? $t("reset.PasswordInstructionsPool1.description") : $t("reset.PasswordInstructions.description") }}
         </div>
@@ -39,46 +18,47 @@
               v-model.lazy="resetFormEMail.email"/>
           </el-form-item>
         </el-form>
-        <el-button
-          type="primary"
-          icon="el-icon-arrow-right"
-          @click.once="submitForm(resetFormEMail)"
-          @keyup.enter="submitForm(signInForm)">{{ $t('options.sendEmail') }}</el-button>
-      </el-card>
-    </div>
-  </div>
+        <button
+                ref="send"
+                class="vca-button-primary vca-full-width"
+                @click.once="submitForm(resetFormEMail)"
+                @keyup.enter="submitForm(signInForm)">
+          {{ $t('options.sendEmail') }}
+        </button>
+      </VcABox>
+    </VcAColumn>
+  </VcAFrame>
 </template>
 
 <script>
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
+    import VcAFrame from '@/components/page/VcAFrame.vue';
+    import VcAColumn from '@/components/page/VcAColumn.vue';
+    import VcABox from '@/components/page/VcABox.vue';
     import {
       Button,
-      Card,
       Form,
       FormItem,
       Notification,
-      Step,
-      Steps,
       Input
     } from 'element-ui'
 
 
     Vue.use(VueAxios, axios);
     Vue.use(Button);
-    Vue.use(Card);
     Vue.use(Form);
     Vue.use(FormItem);
     Vue.use(Notification);
-    Vue.use(Step);
-    Vue.use(Steps);
     Vue.use(Input);
 
     Notification.closeAll();
 
     export default {
       name: "ResetPasswordInstructions",
+      components: { VcAFrame, VcAColumn, VcABox },
+
         data() {
           return {
             resetFormEMail: {
@@ -104,6 +84,9 @@
                 });
               }
             },
+            disableSend() {
+              this.$refs.send.disabled = true
+            },
             submitForm(resetFormEMail) {
                 this.$refs[resetFormEMail].validate((valid) => {
                     if (valid) {
@@ -113,7 +96,8 @@
                           address: that.resetFormEMail.email,
                         })
                         .then(function (response) {
-                          that.messageOpen(that.$t('reset.PasswordInstructions.successResponse'), this.$t('reset.alert.description'), 'success');
+                          that.disableSend()
+                          that.messageOpen(that.$t('reset.PasswordInstructions.successResponse'), that.$t('reset.alert.description'), 'success');
                         })
                         .catch(function (error) {
                             switch (error.response.status) {
@@ -131,33 +115,41 @@
             },
             resetForm(resetFormEMail) {
                 this.$refs[resetFormEMail].resetFields();
+            },
+            getTitle() {
+                return (this.$route.params.pool === "pool") ? this.$t("reset.PasswordInstructionsPool1.title") : this.$t("reset.PasswordInstructions.title")
             }
         }
     }
 </script>
 <style scoped>
-    .resetPasswordInstructions {
-        max-width: 75%;
-        margin: 0 auto;
-    }
-    .fade-enter-active, .fade-leave-active {
-      transition: opacity .5s;
-    }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-      opacity: 0;
-    }
-    .resetPasswordContent {
-        max-width: 50%;
-        margin: 0 auto;
-        padding-top: 15%;
-    }
-    .title {
-        width: 75%;
-        margin: 0 auto;
-        text-align: center;
-    }
-    .content {
-        font-size: 16px;
-    }
+  .vca-full-width {
+    margin-top:1em;
+    margin-bottom:1em;
+    width: 100%;
+  }
+    /*.resetPasswordInstructions {*/
+        /*max-width: 75%;*/
+        /*margin: 0 auto;*/
+    /*}*/
+    /*.fade-enter-active, .fade-leave-active {*/
+      /*transition: opacity .5s;*/
+    /*}*/
+    /*.fade-enter, .fade-leave-to !* .fade-leave-active below version 2.1.8 *! {*/
+      /*opacity: 0;*/
+    /*}*/
+    /*.resetPasswordContent {*/
+        /*max-width: 50%;*/
+        /*margin: 0 auto;*/
+        /*padding-top: 15%;*/
+    /*}*/
+    /*.title {*/
+        /*width: 75%;*/
+        /*margin: 0 auto;*/
+        /*text-align: center;*/
+    /*}*/
+    /*.content {*/
+        /*font-size: 16px;*/
+    /*}*/
 
 </style>

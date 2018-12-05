@@ -1,39 +1,44 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import Arise from './Arise';
-import router from './router';
+import Vue from 'vue'
+import Es6Promise from 'es6-promise'
+import Arise from './Arise.vue'
+import router from './router'
+import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
 import WidgetUserList from 'vca-widget-user'
-const $t = Vue.t;
+import { WidgetTopNavigation, WidgetBottomNavigation } from 'vca-widget-navigation';
+import en from '@/lang/en_US.json';
+import de from '@/lang/de_VCA.json';
+import enElement from 'element-ui/lib/locale/lang/en';
+import deElement from 'element-ui/lib/locale/lang/de';
+// const $t = Vue.t;
 
+
+Es6Promise.polyfill()
 
 Vue.use(VueI18n);
 
-Vue.config.productionTip = false;
-
 const locale =  navigator.language;
-
 const i18n = new VueI18n({
     locale: locale,
     messages: {
-        'en-US': require('@/lang/en_US'),
-        'de-DE': require('@/lang/de_VCA'),
-        'ja-JA': require('../node_modules/element-ui/lib/locale/lang/ja')
+        'en-US': Object.assign(en, enElement),
+        'de-DE': Object.assign(de, deElement)
     }
 });
-
+Vue.use(ElementUI, {
+    i18n: (key, value) => i18n.t(key, value)
+});
 Vue.use(WidgetUserList, { 'i18n': i18n })
+Vue.use(WidgetBottomNavigation, { 'i18n': i18n })
+Vue.use(WidgetTopNavigation, { 'i18n': i18n })
 
-/* eslint-disable no-new */
+Vue.config.productionTip = false
 
 new Vue({
-  el: '#app',
-  router,
-  i18n,
-  show: true,
-  components: { Arise, WidgetUserList },
-  template: '<App/>',
-  render: h => h(Arise)
-}).$mount('#arise');
-
+    router,
+    i18n,
+    show: true,
+    components: { Arise, WidgetUserList, WidgetTopNavigation, WidgetBottomNavigation },
+    template: '<App/>',
+render: h => h(Arise)
+}).$mount('#app')

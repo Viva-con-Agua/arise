@@ -2,15 +2,15 @@
   <div
     :style="style"
     class="freak">
-    <span id="message">{{ message }}</span>
     <div
-      id="freak"
+      class="body"
       v-html="require('../assets/svg/freak.svg')"/>
+    <div class="sign">
+      <div class="signBody" v-html="require('../assets/svg/schild.svg')"/>
+      <span class="message">{{ msg }}</span>
+    </div>
     <div
-      id="sign"
-      v-html="require('../assets/svg/schild.svg')"/>
-    <div
-      id="eye"
+      class="eye"
       v-html="require('../assets/svg/auge.svg')"/>
   </div>
 </template>
@@ -20,7 +20,7 @@
     name: "Freak",
     props: {
       message: {
-        default: "UPS!",
+        required: false,
         type: String
       },
       fontsize: {
@@ -38,58 +38,98 @@
     },
     computed: {
       style () {
-        return 'font-size:' + this.fontsize;
-        'font-style:' + this.fontstyle;
+        return 'font-size:' + this.fontsize + "; " +
+        'font-style:' + this.fontstyle + "; " +
         'font-weight' + this.fontweight;
-      }}
+      },
+      msg () {
+          var res = this.message
+          if((typeof this.message === "undefined") || this.message === null) {
+              res = this.$t("freak.default")
+          }
+          return res
+      }
+    },
+    methods: {
+    }
   }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  @color: #0a6b91;
+  @size: 1.5;
+
   .freak {
     position: relative;
     /*height: 90%;*/
     /*width: 50%;*/
     /*float: left;*/
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      /* IE10+ CSS */
+      display: none;
+    }
+    @supports (-ms-accelerator:true) {
+      /* IE Edge 12+ CSS */
+    }
+    @supports (-ms-ime-align:auto) {
+      /* IE Edge 16+ CSS */
+    }
   }
-  #freak {
+  .body {
     position: absolute;
-    width: 20vw;
+    width: 10vw * @size;
     bottom: 0vw;
+
+    & /deep/ svg #freakBody {
+      fill: @color;
+    }
   }
-  #sign {
+  .eye {
     position: absolute;
-    width: 15vw;
-    left: 15vw;
-    bottom: 5vw;
-    transform: rotate(5deg);
-  }
-  #eye {
-    position: absolute;
-    left: 12vw;
-    width: 1vw;
-    bottom: 19vw;
+    left: 6vw * @size;
+    width: 0.5vw * @size;
+    bottom: 9.5vw * @size;
     transform: rotateX(0deg);
     transition: transform 1s;
+
+    & /deep/ svg #eye {
+      fill: @color;
+    }
   }
-  #message {
+  .sign {
     position: absolute;
-    left: 16vw;
-    height:11vw;
-    width: 14vw;
-    top: -32vw;
-    text-align:center;
-    transform: rotate(5deg);
+    width: 7.5vw * @size;
+    left: 6.5vw * @size;
+    top: -19vw * @size;
+    transform: translate(1.5vw * @size, -1vw * @size) rotate(7deg);
+    transform-origin: 0 100%;
+
+    .signBody {
+      position: absolute;
+      width: 7.5vw * @size;
+      height: 5.5vw * @size;
+
+      & /deep/ svg #sign {
+        fill: @color;
+      }
+    }
+    .message {
+      position: absolute;
+      z-index: 10;
+      height:5.5vw * @size;
+      width: 7.5vw * @size;
+      top: 1.5vw * @size;
+      text-align:center;
+      color: @color;
+      font-size: 1.5vw * @size;
+    }
   }
-  .freak:hover #sign {
+
+  .freak:hover .sign {
     transition: transform 1s;
-    transform: translate(-1vw,-2vw);
+    transform: translate(0, -1vw * @size) rotate(0deg);
   }
-  .freak:hover #message {
-    transition: transform 1s;
-    transform: translate(-1vw,-2vw);
-  }
-  .freak:hover #eye {
-    transform: rotateX(70deg);
-  }
+  /*.freak:hover #eye {*/
+    /*transform: rotateX(70deg);*/
+  /*}*/
 </style>
