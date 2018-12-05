@@ -289,7 +289,10 @@
 
      showFeedback ({suggestions, warning}) {
          this.suggestions = suggestions;
-     }
+     },
+     showScore (score) {
+         // console.log('💯', score);
+     },
 
    },
 

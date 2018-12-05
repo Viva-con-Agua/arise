@@ -64,16 +64,6 @@
     /*height: 90%;*/
     /*width: 50%;*/
     /*float: left;*/
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      /* IE10+ CSS */
-      display: none;
-    }
-    @supports (-ms-accelerator:true) {
-      /* IE Edge 12+ CSS */
-    }
-    @supports (-ms-ime-align:auto) {
-      /* IE Edge 16+ CSS */
-    }
   }
   .body {
     position: absolute;
