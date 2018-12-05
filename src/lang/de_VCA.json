@@ -325,5 +325,13 @@
   "freak": {
     "default": "Ups!",
     "signin": "Schon dabei?"
+  },
+
+  "users": {
+    "title": "Supporter",
+    "ie": {
+      "msg": "Der Internet Explorer erlaubt im Moment keine fehlerfreie Darstellung dieser Oberfläche. Dies wird in Kürze nachgerüstet. Bitte nutze solange einen anderen Browser, wie etwa {0}.",
+      "alternative": "Firefox"
+    }
   }
 }

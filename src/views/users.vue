@@ -1,17 +1,22 @@
 <template>
     <VcAFrame>
         <VcAColumn size="90%">
-            <VcABox :first="true" title="Supporter">
-                <div class="users-wrapper">
+            <VcABox :first="true" :title="$t('users.title')">
+                <div v-if="!isIE()" class="users-wrapper">
                     <WidgetUserList :options="options" />
                 </div>
+                <p v-else>
+                    <i18n path="users.ie.msg" tag="label" for="users.ie.alternative">
+                        <a href='https://www.mozilla.org/firefox/download/thanks/'>{{ $t("users.ie.alternative") }}</a>
+                    </i18n>
+                </p>
             </VcABox>
         </VcAColumn>
     </VcAFrame>
 </template>
 
 <script>
-    import Vue from 'vue'
+    import IEDetector from '@/utils/IEDetector.js'
     import VcAFrame from '@/components/page/VcAFrame.vue';
     import VcAColumn from '@/components/page/VcAColumn.vue';
     import VcABox from '@/components/page/VcABox.vue';
@@ -28,6 +33,11 @@
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
                     'lang': this.$i18n.locale //'de-DE'
                 }
+            }
+        },
+        methods: {
+            isIE() {
+                return (new IEDetector()).isIE()
             }
         }
     }

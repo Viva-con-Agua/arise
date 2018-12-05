@@ -334,6 +334,11 @@
   "freak": {
     "default": "Ups!",
     "signin": "Join!"
+  },
+
+  "users": {
+    "title": "Supporter",
+    "ie": "Der Internet Explorer erlaubt im Moment keine fehlerfreie Darstellung dieser Oberfläche. Dies wird in Kürze nachgerüstet. Bitte nutze solange einen anderen Browser, wie etwa <a href='https://www.mozilla.org/firefox/download/thanks/'>Firefox</a> oder <a href='https://www.google.de/chrome/'>Chrome</a>."
   }
 
 }
