@@ -222,7 +222,12 @@
         "crewname": "Name",
         "cities": "Stadt",
         "country": "Land",
-        "operations": "Optionen"
+        "operations": "Optionen",
+        "search": {
+          "Crew_name": "Name",
+          "City_name": "City",
+          "City_country": "County"
+        }
       },
       "sorting": {
         "dirButton" : {

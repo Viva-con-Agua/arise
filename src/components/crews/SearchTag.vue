@@ -19,7 +19,7 @@
           return this.field.getKeyword()
         },
         getFieldName() {
-          return this.$vcaI18n.t('label.search.' + this.field.getName())
+          return this.$vcaI18n.t('crews.crewlist.label.search.' + this.field.getName())
         },
         fireRemove(event) {
           this.$emit('removeField', this.field)
