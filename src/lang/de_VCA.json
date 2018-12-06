@@ -1,5 +1,39 @@
-{"hello": "Hallo Welt!",
-
+{
+  "error": {
+    "pattern": {
+      "contactUs": "Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+    },
+    "ajax": {
+      "unAuthorized": {
+        "title": "Zugriff verweigert",
+        "msg": "Du musst dich zuerst anmelden oder registrieren."
+      },
+      "forbidden": {
+        "title": "Zugriff verweigert",
+        "msg": "Du darfst auf diesen Inhalt nicht zugreifen."
+      },
+      "serverError": {
+        "title": "Interner Fehler",
+        "msg": "Es ist ein Fehler auf dem Server aufgetreten. @:error.pattern.contactUs"
+      },
+      "badRequest": {
+        "title": "Problem mit den Angaben",
+        "msg": "Deine angegebenen Daten haben einen Fehler verursacht. @:error.pattern.contactUs"
+      },
+      "notFound": {
+        "title": "Nichts gefunden",
+        "msg": "Dazu konnte nichts gefunden werden. @:error.pattern.contactUs"
+      },
+      "bogus": {
+        "title": "Problem mit den Angaben",
+        "msg": "Deine angegebenen Daten haben einen Fehler verursacht. @:error.pattern.contactUs"
+      },
+      "default": {
+        "title": "Unbekannter Fehler",
+        "msg": "Es ist ein unbekannter Fehler aufgetreten. @:error.pattern.contactUs"
+      }
+    }
+  },
   "options": {
     "reset": "zurücksetzen",
     "save": "speichern",
@@ -78,6 +112,13 @@
       "gender": "Gender:"
     },
     "infoBox": "Euren Namen, das Alter und den Wohnort benötigen wir, um euch bei einigen Veranstaltern als Teilnehmer von Aktionen anzumelden. Euer Geschlecht wird für eine faire Verteilung der Teilnehmer an Aktionen erhoben und die Telefonnummer wird benötigt, um ggf. schnelle Absprachen im Vorfeld von Aktionen abzuwickeln."
+  },
+
+  "upload": {
+    "initial": "Drag deine Bilder hierher <br> oder klicke, um zu durchsuchen",
+    "saving": "Bilder hochladen...",
+    "failure": "Ein Fehler ist aufgetreten. <br> Leider kannst du im Moment keine Bilder hochladen.",
+    "success": "Deine Bilder wurden erfolgreich hochgeladen! <br> Lade ein neues hoch oder bearbeite dein Bild."
   },
 
   "profile": {
