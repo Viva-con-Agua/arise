@@ -53,7 +53,6 @@
                 this.state = STATE_CROP
             },
             bindThumbs(event) {
-                console.log(event)
                 this.profileImage.thumbnails = event
                 // clone the current profileImage
                 var copy = {}

@@ -124,7 +124,6 @@
                 }
 
                 var errorCallback = err => {
-                    console.log("Error")
                     switch(err.response.status) {
                         case 500:
                             this.open($t("error.ajax.serverError.title"), $t("error.ajax.serverError.msg"), "error")
@@ -142,12 +141,9 @@
                 }
 
                 var successCallback = response => {
-                    console.log("Success")
                     if(response.status === 200) {
                         var thumbGetURL = "/drops/webapp/avatar/get/"
-                        console.log(response.data.additional_information)
                         var thumbs = response.data.additional_information
-                        console.log(thumbs)
                         this.$emit('vca-images-cropped', thumbs)
                     }
                 }
