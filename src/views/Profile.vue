@@ -72,7 +72,7 @@
       </VcAColumn>
       <VcAColumn>
         <VcABox :first="true" :title="$t('profile.title.avatar')">
-          <ImageCrop />
+          <ProfileImage />
         </VcABox>
         <VcABox :first="false" :title="$t('profile.title.crew')">
           <span>Todo</span>
@@ -115,7 +115,7 @@
   import VcAColumn from '@/components/page/VcAColumn.vue';
   import VcABox from '@/components/page/VcABox.vue';
   import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
-  import ImageCrop from '@/components/ImageCrop.vue'
+  import ProfileImage from '@/components/upload/ProfileImage.vue'
   import {
     Button,
     DatePicker,
@@ -141,7 +141,7 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ImageCrop, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
 
     data () {
       return {

@@ -30,6 +30,7 @@
 
     export default {
         name: "Upload",
+        props: ["upload"],
         data() {
             return {
                 csrf: null,
@@ -54,19 +55,19 @@
             }
         },
         created: function() {
-            this.getCSRF()
+            // this.getCSRF()
         },
         methods: {
-            getCSRF() {
-               axios.get('/drops/webapp/avatar/csrf')
-                   .then(response => {
-                       if(response.status === 200) {
-                           this.csrf = response.data.additional_information.token
-                       } else {
-                           this.currentStatus = STATUS_FAILED
-                       }
-                   }).catch(error => this.currentStatus = STATUS_FAILED)
-            },
+            // getCSRF() {
+            //    axios.get('/drops/webapp/avatar/csrf')
+            //        .then(response => {
+            //            if(response.status === 200) {
+            //                this.csrf = response.data.additional_information.token
+            //            } else {
+            //                this.currentStatus = STATUS_FAILED
+            //            }
+            //        }).catch(error => this.currentStatus = STATUS_FAILED)
+            // },
             reset() {
                 // reset form to initial state
                 this.currentStatus = STATUS_INITIAL;
@@ -75,7 +76,11 @@
             },
             filesChange(event) {
                 var formData = this.createFormData(event.target.name, event.target.files)
-                this.save(formData, (url) => this.$emit('vca-images', url))
+                var imageGetURL = "/drops/webapp/avatar/get/"
+                this.save(formData, (fileName) => this.$emit('vca-images', {
+                    "url": imageGetURL + fileName,
+                    "id": fileName
+                }))
             },
             createFormData(fieldName, fileList) {
                 // handle file changes
@@ -91,39 +96,66 @@
                     });
                 return formData
             },
+            // save(formData, callback) {
+            //     // upload data to the server
+            //     this.currentStatus = STATUS_SAVING;
+            //     axios.post('/drops/webapp/avatar/upload?csrfToken=' + this.csrf, formData, {
+            //         headers: {
+            //             'Content-Type': 'multipart/form-data'
+            //         }
+            //     })
+            //         .then(response => {
+            //             if(response.status === 200) {
+            //                 callback(response.data.additional_information.fileName)
+            //                 this.uploadedFiles = this.uploadedFiles.concat(response.data.additional_information.fileName);
+            //                 this.currentStatus = STATUS_SUCCESS;
+            //             }
+            //         })
+            //         .catch(err => {
+            //             switch(err.response.status) {
+            //                 case 500:
+            //                     this.open($t("error.ajax.serverError.title"), $t("error.ajax.serverError.msg"), "error")
+            //                     break
+            //                 case 403:
+            //                     this.open($t("error.ajax.forbidden.title"), $t("error.ajax.forbidden.msg"), "error")
+            //                     break
+            //                 case 401:
+            //                     this.open($t("error.ajax.unAuthorized.title"), $t("error.ajax.unAuthorized.msg"), "error")
+            //                     break
+            //                 default:
+            //                     this.open($t("error.ajax.default.title"), $t("error.ajax.default.msg"), "error")
+            //                     break
+            //             }
+            //         });
+            // },
+
             save(formData, callback) {
-                // upload data to the server
-                this.currentStatus = STATUS_SAVING;
-                var imageGetURL = "/drops/webapp/avatar/get/"
-                axios.post('/drops/webapp/avatar/upload?csrfToken=' + this.csrf, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
+                var errorCallback = err => {
+                    switch(err.response.status) {
+                        case 500:
+                            this.open($t("error.ajax.serverError.title"), $t("error.ajax.serverError.msg"), "error")
+                            break
+                        case 403:
+                            this.open($t("error.ajax.forbidden.title"), $t("error.ajax.forbidden.msg"), "error")
+                            break
+                        case 401:
+                            this.open($t("error.ajax.unAuthorized.title"), $t("error.ajax.unAuthorized.msg"), "error")
+                            break
+                        default:
+                            this.open($t("error.ajax.default.title"), $t("error.ajax.default.msg"), "error")
+                            break
                     }
-                })
-                    .then(response => {
-                        if(response.status === 200) {
-                            var url = imageGetURL + response.data.additional_information.fileName
-                            callback(url)
-                            this.uploadedFiles = this.uploadedFiles.concat(url);
-                            this.currentStatus = STATUS_SUCCESS;
-                        }
-                    })
-                    .catch(err => {
-                        switch(err.response.status) {
-                            case 500:
-                                this.open($t("error.ajax.serverError.title"), $t("error.ajax.serverError.msg"), "error")
-                                break
-                            case 403:
-                                this.open($t("error.ajax.forbidden.title"), $t("error.ajax.forbidden.msg"), "error")
-                                break
-                            case 401:
-                                this.open($t("error.ajax.unAuthorized.title"), $t("error.ajax.unAuthorized.msg"), "error")
-                                break
-                            default:
-                                this.open($t("error.ajax.default.title"), $t("error.ajax.default.msg"), "error")
-                                break
-                        }
-                    });
+                }
+
+                var successCallback = response => {
+                    if(response.status === 200) {
+                        callback(response.data.additional_information.fileName)
+                        this.uploadedFiles = this.uploadedFiles.concat(response.data.additional_information.fileName);
+                        this.currentStatus = STATUS_SUCCESS;
+                    }
+                }
+                // upload data to the server
+                this.upload.image(formData, successCallback, errorCallback)
             },
             open(title, message, type) {
                 Notification({
