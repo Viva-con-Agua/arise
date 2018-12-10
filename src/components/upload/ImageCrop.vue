@@ -126,16 +126,16 @@
                 var errorCallback = err => {
                     switch(err.response.status) {
                         case 500:
-                            this.open($t("error.ajax.serverError.title"), $t("error.ajax.serverError.msg"), "error")
+                            this.open(this.$t("error.ajax.serverError.title"), this.$t("error.ajax.serverError.msg"), "error")
                             break
                         case 403:
-                            this.open($t("error.ajax.forbidden.title"), $t("error.ajax.forbidden.msg"), "error")
+                            this.open(this.$t("error.ajax.forbidden.title"), this.$t("error.ajax.forbidden.msg"), "error")
                             break
                         case 401:
-                            this.open($t("error.ajax.unAuthorized.title"), $t("error.ajax.unAuthorized.msg"), "error")
+                            this.open(this.$t("error.ajax.unAuthorized.title"), this.$t("error.ajax.unAuthorized.msg"), "error")
                             break
                         default:
-                            this.open($t("error.ajax.default.title"), $t("error.ajax.default.msg"), "error")
+                            this.open(this.$t("error.ajax.default.title"), this.$t("error.ajax.default.msg"), "error")
                             break
                     }
                 }

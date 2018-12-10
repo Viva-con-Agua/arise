@@ -48,8 +48,8 @@
         },
         methods: {
             bindOriginal(event) {
-                this.profileImage.imageUrl = event.url
-                this.profileImage.id = event.id
+                this.profileImage.imageUrl = event[0].url
+                this.profileImage.id = event[0].id
                 this.state = STATE_CROP
             },
             bindThumbs(event) {

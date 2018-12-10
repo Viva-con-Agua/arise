@@ -54,20 +54,7 @@
                 return this.currentStatus === STATUS_FAILED;
             }
         },
-        created: function() {
-            // this.getCSRF()
-        },
         methods: {
-            // getCSRF() {
-            //    axios.get('/drops/webapp/avatar/csrf')
-            //        .then(response => {
-            //            if(response.status === 200) {
-            //                this.csrf = response.data.additional_information.token
-            //            } else {
-            //                this.currentStatus = STATUS_FAILED
-            //            }
-            //        }).catch(error => this.currentStatus = STATUS_FAILED)
-            // },
             reset() {
                 // reset form to initial state
                 this.currentStatus = STATUS_INITIAL;
@@ -75,81 +62,43 @@
                 this.uploadError = null;
             },
             filesChange(event) {
-                var formData = this.createFormData(event.target.name, event.target.files)
-                var imageGetURL = "/drops/webapp/avatar/get/"
-                this.save(formData, (fileName) => this.$emit('vca-images', {
-                    "url": imageGetURL + fileName,
-                    "id": fileName
-                }))
-            },
-            createFormData(fieldName, fileList) {
-                // handle file changes
-                const formData = new FormData();
+                var next = (formData) => this.save(formData, (newImg) => this.$emit('vca-images', newImg))
+                this.transform(event.target.name, event.target.files, next)
 
-                if (!fileList.length) return;
-
-                // append the files to FormData
-                Array
-                    .from(Array(fileList.length).keys())
-                    .map(x => {
-                        formData.append(fieldName, fileList[x], fileList[x].name);
-                    });
-                return formData
             },
-            // save(formData, callback) {
-            //     // upload data to the server
-            //     this.currentStatus = STATUS_SAVING;
-            //     axios.post('/drops/webapp/avatar/upload?csrfToken=' + this.csrf, formData, {
-            //         headers: {
-            //             'Content-Type': 'multipart/form-data'
-            //         }
-            //     })
-            //         .then(response => {
-            //             if(response.status === 200) {
-            //                 callback(response.data.additional_information.fileName)
-            //                 this.uploadedFiles = this.uploadedFiles.concat(response.data.additional_information.fileName);
-            //                 this.currentStatus = STATUS_SUCCESS;
-            //             }
-            //         })
-            //         .catch(err => {
-            //             switch(err.response.status) {
-            //                 case 500:
-            //                     this.open($t("error.ajax.serverError.title"), $t("error.ajax.serverError.msg"), "error")
-            //                     break
-            //                 case 403:
-            //                     this.open($t("error.ajax.forbidden.title"), $t("error.ajax.forbidden.msg"), "error")
-            //                     break
-            //                 case 401:
-            //                     this.open($t("error.ajax.unAuthorized.title"), $t("error.ajax.unAuthorized.msg"), "error")
-            //                     break
-            //                 default:
-            //                     this.open($t("error.ajax.default.title"), $t("error.ajax.default.msg"), "error")
-            //                     break
-            //             }
-            //         });
-            // },
+            transform(fieldName, fileList, next) {
+                var caller = (id, file) => {
+                    const formData = new FormData()
+                    formData.append("image", file, id)
+                    next(formData)
+                }
+                for(var i = 0; i < fileList.length; i++) {
+                    var file = fileList[i]
+                    caller(file.name, file)
+                }
+            },
 
             save(formData, callback) {
                 var errorCallback = err => {
                     switch(err.response.status) {
                         case 500:
-                            this.open($t("error.ajax.serverError.title"), $t("error.ajax.serverError.msg"), "error")
+                            this.open(this.$t("error.ajax.serverError.title"), this.$t("error.ajax.serverError.msg"), "error")
                             break
                         case 403:
-                            this.open($t("error.ajax.forbidden.title"), $t("error.ajax.forbidden.msg"), "error")
+                            this.open(this.$t("error.ajax.forbidden.title"), this.$t("error.ajax.forbidden.msg"), "error")
                             break
                         case 401:
-                            this.open($t("error.ajax.unAuthorized.title"), $t("error.ajax.unAuthorized.msg"), "error")
+                            this.open(this.$t("error.ajax.unAuthorized.title"), this.$t("error.ajax.unAuthorized.msg"), "error")
                             break
                         default:
-                            this.open($t("error.ajax.default.title"), $t("error.ajax.default.msg"), "error")
+                            this.open(this.$t("error.ajax.default.title"), this.$t("error.ajax.default.msg"), "error")
                             break
                     }
                 }
 
                 var successCallback = response => {
                     if(response.status === 200) {
-                        callback(response.data.additional_information.fileName)
+                        callback(response.data.additional_information)
                         this.uploadedFiles = this.uploadedFiles.concat(response.data.additional_information.fileName);
                         this.currentStatus = STATUS_SUCCESS;
                     }
