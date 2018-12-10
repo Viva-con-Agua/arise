@@ -39,7 +39,11 @@ export default class ImageUpload {
     }
 
     thumbnail(formData, successCallback, errorCallback, id) {
-        axios.post('/drops/webapp/avatar/upload/thumbnails/' + id +'?csrfToken=' + this.csrf, formData)
+        axios.post('/drops/webapp/avatar/upload/thumbnails/' + id +'?csrfToken=' + this.csrf, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
             .then(response => {
                 if(response.status === 200) {
                     successCallback(response)

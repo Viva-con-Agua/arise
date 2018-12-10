@@ -66,7 +66,7 @@
                     // and set the result to this.cropped which is being
                     // used to display the result above.
                     let options = {
-                        type: "base64",
+                        type: "blob",
                         size: { "width": size.width, "height": size.height },
                         format: 'png',
                         circle: false
@@ -99,28 +99,13 @@
             // }
             save() {
 
-                var createFormData = (fieldName, thumbs) => {
-                    return thumbs.map((thumb) => {
-                        return {
-                            "id": fieldName,
-                            "contentType": "image/png",
-                            "base64": thumb.cropped
-                        }
+                var createFormData = (id, thumbs) => {
+                    const formData = new FormData()
+                    var getName = (thumb) => id + "_" + thumb.width + "x" + thumb.height
+                    thumbs.forEach((thumb) => {
+                        formData.append(getName(thumb), thumb.cropped, getName(thumb))
                     })
-                    // // handle file changes
-                    // const formData = new FormData();
-                    //
-                    // if (!thumbs.length) return;
-                    //
-                    // var thumbName = (width, height) => fieldName + "_" + width + "x" + height
-                    //
-                    // // append the files to FormData
-                    // Array
-                    //     .from(Array(thumbs.length).keys())
-                    //     .map(x => {
-                    //         formData.append(thumbName(thumbs[x].width, thumbs[x].height), thumbs[x].cropped);
-                    //     });
-                    // return formData
+                    return formData
                 }
 
                 var errorCallback = err => {
@@ -142,7 +127,6 @@
 
                 var successCallback = response => {
                     if(response.status === 200) {
-                        var thumbGetURL = "/drops/webapp/avatar/get/"
                         var thumbs = response.data.additional_information
                         this.$emit('vca-images-cropped', thumbs)
                     }
