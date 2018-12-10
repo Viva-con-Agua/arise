@@ -1,13 +1,6 @@
 <template>
     <div class="profileImage">
-        <div class="thumbnails" v-if="isUpload">
-            <img
-                    v-for="avatar in avatars"
-                    v-if="(typeof avatar.thumbnails.find((thumb) => thumb.width === 75 && thumb.height === 75) !== 'undefined')"
-                    :key="avatar.id"
-                    :src="avatar.thumbnails.find((thumb) => thumb.width === 75 && thumb.height === 75).url"
-            />
-        </div>
+        <Thumbs v-if="isUpload" :avatars="avatars" />
         <Upload v-on:vca-images="bindOriginal" v-if="isUpload" :upload="imageUpload" />
         <ImageCrop v-if="isCrop" :id="profileImage.id" :imageUrl="profileImage.imageUrl" :upload="imageUpload" v-on:vca-images-cropped="bindThumbs" />
     </div>
@@ -17,12 +10,13 @@
     import Upload from '@/components/upload/Upload.vue'
     import ImageCrop from '@/components/upload/ImageCrop.vue'
     import ImageUpload from '@/components/upload/ImageUpload'
+    import Thumbs from '@/components/upload/Thumbs'
 
     const STATE_UPLOAD = 1, STATE_CROP = 2;
 
     export default {
         name: "ProfileImage",
-        components: { Upload, ImageCrop },
+        components: { Upload, ImageCrop, Thumbs },
         data() {
             return {
                 "state": STATE_UPLOAD,

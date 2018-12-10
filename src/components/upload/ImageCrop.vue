@@ -29,6 +29,7 @@
         data () {
             var sizes = [
                 { "width": 200, "height": 200, "cropped": null },
+                { "width": 85, "height": 85, "cropped": null },
                 { "width": 75, "height": 75, "cropped": null },
                 { "width": 32, "height": 32, "cropped": null }
             ]

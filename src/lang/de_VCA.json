@@ -118,7 +118,11 @@
     "initial": "Drag deine Bilder hierher <br> oder klicke, um zu durchsuchen",
     "saving": "Bilder hochladen...",
     "failure": "Ein Fehler ist aufgetreten. <br> Leider kannst du im Moment keine Bilder hochladen.",
-    "success": "Deine Bilder wurden erfolgreich hochgeladen! <br> Lade ein neues hoch oder bearbeite dein Bild."
+    "success": "Deine Bilder wurden erfolgreich hochgeladen! <br> Lade ein neues hoch oder bearbeite dein Bild.",
+    "label": {
+      "delete": "Löschen",
+      "edit": "Ändern"
+    }
   },
 
   "profile": {

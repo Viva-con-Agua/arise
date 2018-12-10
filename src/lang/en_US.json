@@ -119,7 +119,11 @@
     "initial": "Drag your image here to begin <br> or click to browse",
     "saving": "Uploading image...",
     "failure": "An error occured. <br> Unfortunately, you can not upload any images at the moment.",
-    "success": "Successfully uploaded an image! <br> Upload a new one or crop your image above."
+    "success": "Successfully uploaded an image! <br> Upload a new one or crop your image above.",
+    "label": {
+      "delete": "Delete",
+      "edit": "Edit"
+    }
   },
 
   "profile": {
