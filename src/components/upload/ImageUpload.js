@@ -23,23 +23,15 @@ export default class ImageUpload {
     }
 
     image(formData, successCallback, errorCallback) {
-        axios.post('/drops/webapp/avatar/upload?csrfToken=' + this.csrf, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-            .then(response => {
-                if(response.status === 200) {
-                    successCallback(response)
-                }
-            })
-            .catch(err => {
-                errorCallback(err)
-            });
+        this.call('/drops/webapp/avatar/upload', formData, successCallback, errorCallback)
     }
 
     thumbnail(formData, successCallback, errorCallback, id) {
-        axios.post('/drops/webapp/avatar/upload/thumbnails/' + id +'?csrfToken=' + this.csrf, formData, {
+        this.call('/drops/webapp/avatar/upload/thumbnails/' + id, formData, successCallback, errorCallback)
+    }
+
+    call(url, formData, successCallback, errorCallback) {
+        axios.post(url +'?csrfToken=' + this.csrf, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
