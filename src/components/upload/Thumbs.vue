@@ -5,7 +5,7 @@
                 <img :src="avatar.preview.url" class="preview" />
             </button>
             <div class="actions">
-                <button class="delete vca-button-warn">
+                <button class="delete vca-button-warn" @click="remove(avatar.id)">
                     {{ $t('upload.label.delete')}}
                 </button>
                 <button class="edit vca-button-primary">
@@ -17,9 +17,18 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+    import {
+        Notification
+    } from 'element-ui'
+
+    Vue.use(Notification);
+
+    Notification.closeAll();
+
     export default {
         name: "Thumbs",
-        props: ["avatars"],
+        props: ["avatars", "rest"],
         computed: {
             filteredAvatars() {
                 var finder = (thumb, size) => thumb.width === size && thumb.height === size
@@ -31,6 +40,35 @@
                         avatar.preview = avatar.thumbnails.find(preview)
                         return avatar
                     })
+            }
+        },
+        methods: {
+            remove(uuid) {
+                var successCallback = (response) => this.$emit('vca-images-delete', response.data.additional_information)
+                var errorCallback = err => {
+                    switch(err.response.status) {
+                        case 500:
+                            this.open(this.$t("error.ajax.serverError.title"), this.$t("error.ajax.serverError.msg"), "error")
+                            break
+                        case 403:
+                            this.open(this.$t("error.ajax.forbidden.title"), this.$t("error.ajax.forbidden.msg"), "error")
+                            break
+                        case 401:
+                            this.open(this.$t("error.ajax.unAuthorized.title"), this.$t("error.ajax.unAuthorized.msg"), "error")
+                            break
+                        default:
+                            this.open(this.$t("error.ajax.default.title"), this.$t("error.ajax.default.msg"), "error")
+                            break
+                    }
+                }
+                this.rest.remove(uuid, successCallback, errorCallback)
+            },
+            open(title, message, type) {
+                Notification({
+                    title:  title,
+                    message: message,
+                    type: type
+                });
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="profileImage">
-        <Thumbs v-if="isUpload" :avatars="avatars" />
+        <Thumbs v-if="isUpload" :avatars="avatars" :rest="imageUpload" v-on:vca-images-delete="remove" />
         <Upload v-on:vca-images="bindOriginal" v-if="isUpload" :upload="imageUpload" />
         <ImageCrop v-if="isCrop" :id="profileImage.id" :imageUrl="profileImage.imageUrl" :upload="imageUpload" v-on:vca-images-cropped="bindThumbs" />
     </div>
@@ -60,6 +60,9 @@
 
                 this.avatars.push(copy)
                 this.state = STATE_UPLOAD
+            },
+            remove(event) {
+                this.avatars = this.avatars.filter((avatar) => avatar.id !== event.id)
             }
         }
     }

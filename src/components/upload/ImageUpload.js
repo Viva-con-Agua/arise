@@ -30,6 +30,16 @@ export default class ImageUpload {
         this.call('/drops/webapp/avatar/upload/thumbnails/' + id, formData, successCallback, errorCallback)
     }
 
+    remove(uuidOriginal, successCallback, errorCallback) {
+        axios.delete('/drops/webapp/avatar/delete/' + uuidOriginal)
+            .then(response => {
+                if(response.status === 200) {
+                    successCallback(response)
+                }
+            })
+            .catch(err => errorCallback(err))
+    }
+
     call(url, formData, successCallback, errorCallback) {
         axios.post(url +'?csrfToken=' + this.csrf, formData, {
             headers: {
