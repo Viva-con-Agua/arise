@@ -81,7 +81,7 @@
                     })
             },
             bindFromUpload(event) {
-                this.bindOriginal(event[0])
+                this.bindOriginal(event)
             },
             bindOriginal(original) {
                 this.profileImage.imageUrl = original.url
