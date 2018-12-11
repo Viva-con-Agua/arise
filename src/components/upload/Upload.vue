@@ -17,7 +17,6 @@
 <!-- Javascript -->
 <script>
     import Vue from 'vue'
-    import axios from 'axios'
     import {
         Notification
     } from 'element-ui'
@@ -25,6 +24,8 @@
     Vue.use(Notification);
 
     const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
+
+    const maxFileSize = 5242880;
 
     Notification.closeAll();
 
@@ -62,9 +63,21 @@
                 this.uploadError = null;
             },
             filesChange(event) {
-                var next = (formData) => this.save(formData, (newImg) => this.$emit('vca-images', newImg))
-                this.transform(event.target.name, event.target.files, next)
-
+                if(this.checkFileSize(event.target)) {
+                    var next = (formData) => this.save(formData, (newImg) => this.$emit('vca-images', newImg))
+                    this.transform(event.target.name, event.target.files, next)
+                }
+            },
+            checkFileSize(inputField) {
+                var fine = true
+                for(var i = 0; i < inputField.files.length; i++) {
+                    if(inputField.files[i].size > maxFileSize) {
+                        inputField.value = ""
+                        fine = false
+                        this.open(this.$t("upload.maxLength.title"), this.$t("upload.maxLength.max"), "error")
+                    }
+                }
+                return fine
             },
             transform(fieldName, fileList, next) {
                 var caller = (id, file) => {

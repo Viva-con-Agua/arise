@@ -128,6 +128,10 @@
     "error": {
       "edit": "Error on loading",
       "msg": "The selected image has not been loaded successfully."
+    },
+    "maxLength": {
+      "title": "Image is to big",
+      "msg": "The maximum image size is 5 MB."
     }
   },
 

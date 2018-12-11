@@ -127,6 +127,10 @@
     "error": {
       "edit": "Fehler beim Laden",
       "msg": "Das gewählte Bild konnte leider nicht geladen werden."
+    },
+    "maxLength": {
+      "title": "Bild zu groß",
+      "msg": "Dein Bild ist leider zu groß. Die maximale Dateigröße beträgt 5 MB."
     }
   },
 
