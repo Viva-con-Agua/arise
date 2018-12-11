@@ -121,7 +121,8 @@
     "success": "Deine Bilder wurden erfolgreich hochgeladen! <br> Lade ein neues hoch oder bearbeite dein Bild.",
     "label": {
       "delete": "Löschen",
-      "edit": "Ändern"
+      "edit": "Ändern",
+      "crop": "Speichern"
     },
     "error": {
       "edit": "Fehler beim Laden",

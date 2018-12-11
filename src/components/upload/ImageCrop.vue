@@ -13,7 +13,7 @@
                 @result="result"
                 @update="update">
         </vue-croppie>
-        <button class="vca-button-primary vca-full-width" @click="submit">Speichern</button>
+        <button class="vca-button-primary vca-full-width" @click="submit">{{ $t("upload.label.crop") }}</button>
     </div>
 </template>
 

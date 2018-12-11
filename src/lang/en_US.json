@@ -122,7 +122,8 @@
     "success": "Successfully uploaded an image! <br> Upload a new one or crop your image above.",
     "label": {
       "delete": "Delete",
-      "edit": "Edit"
+      "edit": "Edit",
+      "crop": "Save"
     },
     "error": {
       "edit": "Error on loading",
