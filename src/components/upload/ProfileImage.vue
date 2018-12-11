@@ -7,6 +7,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     import Upload from '@/components/upload/Upload.vue'
     import ImageCrop from '@/components/upload/ImageCrop.vue'
     import ImageUpload from '@/components/upload/ImageUpload'
@@ -39,8 +40,32 @@
         },
         created () {
             this.imageUpload = new ImageUpload()
+            this.init()
         },
         methods: {
+            init() {
+                axios.get("/drops/webapp/avatar/get")
+                    .then(response => {
+                        if(response.status === 200) {
+                            this.avatars = response.data.additional_information
+                        }
+                    }).catch(err => {
+                        switch (err.response.status) {
+                            case 500:
+                                this.open(this.$t("error.ajax.serverError.title"), this.$t("error.ajax.serverError.msg"), "error")
+                                break
+                            case 403:
+                                this.open(this.$t("error.ajax.forbidden.title"), this.$t("error.ajax.forbidden.msg"), "error")
+                                break
+                            case 401:
+                                this.open(this.$t("error.ajax.unAuthorized.title"), this.$t("error.ajax.unAuthorized.msg"), "error")
+                                break
+                            default:
+                                this.open(this.$t("error.ajax.default.title"), this.$t("error.ajax.default.msg"), "error")
+                                break
+                        }
+                    })
+            },
             bindOriginal(event) {
                 this.profileImage.imageUrl = event[0].url
                 this.profileImage.id = event[0].id
