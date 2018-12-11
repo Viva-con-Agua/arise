@@ -1,14 +1,14 @@
 <template>
     <div class="thumbnails">
-        <div v-for="avatar in filteredAvatars" :key="avatar.id" class="avatar">
+        <div v-for="avatar in filteredAvatars()" :key="avatar.id" class="avatar">
             <button class="select">
-                <img :src="avatar.preview.url" class="preview" />
+                <img :src="getUncachedUrl(avatar.preview.url)" class="preview" />
             </button>
             <div class="actions">
                 <button class="delete vca-button-warn" @click="remove(avatar.id)">
                     {{ $t('upload.label.delete')}}
                 </button>
-                <button class="edit vca-button-primary">
+                <button class="edit vca-button-primary" @click="edit(avatar.id)">
                     {{ $t('upload.label.edit')}}
                 </button>
             </div>
@@ -29,20 +29,23 @@
     export default {
         name: "Thumbs",
         props: ["avatars", "rest"],
-        computed: {
+        methods: {
             filteredAvatars() {
                 var finder = (thumb, size) => thumb.width === size && thumb.height === size
                 var preview = (thumb) => finder(thumb, 85)
                 var filter = (avatar) => (typeof avatar.thumbnails.find(preview) !== "undefined")
-                return this.avatars
+                var filtered = this.avatars
                     .filter(filter)
                     .map((avatar) => {
                         avatar.preview = avatar.thumbnails.find(preview)
                         return avatar
                     })
-            }
-        },
-        methods: {
+                return filtered
+            },
+            getUncachedUrl(url) {
+                var d = Math.random()
+                return (url + "?ver=" + d)
+            },
             remove(uuid) {
                 var successCallback = (response) => this.$emit('vca-images-delete', response.data.additional_information)
                 var errorCallback = err => {
@@ -62,6 +65,9 @@
                     }
                 }
                 this.rest.remove(uuid, successCallback, errorCallback)
+            },
+            edit(uuid) {
+                this.$emit('vca-images-edit', uuid)
             },
             open(title, message, type) {
                 Notification({

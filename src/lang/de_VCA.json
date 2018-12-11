@@ -122,6 +122,10 @@
     "label": {
       "delete": "Löschen",
       "edit": "Ändern"
+    },
+    "error": {
+      "edit": "Fehler beim Laden",
+      "msg": "Das gewählte Bild konnte leider nicht geladen werden."
     }
   },
 

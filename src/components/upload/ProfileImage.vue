@@ -1,7 +1,13 @@
 <template>
     <div class="profileImage">
-        <Thumbs v-if="isUpload" :avatars="avatars" :rest="imageUpload" v-on:vca-images-delete="remove" />
-        <Upload v-on:vca-images="bindOriginal" v-if="isUpload" :upload="imageUpload" />
+        <Thumbs
+                v-if="isUpload"
+                :avatars="avatars"
+                :rest="imageUpload"
+                v-on:vca-images-delete="remove"
+                v-on:vca-images-edit="load"
+        />
+        <Upload v-on:vca-images="bindFromUpload" v-if="isUpload" :upload="imageUpload" />
         <ImageCrop v-if="isCrop" :id="profileImage.id" :imageUrl="profileImage.imageUrl" :upload="imageUpload" v-on:vca-images-cropped="bindThumbs" />
     </div>
 </template>
@@ -12,6 +18,14 @@
     import ImageCrop from '@/components/upload/ImageCrop.vue'
     import ImageUpload from '@/components/upload/ImageUpload'
     import Thumbs from '@/components/upload/Thumbs'
+    import Vue from 'vue'
+    import {
+        Notification
+    } from 'element-ui'
+
+    Vue.use(Notification);
+
+    Notification.closeAll();
 
     const STATE_UPLOAD = 1, STATE_CROP = 2;
 
@@ -66,9 +80,12 @@
                         }
                     })
             },
-            bindOriginal(event) {
-                this.profileImage.imageUrl = event[0].url
-                this.profileImage.id = event[0].id
+            bindFromUpload(event) {
+                this.bindOriginal(event[0])
+            },
+            bindOriginal(original) {
+                this.profileImage.imageUrl = original.url
+                this.profileImage.id = original.id
                 this.state = STATE_CROP
             },
             bindThumbs(event) {
@@ -78,16 +95,47 @@
                 for (var attr in this.profileImage) {
                     if (this.profileImage.hasOwnProperty(attr)) copy[attr] = this.profileImage[attr];
                 }
+                this.reset()
+                var found = false
+                this.avatars.map((avatar) => {
+                    var res = avatar
+                    if(avatar.id === copy.id) {
+                        res = copy
+                        found = true
+                    }
+                    return res
+                })
+                if(!found) {
+                    this.avatars.push(copy)
+                }
+                this.state = STATE_UPLOAD
+            },
+            load(event) {
+                var id = event
+                var selected = this.avatars.find((avatar) => avatar.id === id)
+                if(typeof selected !== "undefined") {
+                    this.reset()
+                    this.bindOriginal(selected)
+                    this.state = STATE_CROP
+                } else {
+                    this.open(this.$t("upload.error.edit.title"), this.$t("upload.error.edit.msg"), "error")
+                }
+            },
+            reset() {
                 // reset the current profileImage
                 this.profileImage.imageUrl = null
                 this.profileImage.id = null
                 this.profileImage.thumbnails = []
-
-                this.avatars.push(copy)
-                this.state = STATE_UPLOAD
             },
             remove(event) {
                 this.avatars = this.avatars.filter((avatar) => avatar.id !== event.id)
+            },
+            open(title, message, type) {
+                Notification({
+                    title:  title,
+                    message: message,
+                    type: type
+                });
             }
         }
     }

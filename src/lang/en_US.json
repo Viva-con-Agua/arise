@@ -123,6 +123,10 @@
     "label": {
       "delete": "Delete",
       "edit": "Edit"
+    },
+    "error": {
+      "edit": "Error on loading",
+      "msg": "The selected image has not been loaded successfully."
     }
   },
 
