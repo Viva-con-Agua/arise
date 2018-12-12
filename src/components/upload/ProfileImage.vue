@@ -6,6 +6,7 @@
                 :rest="imageUpload"
                 v-on:vca-images-delete="remove"
                 v-on:vca-images-edit="load"
+                v-on:vca-images-selected="select"
         />
         <Upload v-on:vca-images="bindFromUpload" v-if="isUpload" :upload="imageUpload" />
         <ImageCrop v-if="isCrop" :id="profileImage.id" :imageUrl="profileImage.imageUrl" :upload="imageUpload" v-on:vca-images-cropped="bindThumbs" />
@@ -38,6 +39,7 @@
                 "profileImage": {
                     "imageUrl": null,
                     "id": null,
+                    "selected": false,
                     "thumbnails": []
                 },
                 "avatars": [],
@@ -86,6 +88,7 @@
             bindOriginal(original) {
                 this.profileImage.imageUrl = original.url
                 this.profileImage.id = original.id
+                this.profileImage.selected = original.selected
                 this.state = STATE_CROP
             },
             bindThumbs(event) {
@@ -102,6 +105,8 @@
                     if(avatar.id === copy.id) {
                         res = copy
                         found = true
+                    } else {
+                        res.selected = false
                     }
                     return res
                 })
@@ -128,7 +133,11 @@
                 this.profileImage.thumbnails = []
             },
             remove(event) {
-                this.avatars = this.avatars.filter((avatar) => avatar.id !== event.id)
+                // this.avatars = this.avatars.filter((avatar) => avatar.id !== event.id)
+                this.init()
+            },
+            select(event) {
+                this.init()
             },
             open(title, message, type) {
                 Notification({

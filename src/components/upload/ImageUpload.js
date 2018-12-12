@@ -40,6 +40,16 @@ export default class ImageUpload {
             .catch(err => errorCallback(err))
     }
 
+    select(uuidOriginal, successCallback, errorCallback) {
+        axios.get("/drops/webapp/avatar/select/" + uuidOriginal)
+            .then(response => {
+                if(response.status === 200) {
+                    successCallback(response)
+                }
+            })
+            .catch(err => errorCallback(err))
+    }
+
     call(url, formData, successCallback, errorCallback) {
         axios.post(url +'?csrfToken=' + this.csrf, formData, {
             headers: {

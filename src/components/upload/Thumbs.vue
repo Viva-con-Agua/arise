@@ -1,8 +1,8 @@
 <template>
     <div class="thumbnails">
-        <div v-for="avatar in filteredAvatars()" :key="avatar.id" class="avatar">
+        <div v-for="avatar in filteredAvatars()" :key="avatar.id" class="avatar" :class="avatar.selected ? 'selected': ''">
             <button class="select">
-                <img :src="getUncachedUrl(avatar.preview.url)" class="preview" />
+                <img :src="getUncachedUrl(avatar.preview.url)" class="preview" @click="select(avatar.id)" />
             </button>
             <div class="actions">
                 <button class="delete vca-button-warn" @click="remove(avatar.id)">
@@ -69,6 +69,26 @@
             edit(uuid) {
                 this.$emit('vca-images-edit', uuid)
             },
+            select(uuid) {
+                var successCallback = (response) => this.$emit('vca-images-selected', response.data.additional_information)
+                var errorCallback = err => {
+                    switch(err.response.status) {
+                        case 500:
+                            this.open(this.$t("error.ajax.serverError.title"), this.$t("error.ajax.serverError.msg"), "error")
+                            break
+                        case 403:
+                            this.open(this.$t("error.ajax.forbidden.title"), this.$t("error.ajax.forbidden.msg"), "error")
+                            break
+                        case 401:
+                            this.open(this.$t("error.ajax.unAuthorized.title"), this.$t("error.ajax.unAuthorized.msg"), "error")
+                            break
+                        default:
+                            this.open(this.$t("error.ajax.default.title"), this.$t("error.ajax.default.msg"), "error")
+                            break
+                    }
+                }
+                this.rest.select(uuid, successCallback, errorCallback)
+            },
             open(title, message, type) {
                 Notification({
                     title:  title,
@@ -81,6 +101,14 @@
 </script>
 
 <style scoped lang="less">
+    #colors() {
+        primary: rgba(10, 107, 145, 1);
+        primaryDeactivated: rgba(10, 107, 145, 0.5);
+        secundary: #fff;
+        thirdly: rgba(165, 119, 64, 0.6);
+        thirdlyNoAlpha: rgb(199,170,137);
+        thirdlyHover: rgba(165, 119, 64, 1);
+    }
 
     @shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
     @shadowInvert: 0 -2px 4px 0 rgba(0, 0, 0, 0.2), 0 -3px 10px 0 rgba(0, 0, 0, 0.19);
@@ -110,6 +138,12 @@
         flex-direction: row;
         .border-radius(@radius);
         margin: 5px 5px 10px;
+
+        &.selected {
+            border-width: 0.2em;
+            border-style: solid;
+            border-color: #colors[primary];
+        }
 
         .select {
             border: 0;
