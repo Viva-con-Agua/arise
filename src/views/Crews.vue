@@ -3,8 +3,7 @@
       <VcAColumn size="60%">
         <VcABox :first="true" :title="$t('crews.title.list')">
           <div>
-            <CrewList v-on:select-crew="selectedCrew"/>
-            </CrewList>
+            <CrewList v-on:select-crew="selectedCrew" />
           </div>
         </VcaBox>
       </VcAColumn> 
@@ -12,7 +11,7 @@
         <VcABox :first="true" v-if="selectedView" :title="$t('crews.title.selected')">
         <div><CrewSelected :crew="selected" v-on:delete-crew="deleteCrew"/></div>
        </VcaBox> 
-        <VcABox :first="false" :title="$t('crews.title.form')">
+        <VcABox :first="isInit" :title="$t('crews.title.form')">
             <div><CrewForm/></div>
           </VcaBox>  
       </VcAColumn>
@@ -37,6 +36,8 @@
     format: 'json',
   })
 
+
+  const STATE_INIT = 0, STATE_EDIT = 1
     //todo: 1. add crewfilter
   export default {
     name: "Crews",
@@ -51,6 +52,7 @@
     },
     data() {
       return {
+        state: STATE_INIT,
         selectedView: false,
         selected: {
           name: '',
@@ -64,6 +66,14 @@
         crews: []
       }
     },
+      computed: {
+        isInit() {
+            return this.state === STATE_INIT
+        },
+        isEdit() {
+            return this.state === STATE_EDIT
+        }
+      },
 
     //created: function () {
     //   this.init()
@@ -79,6 +89,7 @@
       selectedCrew: function (event) {
         this.selectedView = true
         this.selected = event
+          this.state = STATE_EDIT
       },
       deleteCrew: function () {
         this.selectedView = false

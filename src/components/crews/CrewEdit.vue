@@ -80,7 +80,7 @@
       },
       socketSend(operation, crew) {
         this.$options.sockets.onopen = () => console.log('socket is open');
-        console.log(crew.cities)
+        // console.log(crew.cities)
         this.$socket.send(JSON.stringify({
           operation: operation, 
           query: [
@@ -90,7 +90,7 @@
       },
       handleSubmit(crew) {
         this.socketSend("UPDATE", crew)
-        console.log(crew)
+        // console.log(crew)
       },
       handleDelete(crew) {
         this.socketSend("DELETE", this.crew)
