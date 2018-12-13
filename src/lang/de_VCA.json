@@ -49,6 +49,58 @@
     "delete": "Löschen"
   },
 
+  "crews":{
+    "edit": {
+      "addCity": "Stadt hinzufügen"
+    },
+    "button": {
+      "addCity": "+",
+      "editName": "edit",
+      "update": "update",
+      "delete": "delete",
+      "next": "Nächste {number} Crews",
+      "previous":"Vorherige {number} Crews"
+    },
+    "title": {
+      "view": "Crew",
+      "selected": "Bearbeiten",
+      "form": "Hinzufügen",
+      "list": "Liste"
+    },
+    "crewform": {
+      "label": {
+        "location": "Location:",
+        "crewname": "Crew Name:",
+        "cities": "Städte:",
+        "country": "Land:"
+      }
+    },
+    "crewlist": {
+      "label": {
+        "crewname": "Name",
+        "cities": "Stadt",
+        "country": "Land",
+        "operations": "Optionen",
+        "search": {
+          "Crew_name": "Name",
+          "City_name": "City",
+          "City_country": "County"
+        }
+      },
+      "sorting": {
+        "dirButton" : {
+          "ASC": "Hier klicken, um absteigend zu sortieren",
+          "DESC": "Hier klicken, um aufsteigend zu sortieren"
+        },
+        "fields": {
+          "crewName": "Name",
+          "cityName": "Stadt",
+          "cityCountry": "Land"
+        }
+      }
+    }
+  },
+
   "validationError": {
 
     "crewname": "Trage den Crewnamen hier ein...",
