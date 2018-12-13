@@ -2,7 +2,7 @@
     <VcAFrame :title="$t('crews.title.view')">
       <VcAColumn size="60%">
         <VcABox :first="true" :title="$t('crews.title.list')">
-            <CrewList v-on:select-crew="selectedCrew" />
+            <CrewListWorkaround v-on:select-crew="selectedCrew" />
         </VcaBox>
       </VcAColumn> 
       <VcAColumn>
@@ -20,7 +20,7 @@
   import Vue from 'vue'
   import VueNativeSock from 'vue-native-websocket'
   import CrewForm from '@/components/crews/CrewForm.vue'
-  import CrewList from '@/components/crews/CrewList.vue'
+  import CrewListWorkaround from '@/components/crews/CrewListWorkaround.vue'
   import CrewSelected from'@/components/crews/CrewEdit.vue'
   import VcAFrame from '@/components/page/VcAFrame.vue';
   import VcAColumn from '@/components/page/VcAColumn.vue';
@@ -45,7 +45,7 @@
       VcABox, 
       VcAInfoBox,
       CrewForm,
-      CrewList,
+      CrewListWorkaround,
       CrewSelected,
     },
     data() {
@@ -80,8 +80,8 @@
       this.crews = null
     },
     mounted() {
-      this.$options.sockets.onclose = (data) => console.log(data);
-      this.$options.sockets.onmessage = (data) => console.log(JSON.stringify(data));
+      // this.$options.sockets.onclose = (data) => console.log(data);
+      // this.$options.sockets.onmessage = (data) => console.log(JSON.stringify(data));
     },
     methods: {
       selectedCrew: function (event) {

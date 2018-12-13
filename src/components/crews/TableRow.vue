@@ -5,7 +5,7 @@
   </tr>
   <tr v-else class="rowWrapper content" :class="getClass()" v-on:click="selectCrew()">
     <td class="name">{{ crew.name }}</td>
-    <td class="city">{{ getCities(crew) }}</td>
+    <td class="city"><span v-for="cityGroup in getCities(crew)" style="display:block">{{ cityGroup }}</span></td>
   </tr>
 </template>
 
@@ -23,15 +23,24 @@
           this.$emit('select-crew', this.crew)
         },
           getCities(crew) {
-            return crew.cities.map(city => {
-                var res = city.name
-                if(city.hasOwnProperty("country") && typeof city.country !== "undefined" && city.country !== null && city.country !== "") {
-                    res += "(" + city.country + ")"
+            return crew.cities.reduce((acc, city) => {
+                var group = acc.find(g => g.country === city.country)
+                if(typeof group !== "undefined") {
+                    var index = acc.indexOf(group)
+                    acc[index].cities.push(city)
+                } else {
+                    acc.push({ country: city.country, cities: [city] })
+                }
+                return acc
+            }, []).map(group => {
+                var res = group.cities.map(city => city.name).join(", ")
+                if(group.hasOwnProperty("country") && typeof group.country !== "undefined" && group.country !== null && group.country !== "") {
+                    res += " (" + group.country + ")"
                 } else {
                     res += " (" + this.$t("crews.countryUndefined") + ")"
                 }
                 return res
-            }).join(", ")
+            })
           }
       }
     }
@@ -60,13 +69,6 @@
       font-weight: bold;
       text-align: center;
     }
-  }
-  .role {
-    .colorProfileThirdly();
-    padding: @padding;
-    font-size: 0.7em;
-    border-radius: 0.5em;
-    margin: 0.2em;
   }
   .noTablet {
     @media @tablet-down {
