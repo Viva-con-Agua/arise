@@ -50,6 +50,10 @@
     "delete": "Delete"
   },
   "crews": {
+    "select": {
+      "noCrewsAvailable": "There are no crews available",
+      "placeholder": "Please choose your crew..."
+    },
     "edit": {
       "addCity": "add City"
     },
@@ -190,7 +194,7 @@
       "account": "Account",
       "avatar": "Profile image",
       "update": "Update",
-      "crew": "Select your Crew"
+      "crew": "Crew"
     },
     "messages": {
       "update" : {

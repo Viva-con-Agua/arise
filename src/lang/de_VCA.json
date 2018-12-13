@@ -50,6 +50,10 @@
   },
 
   "crews":{
+    "select": {
+      "noCrewsAvailable": "Momentan kennt der Pool keine Crews",
+      "placeholder": "Bitte wähle deine Crew..."
+    },
     "edit": {
       "addCity": "Stadt hinzufügen"
     },
@@ -191,7 +195,7 @@
       "account": "Account",
       "avatar": "Profilbild",
       "update": "Aktualisieren",
-      "crew": "Crew-Auswahl"
+      "crew": "Crew"
     },
     "messages": {
       "update" : {

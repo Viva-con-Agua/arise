@@ -1,7 +1,7 @@
 <template>
   <VcAFrame>
       <VcAColumn>
-        <VcABox :first="true" :title="$t('supporterForm.title')">
+        <VcABox :first="true" :expand="true" :title="$t('supporterForm.title')">
             <el-form
                     ref="profileForm"
                     :model="profileForm"
@@ -74,7 +74,8 @@
         <VcABox :first="true" :title="$t('profile.title.avatar')">
           <ProfileImage />
         </VcABox>
-        <VcABox :first="false" :title="$t('profile.title.crew')">
+        <VcABox :first="false" :expand="true" :title="$t('profile.title.crew')" className="crewSelectBox">
+            <CrewSelect />
           <span>Todo</span>
             <ul>
                 <li>Auswahl der Crew selbst</li>
@@ -116,6 +117,7 @@
   import VcABox from '@/components/page/VcABox.vue';
   import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
   import ProfileImage from '@/components/upload/ProfileImage.vue'
+  import CrewSelect from '@/components/CrewSelect.vue'
   import {
     Button,
     DatePicker,
@@ -141,10 +143,11 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect },
 
     data () {
       return {
+          crew: null,
           userRoles: [],
         imageUrl: '',
         emailaddress: '',
@@ -182,15 +185,46 @@
         },
       };
     },
+
+  created () {
+      this.axios.get('/drops/webapp/identity')
+          .then((response) => {
+              if (response.status === 200) {
+                  this.userRoles = response.data.additional_information.roles.map((role) => role.role)
+              }
+          })
+      function profileToForm(profile) {
+          profile['gender'] = profile['sex']
+          return profile
+      }
+      var that = this;
+      this.axios
+          .get('/drops/webapp/profile/get')
+          .then(function (response) {
+              switch (response.status)
+              {
+                  case 200:
+                      var profile = response.data.additional_information[0];
+                      that.profileForm = profileToForm(profile);
+                      that.emailaddress = profile.email;
+                      break;
+              }
+          }).catch(function (error) {
+          switch (error.response.status) {
+              case 500:
+                  that.open(that.$t('signin.error'), error.response.data.msg, "error");
+                  break;
+              case 412:
+                  that.$router.push({path: '/resetPasswordInstructions/pool'});
+                  break;
+              case 401:
+                  that.$router.push({path: '/signin/L2FyaXNlLyMvcHJvZmlsZQ=='});
+                  break;
+          }
+
+      }).finally(() => this.loading = false)
+  },
     methods: {
-        getUser() {
-            this.axios.get('/drops/webapp/identity')
-                .then((response) => {
-                    if (response.status === 200) {
-                        this.userRoles = response.data.additional_information.roles.map((role) => role.role)
-                    }
-                })
-        },
       submitForm(profileForm) {
           function toProfileSubmit(form, email) {
               var gender = form.gender
@@ -259,39 +293,6 @@
               type: type
           });
       }
-    },
-    created () {
-        this.getUser()
-        function profileToForm(profile) {
-            profile['gender'] = profile['sex']
-            return profile
-        }
-      var that = this;
-      this.axios
-        .get('/drops/webapp/profile/get')
-        .then(function (response) {
-          switch (response.status)
-          {
-            case 200:
-              var profile = response.data.additional_information[0];
-              that.profileForm = profileToForm(profile);
-              that.emailaddress = profile.email;
-              break;
-          }
-        }).catch(function (error) {
-            switch (error.response.status) {
-                        case 500:
-                            that.open(that.$t('signin.error'), error.response.data.msg, "error");
-                            break;
-                        case 412:
-                            that.$router.push({path: '/resetPasswordInstructions/pool'});
-                            break;
-                        case 401:
-                            that.$router.push({path: '/signin/L2FyaXNlLyMvcHJvZmlsZQ=='});
-                            break;
-                    }
-                  
-        }).finally(() => this.loading = false)
     }
   }
 </script>
@@ -320,6 +321,10 @@
     width: 178px;
     height: 178px;
     display: block;
+  }
+
+  .crewSelectBox {
+      min-height: 300px; /* For reasons of responsibility */
   }
 
   el-form-item {

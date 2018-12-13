@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card" :class="first ? 'head' : 'tail'">
+    <el-card class="box-card" :class="getClasses()">
         <div
                 slot="header"
                 class="title">
@@ -18,7 +18,15 @@
 
     export default {
         name: "VcABox",
-        props: ['first', 'title']
+        props: ['first', 'title', 'expand', 'className'],
+        methods: {
+            getClasses() {
+                var classNames = this.first ? 'head' : 'tail'
+                classNames += ((typeof this.expand !== "undefined") && this.expand !== null && this.expand) ? ' expand' : ' no-expand'
+                classNames += ((typeof this.className !== "undefined" && this.className !== null && this.className !== "")) ? ' ' + this.className : ''
+                return classNames
+            }
+        }
     }
 </script>
 
@@ -29,6 +37,10 @@
 
     .box-card.tail {
         margin-top: 2em;
+    }
+
+    .box-card.expand {
+        flex-grow: 1;
     }
 
     .title > h2 {
