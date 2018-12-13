@@ -1,0 +1,58 @@
+#colors() {
+  primary: rgba(10, 107, 145, 1);
+  primaryDeactivated: rgba(10, 107, 145, 0.5);
+  secundary: #fff;
+  thirdly: rgba(165, 119, 64, 0.6);
+  thirdlyHover: rgba(165, 119, 64, 1);
+}
+
+.colorProfilePrimary {
+  color: #colors[secundary];
+  background-color: #colors[primary];
+}
+
+.colorProfileSecundary {
+  color: #colors[primary];
+  background-color: transparent;
+}
+
+.colorProfileThirdly {
+  color: #colors[secundary];
+  background-color: #colors[thirdly];
+}
+
+@radius: 0.5em;
+
+#shadow() {
+  primary: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  secundary:  0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.button {
+  box-shadow: #shadow[primary];
+
+  &:hover {
+    box-shadow: #shadow[secundary];
+  }
+}
+
+.inputElement {
+  border: 1px solid rgba(60, 60, 60, 0.26);
+  border-radius: 4px;
+}
+
+.svgButton {
+  .inputElement();
+  margin-left: 1em;
+  background: none;
+
+  & /deep/ div {
+    pointer-events: none;
+  }
+
+  & /deep/ svg {
+    width: 1.5em;
+    pointer-events: none;
+    cursor: pointer;
+  }
+}

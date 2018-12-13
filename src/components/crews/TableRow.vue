@@ -1,13 +1,11 @@
 <template>
   <tr v-if="type === 'header'" :class="getClass()" class="rowWrapper">
     <th class="name">{{ $t('crews.crewlist.label.crewname') }}</th>
-    <th class="city">{{ $t('crews.crewlist.label.cities') }}</th>
-    <th class="country">{{ $t('crews.crewlist.label.country') }}</th>
+    <th class="city">{{ $t('crews.crewlist.label.cities') }} ({{ $t('crews.crewlist.label.country') }})</th>
   </tr>
-  <tr v-else class="rowWrapper content" v-on:click="selectCrew()">
+  <tr v-else class="rowWrapper content" :class="getClass()" v-on:click="selectCrew()">
     <td class="name">{{ crew.name }}</td>
-    <td class="city">{{ crew.cities[0].name}}</td>
-    <td class="country">{{ crew.cities[0].country }}</td>
+    <td class="city">{{ getCities(crew) }}</td>
   </tr>
 </template>
 
@@ -24,6 +22,17 @@
         selectCrew: function () {
           this.$emit('select-crew', this.crew)
         },
+          getCities(crew) {
+            return crew.cities.map(city => {
+                var res = city.name
+                if(city.hasOwnProperty("country") && typeof city.country !== "undefined" && city.country !== null && city.country !== "") {
+                    res += "(" + city.country + ")"
+                } else {
+                    res += " (" + this.$t("crews.countryUndefined") + ")"
+                }
+                return res
+            }).join(", ")
+          }
       }
     }
 </script>
@@ -33,7 +42,7 @@
   @import "./assets/responsive.less";
   @padding: 0.3em;
   .rowWrapper {
-    height: 2em;
+    height: 3em;
     padding: 1em 0;
     text-align: center;
     &.content {
@@ -49,6 +58,7 @@
     th {
       .colorProfilePrimary();
       font-weight: bold;
+      text-align: center;
     }
   }
   .role {

@@ -73,6 +73,7 @@
         "country": "Country:"
       }
     },
+    "countryUndefined": "Unknown",
     "crewlist": {
       "label": {
         "crewname": "Name: ",

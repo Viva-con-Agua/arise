@@ -18,17 +18,19 @@
           onfocus="value = ''"
           type="text"
         >
+      <p class="selectedCities">
+        <span v-for="city, index in crew.cities">
+          {{city.name}}, {{city.country}} <br>
+        </span>
+      </p>
     </div>
-      <span v-for="city, index in crew.cities">
-        {{city.name}}, {{city.country}} <br>
-      </span>
 
     <div class="submit-crew">
       <button
-        class="vca-button-primary buttonUpdate"
+        class="vca-button-primary vca-full-width"
         v-on:click="handleSubmit(crew)">{{ $t('crews.button.update')}}</button>
       <button
-        class="vca-button-primary buttonDelete"
+        class="vca-button-warn vca-full-width"
         v-on:click="handleDelete(crew)">{{ $t('crews.button.delete')}}</button>
     </div>
  </div>
@@ -60,7 +62,7 @@
           let city = ac[0]["long_name"];
           let country = ac[2]["long_name"];
           this.crew.cities.push({name: (`${city}`), country: (`${country}`)});
-          console.log(`The user picked ${city}`);
+          // console.log(`The user picked ${city}`);
         });
     },
     methods: {
@@ -79,7 +81,7 @@
         }
       },
       socketSend(operation, crew) {
-        this.$options.sockets.onopen = () => console.log('socket is open');
+        // this.$options.sockets.onopen = () => console.log('socket is open');
         // console.log(crew.cities)
         this.$socket.send(JSON.stringify({
           operation: operation, 
@@ -102,11 +104,6 @@
 </script>
 
 <style scoped>
-  .buttonUpdate {
-     width: 20%;
-     margin-top:1em;
-     margin-bottom:1em;
-  } 
   .crewNameEdit {
     width: 95%;
     font-size: 14px;
@@ -127,10 +124,9 @@
         padding: 15px;
         transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     }
-  .buttonDelete {
-    width: 20%;
-    margin-top:1em;
-    margin-bottom:1em;
-    background-color: #f44336;
+
+  .selectedCities {
+    margin-left: 0.5em;
+    margin-top: 0.5em;
   }
 </style>

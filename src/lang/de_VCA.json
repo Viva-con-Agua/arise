@@ -56,8 +56,8 @@
     "button": {
       "addCity": "+",
       "editName": "edit",
-      "update": "update",
-      "delete": "delete",
+      "update": "Ändern",
+      "delete": "Löschen",
       "next": "Nächste {number} Crews",
       "previous":"Vorherige {number} Crews"
     },
@@ -75,6 +75,7 @@
         "country": "Land:"
       }
     },
+    "countryUndefined": "Nicht angegeben",
     "crewlist": {
       "label": {
         "crewname": "Name",

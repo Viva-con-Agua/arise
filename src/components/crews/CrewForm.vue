@@ -21,22 +21,20 @@
           v-bind:placeholder="$t('crews.edit.addCity')"
           onfocus="value = ''"
           type="text"
-        >
+        />
+      <p class="selectedCities">
+       <span v-for="city, index in crew.cities">
+         {{city.name}}, {{city.country}} <br>
+       </span>
+      </p>
     </div>
     <div class="form-group">
       <button
-        type="primary"
-        icon="el-icon-arrow-right"
-        class="vca-button-primary buttonSave"
+        class="vca-button-primary vca-full-width"
         @click="$validator.validate()"
         v-on:click="submitForm(crew)">{{ $t('options.submit') }}
       </button>
     </div>
-     <div class="form-group">
-       <span v-for="city, index in crew.cities">
-         {{city.name}}, {{city.country}} <br>
-       </span>
-     </div>
   </div>
 </template>
 
@@ -89,7 +87,7 @@
     },
     methods: {
       socketSend(operation, crew) {
-        this.$options.sockets.onopen = () => console.log('socket is open');
+        // this.$options.sockets.onopen = () => console.log('socket is open');
         this.$socket.send(JSON.stringify({
           operation: operation, 
           query: [
@@ -102,8 +100,8 @@
         this.socketSend('INSERT', crew);
         this.crew.cities = [];
         this.crew.name = '';
-        console.log('socket Send call with');
-        console.log(crew);
+        // console.log('socket Send call with');
+        // console.log(crew);
       },
       resetForm(crewForm) {
         this.$refs[crewForm].resetFields();
@@ -140,13 +138,13 @@
         transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     }
 
+    .selectedCities {
+      margin-left: 0.5em;
+      margin-top: 0.5em;
+    }
+
     #CountryContent {
         float: left;
-    }
-    .buttonSave {
-      width: 20%;
-      margin-top:1em;
-      margin-bottom:1em;
     }
 
     #tag {

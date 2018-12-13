@@ -2,17 +2,15 @@
     <VcAFrame :title="$t('crews.title.view')">
       <VcAColumn size="60%">
         <VcABox :first="true" :title="$t('crews.title.list')">
-          <div>
             <CrewList v-on:select-crew="selectedCrew" />
-          </div>
         </VcaBox>
       </VcAColumn> 
       <VcAColumn>
         <VcABox :first="true" v-if="selectedView" :title="$t('crews.title.selected')">
-        <div><CrewSelected :crew="selected" v-on:delete-crew="deleteCrew"/></div>
-       </VcaBox> 
+            <CrewSelected :crew="selected" v-on:delete-crew="deleteCrew"/>
+        </VcaBox>
         <VcABox :first="isInit" :title="$t('crews.title.form')">
-            <div><CrewForm/></div>
+            <CrewForm/>
           </VcaBox>  
       </VcAColumn>
     </VcAFrame>

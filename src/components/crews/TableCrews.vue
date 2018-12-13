@@ -4,7 +4,7 @@
         <TableRow type="header" />
       </thead>
       <tbody>
-        <TableRow v-for="(crew, i) of crews" :crew="crew" :key="crew.id" v-on:select-crew="selectCrew" />
+        <TableRow v-for="(crew, i) of crews" :crew="crew" :className="(i % 2 == 0) ? 'even' : 'odd'" :key="crew.id" v-on:select-crew="selectCrew" />
       </tbody>
     </table>
 </template>
