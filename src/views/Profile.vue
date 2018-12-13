@@ -1,13 +1,12 @@
 <template>
   <VcAFrame>
-    <el-form
-            ref="profileForm"
-            :model="profileForm"
-            :rules="rules"
-            @keyup.enter.native="submitForm(profileForm)"
-            class="columns-container">
       <VcAColumn>
         <VcABox :first="true" :title="$t('supporterForm.title')">
+            <el-form
+                    ref="profileForm"
+                    :model="profileForm"
+                    :rules="rules"
+                    @keyup.enter.native="submitForm(profileForm)">
 
             <VcAInfoBox>
               {{ $t('supporterForm.infoBox') }}
@@ -63,24 +62,17 @@
                           label="undefined">{{ $t('gender.undefined') }}</el-radio>
                 </el-radio-group></div>
             </el-form-item>
+            <button
+                    class="vca-button-primary vca-full-width"
+                    @click.prevent="submitForm(profileForm)">
+                {{ $t('options.save') }}
+            </button>
+            </el-form>
         </VcABox>
       </VcAColumn>
       <VcAColumn>
         <VcABox :first="true" :title="$t('profile.title.avatar')">
-          <el-upload
-                  :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  class="avatar-uploader">
-            <img
-                    v-if="imageUrl"
-                    :src="imageUrl"
-                    class="avatar">
-            <i
-                    v-else
-                    class="el-icon-plus avatar-uploader-icon"/>
-          </el-upload>
+          <ProfileImage />
         </VcABox>
         <VcABox :first="false" :title="$t('profile.title.crew')">
           <span>Todo</span>
@@ -106,19 +98,11 @@
             <p v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">
                 <span>{{ $t('profile.rolesDescription') }}</span>
                 <div class="roles">
-                    <VcARole v-for="role in userRoles.filter((role) => role !== 'supporter')" :name="role" />
+                    <VcARole v-for="role in userRoles.filter((role) => role !== 'supporter')" :name="role" :key="role" />
                 </div>
             </p>
         </VcABox>
-        <VcABox :first="false" :title="$t('profile.title.update')">
-          <button
-                  class="vca-button-primary vca-full-width"
-                  @click.prevent="submitForm(profileForm)">
-            {{ $t('options.save') }}
-          </button>
-        </VcABox>
       </VcAColumn>
-    </el-form>
   </VcAFrame>
 </template>
 
@@ -131,6 +115,7 @@
   import VcAColumn from '@/components/page/VcAColumn.vue';
   import VcABox from '@/components/page/VcABox.vue';
   import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
+  import ProfileImage from '@/components/upload/ProfileImage.vue'
   import {
     Button,
     DatePicker,
@@ -139,7 +124,6 @@
     Notification,
     Radio,
     RadioGroup,
-    Upload,
     Input,
   } from 'element-ui'
 
@@ -151,14 +135,13 @@
   Vue.use(Notification);
   Vue.use(Radio);
   Vue.use(RadioGroup);
-  Vue.use(Upload);
   Vue.use(Input);
 
   Notification.closeAll();
 
   export default {
     name: "ChangeProfile",
-    components: { VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
 
     data () {
       return {
