@@ -39,7 +39,7 @@
         }
 
         @media @desktop-down {
-            width: 98%;
+            width: 98% ! important;
             align-items: center;
 
             &:not(:first-child) {

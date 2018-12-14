@@ -192,6 +192,30 @@
   },
 
   "profile": {
+    "view": {
+      "labels": {
+        "crew": "Crew",
+        "since": "Since",
+        "age": "Age",
+        "notConfirmed": "Account not confirmed",
+        "gender": "Gender",
+        "email": "Email",
+        "mobilePhone": "Mobile phone",
+        "placeOfResidence": "Place of residence"
+      },
+      "value": {
+        "gender": {
+          "male": "Man",
+          "female": "Woman",
+          "other": "Divers",
+          "undefined": "Not told"
+        }
+      },
+      "error": {
+        "title": "Found no user",
+        "msg": "The requested user has not been found at the database."
+      }
+    },
     "title": {
       "account": "Account",
       "avatar": "Profile image",

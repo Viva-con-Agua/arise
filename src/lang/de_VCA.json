@@ -193,6 +193,30 @@
   },
 
   "profile": {
+    "view": {
+      "labels": {
+        "crew": "Crew",
+        "since": "Dabei seit",
+        "age": "Alter",
+        "notConfirmed": "Account nicht bestätigt",
+        "gender": "Geschlecht",
+        "email": "Email",
+        "mobilePhone": "Handynummer",
+        "placeOfResidence": "Wohnort"
+      },
+      "value": {
+        "gender": {
+          "male": "Mann",
+          "female": "Frau",
+          "other": "Divers",
+          "undefined": "Nicht angegeben"
+        }
+      },
+      "error": {
+        "title": "Kein Nutzer gefunden",
+        "msg": "Der gesuchte Nutzer konnte leider nicht gefunden werden."
+      }
+    },
     "title": {
       "account": "Account",
       "avatar": "Profilbild",

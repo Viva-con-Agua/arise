@@ -133,6 +133,14 @@ var router = new Router({
             'roles': ['Admin', 'Employee', { 'name': 'VolunteerManager' }] //'Admin',
         }
     },
+      {
+          path: '/user/:id',
+          name: 'UserProfile',
+          component: loadView('UsersProfile'),
+          meta: {
+              'roles': ['Supporter']
+          }
+      },
     {
         path: "/error/:code",
         name: "ErrorState",

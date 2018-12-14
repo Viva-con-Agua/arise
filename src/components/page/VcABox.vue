@@ -4,6 +4,9 @@
                 slot="header"
                 class="title">
             <h2>{{ title }}</h2>
+            <div class="header-slot">
+                <slot name="header"></slot>
+            </div>
         </div>
         <slot></slot>
     </el-card>
@@ -43,6 +46,11 @@
         flex-grow: 1;
     }
 
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
     .title > h2 {
         font-size: 1.5em;
         font-weight: bold;
