@@ -55,7 +55,8 @@
       "placeholder": "Please choose your crew..."
     },
     "edit": {
-      "addCity": "add City"
+      "addCity": "Add City",
+      "removeCity": "Remove City"
     },
     "button": {
       "addCity": "+",

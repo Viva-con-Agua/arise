@@ -55,7 +55,8 @@
       "placeholder": "Bitte wähle deine Crew..."
     },
     "edit": {
-      "addCity": "Stadt hinzufügen"
+      "addCity": "Stadt hinzufügen",
+      "removeCity": "Stadt entfernen"
     },
     "button": {
       "addCity": "+",

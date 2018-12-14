@@ -101,7 +101,7 @@
         },
 
         mounted() {
-            this.$options.sockets.onmessage = (data) => console.log(data);
+            // this.$options.sockets.onmessage = (data) => console.log(data);
             this.autocomplete = new google.maps.places.Autocomplete(
                 (this.$refs.autocomplete),
                 {types: ['(cities)']}
@@ -115,7 +115,7 @@
                 this.City.country = (`${country}`);
                 this.crewForm.Cities.push(this.City);
                 this.llist.push(this.crewForm.Cities)
-                console.log(`The user picked ${city}`);
+                // console.log(`The user picked ${city}`);
                 //this.handleInputConfirm();
             });
 
@@ -124,22 +124,22 @@
         methods: {
           socketSend(operation, crewForm) {
             this.$options.sockets.onopen = () => 
-              console.log('socket is open');
+              // console.log('socket is open');
               //var cities = new Set(this.crewForm.City)
               //var crewJson = JSON.stringify({name: crewForm.CrewName, cities: this.crewForm.Cities})
             this.$socket.send(JSON.stringify({operation: operation, query: [{name: this.crewForm.CrewName, cities: this.crewForm.Cities}]}));
 
-              this.$options.sockets.onmessage = (data) => console.log(data);
+              // this.$options.sockets.onmessage = (data) => console.log(data);
             
           },
           submitForm(crewForm) {
             this.$refs[crewForm].validate((valid) => {
               if (valid) {
                 this.socketSend('INSERT', crewForm);
-                console.log('socket Send call with');
-                console.log(crewForm);
+                // console.log('socket Send call with');
+                // console.log(crewForm);
               } else {
-                  console.log('error submit!!');
+                  // console.log('error submit!!');
                   return false;
                }
              });

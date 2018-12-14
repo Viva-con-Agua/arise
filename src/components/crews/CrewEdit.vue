@@ -5,7 +5,7 @@
       <input
         v-model="crew.name" 
         placeholder="crew.name"
-        v-validate="{ required: true }"
+        v-validate="'required'"
         data-rules="required">
     </div>
     <div class="crew-cities">
@@ -18,11 +18,7 @@
           onfocus="value = ''"
           type="text"
         >
-      <p class="selectedCities">
-        <span v-for="city, index in crew.cities">
-          {{city.name}}, {{city.country}} <br>
-        </span>
-      </p>
+      <CitiesSelect :cities="crew.cities" v-on:vca-remove-city="removeCity" />
     </div>
 
     <div class="submit-crew">
@@ -39,11 +35,12 @@
 <script>
   import Vue from 'vue'
    import VcABox from '@/components/page/VcABox.vue'
+  import CitiesSelect from '@/components/crews/CitiesSelect.vue'
 
   export default {
     name: "CrewSelected",
     props: ['crew'],
-    components: { VcABox },
+    components: { VcABox, CitiesSelect },
     data (){
       return {
         Location: "",
@@ -59,9 +56,11 @@
         this.autocomplete.addListener('place_changed', () => {
           let place = this.autocomplete.getPlace();
           let ac = place.address_components;
-          let city = ac[0]["long_name"];
-          let country = ac[ac.length-1]["long_name"];
-          this.crew.cities.push({name: (`${city}`), country: (`${country}`)});
+          let city = ac.find(field => field.types.some(t => t === "locality")) //ac[0]["long_name"];
+          let country = ac.find(field => field.types.some(t => t === "country")) //ac[ac.length-1]["long_name"];
+          if(typeof city !== "undefined" && typeof country !== "undefined") {
+            this.crew.cities.push({name: (`${city.long_name}`), country: (`${country.long_name}`)});
+          }
           // console.log(`The user picked ${city}`);
         });
     },
@@ -80,6 +79,10 @@
           this.addCity = false
         }
       },
+      removeCity(city) {
+        this.crew.cities = this.crew.cities.filter((c) => !(c.name === city.name && c.country === city.country))
+        this.handleSubmit(this.crew)
+      },
       socketSend(operation, crew) {
         // this.$options.sockets.onopen = () => console.log('socket is open');
         // console.log(crew.cities)
@@ -91,7 +94,11 @@
         }));
       },
       handleSubmit(crew) {
-        this.socketSend("UPDATE", crew)
+        this.$validator.validate().then(result => {
+          if (result) {
+            this.socketSend("UPDATE", crew)
+          }
+        })
         // console.log(crew)
       },
       handleDelete(crew) {
@@ -124,9 +131,4 @@
         padding: 15px;
         transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     }
-
-  .selectedCities {
-    margin-left: 0.5em;
-    margin-top: 0.5em;
-  }
 </style>

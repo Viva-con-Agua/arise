@@ -92,6 +92,7 @@
       deleteCrew: function () {
         this.selectedView = false
         this.selected = ''
+          this.state = STATE_INIT
       }
     }
     }
