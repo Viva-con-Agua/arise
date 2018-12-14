@@ -76,12 +76,14 @@
         </VcABox>
         <VcABox :first="false" :expand="true" :title="$t('profile.title.crew')" className="crewSelectBox">
             <CrewSelect />
+            <div class="actions">
+                <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
+                <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.non-voting-membership") }}</a>
+                <span>{{ $t("profile.actions.non-voting-membership-spoiler") }}</span>
+            </div>
           <span>Todo</span>
             <ul>
-                <li>Auswahl der Crew selbst</li>
-                <li>Rollen in der Crew ausgeben</li>
-                <li>Ehrenamtsbescheinigung (Link auf Pool 1)</li>
-                <li>Stimmrechtslose Mitgliedschaft</li>
+                <li>Rollen in der Crew ausgeben</li>a
             </ul>
         </VcABox>
       </VcAColumn>
@@ -329,6 +331,10 @@
 
   el-form-item {
     float: left;
+  }
+
+  .disabled {
+      text-decoration: none;
   }
 
   .genderOptions {

@@ -217,6 +217,11 @@
         "msg": "Der gesuchte Nutzer konnte leider nicht gefunden werden."
       }
     },
+    "actions": {
+      "non-voting-membership": "Stimmrechtslose Mitgliedschaft beantragen",
+      "volunteering-certificate": "Ehrenamtsbescheinigung",
+      "non-voting-membership-spoiler": "Die Funktion zur Beantragung der stimmrechtslosen Mitgliedschaft kommt in kürze..."
+    },
     "title": {
       "account": "Account",
       "avatar": "Profilbild",

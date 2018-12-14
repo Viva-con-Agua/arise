@@ -216,6 +216,11 @@
         "msg": "The requested user has not been found at the database."
       }
     },
+    "actions": {
+      "nonVotingMembership": "Non-voting Membership",
+      "volunteeringCertificate": "Volunteering certificate",
+      "nonVotingMembershipSpoiler": "The non-voting membership is coming soon..."
+    },
     "title": {
       "account": "Account",
       "avatar": "Profile image",
