@@ -60,7 +60,7 @@
           let place = this.autocomplete.getPlace();
           let ac = place.address_components;
           let city = ac[0]["long_name"];
-          let country = ac[2]["long_name"];
+          let country = ac[ac.length-1]["long_name"];
           this.crew.cities.push({name: (`${city}`), country: (`${country}`)});
           // console.log(`The user picked ${city}`);
         });
