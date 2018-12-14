@@ -5,7 +5,7 @@
       <input
         v-model="crew.name" 
         placeholder="crew.name"
-        v-validate="{ required: true }"
+        v-validate="'required'"
         data-rules="required">
     </div>
     <div class="crew-cities">
@@ -18,17 +18,15 @@
           onfocus="value = ''"
           type="text"
         >
+      <CitiesSelect :cities="crew.cities" v-on:vca-remove-city="removeCity" />
     </div>
-      <span v-for="city, index in crew.cities">
-        {{city.name}}, {{city.country}} <br>
-      </span>
 
     <div class="submit-crew">
       <button
-        class="vca-button-primary buttonUpdate"
+        class="vca-button-primary vca-full-width"
         v-on:click="handleSubmit(crew)">{{ $t('crews.button.update')}}</button>
       <button
-        class="vca-button-primary buttonDelete"
+        class="vca-button-warn vca-full-width"
         v-on:click="handleDelete(crew)">{{ $t('crews.button.delete')}}</button>
     </div>
  </div>
@@ -37,11 +35,12 @@
 <script>
   import Vue from 'vue'
    import VcABox from '@/components/page/VcABox.vue'
+  import CitiesSelect from '@/components/crews/CitiesSelect.vue'
 
   export default {
     name: "CrewSelected",
     props: ['crew'],
-    components: { VcABox },
+    components: { VcABox, CitiesSelect },
     data (){
       return {
         Location: "",
@@ -57,10 +56,12 @@
         this.autocomplete.addListener('place_changed', () => {
           let place = this.autocomplete.getPlace();
           let ac = place.address_components;
-          let city = ac[0]["long_name"];
-          let country = ac[ac.length-1]["long_name"];
-          this.crew.cities.push({name: (`${city}`), country: (`${country}`)});
-          console.log(`The user picked ${city}`);
+          let city = ac.find(field => field.types.some(t => t === "locality")) //ac[0]["long_name"];
+          let country = ac.find(field => field.types.some(t => t === "country")) //ac[ac.length-1]["long_name"];
+          if(typeof city !== "undefined" && typeof country !== "undefined") {
+            this.crew.cities.push({name: (`${city.long_name}`), country: (`${country.long_name}`)});
+          }
+          // console.log(`The user picked ${city}`);
         });
     },
     methods: {
@@ -78,9 +79,13 @@
           this.addCity = false
         }
       },
+      removeCity(city) {
+        this.crew.cities = this.crew.cities.filter((c) => !(c.name === city.name && c.country === city.country))
+        this.handleSubmit(this.crew)
+      },
       socketSend(operation, crew) {
-        this.$options.sockets.onopen = () => console.log('socket is open');
-        console.log(crew.cities)
+        // this.$options.sockets.onopen = () => console.log('socket is open');
+        // console.log(crew.cities)
         this.$socket.send(JSON.stringify({
           operation: operation, 
           query: [
@@ -89,8 +94,12 @@
         }));
       },
       handleSubmit(crew) {
-        this.socketSend("UPDATE", crew)
-        console.log(crew)
+        this.$validator.validate().then(result => {
+          if (result) {
+            this.socketSend("UPDATE", crew)
+          }
+        })
+        // console.log(crew)
       },
       handleDelete(crew) {
         this.socketSend("DELETE", this.crew)
@@ -102,11 +111,6 @@
 </script>
 
 <style scoped>
-  .buttonUpdate {
-     width: 20%;
-     margin-top:1em;
-     margin-bottom:1em;
-  } 
   .crewNameEdit {
     width: 95%;
     font-size: 14px;
@@ -127,10 +131,4 @@
         padding: 15px;
         transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     }
-  .buttonDelete {
-    width: 20%;
-    margin-top:1em;
-    margin-bottom:1em;
-    background-color: #f44336;
-  }
 </style>
