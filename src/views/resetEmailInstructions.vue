@@ -3,7 +3,7 @@
     <VcAColumn>
       <VcABox :first="true" :title="$t('reset.EmailInstructions.title')">
         <div class="content">
-          {{ (this.$route.params.pool === "pool") ? $t("reset.resetEmailPool1.description") : $t("reset.EmailInstructions.description") }}
+          {{ $t("reset.EmailInstructions.description") }}
         </div>
         <el-form
           :model="resetFormEMail"
@@ -13,7 +13,6 @@
           <el-form-item
             :label="$t('reset.label.email')"
             prop="email">
-
             <el-input
               v-model.lazy="resetFormEMail.email"/>
           </el-form-item>

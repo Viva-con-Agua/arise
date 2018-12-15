@@ -9,7 +9,7 @@
           status-icon>
           <el-form-item
             :label="$t('reset.label.newEmail')"
-            prop="password">
+            prop="email">
             <div id="pw">
               <el-input
                 v-model="resetFormEmail.email"
@@ -86,8 +86,9 @@
 
               rules: {
                 email: [
-                    { required: true, message: this.$t('validationError.checkPass'), trigger: 'blur' }
-                ],
+                   {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
+                        {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email'), trigger: 'blur' }
+                 ],
                 checkEmail: [
                     { required: true, validator: checkPass, trigger: 'blur' }
                 ]
