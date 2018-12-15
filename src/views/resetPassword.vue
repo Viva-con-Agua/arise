@@ -121,7 +121,7 @@
             this.$refs[resetFormPassword].validate((valid) => {
               if(valid) {
                 this.axios
-                  .post('http://localhost/drops/webapp/reset/' + this.$route.params.token, {
+                  .post('/drops/webapp/reset/' + this.$route.params.token, {
                     password1: that.resetFormPassword.password,
                     password2: that.resetFormPassword.checkPass
                   })
