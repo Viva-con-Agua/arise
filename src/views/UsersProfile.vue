@@ -12,7 +12,8 @@
                         <ul class="crew">
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.crew') }}:</span>
-                                <span class="vca-user-value">{{ getProfile().supporter.crew.name }}</span>
+                                <span class="vca-user-value" v-if="hasCrew()">{{ getProfile().supporter.crew.name }}</span>
+                                <span class="vca-user-value" v-else>-</span>
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.since') }}:</span>
@@ -26,11 +27,13 @@
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.mobilePhone') }}:</span>
-                                <span class="vca-user-value">{{ getProfile().supporter.mobilePhone }}</span>
+                                <span class="vca-user-value" v-if="hasMobile()">{{ getProfile().supporter.mobilePhone }}</span>
+                                <span class="vca-user-value" v-else>-</span>
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.placeOfResidence') }}:</span>
-                                <span class="vca-user-value">{{ getProfile().supporter.placeOfResidence }}</span>
+                                <span class="vca-user-value" v-if="hasResidence()">{{ getProfile().supporter.placeOfResidence }}</span>
+                                <span class="vca-user-value" v-else>-</span>
                             </li>
                         </ul>
 
@@ -90,6 +93,15 @@
                         this.$router.push({path: '/error/' + error.response.status})
                     })
             },
+            hasCrew() {
+				return (getProfile().supporter.hasOwnProperty("crew"))
+			},
+            hasMobile() {
+				return (getProfile().supporter.hasOwnProperty("mobilePhone"))
+			},
+            hasResidence() {
+				return (getProfile().supporter.hasOwnProperty("placeOfResidence"))
+			},
             getProfile() {
                 var profile = this.user.profiles.find(p => p.primary)
                 if(typeof profile === "undefined") {
