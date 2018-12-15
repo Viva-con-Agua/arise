@@ -415,9 +415,16 @@
 
   "reset" : {
     "label": {
-      "email": "E-mail:",
+      "email": "E-Mail:",
+      "newEmail": "Neue E-Mail:",
       "password": "Passwort:",
-      "checkPassword": "Password überprüfen:"
+      "checkPassword": "Password überprüfen:",
+      "checkEmail": "E-Mail überprüfen:"
+
+    },
+    "EmailInstructions" : {
+      "title" : "E-Mail-Adresse ändern",
+      "description": "Aktuelle E-Mail"
     },
     "alert": {
       "title": "Die E-Mail wurde versandt",
@@ -451,6 +458,9 @@
     "PasswordDone": {
       "title": "Alles fertig",
       "description": "Du wirst in den nächsten Sekunden zum Log-In weitergeleitet..."
+    },
+    "Email": {
+      "title": "E-Mail-Adresse ändern"
     }
   },
 

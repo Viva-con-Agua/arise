@@ -89,7 +89,7 @@
       </VcAColumn>
       <VcAColumn>
         <VcABox :first="true" :title="$t('profile.title.account')">
-            <a class="vca-button-primary vca-full-width" href="#">
+            <a class="vca-button-primary vca-full-width" href="#/resetEmailInstructions">
                 {{ $t('profile.change.email') }}
             </a>
             <a class="vca-button-primary vca-full-width" href="#/resetPasswordInstructions">

@@ -108,6 +108,16 @@ var router = new Router({
         component: loadView('resetPasswordInstructions')
     },
     {
+        path: "/resetEmail/:token",
+        name: 'resetEmail',
+        component: loadView('resetEmail')
+    },
+    {
+        path: "/resetEmailInstructions",
+        name: 'resetEmailInstructions',
+        component: loadView('resetEmailInstructions')
+    },
+    {
         path: "/profile",
         name: 'Profile',
         component: loadView('Profile'),
