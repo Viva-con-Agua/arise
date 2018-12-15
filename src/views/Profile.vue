@@ -76,15 +76,12 @@
         </VcABox>
         <VcABox :first="false" :expand="true" :title="$t('profile.title.crew')" className="crewSelectBox">
             <CrewSelect />
+            <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
                 <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
                 <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.non-voting-membership") }}</a>
                 <span>{{ $t("profile.actions.non-voting-membership-spoiler") }}</span>
             </div>
-          <span>Todo</span>
-            <ul>
-                <li>Rollen in der Crew ausgeben</li>a
-            </ul>
         </VcABox>
       </VcAColumn>
       <VcAColumn>
@@ -150,6 +147,7 @@
     data () {
       return {
           crew: null,
+          crewRoles: [],
           userRoles: [],
         imageUrl: '',
         emailaddress: '',
@@ -193,6 +191,11 @@
           .then((response) => {
               if (response.status === 200) {
                   this.userRoles = response.data.additional_information.roles.map((role) => role.role)
+                  var profile = response.data.additional_information.profiles.find(p => p.primary)
+                  if(typeof profile === "undefined") {
+                      profile = response.data.additional_information.profiles[0]
+                  }
+                  this.crewRoles = profile.supporter.roles
               }
           })
       function profileToForm(profile) {

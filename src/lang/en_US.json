@@ -216,6 +216,14 @@
         "msg": "The requested user has not been found at the database."
       }
     },
+    "roles": {
+      "crew": {
+        "finance": "Volunteer Manager Finance",
+        "operation": "Volunteer Manager Operation",
+        "education": "Volunteer Manager Education",
+        "network": "Volunteer Manager Network"
+      }
+    },
     "actions": {
       "nonVotingMembership": "Non-voting Membership",
       "volunteeringCertificate": "Volunteering certificate",

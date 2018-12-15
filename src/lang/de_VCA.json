@@ -217,6 +217,14 @@
         "msg": "Der gesuchte Nutzer konnte leider nicht gefunden werden."
       }
     },
+    "roles": {
+      "crew": {
+        "finance": "ASP Finanzen",
+        "operation": "ASP Aktionen",
+        "education": "ASP Bildung",
+        "network": "ASP Netzwerk"
+      }
+    },
     "actions": {
       "non-voting-membership": "Stimmrechtslose Mitgliedschaft beantragen",
       "volunteering-certificate": "Ehrenamtsbescheinigung",
