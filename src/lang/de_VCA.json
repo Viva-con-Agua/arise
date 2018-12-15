@@ -224,6 +224,7 @@
     },
     "title": {
       "account": "Account",
+      "newsletter": "Newsletter",
       "avatar": "Profilbild",
       "update": "Aktualisieren",
       "crew": "Crew"
@@ -243,6 +244,12 @@
           "message": "Dein Profil konnte nicht gefunden werden, weshalb es nicht aktualisiert werden kann."
         }
       }
+    },
+    "newsletter": {
+      "none": "Kein Newsletter",
+      "all": "Globale und regionale Newsletter",
+      "regional": "Regionale Newsletter"
+      "global": "Globale Newsletter"
     },
     "change": {
       "email": "Email ändern",

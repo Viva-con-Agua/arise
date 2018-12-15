@@ -223,6 +223,7 @@
     },
     "title": {
       "account": "Account",
+      "newsletter": "Newsletter",
       "avatar": "Profile image",
       "update": "Update",
       "crew": "Crew"
@@ -242,6 +243,12 @@
           "message": "Since your profile has not been found, it can not be updated."
         }
       }
+    },
+    "newsletter": {
+      "none": "No newsletter",
+      "all": "Global and regional newsletter",
+      "regional": "Regional newsletter"
+      "global": "Global newsletter"
     },
     "change": {
       "email": "Email ändern",

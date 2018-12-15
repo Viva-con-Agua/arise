@@ -88,7 +88,17 @@
         </VcABox>
       </VcAColumn>
       <VcAColumn>
-        <VcABox :first="true" :title="$t('profile.title.account')">
+		<VcABox :first="true" :title="$t('profile.title.newsletter')">
+		
+			<select name="mail_switch">
+				<option value="none">{{ $t('profile.newsletter.none') }}</option>
+				<option value="all">{{ $t('profile.newsletter.all') }}</option>
+				<option value="regional">{{ $t('profile.newsletter.regional') }}</option>
+				<option value="global">{{ $t('profile.newsletter.global') }}</option>
+			</select>
+			
+        </VcABox>
+        <VcABox :first="false" :title="$t('profile.title.account')">
             <a class="vca-button-primary vca-full-width" href="#">
                 {{ $t('profile.change.email') }}
             </a>
