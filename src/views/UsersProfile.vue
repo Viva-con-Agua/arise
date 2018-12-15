@@ -13,6 +13,11 @@
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.crew') }}:</span>
                                 <span class="vca-user-value">{{ getProfile().supporter.crew.name }}</span>
+                                <VcARole v-for="role in getProfile().supporter.roles"
+                                         :role="role.name"
+                                         :translated="$t('profile.roles.crew.' + role.pillar.pillar)"
+                                         :key="role.crew.name + role.name + role.pillar.pillar"
+                                />
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.since') }}:</span>
@@ -160,7 +165,7 @@
             }
 
             &.crew {
-                align-items: flex-end;
+                align-items: flex-start;
             }
 
             &.contact {
