@@ -13,7 +13,7 @@
     "element-ui": "^2.4.11",
     "v-tooltip": "^2.0.0-rc.33",
     "vca-widget-navigation": "^0.2.4",
-    "vca-widget-user": "^0.4.3",
+    "vca-widget-user": "^0.4.4",
     "vee-validate": "^2.1.4",
     "vue": "^2.5.17",
     "vue-axios": "^2.1.4",
