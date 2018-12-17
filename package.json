@@ -1,6 +1,6 @@
 {
   "name": "arise",
-  "version": "0.6.19",
+  "version": "0.7.19",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 8080",
