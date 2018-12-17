@@ -119,13 +119,13 @@
                     })
             },
             hasCrew() {
-				        return (getProfile().supporter.hasOwnProperty("crew"))
+				        return (this.getProfile().supporter.hasOwnProperty("crew"))
 			      },
             hasMobile() {
-				        return (getProfile().supporter.hasOwnProperty("mobilePhone"))
+				        return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
 			      },
             hasResidence() {
-				        return (getProfile().supporter.hasOwnProperty("placeOfResidence"))
+				        return (this.getProfile().supporter.hasOwnProperty("placeOfResidence"))
 			      },
             setRole(pillar) {
                 var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
