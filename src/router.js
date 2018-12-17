@@ -103,7 +103,7 @@ var router = new Router({
         component: loadView('resetPassword')
     },
     {
-        path: "/resetPasswordInstructions/:pool",
+        path: "/resetPasswordInstructions",
         name: 'resetPasswordInstructions',
         component: loadView('resetPasswordInstructions')
     },

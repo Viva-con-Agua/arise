@@ -1,7 +1,7 @@
 {
   "error": {
     "pattern": {
-      "contactUs": "Please send us an email to alert us about this problem."
+      "contactUs": "Please send us an e-mail to alert us about this problem."
     },
     "ajax": {
       "unAuthorized": {
@@ -34,7 +34,6 @@
       }
     }
   },
-
   "options": {
     "reset": "reset",
     "save": "save",
@@ -62,7 +61,9 @@
       "addCity": "+",
       "editName": "edit",
       "update": "update",
-      "delete": "delete"
+      "delete": "delete",
+      "next": "Next {number} crews",
+      "previous":"Previous {number} crews"
     },
     "title": {
       "view": "Crew",
@@ -104,7 +105,6 @@
       }
     }
   },
-
 
   "validationError": {
 
@@ -168,7 +168,7 @@
       "birthdateinfo": "When is your birthdate?",
       "gender": "Gender:"
     },
-    "infoBox": "Your name, age and place of residence are sometimes required to register you for activities (like some festivals). We would like to select the supporter for concerts and festivals fairly, thus we try to distribute the slots balanced between different genders. Additionally, your mobile phone will be used for quick clarification before an action."
+    "infoBox": "Your full name, your date of birth and your address are required for the registration for actions. Your phone number will be used for short-term arrangements before actions."
   },
 
   "upload": {
@@ -199,7 +199,7 @@
         "age": "Age",
         "notConfirmed": "Account not confirmed",
         "gender": "Gender",
-        "email": "Email",
+        "email": "E-mail",
         "mobilePhone": "Mobile phone",
         "placeOfResidence": "Place of residence"
       },
@@ -231,6 +231,7 @@
     },
     "title": {
       "account": "Account",
+      "newsletter": "Newsletter",
       "avatar": "Profile image",
       "update": "Update",
       "crew": "Crew"
@@ -251,9 +252,15 @@
         }
       }
     },
+    "newsletter": {
+      "none": "No newsletter",
+      "all": "Global and regional newsletter",
+      "regional": "Regional newsletter"
+      "global": "Global newsletter"
+    },
     "change": {
-      "email": "Email ändern",
-      "password": "Passwort ändern"
+      "email": "Change e-mail address",
+      "password": "Change password"
     },
     "rolesDescription": "Your VcA roles:"
   },
@@ -276,21 +283,21 @@
   "signup": {
     "title": {
       "view": "Create an account",
-      "credentials": "Login and Password",
+      "credentials": "Login and password",
       "register": "Register",
       "token": "Check new user"
     },
     "label": {
       "email": "e-mail:",
-      "checkemail": "confirm email",
+      "checkemail": "confirm e-mail",
       "password": {
         "title": "Password:",
         "placeholder": "Please enter your password"
       },
-      "confirmPassword": "Confirm Password:"
+      "confirmPassword": "Confirm password:"
     },
     "info": {
-      "token": "Redirect follows soon. Please contact us via email, if an error occurs."
+      "token": "Redirect follows soon. Please contact us via e-mail, if an error occurs."
     },
     "asupporti": "You are registered?",
     "finish" : {
@@ -304,24 +311,27 @@
         "unequal": "Both passwords are not equal."
       },
       "email": {
-        "empty": "You have not entered any email address",
-        "unequal": "Both email addresses are not equal."
+        "empty": "You have not entered any e-mail address",
+        "unequal": "Both e-mail addresses are not equal."
       },
       "unAuthorized": {
         "title": "Unauthorized",
-        "msg": "You are not allowed to register yourself. Please send us an email to alert us about this problem."
+        "msg": "You are not allowed to register yourself. Please send us an e-mail to alert us about this problem."
       },
       "serverError": {
         "title": "Internal error",
-        "msg": "An internal error occurred. Please send us an email to alert us about this problem."
+        "msg": "An internal error occurred. Please send us an e-mail to alert us about this problem."
       },
       "badRequest": {
         "title": "Problem with your data",
-        "msg": "Your data has issued an error. Please send us an email to alert us about this problem."
+        "msg": "Your data has issued an error. Please send us an e-mail to alert us about this problem."
+      },
+      "notFound": {
+        "title": "Nothing found",
+        "msg": "Nothing could be found about it. Please contact us via e-mail to draw our attention to this problem."
       }
     }
   },
-
   "signin": {
     "label": {
       "email": "E-mail:",
@@ -366,6 +376,7 @@
     "label": {
       "title":"Title:",
       "description":"Description:"
+      "accessrights":"Access rights:"
     },
     "descriptionPlaceholder":"Please descripe your task..."
   },
@@ -391,15 +402,15 @@
     "error": {
       "serverError": {
         "title": "Internal error",
-        "msg": "An internal error occurred. Please send us an email to alert us about this problem."
+        "msg": "An internal error occurred. Please send us an e-mail to alert us about this problem."
       },
       "bogus": {
         "title": "Problem with your data",
-        "msg": "Your data has issued an error. Please send us an email to alert us about this problem."
+        "msg": "Your data has issued an error. Please send us an e-mail to alert us about this problem."
       },
       "default": {
         "title": "An error occurred",
-        "msg": "An error occurred. Please send us an email to alert us about this problem."
+        "msg": "An error occurred. Please send us an e-mail to alert us about this problem."
       }
     },
     "success": {
@@ -428,9 +439,9 @@
     },
     "PasswordInstructions" : {
       "title": "you forgot your password?",
-      "description": "no problem, just enter here your e-mail adress and we will send you the instructions per mail to reset it.",
+      "description": "no problem, just enter here your e-mail address and we will send you the instructions per mail to reset it.",
       "errorResponse": "Error occured during data communication",
-      "successResponse": "Email sent!"
+      "successResponse": "E-mail sent!"
     },
     "PasswordInstructionsPool1" : {
       "title": "please reset your password!",
@@ -457,35 +468,23 @@
     }
   },
 
-  "profile": {
-    "label": {
-      "email": "Email",
-      "firstname": "Firstname:",
-      "lastname": "Lastname:",
-      "mobile": "Mobilenr.:",
-      "placeofresidence": "Place of residence:",
-      "birthdate": "Birthday:",
-      "birthdateinfo": "When is your birthdate?",
-      "gender": "Gender:"
-    }
-  },
-
   "changePassword": {
-    "title": "Change your Password",
-    "description": "To set a new Password, please fill in your old Password.",
+    "title": "Change your password",
+    "description": "To set a new password, please fill in your old password.",
     "label": {
-      "oldPassword": "Old Password: ",
-      "newPassword": "New Password: ",
-      "checkNewPassword":"New Password (again): "
+      "oldPassword": "Old password: ",
+      "newPassword": "New password: ",
+      "checkNewPassword":"New password (again): "
     }
   },
+  
   "changeEMail": {
     "title": "Change your e-mail address",
     "description": "To change your e-mail address, please fill in your old e-Mail address",
     "label": {
-      "oldEMail": "Old e-mail Address: ",
-      "newEMail": "New e-mail Address: ",
-      "checkNewEMail":"New e-mail Address (again): "
+      "oldEMail": "Old e-mail address: ",
+      "newEMail": "New e-mail address: ",
+      "checkNewEMail":"New e-mail address (again): "
     }
   },
 
@@ -499,7 +498,7 @@
       "500": "Internal error",
       "default": "Unknown error occured"
     },
-    "status": "Please write us an email, if need additional support. The mail should contain the address that you would like to access, the error code ({code}) and your pool account's email address."
+    "status": "Please write us an e-mail, if need additional support. The mail should contain the address that you would like to access, the error code ({code}) and your pool account's e-mail address."
   },
 
   "freak": {
@@ -508,8 +507,10 @@
   },
 
   "users": {
-    "title": "Supporter",
-    "ie": "Der Internet Explorer erlaubt im Moment keine fehlerfreie Darstellung dieser Oberfläche. Dies wird in Kürze nachgerüstet. Bitte nutze solange einen anderen Browser, wie etwa <a href='https://www.mozilla.org/firefox/download/thanks/'>Firefox</a> oder <a href='https://www.google.de/chrome/'>Chrome</a>."
+    "title": "Supporter",    
+    "ie": {
+      "msg": "The Internet Explorer does not allow an error-free display of this interface at the moment. This will be added shortly. Please use another browser, such as {0}.",
+      "alternative": "Firefox"
+    }
   }
-
 }

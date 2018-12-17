@@ -85,11 +85,24 @@
         </VcABox>
       </VcAColumn>
       <VcAColumn>
-        <VcABox :first="true" :title="$t('profile.title.account')">
+		<VcABox :first="true" :title="$t('profile.title.newsletter')">
+		
+			<v-select
+					v-model="mail_switch"
+					:options="[{'label':$t('profile.newsletter.none'),'value':'none'},{'label':$t('profile.newsletter.all'),'value':'all'},{'label':$t('profile.newsletter.regional'),'value':'regional'},{'label':$t('profile.newsletter.global'),'value':'global'}]"
+					:placeholder="$t('profile.newsletter.none')"
+					:filterBy="filter"
+					maxHeight="300px"
+					@input="handleClick"
+			>
+			</v-select>
+					
+        </VcABox>
+        <VcABox :first="false" :title="$t('profile.title.account')">
             <a class="vca-button-primary vca-full-width" href="#">
                 {{ $t('profile.change.email') }}
             </a>
-            <a class="vca-button-primary vca-full-width" href="#">
+            <a class="vca-button-primary vca-full-width" href="#/resetPasswordInstructions">
                 {{ $t('profile.change.password') }}
             </a>
             <a class="vca-button-warn vca-full-width" href="#">
@@ -148,6 +161,7 @@
       return {
           crew: null,
           crewRoles: [],
+          mail_switch: '',
           userRoles: [],
         imageUrl: '',
         emailaddress: '',

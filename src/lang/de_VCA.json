@@ -1,7 +1,7 @@
 {
   "error": {
     "pattern": {
-      "contactUs": "Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+      "contactUs": "Wende dich bitte via E-Mail an uns, um uns auf dieses Problem aufmerksam zu machen."
     },
     "ajax": {
       "unAuthorized": {
@@ -40,7 +40,7 @@
     "submit": "hinzufügen",
     "signup": "login",
     "signout": "logout",
-    "sendEmail": "E-mail schicken",
+    "sendEmail": "E-Mail schicken",
     "resetIt": "ändern",
     "signin": "Einloggen",
     "rememberme" : "Eingeloggt bleiben",
@@ -48,8 +48,7 @@
     "edit": "Editieren",
     "delete": "Löschen"
   },
-
-  "crews":{
+  "crews": {
     "select": {
       "noCrewsAvailable": "Momentan kennt der Pool keine Crews",
       "placeholder": "Bitte wähle deine Crew..."
@@ -169,7 +168,7 @@
       "birthdateinfo": "Wann wurdest du Geboren?",
       "gender": "Gender:"
     },
-    "infoBox": "Euren Namen, das Alter und den Wohnort benötigen wir, um euch bei einigen Veranstaltern als Teilnehmer von Aktionen anzumelden. Euer Geschlecht wird für eine faire Verteilung der Teilnehmer an Aktionen erhoben und die Telefonnummer wird benötigt, um ggf. schnelle Absprachen im Vorfeld von Aktionen abzuwickeln."
+    "infoBox": "Deinen vollständigen Namen, dein Geburtsdatum sowie deine Anschrift werden für die Anmeldung für Aktionen benötigt. Deine Telefonnummer wird für kurzfristige Absprachen vor Aktionen gebraucht."
   },
 
   "upload": {
@@ -200,7 +199,7 @@
         "age": "Alter",
         "notConfirmed": "Account nicht bestätigt",
         "gender": "Geschlecht",
-        "email": "Email",
+        "email": "E-Mail",
         "mobilePhone": "Handynummer",
         "placeOfResidence": "Wohnort"
       },
@@ -238,6 +237,7 @@
     },
     "title": {
       "account": "Account",
+      "newsletter": "Newsletter",
       "avatar": "Profilbild",
       "update": "Aktualisieren",
       "crew": "Crew"
@@ -258,8 +258,14 @@
         }
       }
     },
+    "newsletter": {
+      "none": "Kein Newsletter",
+      "all": "Globale und regionale Newsletter",
+      "regional": "Regionale Newsletter"
+      "global": "Globale Newsletter"
+    },
     "change": {
-      "email": "Email ändern",
+      "email": "E-Mail Adresse ändern",
       "password": "Passwort ändern"
     },
     "rolesDescription": "Du hast folgende Rollen bei VcA:"
@@ -288,8 +294,8 @@
       "token": "Prüfe neuen Nutzer"
     },
     "label": {
-      "email": "E-Mail:",
-      "checkemail": "E-Mail bestätigen",
+      "email": "E-Mail Adresse:",
+      "checkemail": "E-Mail Adresse bestätigen",
       "password": {
         "title": "Passwort:",
         "placeholder": "Bitte geben Sie ihr Passwort ein"
@@ -297,7 +303,7 @@
       "confirmPassword": "Passwort wiederholen:"
     },
     "info": {
-      "token": "Weiterleitung erfolgt gleich. Sollte es zu einem Fehler kommen, wenden Sie sich bitte via Email an uns."
+      "token": "Weiterleitung erfolgt gleich. Sollte es zu einem Fehler kommen, wenden Sie sich bitte via E-Mail an uns."
     },
     "asupporti": "Du bist bereits Supporter?",
     "finish" : {
@@ -312,23 +318,23 @@
       },
       "email": {
         "empty": "Du hast nichts eingegeben...",
-        "unequal": "Die beiden eingegebenen Email-Adressen stimmen nicht überein."
+        "unequal": "Die beiden eingegebenen E-Mail Adressen stimmen nicht überein."
       },
       "unAuthorized": {
         "title": "Zugriff verweigert",
-        "msg": "Du darfst auf dich gerade nicht registrieren. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+        "msg": "Du darfst auf dich gerade nicht registrieren. Wende dich bitte via E-Mail an uns, um uns auf dieses Problem aufmerksam zu machen."
       },
       "serverError": {
         "title": "Interner Fehler",
-        "msg": "Es ist ein Fehler auf dem Server aufgetreten. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+        "msg": "Es ist ein Fehler auf dem Server aufgetreten. Wende dich bitte via E-Mail an uns, um uns auf dieses Problem aufmerksam zu machen."
       },
       "badRequest": {
         "title": "Problem mit den Angaben",
-        "msg": "Deine angegebenen Daten haben einen Fehler verursacht. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+        "msg": "Deine angegebenen Daten haben einen Fehler verursacht. Wende dich bitte via E-Mail an uns, um uns auf dieses Problem aufmerksam zu machen."
       },
       "notFound": {
         "title": "Nichts gefunden",
-        "msg": "Dazu konnte nichts gefunden werden. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+        "msg": "Dazu konnte nichts gefunden werden. Wende dich bitte via E-Mail an uns, um uns auf dieses Problem aufmerksam zu machen."
       }
     }
   },
@@ -376,7 +382,7 @@
     "label": {
       "title":"Title:",
       "description":"Beschreibung:",
-      "accessrights":"Access rights:"
+      "accessrights":"Zugriffsrechte:"
     },
     "descriptionPlaceholder":"Bitte beschreibe deine Aktion..."
   },
@@ -406,11 +412,11 @@
       },
       "bogus": {
         "title": "Problem mit den Angaben",
-        "msg": "Deine angegebenen Daten haben einen Fehler verursacht. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+        "msg": "Deine angegebenen Daten haben einen Fehler verursacht. Wende dich bitte via E-Mail an uns, um uns auf dieses Problem aufmerksam zu machen."
       },
       "default": {
         "title": "Fehler aufgetreten",
-        "msg": "Es ist ein Fehler aufgetreten. Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."
+        "msg": "Es ist ein Fehler aufgetreten. Wende dich bitte via E-Mail an uns, um uns auf dieses Problem aufmerksam zu machen."
       }
     },
     "success": {
@@ -429,7 +435,7 @@
 
   "reset" : {
     "label": {
-      "email": "E-mail:",
+      "email": "E-Mail:",
       "password": "Passwort:",
       "checkPassword": "Password überprüfen:"
     },
@@ -441,7 +447,7 @@
       "title": "Du hast dein Password vergessen?",
       "description": "Kein Problem, trage hier einfach deine E-Mail Adresse ein und wir senden dir Anweisungen zum Zurücksetzen zu.",
       "errorResponse": "Ooops",
-      "successResponse": "Email gesendet!"
+      "successResponse": "E-Mail gesendet!"
     },
     "PasswordInstructionsPool1" : {
       "title": "Bitte wähle ein neues Passwort!",
@@ -482,9 +488,9 @@
     "title": "Ändere deine E-Mail Adresse",
     "description": "Gib bitte zuerst, deine alte e-Mail adresse ein.",
     "label": {
-      "oldEMail": "Alte E-Mail Addresse: ",
-      "newEMail": "Neue E-Mail Addresse: ",
-      "checkNewEMail":"Neue E-Mail Addresse (wiederholen): "
+      "oldEMail": "Alte E-Mail Adresse: ",
+      "newEMail": "Neue E-Mail Adresse: ",
+      "checkNewEMail":"Neue E-Mail Adresse (wiederholen): "
     }
   },
 
@@ -498,7 +504,7 @@
       "500": "Da ist ein Fehler im Pool aufgetreten",
       "default": "Da ist ein Fehler aufgetreten"
     },
-    "status": "Falls du weitere Unterstützung brauchst, wende dich bitte via Mail an uns. Am besten schreibst du uns gleich die Adresse, auf die du zugreifen wolltest, den Fehlercode ({code}) und die Email-Adresse, die in deinem Pool-Account hinterlegt ist (falls vorhanden) mit dazu."
+    "status": "Falls du weitere Unterstützung brauchst, wende dich bitte via Mail an uns. Am besten schreibst du uns gleich die Adresse, auf die du zugreifen wolltest, den Fehlercode ({code}) und die E-Mail Adresse, die in deinem Pool-Account hinterlegt ist (falls vorhanden) mit dazu."
   },
 
   "freak": {

@@ -27,7 +27,7 @@
   import VcABox from '@/components/page/VcABox.vue';
   import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
   var host = window.location.hostname
-  Vue.use(VueNativeSock, 'ws://' + host +'/drops/webapp/crew/ws', { 
+  Vue.use(VueNativeSock, 'wss://' + host +'/drops/webapp/crew/ws', { 
     reconnection: true,
     reconnectionAttempts: 5,
     reconnectionDelay: 3000,
