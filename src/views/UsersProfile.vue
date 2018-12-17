@@ -12,7 +12,8 @@
                         <ul class="crew">
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.crew') }}:</span>
-                                <span class="vca-user-value">{{ getProfile().supporter.crew.name }}</span>
+                                <span class="vca-user-value" v-if="hasCrew()">{{ getProfile().supporter.crew.name }}</span>
+                                <span class="vca-user-value" v-else>-</span>
                                 <div class="roles">
                                     <VcARole v-for="role in getProfile().supporter.roles"
                                              :role="role.name"
@@ -38,11 +39,13 @@
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.mobilePhone') }}:</span>
-                                <span class="vca-user-value">{{ getProfile().supporter.mobilePhone }}</span>
+                                <span class="vca-user-value" v-if="hasMobile()">{{ getProfile().supporter.mobilePhone }}</span>
+                                <span class="vca-user-value" v-else>-</span>
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.placeOfResidence') }}:</span>
-                                <span class="vca-user-value">{{ getProfile().supporter.placeOfResidence }}</span>
+                                <span class="vca-user-value" v-if="hasResidence()">{{ getProfile().supporter.placeOfResidence }}</span>
+                                <span class="vca-user-value" v-else>-</span>
                             </li>
                         </ul>
 
@@ -115,6 +118,15 @@
                         this.$router.push({path: '/error/' + error.response.status})
                     })
             },
+            hasCrew() {
+				        return (getProfile().supporter.hasOwnProperty("crew"))
+			      },
+            hasMobile() {
+				        return (getProfile().supporter.hasOwnProperty("mobilePhone"))
+			      },
+            hasResidence() {
+				        return (getProfile().supporter.hasOwnProperty("placeOfResidence"))
+			      },
             setRole(pillar) {
                 var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
                 axios.get(call).then(response => {

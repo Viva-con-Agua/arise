@@ -255,7 +255,7 @@
     "newsletter": {
       "none": "No newsletter",
       "all": "Global and regional newsletter",
-      "regional": "Regional newsletter"
+      "regional": "Regional newsletter",
       "global": "Global newsletter"
     },
     "change": {
@@ -375,7 +375,7 @@
   "taskform":{
     "label": {
       "title":"Title:",
-      "description":"Description:"
+      "description":"Description:",
       "accessrights":"Access rights:"
     },
     "descriptionPlaceholder":"Please descripe your task..."
