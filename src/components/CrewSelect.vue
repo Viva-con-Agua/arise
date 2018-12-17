@@ -1,13 +1,13 @@
 <template>
     <div class="crewSelect">
         <v-select
-                v-model="crew"
+                :value="crew"
                 :options="crews"
                 label="name"
                 :placeholder="$t('crews.select.placeholder')"
                 :filterBy="filter"
                 maxHeight="300px"
-                @input="handleClick"
+                v-on:input="handleClick"
         >
             <span slot="no-options">{{ $t("crews.select.noCrewsAvailable") }}</span>
             <template slot="option" slot-scope="option">
@@ -72,9 +72,13 @@
                 }
             },
             handleClick(event) {
-                if(event !== null) {
+                if(this.crew === null || (typeof this.crew === "undefined")) {
+                    // add a dummy value, otherwise JS will break. It evaluates the whole expression...
+                    this.crew = { id: null }
+                }
+                if (event !== null && event.id !== this.crew.id) {
                     this.select(event)
-                } else {
+                } else if(event === null) {
                     this.deselect()
                 }
             },
@@ -83,6 +87,7 @@
                     .then(response => {
                         if (response.status === 200) {
                             this.crew = null
+                            this.$emit("vca-select-crew")
                         }
                     }).catch(this.errorHandling)
             },
@@ -91,6 +96,9 @@
                     .then((response) => {
                         if (response.status === 200) {
                             var profile = response.data.additional_information.profiles.find(p => p.primary)
+                            if(typeof profile === "undefined") {
+                                profile = response.data.additional_information.profiles[0]
+                            }
                             this.crew = profile.supporter.crew
                         }
                     }).catch(this.errorHandling)
@@ -110,6 +118,7 @@
                     .then(response => {
                         if(response.status === 200) {
                             this.crew = event
+                            this.$emit("vca-select-crew")
                         }
                     })
                     .catch(error => {

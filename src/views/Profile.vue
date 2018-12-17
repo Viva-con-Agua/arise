@@ -75,7 +75,7 @@
           <ProfileImage />
         </VcABox>
         <VcABox :first="false" :expand="true" :title="$t('profile.title.crew')" className="crewSelectBox">
-            <CrewSelect />
+            <CrewSelect v-on:vca-select-crew="init" />
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
                 <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
@@ -85,20 +85,8 @@
         </VcABox>
       </VcAColumn>
       <VcAColumn>
-		<VcABox :first="true" :title="$t('profile.title.newsletter')">
-		
-			<v-select
-					v-model="mail_switch"
-					:options="[{'label':$t('profile.newsletter.none'),'value':'none'},{'label':$t('profile.newsletter.all'),'value':'all'},{'label':$t('profile.newsletter.regional'),'value':'regional'},{'label':$t('profile.newsletter.global'),'value':'global'}]"
-					:placeholder="$t('profile.newsletter.none')"
-					:filterBy="filter"
-					maxHeight="300px"
-					@input="handleClick"
-			>
-			</v-select>
-					
-        </VcABox>
-        <VcABox :first="false" :title="$t('profile.title.account')">
+        <VcABox :first="true" :title="$t('profile.title.account')">
+            <NewsletterSelect />
             <a class="vca-button-primary vca-full-width" href="#">
                 {{ $t('profile.change.email') }}
             </a>
@@ -130,6 +118,7 @@
   import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
   import ProfileImage from '@/components/upload/ProfileImage.vue'
   import CrewSelect from '@/components/CrewSelect.vue'
+  import NewsletterSelect from '@/components/NewsletterSelection.vue'
   import {
     Button,
     DatePicker,
@@ -155,13 +144,12 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect },
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect },
 
     data () {
       return {
           crew: null,
           crewRoles: [],
-          mail_switch: '',
           userRoles: [],
         imageUrl: '',
         emailaddress: '',
@@ -201,49 +189,77 @@
     },
 
   created () {
-      this.axios.get('/drops/webapp/identity')
-          .then((response) => {
-              if (response.status === 200) {
-                  this.userRoles = response.data.additional_information.roles.map((role) => role.role)
-                  var profile = response.data.additional_information.profiles.find(p => p.primary)
-                  if(typeof profile === "undefined") {
-                      profile = response.data.additional_information.profiles[0]
-                  }
-                  this.crewRoles = profile.supporter.roles
-              }
-          })
-      function profileToForm(profile) {
-          profile['gender'] = profile['sex']
-          return profile
-      }
-      var that = this;
-      this.axios
-          .get('/drops/webapp/profile/get')
-          .then(function (response) {
-              switch (response.status)
-              {
-                  case 200:
-                      var profile = response.data.additional_information[0];
-                      that.profileForm = profileToForm(profile);
-                      that.emailaddress = profile.email;
-                      break;
-              }
-          }).catch(function (error) {
-          switch (error.response.status) {
-              case 500:
-                  that.open(that.$t('signin.error'), error.response.data.msg, "error");
-                  break;
-              case 412:
-                  that.$router.push({path: '/resetPasswordInstructions/pool'});
-                  break;
-              case 401:
-                  that.$router.push({path: '/signin/L2FyaXNlLyMvcHJvZmlsZQ=='});
-                  break;
-          }
-
-      }).finally(() => this.loading = false)
+        this.init()
+      // this.axios.get('/drops/webapp/identity')
+      //     .then((response) => {
+      //         if (response.status === 200) {
+      //             this.userRoles = response.data.additional_information.roles.map((role) => role.role)
+      //             var profile = response.data.additional_information.profiles.find(p => p.primary)
+      //             if(typeof profile === "undefined") {
+      //                 profile = response.data.additional_information.profiles[0]
+      //             }
+      //             this.crewRoles = profile.supporter.roles
+      //         }
+      //     })
+      // function profileToForm(profile) {
+      //     profile['gender'] = profile['sex']
+      //     return profile
+      // }
+      // var that = this;
+      // this.axios
+      //     .get('/drops/webapp/profile/get')
+      //     .then(function (response) {
+      //         switch (response.status)
+      //         {
+      //             case 200:
+      //                 var profile = response.data.additional_information[0];
+      //                 that.profileForm = profileToForm(profile);
+      //                 that.emailaddress = profile.email;
+      //                 break;
+      //         }
+      //     }).catch(function (error) {
+      //     switch (error.response.status) {
+      //         case 500:
+      //             that.open(that.$t('signin.error'), error.response.data.msg, "error");
+      //             break;
+      //         case 412:
+      //             that.$router.push({path: '/resetPasswordInstructions/pool'});
+      //             break;
+      //         case 401:
+      //             that.$router.push({path: '/signin/L2FyaXNlLyMvcHJvZmlsZQ=='});
+      //             break;
+      //     }
+      //
+      // }).finally(() => this.loading = false)
   },
     methods: {
+        init() {
+            console.log("Init")
+            function profileToForm(profile) {
+                profile['firstName'] = profile.supporter.firstName
+                profile['lastName'] = profile.supporter.lastName
+                profile['mobilePhone'] = profile.supporter.mobilePhone
+                profile['placeOfResidence'] = profile.supporter.placeOfResidence
+                profile['birthday'] = profile.supporter.birthday
+                profile['gender'] = profile.supporter['sex']
+                return profile
+            }
+            this.axios.get('/drops/webapp/identity')
+                .then((response) => {
+                    if (response.status === 200) {
+                        console.log(response)
+                        this.userRoles = response.data.additional_information.roles.map((role) => role.role)
+                        var profile = response.data.additional_information.profiles.find(p => p.primary)
+                        if(typeof profile === "undefined") {
+                            profile = response.data.additional_information.profiles[0]
+                        }
+                        this.profileForm = profileToForm(profile);
+                        this.emailaddress = profile.email;
+                        this.crewRoles = profile.supporter.roles
+                    }
+                })
+
+        },
       submitForm(profileForm) {
           function toProfileSubmit(form, email) {
               var gender = form.gender
