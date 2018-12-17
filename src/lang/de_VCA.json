@@ -216,10 +216,24 @@
         "msg": "Der gesuchte Nutzer konnte leider nicht gefunden werden."
       }
     },
+    "roles": {
+      "crew": {
+        "finance": "ASP Finanzen",
+        "operation": "ASP Aktionen",
+        "education": "ASP Bildung",
+        "network": "ASP Netzwerk"
+      }
+    },
     "actions": {
       "non-voting-membership": "Stimmrechtslose Mitgliedschaft beantragen",
       "volunteering-certificate": "Ehrenamtsbescheinigung",
-      "non-voting-membership-spoiler": "Die Funktion zur Beantragung der stimmrechtslosen Mitgliedschaft kommt in kürze..."
+      "non-voting-membership-spoiler": "Die Funktion zur Beantragung der stimmrechtslosen Mitgliedschaft kommt in kürze...",
+      "assignRole": {
+        "finance": "Zum @:profile.roles.crew.finance machen",
+        "operation": "Zum @:profile.roles.crew.operation machen",
+        "education": "Zum @:profile.roles.crew.education machen",
+        "network": "Zum @:profile.roles.crew.network machen"
+      }
     },
     "title": {
       "account": "Account",
