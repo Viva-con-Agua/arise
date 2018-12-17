@@ -8,12 +8,24 @@
                 </template>
                 <div class="user">
                     <Avatar :user="user" type="profile" />
-                    <div class="profile">
+                    <div class="vca-profile">
                         <ul class="crew">
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.crew') }}:</span>
                                 <span class="vca-user-value" v-if="hasCrew()">{{ getProfile().supporter.crew.name }}</span>
                                 <span class="vca-user-value" v-else>-</span>
+                                <div class="roles">
+                                    <VcARole v-for="role in getProfile().supporter.roles"
+                                             :role="role.name"
+                                             :pillar="role.pillar.pillar"
+                                             :key="role.crew.name + role.name + role.pillar.pillar"
+                                    />
+                                </div>
+                                <div class="roleButtons">
+                                    <button class="vca-button-primary vca-button-select-crew" v-for="assignable in getRoleSetter()" @click="setRole(assignable.pillar.pillar)">
+                                        {{ $t('profile.actions.assignRole.' + assignable.pillar.pillar) }}
+                                    </button>
+                                </div>
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.since') }}:</span>
@@ -70,7 +82,8 @@
         data() {
             return {
                 uuid: this.$route.params.id,
-                user: null
+                user: null,
+                currentUser: null
             }
         },
         computed: {
@@ -83,6 +96,18 @@
         },
         methods: {
             init() {
+                this.initCurrentUser()
+                this.initVisitedUser()
+            },
+            initCurrentUser() {
+                axios.get('/drops/webapp/identity')
+                    .then(response => {
+                        if(response.status === 200) {
+                            this.currentUser = response.data.additional_information
+                        }
+                    })
+            },
+            initVisitedUser() {
                 axios.get('/drops/webapp/user/' + this.uuid, {})
                     .then(response => {
                         if(response.status === 200) {
@@ -94,20 +119,48 @@
                     })
             },
             hasCrew() {
-				return (getProfile().supporter.hasOwnProperty("crew"))
-			},
+				        return (getProfile().supporter.hasOwnProperty("crew"))
+			      },
             hasMobile() {
-				return (getProfile().supporter.hasOwnProperty("mobilePhone"))
-			},
+				        return (getProfile().supporter.hasOwnProperty("mobilePhone"))
+			      },
             hasResidence() {
-				return (getProfile().supporter.hasOwnProperty("placeOfResidence"))
-			},
-            getProfile() {
-                var profile = this.user.profiles.find(p => p.primary)
+				        return (getProfile().supporter.hasOwnProperty("placeOfResidence"))
+			      },
+            setRole(pillar) {
+                var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
+                axios.get(call).then(response => {
+                    if(response.status === 200) {
+                        this.initVisitedUser()
+                    }
+                })
+            },
+            getRoleSetter() {
+                var visitedRoles = this.getProfile().supporter.roles
+                return this.getProfile(true).supporter.roles.filter(role => {
+                    var visitedCrew = this.getCrew()
+                     return (visitedCrew !== null && visitedCrew.id === role.crew.id &&
+                         !visitedRoles.some(r => r.name === role.name && r.crew.id === role.crew.id && r.pillar.pillar === role.pillar.pillar))
+                })
+            },
+            getProfile(currentUser = false) {
+                var user = this.user
+                if(currentUser) {
+                    user = this.currentUser
+                }
+                var profile = user.profiles.find(p => p.primary)
                 if(typeof profile === "undefined") {
-                    profile = this.user.profiles[0]
+                    profile = user.profiles[0]
                 }
                 return profile
+            },
+            getCrew() {
+                var res = null
+                var supporter = this.getProfile().supporter
+                if(supporter.hasOwnProperty("crew")) {
+                    res = supporter.crew
+                }
+                return res
             },
             getName() {
                 return this.getProfile().supporter.fullName
@@ -129,9 +182,16 @@
 <style scoped lang="less">
     @import '../assets/less/responsive.less';
 
+    .vca-button-select-crew {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+
     .user {
         display: flex;
         justify-content: flex-start;
+        align-item: flex-start;
+        align-content: flex-start;
 
         @media @phone-down {
             flex-direction: column;
@@ -147,10 +207,29 @@
         margin: 0.2em;
     }
 
-    .profile {
+    .roles {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: flex-start;
+        & /deep/ .role:not(:first-child) {
+            margin-left: 0.2em;
+        }
+    }
+    .roleButtons {
+        margin-bottom: 0.5em;
+        button {
+            margin-top: 0.5em;
+            &:not(:last-child) {
+                margin-right: 0.5em;
+            }
+        }
+    }
+
+    .vca-profile {
         margin-left: 2em;
         list-style: none;
-        flex-grow: 1;
+        flex-grow: 2;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -172,7 +251,7 @@
             }
 
             &.crew {
-                align-items: flex-end;
+                align-items: flex-start;
             }
 
             &.contact {

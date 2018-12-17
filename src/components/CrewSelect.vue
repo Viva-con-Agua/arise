@@ -164,6 +164,10 @@
 <style scoped lang="less">
     @import "./crews/assets/general.less";
 
+    .crewSelect {
+        margin-bottom: 0.5em;
+    }
+
     .crew {
         display: flex;
         flex-direction: row;
