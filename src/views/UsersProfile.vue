@@ -13,14 +13,18 @@
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.crew') }}:</span>
                                 <span class="vca-user-value">{{ getProfile().supporter.crew.name }}</span>
-                                <VcARole v-for="role in getProfile().supporter.roles"
-                                         :role="role.name"
-                                         :translated="$t('profile.roles.crew.' + role.pillar.pillar)"
-                                         :key="role.crew.name + role.name + role.pillar.pillar"
-                                />
-                                <button class="vca-button-primary vca-button-select-crew" v-for="assignable in getRoleSetter()" @click="setRole(assignable.pillar.pillar)">
-                                    {{ $t('profile.actions.assignRole.' + assignable.pillar.pillar) }}
-                                </button>
+                                <div class="roles">
+                                    <VcARole v-for="role in getProfile().supporter.roles"
+                                             :role="role.name"
+                                             :pillar="role.pillar.pillar"
+                                             :key="role.crew.name + role.name + role.pillar.pillar"
+                                    />
+                                </div>
+                                <div class="roleButtons">
+                                    <button class="vca-button-primary vca-button-select-crew" v-for="assignable in getRoleSetter()" @click="setRole(assignable.pillar.pillar)">
+                                        {{ $t('profile.actions.assignRole.' + assignable.pillar.pillar) }}
+                                    </button>
+                                </div>
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.since') }}:</span>
@@ -189,6 +193,25 @@
         font-size: 0.9em;
         border-radius: 0.5em;
         margin: 0.2em;
+    }
+
+    .roles {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: flex-start;
+        & /deep/ .role:not(:first-child) {
+            margin-left: 0.2em;
+        }
+    }
+    .roleButtons {
+        margin-bottom: 0.5em;
+        button {
+            margin-top: 0.5em;
+            &:not(:last-child) {
+                margin-right: 0.5em;
+            }
+        }
     }
 
     .vca-profile {
