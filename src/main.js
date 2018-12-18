@@ -22,7 +22,9 @@ const i18n = new VueI18n({
     locale: locale,
     messages: {
         'en-US': Object.assign(en, enElement),
-        'de-DE': Object.assign(de, deElement)
+        'de-DE': Object.assign(de, deElement),
+        'de': Object.assign(de, deElement),
+        'en': Object.assign(en, enElement)
     }
 });
 Vue.use(ElementUI, {
