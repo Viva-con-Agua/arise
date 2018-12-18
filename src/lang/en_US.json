@@ -1,4 +1,10 @@
 {
+  "delete":{
+    "User": {
+      "title": "delete User",
+      "description": "Your user will be irrevocably deleted"
+    }
+  },
   "error": {
     "pattern": {
       "contactUs": "Please send us an email to alert us about this problem."

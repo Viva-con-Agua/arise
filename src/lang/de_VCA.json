@@ -1,4 +1,11 @@
 {
+
+  "delete":{
+    "User": {
+      "title": "Nutzer löschen",
+      "description": "Dein Nutzer wird unwiderruflich gelöscht"
+    }
+  },
   "error": {
     "pattern": {
       "contactUs": "Wende dich bitte via Email an uns, um uns auf dieses Problem aufmerksam zu machen."

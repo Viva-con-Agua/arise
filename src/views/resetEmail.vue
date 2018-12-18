@@ -27,8 +27,8 @@
         <button
                 ref="resetIt"
                 class="vca-button-primary vca-full-width"
-                @click.prevent="submitForm(resetFormPassword)"
-                @keyup.enter="submitForm(resetFormPassword)">
+                @click.prevent="submitForm(resetFormEmail)"
+                @keyup.enter="submitForm(resetFormEmail)">
           {{ $t('options.resetIt') }}
         </button>
       </VcABox>
@@ -115,8 +115,8 @@
               if(valid) {
                 this.axios
                   .post('/drops/webapp/email/reset/' + this.$route.params.token, {
-                    password1: that.resetFormEmail.email,
-                    password2: that.resetFormEmail.checkEmail
+                    email: that.resetFormEmail.email,
+                    checkEmail: that.resetFormEmail.checkEmail
                   })
                   .then(function(response) {
                       that.disableButton()
@@ -126,10 +126,10 @@
                   .catch(function(error) {
                     switch (error.response.status) {
                       case 401:
-                        that.messageOpen(that.$t('reset.PasswordInstructions.errorResponse'), error.response.data.msg, "error");
+                        that.messageOpen(that.$t('reset.EmailInstructions.errorResponse'), error.response.data.msg, "error");
                         break;
                       case 404:
-                        that.messageOpen(that.$t('reset.PasswordInstructions.errorResponse'), error.response.data.msg, "error");
+                        that.messageOpen(that.$t('reset.EmailInstructions.errorResponse'), error.response.data.msg, "error");
                         break;
                     }
                   })

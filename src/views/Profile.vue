@@ -95,7 +95,7 @@
             <a class="vca-button-primary vca-full-width" href="#/resetPasswordInstructions">
                 {{ $t('profile.change.password') }}
             </a>
-            <a class="vca-button-warn vca-full-width" href="#">
+            <a class="vca-button-warn vca-full-width" href="#/deleteUser">
                 {{ $t("options.delete") }}
             </a>
             <p v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">

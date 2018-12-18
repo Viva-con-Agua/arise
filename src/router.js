@@ -49,6 +49,11 @@ var router = new Router({
         }
     },
     {
+        path: '/deleteUser',
+        name: 'DeleteUser',
+        component: loadView('DeleteUser')
+    },
+    {
         path: '/signup',
         name: 'SignUp',
         component: loadView('SignUp')
