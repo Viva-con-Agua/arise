@@ -2,7 +2,7 @@
   <div id="signin">
     <VcAFrame>
       <VcAColumn>
-        <VcABox :title="$t('signin.title')">
+        <VcABox :first="true" :title="$t('signin.title')">
           <el-form
                   :ref="signInForm"
                   :model="signInForm"

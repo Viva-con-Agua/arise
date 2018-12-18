@@ -205,7 +205,6 @@
             this.axios.get('/drops/webapp/identity')
                 .then((response) => {
                     if (response.status === 200) {
-                        console.log(response)
                         this.userRoles = response.data.additional_information.roles.map((role) => role.role)
                         var profile = response.data.additional_information.profiles.find(p => p.primary)
                         if(typeof profile === "undefined") {

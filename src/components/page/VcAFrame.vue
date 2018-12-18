@@ -1,6 +1,6 @@
 <template>
     <div class="frame">
-        <h1 v-if="hasTitle" class="pageTitle">{{ title }}</h1>
+        <h1 v-if="hasTitle()" class="pageTitle">{{ title }}</h1>
         <div id="columns" :class="!hasColumnsContainer() ? 'columns-container' : ''">
             <slot></slot>
         </div>
@@ -32,6 +32,9 @@
         flex-direction: column;
         justify-content: center;
         align-content: center;
+        @media @desktop-down {
+            display: block;
+        }
     }
     .pageTitle {
         align-self: center;

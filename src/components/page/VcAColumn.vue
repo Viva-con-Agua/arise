@@ -41,6 +41,7 @@
         @media @desktop-down {
             width: 98% ! important;
             align-items: center;
+            min-height: auto;
 
             &:not(:first-child) {
                 margin-left: 0em;
