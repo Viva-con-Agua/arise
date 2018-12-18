@@ -262,7 +262,17 @@
       "none": "Kein Newsletter",
       "all": "Globale und regionale Newsletter",
       "regional": "Regionale Newsletter",
-      "global": "Globale Newsletter"
+      "global": "Globale Newsletter",
+      "notification": {
+        "success": {
+          "title": "Newsletter-Einstellungen gespeichert",
+          "msg": "Deine Newsletter-Einstellungen wurden gespeichert!"
+        },
+        "error": {
+          "title": "Fehler bei Newsletter-Einstellungen",
+          "msg": "Newsletter-Einstellungen konnten nicht gespeichert werden."
+        }
+      }
     },
     "change": {
       "email": "E-Mail Adresse ändern",

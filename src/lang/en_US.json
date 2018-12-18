@@ -256,7 +256,17 @@
       "none": "No newsletter",
       "all": "Global and regional newsletter",
       "regional": "Regional newsletter",
-      "global": "Global newsletter"
+      "global": "Global newsletter",
+      "notification": {
+        "success": {
+          "title": "Newsletter-Settings saved",
+          "msg": "Your settings have been saved!"
+        },
+        "error": {
+          "title": "Error on Newsletter-Settings",
+          "msg": "Your settings have not been saved."
+        }
+      }
     },
     "change": {
       "email": "Change e-mail address",
