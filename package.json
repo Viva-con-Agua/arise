@@ -1,6 +1,6 @@
 {
   "name": "arise",
-  "version": "0.7.24",
+  "version": "0.7.25",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 8080",
@@ -13,7 +13,7 @@
     "element-ui": "^2.4.11",
     "v-tooltip": "^2.0.0-rc.33",
     "vca-widget-navigation": "^0.2.6",
-    "vca-widget-user": "^0.4.5",
+    "vca-widget-user": "^0.4.6",
     "vee-validate": "^2.1.4",
     "vue": "^2.5.17",
     "vue-axios": "^2.1.4",
