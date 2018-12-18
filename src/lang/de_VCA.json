@@ -1,4 +1,11 @@
 {
+
+  "delete":{
+    "User": {
+      "title": "Nutzer löschen",
+      "description": "Dein Nutzer wird unwiderruflich gelöscht"
+    }
+  },
   "error": {
     "pattern": {
       "contactUs": "Wende dich bitte via E-Mail an uns, um uns auf dieses Problem aufmerksam zu machen."
@@ -446,8 +453,15 @@
   "reset" : {
     "label": {
       "email": "E-Mail:",
+      "newEmail": "Neue E-Mail:",
       "password": "Passwort:",
-      "checkPassword": "Password überprüfen:"
+      "checkPassword": "Password überprüfen:",
+      "checkEmail": "E-Mail überprüfen:"
+
+    },
+    "EmailInstructions" : {
+      "title" : "E-Mail-Adresse ändern",
+      "description": "Aktuelle E-Mail"
     },
     "alert": {
       "title": "Die E-Mail wurde versandt",
@@ -481,6 +495,9 @@
     "PasswordDone": {
       "title": "Alles fertig",
       "description": "Du wirst in den nächsten Sekunden zum Log-In weitergeleitet..."
+    },
+    "Email": {
+      "title": "E-Mail-Adresse ändern"
     }
   },
 
