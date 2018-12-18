@@ -49,6 +49,11 @@ var router = new Router({
         }
     },
     {
+        path: '/deleteUser',
+        name: 'DeleteUser',
+        component: loadView('DeleteUser')
+    },
+    {
         path: '/signup',
         name: 'SignUp',
         component: loadView('SignUp')
@@ -106,6 +111,16 @@ var router = new Router({
         path: "/resetPasswordInstructions",
         name: 'resetPasswordInstructions',
         component: loadView('resetPasswordInstructions')
+    },
+    {
+        path: "/resetEmail/:token",
+        name: 'resetEmail',
+        component: loadView('resetEmail')
+    },
+    {
+        path: "/resetEmailInstructions",
+        name: 'resetEmailInstructions',
+        component: loadView('resetEmailInstructions')
     },
     {
         path: "/profile",

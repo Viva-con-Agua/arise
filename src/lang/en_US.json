@@ -1,4 +1,10 @@
 {
+  "delete":{
+    "User": {
+      "title": "delete User",
+      "description": "Your user will be irrevocably deleted"
+    }
+  },
   "error": {
     "pattern": {
       "contactUs": "Please send us an e-mail to alert us about this problem."
@@ -440,8 +446,14 @@
   "reset" : {
     "label": {
       "email": "E-mail:",
+      "newEmail": "New e-mail",
       "password": "Password:",
-      "checkPassword": "Check password:"
+      "checkPassword": "Check password:",
+      "checkEmail": "Check email:"
+    },
+    "EmailInstructions" : {
+      "title" : "Change e-mail",
+      "description": "Current e-mail"
     },
     "alert": {
       "title": "e-mail was sent",
@@ -475,6 +487,9 @@
     "PasswordDone": {
       "title": "Everything done",
       "description": "You will be redirected to the sign in page in a few seconds..."
+    },
+    "Email": {
+      "title": "change email"
     }
   },
 
