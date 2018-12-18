@@ -198,7 +198,7 @@
                 profile['lastName'] = profile.supporter.lastName
                 profile['mobilePhone'] = profile.supporter.mobilePhone
                 profile['placeOfResidence'] = profile.supporter.placeOfResidence
-                profile['birthday'] = profile.supporter.birthday
+                profile['birthday'] = new Date(profile.supporter.birthday)
                 profile['gender'] = profile.supporter['sex']
                 return profile
             }
@@ -219,6 +219,8 @@
         },
       submitForm(profileForm) {
           function toProfileSubmit(form, email) {
+              var date = Date.parse(form.birthday)
+              form['birthday'] = date
               var gender = form.gender
               form['sex'] = gender
               form['email'] = email

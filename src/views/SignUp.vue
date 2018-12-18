@@ -239,9 +239,14 @@
      submitForm() {
        this.$refs.signUpForm.validate((valid) => {
          if (valid) {
+             function transform(form) {
+                 var date = Date.parse(form.birthday)
+                 form['birthday'] = date
+                 return form
+             }
            var that = this;
            this.axios
-             .post('/drops/webapp/signup', this.signUpForm)
+             .post('/drops/webapp/signup', transform(this.signUpForm))
              .then(function (response) {
                if (response.status == 200) {
                  that.$router.push({path: 'finishSignup'})
