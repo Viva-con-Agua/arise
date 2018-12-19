@@ -111,13 +111,10 @@
       }
     }
   },
-
   "validationError": {
-
     "crewname": "Please fill in the crewname...",
     "city": "Please fill in at least one city...",
     "country": "Please fill in a country...",
-
     "firstname":"Please fill in your firstname...",
     "lastname":"Please fill in your name...",
     "mobile":"Please fill in your mobile number...",
@@ -127,21 +124,16 @@
     "email":"Please fill in your e-mail address...",
     "password":"Please use a safe password...",
     "checkPass":"Please reenter your password...",
-
     "taskTitle":"Please enter the title of your task",
-
     "id":"Please enter an ID",
     "secret":"Safty fitst, please enter a secret",
     "uri":"Where is your service located?",
     "types":"Please chose a grant type."
   },
-
   "inputSample": {
-
     "name": "z.B. Los Angeles",
     "city": "z.B. Aldera",
     "country": "z.B. Alderaan",
-
     "firstname":"my parents named me Frederik",
     "lastname":"e.g. Mustermensch",
     "mobile":"e.g. +49-1523-45679",
@@ -150,19 +142,15 @@
     "gender":"e.g. male",
     "email":"e.g. freak@vivaconagua.org",
     "password":"info",
-
     "taskTitle":"e.g. tidying up warehouse",
-
     "id":"e.g. arise"
   },
-
   "gender": {
     "female": "female",
     "male": "male",
     "other": "diverse",
     "undefined": "prefer not to say"
   },
-
   "supporterForm": {
     "title": "Supporter",
     "label": {
@@ -176,7 +164,6 @@
     },
     "infoBox": "Your full name, your date of birth and your address are required for the registration for actions. Your phone number will be used for short-term arrangements before actions."
   },
-
   "upload": {
     "initial": "Drag your image here to begin <br> or click to browse",
     "saving": "Uploading image...",
@@ -196,7 +183,6 @@
       "msg": "The maximum image size is 5 MB."
     }
   },
-
   "profile": {
     "view": {
       "labels": {
@@ -231,9 +217,15 @@
       }
     },
     "actions": {
-      "nonVotingMembership": "Non-voting Membership",
-      "volunteeringCertificate": "Volunteering certificate",
-      "nonVotingMembershipSpoiler": "The non-voting membership is coming soon..."
+      "non-voting-membership": "Non-voting Membership",
+      "volunteering-certificate": "Volunteering certificate",
+      "non-voting-membership-spoiler": "The non-voting membership is coming soon...",
+      "assignRole": {
+        "finance": "Assign @:profile.roles.crew.finance",
+        "operation": "Assign @:profile.roles.crew.operation",
+        "education": "Assign @:profile.roles.crew.education",
+        "network": "Assign @:profile.roles.crew.network"
+      }
     },
     "title": {
       "account": "Account",
@@ -280,7 +272,6 @@
     },
     "rolesDescription": "Your VcA roles:"
   },
-
   "signOut" : {
     "title": "Sign out",
     "info": "You will be signed out...",
@@ -295,7 +286,6 @@
       }
     }
   },
-
   "signup": {
     "title": {
       "view": "Create an account",
@@ -360,7 +350,6 @@
     "lostpw": "You lost your password?",
     "lostpwklick": "Reset",
     "error": "Error!",
-
     "alert" : {
       "code300": "",
       "code301": "",
@@ -369,7 +358,6 @@
       "code304": ""
     }
   },
-
   "crewform": {
     "label": {
       "location": "Location:",
@@ -378,7 +366,6 @@
       "country": "Country:"
     }
   },
-
   "crewlist": {
     "label": {
       "crewname": "Crewname:",
@@ -387,7 +374,6 @@
       "operations": "Options:"
     }
   },
-
   "taskform":{
     "label": {
       "title":"Title:",
@@ -396,7 +382,6 @@
     },
     "descriptionPlaceholder":"Please descripe your task..."
   },
-
   "oauth":{
     "title": {
       "list": "OAuth Clients",
@@ -435,14 +420,12 @@
     },
     "noClients": "Currently, there are no OAuth clients..."
   },
-
   "country": {
     "de" : "Germany",
     "at" : "Austria",
     "nl" : "Netherlands",
     "ch" : "Switzerland"
   },
-
   "reset" : {
     "label": {
       "email": "E-mail:",
@@ -492,7 +475,6 @@
       "title": "change email"
     }
   },
-
   "changePassword": {
     "title": "Change your password",
     "description": "To set a new password, please fill in your old password.",
@@ -502,7 +484,6 @@
       "checkNewPassword":"New password (again): "
     }
   },
-  
   "changeEMail": {
     "title": "Change your e-mail address",
     "description": "To change your e-mail address, please fill in your old e-Mail address",
@@ -512,7 +493,6 @@
       "checkNewEMail":"New e-mail address (again): "
     }
   },
-
   "latest" : "frequently added",
   "errorState": {
     "header": "Uuups",
@@ -525,12 +505,10 @@
     },
     "status": "Please write us an e-mail, if need additional support. The mail should contain the address that you would like to access, the error code ({code}) and your pool account's e-mail address."
   },
-
   "freak": {
     "default": "Ups!",
     "signin": "Join!"
   },
-
   "users": {
     "title": "Supporter",    
     "ie": {

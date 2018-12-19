@@ -37,6 +37,9 @@
                 ]
             }
         },
+        created() {
+            this.init()
+        },
         methods: {
             handleClick(event) {
                 if(event.label !== this.selection.label || event.value !== this.selection.value) {
@@ -45,7 +48,6 @@
                 }
             },
             submit() {
-                console.log(this.selection)
                 axios.post('/drops/webapp/profile/newsletter/' + this.selection.value, {}).then(response => {
                     switch(response.status) {
                         case 200:
