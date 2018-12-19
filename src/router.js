@@ -108,6 +108,11 @@ var router = new Router({
         component: loadView('resetPassword')
     },
     {
+        path: "/resetPasswordInstructionsPool1",
+        name: 'resetPasswordInstructionsPool1',
+        component: loadView('resetPasswordInstructionsPool1')
+    },
+    {
         path: "/resetPasswordInstructions",
         name: 'resetPasswordInstructions',
         component: loadView('resetPasswordInstructions')

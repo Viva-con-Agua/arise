@@ -449,8 +449,8 @@
       "successResponse": "E-mail sent!"
     },
     "PasswordInstructionsPool1" : {
-      "title": "please reset your password!",
-      "description": "we've noticed this is your first login to the new Pool. Please enter your e-mail address and we will send you the instructuins per mail to set a new one."
+      "title": "first login into the new Pool?",
+      "description": "we've noticed this is your first login to the new Pool. We will send you the instructuins per mail to set a new one password."
     },
     "Password" : {
       "title": "reset your password",

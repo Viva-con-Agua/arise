@@ -449,8 +449,8 @@
       "successResponse": "E-Mail gesendet!"
     },
     "PasswordInstructionsPool1" : {
-      "title": "Bitte wähle ein neues Passwort!",
-      "description": "Das scheint dein erster Login im neuen Pool zu sein. Bitte trag deine E-Mail adresse unten ein. Dann senden wird dir die Anweisungen zu, um ein neues Password zu erstellen."
+      "title": "Erster login in den neuen Pool?",
+      "description": "Das scheint dein erster Login im neuen Pool zu sein. Wir senden dir die Anweisungen zu, um ein neues Password zu erstellen."
     },
     "Password" : {
       "title": "Passwort zurücksetzen",
