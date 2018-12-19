@@ -127,7 +127,7 @@
                             that.open(that.$t('signin.error'), error.response.data.msg, "error");
                             break;
                         case 412:
-                            that.$router.push({path: '/resetPasswordInstructions/pool'});
+                            that.$router.push({path: '/resetPasswordInstructionsPool1'});
                             break;
                         case 401:
                             that.open(that.$t('signin.error'), error.response.data.msg, "error");
