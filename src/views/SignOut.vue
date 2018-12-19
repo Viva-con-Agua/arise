@@ -25,8 +25,19 @@
     export default {
         name: "SignOut",
         components: { VcAFrame, VcAColumn, VcABox },
-        mounted: function() {
-            this.requestSignOut()
+        data() {
+            return {
+                timeoutID: null
+            }
+        },
+        created: function() {
+            // needed to prevent side effects that occur if `this.requestSignOut()` is fired and its response received,
+            // before other `identity` requests return their result (e.g. for navigation)
+            var timeoutID = window.setTimeout(this.requestSignOut(), 2000);
+            this.timeoutID = timeoutID
+        },
+        beforeDestroy: function() {
+            window.clearTimeout(this.timeoutID);
         },
         methods: {
             requestSignOut: function() {
