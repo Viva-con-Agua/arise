@@ -1,5 +1,4 @@
 {
-
   "delete":{
     "User": {
       "title": "Nutzer löschen",
@@ -112,13 +111,10 @@
       }
     }
   },
-
   "validationError": {
-
     "crewname": "Trage den Crewnamen hier ein...",
     "city": "Bitte trage mindestens eine Stadt ein...",
     "country": "Bitte trage ein Land ein...",
-
     "firstname":"Bitte trage hier deinen Vornamen ein...",
     "lastname":"Bitte trage hier deinen Nachnamen ein...",
     "mobile":"Bitte trage hie deine Mobiltelefonnummer ein...",
@@ -128,21 +124,16 @@
     "email":"Bitte nenn uns doch deine e-Mail Adresse...",
     "password":"Bitte erstelle dir noch ein sichers Passwort...",
     "checkPass":"Bitte wiederholge hier dein sicheres Passwort...",
-
     "taskTitle":"Bitte nenn uns den Namen deiner Aufgabe...",
-
     "id":"Bitte erstelle eine ID",
     "secret":"Sicherheit geht vor, erstelle ein Secret",
     "uri":"Wo liegt dein Service?",
     "types":"Wähle einen grant Type aus."
   },
-
   "inputSample": {
-
     "name": "z.B. Ottibotti",
     "city": "z.B. Aldera",
     "country": "z.B. Alderaan",
-
     "firstname":"meine Eltern haben mich Frederik genannt",
     "lastname":"Mustermensch wäre ein Nachname",
     "mobile":"z.B. +49-1523-45679",
@@ -151,19 +142,15 @@
     "gender":"z.B. männlich",
     "email":"z.B. freak@vivaconagua.org",
     "password":"Bild info",
-
     "taskTitle":"z.B. Lager aufräumen",
-
     "id":"z.B. arise"
   },
-
   "gender": {
     "female": "weiblich",
     "male": "männlich",
     "other": "divers",
     "undefined": "keine Antwort"
   },
-
   "supporterForm": {
     "title": "Supporterdaten",
     "label": {
@@ -177,7 +164,6 @@
     },
     "infoBox": "Deinen vollständigen Namen, dein Geburtsdatum sowie deine Anschrift werden für die Anmeldung für Aktionen benötigt. Deine Telefonnummer wird für kurzfristige Absprachen vor Aktionen gebraucht."
   },
-
   "upload": {
     "initial": "Drag deine Bilder hierher <br> oder klicke, um zu durchsuchen",
     "saving": "Bilder hochladen...",
@@ -197,7 +183,6 @@
       "msg": "Dein Bild ist leider zu groß. Die maximale Dateigröße beträgt 5 MB."
     }
   },
-
   "profile": {
     "view": {
       "labels": {
@@ -287,7 +272,6 @@
     },
     "rolesDescription": "Du hast folgende Rollen bei VcA:"
   },
-
   "signOut" : {
     "title": "Ausloggen",
     "info": "Du wirst jetzt ausgeloggt...",
@@ -302,7 +286,6 @@
       }
     }
   },
-
   "signup": {
     "title": {
       "view": "Account erstellen",
@@ -367,7 +350,6 @@
     "lostpw": "Du hast dein Passwort vergessen?",
     "lostpwklick": "zurücksetzten",
     "error": "Ooops!",
-
     "alert" : {
       "code300": "",
       "code301": "",
@@ -376,7 +358,6 @@
       "code304": ""
     }
   },
-
   "crewform": {
     "label": {
       "location": "Location:",
@@ -385,7 +366,6 @@
       "country": "Land:"
     }
   },
-
   "crewlist": {
     "label": {
       "crewname": "Crewname:",
@@ -394,7 +374,6 @@
       "operations": "Optionen:"
     }
   },
-
   "taskform":{
     "label": {
       "title":"Title:",
@@ -403,7 +382,6 @@
     },
     "descriptionPlaceholder":"Bitte beschreibe deine Aktion..."
   },
-
   "oauth":{
     "title": {
       "list": "OAuth Clients",
@@ -442,14 +420,12 @@
     },
     "noClients": "Im Moment sind keine OAuth clients angelegt..."
   },
-
   "country": {
     "de" : "Deutschland",
     "at" : "Österreich",
     "nl" : "Niederlande",
     "ch" : "Schweiz"
   },
-
   "reset" : {
     "label": {
       "email": "E-Mail:",
@@ -457,7 +433,6 @@
       "password": "Passwort:",
       "checkPassword": "Password überprüfen:",
       "checkEmail": "E-Mail überprüfen:"
-
     },
     "EmailInstructions" : {
       "title" : "E-Mail-Adresse ändern",
@@ -500,7 +475,6 @@
       "title": "E-Mail-Adresse ändern"
     }
   },
-
   "changePassword": {
     "title": "Änder dein Passwort",
     "description": "Gib bitte, zum ändern, erst dein altes Passwort ein.",
@@ -510,7 +484,6 @@
       "checkNewPassword":"Neues Password (wiederholen): "
     }
   },
-
   "changeEMail": {
     "title": "Ändere deine E-Mail Adresse",
     "description": "Gib bitte zuerst, deine alte e-Mail adresse ein.",
@@ -520,7 +493,6 @@
       "checkNewEMail":"Neue E-Mail Adresse (wiederholen): "
     }
   },
-
   "latest" : "zuletzt hinzugefügt",
   "errorState": {
     "header": "Uuups",
@@ -533,12 +505,10 @@
     },
     "status": "Falls du weitere Unterstützung brauchst, wende dich bitte via Mail an uns. Am besten schreibst du uns gleich die Adresse, auf die du zugreifen wolltest, den Fehlercode ({code}) und die E-Mail Adresse, die in deinem Pool-Account hinterlegt ist (falls vorhanden) mit dazu."
   },
-
   "freak": {
     "default": "Ups!",
     "signin": "Schon dabei?"
   },
-
   "users": {
     "title": "Supporter",
     "ie": {
