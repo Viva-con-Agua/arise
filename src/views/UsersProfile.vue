@@ -172,16 +172,29 @@
             getName() {
                 return this.getProfile().supporter.fullName
             },
-            getAge: function () {
-		var today = new Date()
-	    	var birthDate = new Date(this.getProfile().supporter.birthday)
-	    	var age = today.getFullYear() - birthDate.getFullYear()
-	    	var m = today.getMonth() - birthDate.getMonth()
-	    	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-		    age = age - 1
-	    	}
-    		return age
-            },
+	    getAge: function () {
+		var age = this.calcAge()
+		var res = this.$t('profile.view.value.age.notAvailable')
+		if(age >= 0) {
+		  res = age
+		}
+		return res;
+	    },
+	    calcAge: function () {
+	      var birthday = this.user.profiles[0].supporter.birthday
+	      var res = -1
+	      if(typeof birthday !== "undefined" && birthday !== null) {
+	         var today = new Date()
+		 var birthDate = new Date(this.getProfile().supporter.birthday)
+		 var age = today.getFullYear() - birthDate.getFullYear()
+		 var m = today.getMonth() - birthDate.getMonth()
+		 if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+		   age = age - 1
+		 }
+		 res = age
+	       }
+	       return res
+	    },
             getSince: function () {
                 var created = new Date(this.user.created)
                 return created.getUTCFullYear()
