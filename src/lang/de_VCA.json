@@ -200,10 +200,13 @@
           "male": "Mann",
           "female": "Frau",
           "other": "Divers",
-          "undefined": "Nicht angegeben"
+          "undefined": "n/a"
         },
         "age": {
           "notAvailable": "n/a"
+        },
+        "name": {
+          "fallback": "Nicht angegeben"
         }
       },
       "error": {

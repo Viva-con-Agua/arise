@@ -156,11 +156,11 @@
             },
 	    getGender() {
 	    	var gender = this.getProfile().supporter.sex;
-		if(typeof gender === "undefined" || gender === null) {
-		    gender = "undefined"
-		}
-		return gender;
-	    },
+            if(typeof gender === "undefined" || gender === null || gender === "") {
+                gender = "undefined"
+            }
+            return gender;
+            },
             getCrew() {
                 var res = null
                 var supporter = this.getProfile().supporter
@@ -170,28 +170,32 @@
                 return res
             },
             getName() {
-                return this.getProfile().supporter.fullName
+                var name = this.getProfile().supporter.fullName
+                if(typeof name === "undefined" || name === null || name === " " || name === "") {
+                    name = this.$t('profile.view.value.name.fallback')
+                }
+                return name
             },
 	    getAge: function () {
-		var age = this.calcAge()
-		var res = this.$t('profile.view.value.age.notAvailable')
-		if(age >= 0) {
-		  res = age
-		}
-		return res;
+            var age = this.calcAge()
+            var res = this.$t('profile.view.value.age.notAvailable')
+            if(age >= 0) {
+              res = age
+            }
+            return res;
 	    },
 	    calcAge: function () {
 	      var birthday = this.user.profiles[0].supporter.birthday
 	      var res = -1
 	      if(typeof birthday !== "undefined" && birthday !== null) {
 	         var today = new Date()
-		 var birthDate = new Date(this.getProfile().supporter.birthday)
-		 var age = today.getFullYear() - birthDate.getFullYear()
-		 var m = today.getMonth() - birthDate.getMonth()
-		 if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-		   age = age - 1
-		 }
-		 res = age
+             var birthDate = new Date(this.getProfile().supporter.birthday)
+             var age = today.getFullYear() - birthDate.getFullYear()
+             var m = today.getMonth() - birthDate.getMonth()
+             if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+               age = age - 1
+             }
+             res = age
 	       }
 	       return res
 	    },
