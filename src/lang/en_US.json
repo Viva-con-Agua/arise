@@ -201,6 +201,9 @@
           "female": "Woman",
           "other": "Divers",
           "undefined": "Not told"
+        },
+        "age": {
+          "notAvailable": "n/a"
         }
       },
       "error": {
