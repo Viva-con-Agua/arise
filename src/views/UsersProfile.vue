@@ -56,7 +56,7 @@
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.gender') }}:</span>
-                                <span class="vca-user-value">{{ $t('profile.view.value.gender.' + getProfile().supporter.sex) }}</span>
+                                <span class="vca-user-value">{{ $t('profile.view.value.gender.' + getGender()) }}</span>
                             </li>
                         </ul>
                     </div>
@@ -154,6 +154,13 @@
                 }
                 return profile
             },
+	    getGender() {
+	    	var gender = this.getProfile().supporter.sex;
+		if(typeof gender === "undefined" || gender === null) {
+		    gender = "undefined"
+		}
+		return gender;
+	    },
             getCrew() {
                 var res = null
                 var supporter = this.getProfile().supporter
