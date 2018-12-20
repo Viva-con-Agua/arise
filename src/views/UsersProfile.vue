@@ -173,10 +173,14 @@
                 return this.getProfile().supporter.fullName
             },
             getAge: function () {
-                var birthday = new Date(this.getProfile().supporter.birthday)
-                var ageDifMs = Date.now() - birthday.getTime()
-                var ageDate = new Date(ageDifMs) // miliseconds from epoch
-                return Math.abs(ageDate.getUTCFullYear() - 1970)
+		var today = new Date()
+	    	var birthDate = new Date(this.getProfile().supporter.birthday)
+	    	var age = today.getFullYear() - birthDate.getFullYear()
+	    	var m = today.getMonth() - birthDate.getMonth()
+	    	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+		    age = age - 1
+	    	}
+    		return age
             },
             getSince: function () {
                 var created = new Date(this.user.created)
