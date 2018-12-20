@@ -1,7 +1,7 @@
 <template>
   <VcAFrame>
     <VcAColumn>
-      <VcABox :first="true" :title="$t('reset.PasswordInstructionsPool1.titel')">
+      <VcABox :first="true" :title="$t('reset.PasswordInstructionsPool1.title')">
         <div class="content">
           {{ $t("reset.PasswordInstructionsPool1.description") }}
         </div>
