@@ -79,8 +79,18 @@
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
                 <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
-                <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.non-voting-membership") }}</a>
-                <span>{{ $t("profile.actions.non-voting-membership-spoiler") }}</span>
+                <div class="hasNoAddress" v-if="!hasAddress && !hasRequested">
+                  <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.nvm.actions.request") }}</a>
+                  <span>{{ $t("profile.nvm.status.noAddress") }}</span>
+                </div>
+                <div class="hasAddress" v-if="hasAddress && !hasRequested">
+                  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.request") }}</a>
+                  <span>{{ $t("profile.nvm.status.request") }}</span>
+                </div>
+                <div class="hasRequested" v-if="hasRequested && hasAddress">
+                  <a class="disabled vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.request") }}</a>
+                  <span>{{ $t("profile.nvm.status.requested") }}</span>
+                </div>
             </div>
         </VcABox>
       </VcAColumn>
@@ -148,9 +158,11 @@
 
     data () {
       return {
-          crew: null,
-          crewRoles: [],
-          userRoles: [],
+        crew: null,
+        crewRoles: [],
+        userRoles: [],
+        hasAddress: true,
+        hasRequested: false,
         imageUrl: '',
         emailaddress: '',
         profileForm: {
@@ -188,35 +200,35 @@
       };
     },
 
-  created () {
+    created () {
         this.init()
-  },
+    },
     methods: {
-        init() {
-            function profileToForm(profile) {
-                profile['firstName'] = profile.supporter.firstName
-                profile['lastName'] = profile.supporter.lastName
-                profile['mobilePhone'] = profile.supporter.mobilePhone
-                profile['placeOfResidence'] = profile.supporter.placeOfResidence
-                profile['birthday'] = new Date(profile.supporter.birthday)
-                profile['gender'] = profile.supporter['sex']
-                return profile
-            }
-            this.axios.get('/drops/webapp/identity')
-                .then((response) => {
-                    if (response.status === 200) {
-                        this.userRoles = response.data.additional_information.roles.map((role) => role.role)
-                        var profile = response.data.additional_information.profiles.find(p => p.primary)
-                        if(typeof profile === "undefined") {
-                            profile = response.data.additional_information.profiles[0]
-                        }
-                        this.profileForm = profileToForm(profile);
-                        this.emailaddress = profile.email;
-                        this.crewRoles = profile.supporter.roles
-                    }
-                })
+      init() {
+        function profileToForm(profile) {
+              profile['firstName'] = profile.supporter.firstName
+              profile['lastName'] = profile.supporter.lastName
+              profile['mobilePhone'] = profile.supporter.mobilePhone
+              profile['placeOfResidence'] = profile.supporter.placeOfResidence
+              profile['birthday'] = new Date(profile.supporter.birthday)
+              profile['gender'] = profile.supporter['sex']
+              return profile
+          }
+          this.axios.get('/drops/webapp/identity')
+              .then((response) => {
+                  if (response.status === 200) {
+                      this.userRoles = response.data.additional_information.roles.map((role) => role.role)
+                      var profile = response.data.additional_information.profiles.find(p => p.primary)
+                      if(typeof profile === "undefined") {
+                          profile = response.data.additional_information.profiles[0]
+                      }
+                      this.profileForm = profileToForm(profile);
+                      this.emailaddress = profile.email;
+                      this.crewRoles = profile.supporter.roles
+                  }
+              })
 
-        },
+      },
       submitForm(profileForm) {
           function toProfileSubmit(form, email) {
               var date = Date.parse(form.birthday)
@@ -264,6 +276,26 @@
               }
           })
           
+      },
+      handleNVMValidation() {
+        console.log("Function not implemented. The NVM required an address");
+        this.hasAddress = true;
+      },
+      handleNVMRequest() {
+        this.axios
+          .get('/drops/webapp/profile/nvm/request')
+          .then(response => {
+            switch (response.status) {
+              case 200:
+                this.open(
+                  this.$t('profile.nvm.messages.request.success.title'),
+                  this.$t('profile.nvm.messages.request.success.message'),
+                  "success"
+                )
+                this.hasRequested=true;
+                break;
+            }
+        })
       },
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);

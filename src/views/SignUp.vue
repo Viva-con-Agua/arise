@@ -5,7 +5,7 @@
         :model="signUpForm"
         :rules="rules"
         class="columns-container"
-        @keyup.enter.native="submitForm"
+        @keyup.enter.native.prevent="submitForm"
         status-icon>
       <VcAColumn>
         <VcABox :first="true" :title="$t('supporterForm.title')">

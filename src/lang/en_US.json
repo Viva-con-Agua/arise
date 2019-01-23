@@ -184,6 +184,26 @@
     }
   },
   "profile": {
+    "nvm": {
+      "actions": {
+        "request": "Non-voting Membership"
+      },
+      "status": {
+        "noAddress": "We need your address for the non-voting membership",
+        "request": "You can apply for your non-voting membership",
+        "requested": "Your non-voting membership will be checked. You will be notified as soon as possible"
+      },
+      "messages": {
+        "request": {
+          "success": {
+            "title": "",
+            "message": ""
+          },
+          "error": {
+          }
+        }
+      } 
+    }, 
     "view": {
       "labels": {
         "crew": "Crew",
@@ -223,7 +243,6 @@
       }
     },
     "actions": {
-      "non-voting-membership": "Non-voting Membership",
       "volunteering-certificate": "Volunteering certificate",
       "non-voting-membership-spoiler": "The non-voting membership is coming soon...",
       "assignRole": {
