@@ -185,13 +185,19 @@
   },
   "profile": {
     "nvm": {
+      "title": "A non-voting membership is....",
       "actions": {
-        "request": "Non-voting Membership"
+        "cannotApply": "Non-voting membership",
+        "apply": "Become non-voting member",
+        "active": "End non-voting membership",
+        "renew": "Renew non-voting membership"
       },
       "status": {
-        "noAddress": "We need your address for the non-voting membership",
-        "request": "You can apply for your non-voting membership",
-        "requested": "Your non-voting membership will be checked. You will be notified as soon as possible"
+        "noAddress": "We need your address for the non-voting membership. ",
+        "inActive": "You have to be active in your crew to become an non-voting member. ",
+        "apply": "You can become a non-voting member.",
+        "active": "You are an non-voting member.",
+        "renew": "Your non-voting membership has expired, please renew your membership to stay a non-voting member."
       },
       "messages": {
         "request": {

@@ -81,28 +81,15 @@
               <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
               <div class="activeFlag">
                 <div class="hasNoAddress" v-if="!hasAddress && !hasRequested">
-                  <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.nvm.actions.request") }}</a>
-                  <span>{{ $t("profile.nvm.status.noAddress") }}</span>
+                  <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.active.actions.request") }}</a>
+                  <span>{{ $t("profile.active.status.noAddress") }}</span>
                 </div>
                 <div class="hasAddress" v-if="hasAddress && !hasRequested">
-                  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.request") }}</a>
-                  <span>{{ $t("profile.nvm.status.request") }}</span>
+                  <a class="vca-button-primary vca-full-width" @click.prevent="handleActiveRequest">{{ $t("profile.active.actions.request") }}</a>
+                  <span>{{ $t("profile.active.status.request") }}</span>
                 </div>
               </div>
-              <div class="non-voting-membership">
-                <div class="hasNoAddress" v-if="!hasAddress && !hasRequested">
-                  <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.nvm.actions.request") }}</a>
-                  <span>{{ $t("profile.nvm.status.noAddress") }}</span>
-                </div>
-                <div class="hasAddress" v-if="hasAddress && !hasRequested">
-                  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.request") }}</a>
-                  <span>{{ $t("profile.nvm.status.request") }}</span>
-                </div>
-                <div class="hasRequested" v-if="hasRequested && hasAddress">
-                  <a class="disabled vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.request") }}</a>
-                  <span>{{ $t("profile.nvm.status.requested") }}</span>
-                </div>
-              </div>
+	      <NonVotingMembership />
             </div>
         </VcABox>
       </VcAColumn>
@@ -141,6 +128,7 @@
   import ProfileImage from '@/components/upload/ProfileImage.vue'
   import CrewSelect from '@/components/CrewSelect.vue'
   import NewsletterSelect from '@/components/NewsletterSelection.vue'
+  import NonVotingMembership from '@/components/NonVotingMembership.vue'
   import {
     Button,
     DatePicker,
@@ -166,16 +154,14 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect },
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, NonVotingMembership },
 
     data () {
       return {
         crew: null,
         crewRoles: [],
         userRoles: [],
-        hasAddress: true,
         hasRequested: false,
-        nvmAccepted: false,
         imageUrl: '',
         emailaddress: '',
         profileForm: {
@@ -215,6 +201,14 @@
 
     created () {
         this.init()
+    },
+    computed: {
+	isActive() {
+		return true;
+	},
+	hasAddress() {
+		return false;
+	}
     },
     methods: {
       init() {
@@ -289,41 +283,6 @@
               }
           })
           
-      },
-      checkNVMValidation() {
-        this.axios
-          .get('/drops/webapp/profile/nvm/check')
-          .then(response => {
-            switch (response.status) {
-              case 200:
-                if(response.data.additional_information.status === 'requested') {
-                  this.hasRequested = true;
-                }
-                if(response.data.additional_information.status === 'accepted') {
-                  this.nvmAccepted = true;
-                }
-            }
-          })
-      },
-      handleNVMValidation() {
-        console.log("Function not implemented. The NVM required an address");
-        this.hasAddress = true;
-      },
-      handleNVMRequest() {
-        this.axios
-          .get('/drops/webapp/profile/nvm/request')
-          .then(response => {
-            switch (response.status) {
-              case 200:
-                this.open(
-                  this.$t('profile.nvm.messages.request.success.title'),
-                  this.$t('profile.nvm.messages.request.success.message'),
-                  "success"
-                )
-                this.hasRequested=true;
-                break;
-            }
-        })
       },
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
