@@ -33,34 +33,34 @@
                     :label="$t('supporterForm.label.street')"
                     prop="street">
               <el-input
-		    id="street"
-                      v-model="signUpForm.street"/>
+                      id="street"
+                      v-model="signUpForm.address.street"/>
             </el-form-item>
             <el-form-item
                     :label="$t('supporterForm.label.additional')"
                     prop="additional">
               <el-input
-                      v-model="signUpForm.additional"/>
+                      v-model="signUpForm.address.additional"/>
             </el-form-item>
             <el-form-item
                     :label="$t('supporterForm.label.zip')"
                     prop="zip">
               <el-input
-		      id="zip"
-                      v-model="signUpForm.zip"/>
+      id="zip"
+                      v-model="signUpForm.address.zip"/>
             </el-form-item>
           <el-form-item
             :label="$t('supporterForm.label.placeofresidence')"
             prop="placeOfResidence">
             <el-input
-		      id="placeOfResidence"
-              v-model="signUpForm.placeOfResidence"/>
+     id="placeOfResidence"
+              v-model="signUpForm.address.city"/>
           </el-form-item>
           <el-form-item
                     :label="$t('supporterForm.label.country')"
                     prop="country">
               <el-input
-                    v-model="signUpForm.country"/>
+                    v-model="signUpForm.address.country"/>
           </el-form-item>
           <el-form-item
             :label="$t('supporterForm.label.mobile')"
@@ -217,10 +217,12 @@
        signUpForm: {
            firstName: '',
            lastName: '',
-           street: '',
-           additional: '',
-           placeOfResidence: '',
-           country: '',
+           address: {
+            street: '',
+            additional: '',
+            city: '',
+            country: ''
+           },
            mobilePhone: '',
            birthday: '',
          gender: '',
@@ -253,10 +255,10 @@
            {required: false, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
            {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
          ],
-	 country: [
-	    {required: false, message: this.$t('validationError.country'), trigger: 'blur'},
-	    {message: this.$t('inputSample.country'), trigger: 'blur'}
-	 ],
+  country: [
+  {required: false, message: this.$t('validationError.country'), trigger: 'blur'},
+     {message: this.$t('inputSample.country'), trigger: 'blur'}
+  ],
          birthday: [
            {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
          ],
@@ -299,15 +301,15 @@
 
 
         if(typeof city !== "undefined") {
-		this.signUpForm.placeOfResidence = city.long_name;
+		this.signUpForm.address.city = city.long_name;
 	}
 
         if(typeof zip !== "undefined") {
-		this.signUpForm.zip = zip.short_name;
+		this.signUpForm.address.zip = zip.short_name;
 	}
 
         if(typeof country !== "undefined") {
-		this.signUpForm.country = country.long_name;
+		this.signUpForm.address.country = country.long_name;
 	}
 
         if(typeof street !== "undefined") {
@@ -318,7 +320,7 @@
   		}
 
 
-		this.signUpForm.street = streetName;
+		this.signUpForm.address.street = streetName;
 	}
 
       });
