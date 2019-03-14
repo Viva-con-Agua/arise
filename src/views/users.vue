@@ -17,9 +17,8 @@
 
 <script>
     import IEDetector from '@/utils/IEDetector.js'
-    import VcAFrame from '@/components/page/VcAFrame.vue';
-    import VcAColumn from '@/components/page/VcAColumn.vue';
-    import VcABox from '@/components/page/VcABox.vue';
+    import { VcAFrame, VcAColumn, VcABox } from 'vca-widget-base'
+    import 'vca-widget-base/dist/vca-widget-base.css'
     import WidgetUserList from 'vca-widget-user'
     import 'vca-widget-user/dist/vca-widget-user.css'
 
