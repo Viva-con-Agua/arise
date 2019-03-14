@@ -23,17 +23,46 @@
               <el-input
                       v-model="profileForm.lastName"/>
             </el-form-item>
+	    <el-form-item
+                    :label="$t('supporterForm.label.searchAddress')"
+                    prop="searchAddress">
+              <div class="el-input"><input class="el-input__inner" ref="autocompleteAddress"/></div>
+            </el-form-item>
             <el-form-item
+                    :label="$t('supporterForm.label.additional')"
+                    prop="additional">
+              <el-input
+                      v-model="profileForm.address[0].additional"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.street')"
+                    prop="address[0].street">
+              <el-input
+                      v-model="profileForm.address[0].street"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.zip')"
+                    prop="address[0].zip">
+              <el-input
+                      v-model="profileForm.address[0].zip"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.placeofresidence')"
+                    prop="address[0].city">
+              <el-input
+                      v-model="profileForm.address[0].city"/>
+            </el-form-item>
+            <el-form-item
+                    :label="$t('supporterForm.label.country')"
+                    prop="address[0].country">
+              <el-input
+                      v-model="profileForm.address[0].country"/>
+            </el-form-item>
+	    <el-form-item
                     :label="$t('supporterForm.label.mobile')"
                     prop="mobile">
               <el-input
                       v-model="profileForm.mobilePhone"/>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.placeofresidence')"
-                    prop="placeofresidence">
-              <el-input
-                      v-model="profileForm.placeOfResidence"/>
             </el-form-item>
             <el-form-item
                     :label="$t('supporterForm.label.birthdate')"
@@ -154,8 +183,14 @@
         profileForm: {
             firstName: '',
             lastName: '',
+            address:[ {  
+              street: '',
+              additional: '',
+              zip: '',
+              city: '',
+              country: '',
+            }],
             mobilePhone: '',
-            placeOfResidence: '',
             birthday: '',
             gender: ''
         },
@@ -170,11 +205,23 @@
             ],
             mobilePhone: [
                 {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
-                {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+                {pattern:/^(?=.*[0])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+            ],
+            street: [
+                {required: false, message: this.$t('validationError.street'), trigger: 'blur'},
+                {message: this.$t('inputSample.street'), trigger: 'blur'}
+            ],
+            zip: [
+              {required: false, message: this.$t('validationError.zip'), trigger: 'blur'},
+              {pattern:/^[0-9]{4,8}$/, message: this.$t('inputSample.zip'), trigger: 'blur'}
             ],
             placeOfResidence: [
-                {required: true, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
+                {required: false, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
                 {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
+            ],
+            country: [
+                {required: false, message: this.$t('validationError.country'), trigger: 'blur'},
+                {message: this.$t('inputSample.country'), trigger: 'blur'}
             ],
             birthday: [
                 {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
@@ -189,6 +236,45 @@
   created () {
         this.init()
   },
+    mounted() {
+
+      this.autocomplete = new google.maps.places.Autocomplete(
+          (this.$refs.autocompleteAddress),
+          {types: ['address']}
+      );
+
+      this.autocomplete.addListener('place_changed', () => {
+
+        let place = this.autocomplete.getPlace();
+        let ac = place.address_components;
+        let city = ac.find(field => field.types.some(t => t === "locality")) //ac[0]["long_name"];
+        let country = ac.find(field => field.types.some(t => t === "country")) //ac[ac.length-1]["long_name"];
+        let street = ac.find(field => field.types.some(t => t === "route")) //ac[ac.length-1]["long_name"];
+        let street_number = ac.find(field => field.types.some(t => t === "street_number")) //ac[ac.length-1]["short_name"];
+        let zip = ac.find(field => field.types.some(t => t === "postal_code")) //ac[ac.length-1]["short_name"];
+
+
+        if(typeof city !== "undefined") {
+          this.profileForm.address[0].city = city.long_name;
+        }
+
+        if(typeof zip !== "undefined") {
+          this.profileForm.address[0].zip = zip.short_name;
+        }
+
+        if(typeof country !== "undefined") {
+          this.profileForm.address[0].country = country.long_name;
+        }
+
+        if(typeof street !== "undefined") {
+          var streetName = street.long_name;
+          if (typeof street_number !== "undefined") {
+            streetName = streetName + " " + street_number.long_name;
+          }
+          this.profileForm.address[0].street = streetName;
+        }
+      });
+    },
     methods: {
         init() {
             function profileToForm(profile) {
@@ -198,6 +284,9 @@
                 profile['placeOfResidence'] = profile.supporter.placeOfResidence
                 profile['birthday'] = new Date(profile.supporter.birthday)
                 profile['gender'] = profile.supporter['sex']
+                if ( typeof profile.supporter.address !== "undefined"){
+                  profile['address'] = profile.supporter.address
+                } 
                 return profile
             }
             this.axios.get('/drops/webapp/identity')
@@ -215,7 +304,7 @@
                 })
 
         },
-      submitForm(profileForm) {
+      submitForm(Form) {
           function toProfileSubmit(form, email) {
               var date = Date.parse(form.birthday)
               form['birthday'] = date
@@ -228,7 +317,7 @@
           this.$refs.profileForm.validate((valid) => {
               if(valid) {
                   this.axios
-                      .post('/drops/webapp/profile/update', toProfileSubmit(that.profileForm, that.emailaddress))
+                      .post('/drops/webapp/profile/update', toProfileSubmit(Form, that.emailaddress))
                       .then(function (response) {
                           switch (response.status) {
                               case 200:
