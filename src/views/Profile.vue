@@ -1,7 +1,7 @@
 <template>
   <VcAFrame>
       <VcAColumn>
-        <VcABox :first="true" :expand="true" :title="$t('supporterForm.title')">
+        <VcABox :first="true" :title="$t('supporterForm.title')">
             <el-form
                     ref="profileForm"
                     :model="profileForm"
@@ -23,42 +23,7 @@
               <el-input
                       v-model="profileForm.lastName"/>
             </el-form-item>
-	    <el-form-item
-                    :label="$t('supporterForm.label.searchAddress')"
-                    prop="searchAddress">
-              <div class="el-input"><input class="el-input__inner" ref="autocompleteAddress"/></div>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.additional')"
-                    prop="additional">
-              <el-input
-                      v-model="profileForm.address[0].additional"/>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.street')"
-                    prop="address[0].street">
-              <el-input
-                      v-model="profileForm.address[0].street"/>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.zip')"
-                    prop="address[0].zip">
-              <el-input
-                      v-model="profileForm.address[0].zip"/>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.placeofresidence')"
-                    prop="address[0].city">
-              <el-input
-                      v-model="profileForm.address[0].city"/>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.country')"
-                    prop="address[0].country">
-              <el-input
-                      v-model="profileForm.address[0].country"/>
-            </el-form-item>
-	    <el-form-item
+                       <el-form-item
                     :label="$t('supporterForm.label.mobile')"
                     prop="mobile">
               <el-input
@@ -103,14 +68,8 @@
         <VcABox :first="true" :title="$t('profile.title.avatar')">
           <ProfileImage />
         </VcABox>
-        <VcABox :first="false" :expand="true" :title="$t('profile.title.crew')" className="crewSelectBox">
-            <CrewSelect v-on:vca-select-crew="init" />
-            <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
-            <div class="actions">
-                <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
-                <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.non-voting-membership") }}</a>
-                <span>{{ $t("profile.actions.non-voting-membership-spoiler") }}</span>
-            </div>
+        <VcABox>
+          <AddressSelect :address="profileForm.address[0]" v-on:currentAddress="currentAddress($event)"/>
         </VcABox>
       </VcAColumn>
       <VcAColumn>
@@ -125,12 +84,21 @@
             <a class="vca-button-warn vca-full-width" href="#/deleteUser">
                 {{ $t("options.delete") }}
             </a>
-            <p v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">
+            <div v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">
                 <span>{{ $t('profile.rolesDescription') }}</span>
                 <div class="roles">
                     <VcARole v-for="role in userRoles.filter((role) => role !== 'supporter')" :name="role" :key="role" />
                 </div>
-            </p>
+            </div>
+        </VcABox>
+        <VcABox :first="false" :title="$t('profile.title.crew')" className="crewSelectBox">
+            <CrewSelect v-on:vca-select-crew="init" />
+            <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
+            <div class="actions">
+                <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
+                <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.non-voting-membership") }}</a>
+                <span>{{ $t("profile.actions.non-voting-membership-spoiler") }}</span>
+            </div>
         </VcABox>
       </VcAColumn>
   </VcAFrame>
@@ -146,6 +114,7 @@
   import ProfileImage from '@/components/upload/ProfileImage.vue'
   import CrewSelect from '@/components/CrewSelect.vue'
   import NewsletterSelect from '@/components/NewsletterSelection.vue'
+  import AddressSelect from '@/components/address/AddressForm.vue'
   import {
     Button,
     DatePicker,
@@ -171,9 +140,10 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect },
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, AddressSelect },
 
     data () {
+
       return {
           crew: null,
           crewRoles: [],
@@ -237,43 +207,6 @@
         this.init()
   },
     mounted() {
-
-      this.autocomplete = new google.maps.places.Autocomplete(
-          (this.$refs.autocompleteAddress),
-          {types: ['address']}
-      );
-
-      this.autocomplete.addListener('place_changed', () => {
-
-        let place = this.autocomplete.getPlace();
-        let ac = place.address_components;
-        let city = ac.find(field => field.types.some(t => t === "locality")) //ac[0]["long_name"];
-        let country = ac.find(field => field.types.some(t => t === "country")) //ac[ac.length-1]["long_name"];
-        let street = ac.find(field => field.types.some(t => t === "route")) //ac[ac.length-1]["long_name"];
-        let street_number = ac.find(field => field.types.some(t => t === "street_number")) //ac[ac.length-1]["short_name"];
-        let zip = ac.find(field => field.types.some(t => t === "postal_code")) //ac[ac.length-1]["short_name"];
-
-
-        if(typeof city !== "undefined") {
-          this.profileForm.address[0].city = city.long_name;
-        }
-
-        if(typeof zip !== "undefined") {
-          this.profileForm.address[0].zip = zip.short_name;
-        }
-
-        if(typeof country !== "undefined") {
-          this.profileForm.address[0].country = country.long_name;
-        }
-
-        if(typeof street !== "undefined") {
-          var streetName = street.long_name;
-          if (typeof street_number !== "undefined") {
-            streetName = streetName + " " + street_number.long_name;
-          }
-          this.profileForm.address[0].street = streetName;
-        }
-      });
     },
     methods: {
         init() {
@@ -284,9 +217,7 @@
                 profile['placeOfResidence'] = profile.supporter.placeOfResidence
                 profile['birthday'] = new Date(profile.supporter.birthday)
                 profile['gender'] = profile.supporter['sex']
-                if ( typeof profile.supporter.address !== "undefined"){
-                  profile['address'] = profile.supporter.address
-                } 
+                profile['address'] = profile.supporter.address
                 return profile
             }
             this.axios.get('/drops/webapp/identity')
@@ -355,6 +286,7 @@
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
       },
+      
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -366,6 +298,10 @@
           this.$message.error('Avatar picture size can not exceed 2MB!');
         }
         return isJPG && isLt2M;
+      },
+      currentAddress(address) {
+        this.profileForm.address = [];
+        this.profileForm.address.push(address);
       },
       open(title, message, type) {
           Notification({
