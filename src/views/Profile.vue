@@ -68,7 +68,7 @@
         <VcABox :first="true" :title="$t('profile.title.avatar')">
           <ProfileImage />
         </VcABox>
-        <VcABox>
+        <VcABox :title="$t('profile.title.address')">
           <AddressSelect :address="profileForm.address[0]" v-on:currentAddress="currentAddress($event)"/>
         </VcABox>
       </VcAColumn>

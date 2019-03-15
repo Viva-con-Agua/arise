@@ -249,7 +249,8 @@
       "newsletter": "Newsletter",
       "avatar": "Profile image",
       "update": "Update",
-      "crew": "Crew"
+      "crew": "Crew",
+      "address": "Address"
     },
     "messages": {
       "update" : {
