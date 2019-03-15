@@ -24,45 +24,7 @@
             <el-input
               v-model="signUpForm.lastName"/>
           </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.searchAddress')"
-                    prop="searchAddress">
-              <div class="el-input"><input class="el-input__inner" ref="autocompleteAddress"/></div>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.street')"
-                    prop="street">
-              <el-input
-                      id="street"
-                      v-model="signUpForm.address.street"/>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.additional')"
-                    prop="additional">
-              <el-input
-                      v-model="signUpForm.address.additional"/>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.zip')"
-                    prop="zip">
-              <el-input
-      id="zip"
-                      v-model="signUpForm.address.zip"/>
-            </el-form-item>
-          <el-form-item
-            :label="$t('supporterForm.label.placeofresidence')"
-            prop="placeOfResidence">
-            <el-input
-     id="placeOfResidence"
-              v-model="signUpForm.address.city"/>
-          </el-form-item>
-          <el-form-item
-                    :label="$t('supporterForm.label.country')"
-                    prop="country">
-              <el-input
-                    v-model="signUpForm.address.country"/>
-          </el-form-item>
-          <el-form-item
+                      <el-form-item
             :label="$t('supporterForm.label.mobile')"
             prop="mobile">
             <el-input
@@ -95,6 +57,11 @@
                   label="undefined">{{ $t('gender.undefined') }}</el-radio>
             </el-radio-group></div>
           </el-form-item>
+        </VcABox>
+      </VcAColumn>
+      <VcAColumn>
+        <VcABox :first="true" :title="$t('profile.title.address')">
+          <AddressSelect v-on:currentAddress="currentAddress($event)"/>
         </VcABox>
       </VcAColumn>
       <VcAColumn>
@@ -159,6 +126,7 @@
  import Password from 'vue-password-strength-meter';
  import axios from 'axios'
  import VueAxios from 'vue-axios'
+  import AddressSelect from '@/components/address/AddressForm.vue'
   import { VcAFrame, VcAColumn, VcABox, VcAInfoBox } from 'vca-widget-base'
   import 'vca-widget-base/dist/vca-widget-base.css'
   import {
@@ -188,7 +156,7 @@
 
 
  export default {
-   components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
+   components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox, AddressSelect },
    data () {
        var checkPass = (rule, value, callback) => {
            if (value === '') {
@@ -239,7 +207,7 @@
          ],
          mobilePhone: [
            {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
-           {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+           {pattern:/^(?=.*[0+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
          ],
          street: [
            {required: false, message: this.$t('validationError.street'), trigger: 'blur'},
@@ -265,11 +233,11 @@
          ],
          email: [
            {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
-           {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
+           {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ],
          checkemail: [
            {required: true, validator: checkeMail, trigger: 'blur'},
-           {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
+           {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ],
          password: [
              { required: true, message: this.$t('validationError.checkPass'), trigger: 'blur' }
@@ -281,47 +249,6 @@
      }
    },
     mounted() {
-
-      this.autocomplete = new google.maps.places.Autocomplete(
-          (this.$refs.autocompleteAddress),
-          {types: ['address']}
-      );
-
-      this.autocomplete.addListener('place_changed', () => {
-
-        let place = this.autocomplete.getPlace();
-        let ac = place.address_components;
-        let city = ac.find(field => field.types.some(t => t === "locality")) //ac[0]["long_name"];
-        let country = ac.find(field => field.types.some(t => t === "country")) //ac[ac.length-1]["long_name"];
-        let street = ac.find(field => field.types.some(t => t === "route")) //ac[ac.length-1]["long_name"];
-        let street_number = ac.find(field => field.types.some(t => t === "street_number")) //ac[ac.length-1]["short_name"];
-        let zip = ac.find(field => field.types.some(t => t === "postal_code")) //ac[ac.length-1]["short_name"];
-
-
-        if(typeof city !== "undefined") {
-		this.signUpForm.address.city = city.long_name;
-	}
-
-        if(typeof zip !== "undefined") {
-		this.signUpForm.address.zip = zip.short_name;
-	}
-
-        if(typeof country !== "undefined") {
-		this.signUpForm.address.country = country.long_name;
-	}
-
-        if(typeof street !== "undefined") {
-		var streetName = street.long_name;
-
-		if (typeof street_number !== "undefined") {
-			streetName = streetName + " " + street_number.long_name;
-  		}
-
-
-		this.signUpForm.address.street = streetName;
-	}
-
-      });
     },
 
     //createUserBody
@@ -374,6 +301,9 @@
      resetForm() {
       this.$refs.signUpForm.resetFields();
      },
+      currentAddress(address) {
+        this.signUpForm.address = address;
+      },
      open(title, message, type) {
          Notification({
              title:  title,
@@ -381,7 +311,6 @@
              type: type
          });
      },
-
      showFeedback ({suggestions, warning}) {
          this.suggestions = suggestions;
      }
