@@ -275,7 +275,8 @@
       "newsletter": "Newsletter",
       "avatar": "Profilbild",
       "update": "Aktualisieren",
-      "crew": "Crew"
+      "crew": "Crew",
+      "address": "Adresse"
     },
     "messages": {
       "update" : {

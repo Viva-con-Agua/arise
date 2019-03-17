@@ -1,7 +1,7 @@
 <template>
   <VcAFrame>
       <VcAColumn>
-        <VcABox :first="true" :expand="true" :title="$t('supporterForm.title')">
+        <VcABox :first="true" :title="$t('supporterForm.title')">
             <el-form
                     ref="profileForm"
                     :model="profileForm"
@@ -23,17 +23,11 @@
               <el-input
                       v-model="profileForm.lastName"/>
             </el-form-item>
-            <el-form-item
+                       <el-form-item
                     :label="$t('supporterForm.label.mobile')"
                     prop="mobile">
               <el-input
                       v-model="profileForm.mobilePhone"/>
-            </el-form-item>
-            <el-form-item
-                    :label="$t('supporterForm.label.placeofresidence')"
-                    prop="placeofresidence">
-              <el-input
-                      v-model="profileForm.placeOfResidence"/>
             </el-form-item>
             <el-form-item
                     :label="$t('supporterForm.label.birthdate')"
@@ -92,6 +86,9 @@
 	      <NonVotingMembership />
             </div>
         </VcABox>
+        <VcABox :title="$t('profile.title.address')">
+          <AddressSelect :address="profileForm.address[0]" v-on:currentAddress="currentAddress($event)"/>
+        </VcABox>
       </VcAColumn>
       <VcAColumn>
         <VcABox :first="true" :title="$t('profile.title.account')">
@@ -105,12 +102,21 @@
             <a class="vca-button-warn vca-full-width" href="#/deleteUser">
                 {{ $t("options.delete") }}
             </a>
-            <p v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">
+            <div v-if="userRoles.filter((role) => role !== 'supporter').length !== 0">
                 <span>{{ $t('profile.rolesDescription') }}</span>
                 <div class="roles">
                     <VcARole v-for="role in userRoles.filter((role) => role !== 'supporter')" :name="role" :key="role" />
                 </div>
-            </p>
+            </div>
+        </VcABox>
+        <VcABox :first="false" :title="$t('profile.title.crew')" className="crewSelectBox">
+            <CrewSelect v-on:vca-select-crew="init" />
+            <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
+            <div class="actions">
+                <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
+                <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.non-voting-membership") }}</a>
+                <span>{{ $t("profile.actions.non-voting-membership-spoiler") }}</span>
+            </div>
         </VcABox>
       </VcAColumn>
   </VcAFrame>
@@ -121,14 +127,14 @@
   import axios from 'axios'
   import VueAxios from 'vue-axios'
   import { VcARole } from 'vca-widget-user'
-  import VcAFrame from '@/components/page/VcAFrame.vue';
-  import VcAColumn from '@/components/page/VcAColumn.vue';
-  import VcABox from '@/components/page/VcABox.vue';
-  import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
+  import { VcAFrame, VcAColumn, VcABox, VcAInfoBox } from 'vca-widget-base'
+  import 'vca-widget-base/dist/vca-widget-base.css'
   import ProfileImage from '@/components/upload/ProfileImage.vue'
   import CrewSelect from '@/components/CrewSelect.vue'
   import NewsletterSelect from '@/components/NewsletterSelection.vue'
   import NonVotingMembership from '@/components/NonVotingMembership.vue'
+  import AddressSelect from '@/components/address/AddressForm.vue'
+
   import {
     Button,
     DatePicker,
@@ -154,9 +160,9 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, NonVotingMembership },
-
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, AddressSelect, NonVotingMembership },
     data () {
+
       return {
         crew: null,
         crewRoles: [],
@@ -167,8 +173,14 @@
         profileForm: {
             firstName: '',
             lastName: '',
+            address:[ {  
+              street: '',
+              additional: '',
+              zip: '',
+              city: '',
+              country: '',
+            }],
             mobilePhone: '',
-            placeOfResidence: '',
             birthday: '',
             gender: ''
         },
@@ -183,11 +195,23 @@
             ],
             mobilePhone: [
                 {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
-                {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+                {pattern:/^(?=.*[0])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+            ],
+            street: [
+                {required: false, message: this.$t('validationError.street'), trigger: 'blur'},
+                {message: this.$t('inputSample.street'), trigger: 'blur'}
+            ],
+            zip: [
+              {required: false, message: this.$t('validationError.zip'), trigger: 'blur'},
+              {pattern:/^[0-9]{4,8}$/, message: this.$t('inputSample.zip'), trigger: 'blur'}
             ],
             placeOfResidence: [
-                {required: true, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
+                {required: false, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
                 {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
+            ],
+            country: [
+                {required: false, message: this.$t('validationError.country'), trigger: 'blur'},
+                {message: this.$t('inputSample.country'), trigger: 'blur'}
             ],
             birthday: [
                 {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
@@ -249,7 +273,7 @@
           this.$refs.profileForm.validate((valid) => {
               if(valid) {
                   this.axios
-                      .post('/drops/webapp/profile/update', toProfileSubmit(that.profileForm, that.emailaddress))
+                      .post('/drops/webapp/profile/update', toProfileSubmit(Form, that.emailaddress))
                       .then(function (response) {
                           switch (response.status) {
                               case 200:
@@ -287,6 +311,7 @@
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
       },
+      
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -298,6 +323,10 @@
           this.$message.error('Avatar picture size can not exceed 2MB!');
         }
         return isJPG && isLt2M;
+      },
+      currentAddress(address) {
+        this.profileForm.address = [];
+        this.profileForm.address.push(address);
       },
       open(title, message, type) {
           Notification({

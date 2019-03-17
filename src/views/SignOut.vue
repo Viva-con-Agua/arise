@@ -11,9 +11,8 @@
 <script>
     import Vue from 'vue';
     import axios from 'axios';
-    import VcAFrame from '@/components/page/VcAFrame.vue';
-    import VcAColumn from '@/components/page/VcAColumn.vue';
-    import VcABox from '@/components/page/VcABox.vue';
+    import { VcAFrame, VcAColumn, VcABox } from 'vca-widget-base'
+    import 'vca-widget-base/dist/vca-widget-base.css'
     import {
         Notification
     } from 'element-ui';

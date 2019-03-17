@@ -33,14 +33,12 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-   import VcABox from '@/components/page/VcABox.vue'
   import CitiesSelect from '@/components/crews/CitiesSelect.vue'
 
   export default {
     name: "CrewSelected",
     props: ['crew'],
-    components: { VcABox, CitiesSelect },
+    components: { CitiesSelect },
     data (){
       return {
         Location: "",
