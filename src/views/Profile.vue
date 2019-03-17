@@ -68,6 +68,24 @@
         <VcABox :first="true" :title="$t('profile.title.avatar')">
           <ProfileImage />
         </VcABox>
+        <VcABox :first="false" :expand="true" :title="$t('profile.title.crew')" className="crewSelectBox">
+            <CrewSelect v-on:vca-select-crew="init" />
+            <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
+            <div class="actions">
+              <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
+              <div class="activeFlag">
+                <div class="hasNoAddress" v-if="!hasAddress && !hasRequested">
+                  <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.active.actions.request") }}</a>
+                  <span>{{ $t("profile.active.status.noAddress") }}</span>
+                </div>
+                <div class="hasAddress" v-if="hasAddress && !hasRequested">
+                  <a class="vca-button-primary vca-full-width" @click.prevent="handleActiveRequest">{{ $t("profile.active.actions.request") }}</a>
+                  <span>{{ $t("profile.active.status.request") }}</span>
+                </div>
+              </div>
+	      <NonVotingMembership />
+            </div>
+        </VcABox>
         <VcABox :title="$t('profile.title.address')">
           <AddressSelect :address="profileForm.address[0]" v-on:currentAddress="currentAddress($event)"/>
         </VcABox>
@@ -114,7 +132,9 @@
   import ProfileImage from '@/components/upload/ProfileImage.vue'
   import CrewSelect from '@/components/CrewSelect.vue'
   import NewsletterSelect from '@/components/NewsletterSelection.vue'
+  import NonVotingMembership from '@/components/NonVotingMembership.vue'
   import AddressSelect from '@/components/address/AddressForm.vue'
+
   import {
     Button,
     DatePicker,
@@ -140,14 +160,14 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, AddressSelect },
-
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, AddressSelect, NonVotingMembership },
     data () {
 
       return {
-          crew: null,
-          crewRoles: [],
-          userRoles: [],
+        crew: null,
+        crewRoles: [],
+        userRoles: [],
+        hasRequested: false,
         imageUrl: '',
         emailaddress: '',
         profileForm: {
@@ -203,39 +223,44 @@
       };
     },
 
-  created () {
+    created () {
         this.init()
-  },
-    mounted() {
+    },
+    computed: {
+	isActive() {
+		return true;
+	},
+	hasAddress() {
+		return false;
+	}
     },
     methods: {
-        init() {
-            function profileToForm(profile) {
-                profile['firstName'] = profile.supporter.firstName
-                profile['lastName'] = profile.supporter.lastName
-                profile['mobilePhone'] = profile.supporter.mobilePhone
-                profile['placeOfResidence'] = profile.supporter.placeOfResidence
-                profile['birthday'] = new Date(profile.supporter.birthday)
-                profile['gender'] = profile.supporter['sex']
-                profile['address'] = profile.supporter.address
-                return profile
-            }
-            this.axios.get('/drops/webapp/identity')
-                .then((response) => {
-                    if (response.status === 200) {
-                        this.userRoles = response.data.additional_information.roles.map((role) => role.role)
-                        var profile = response.data.additional_information.profiles.find(p => p.primary)
-                        if(typeof profile === "undefined") {
-                            profile = response.data.additional_information.profiles[0]
-                        }
-                        this.profileForm = profileToForm(profile);
-                        this.emailaddress = profile.email;
-                        this.crewRoles = profile.supporter.roles
-                    }
-                })
+      init() {
+        function profileToForm(profile) {
+              profile['firstName'] = profile.supporter.firstName
+              profile['lastName'] = profile.supporter.lastName
+              profile['mobilePhone'] = profile.supporter.mobilePhone
+              profile['placeOfResidence'] = profile.supporter.placeOfResidence
+              profile['birthday'] = new Date(profile.supporter.birthday)
+              profile['gender'] = profile.supporter['sex']
+              return profile
+          }
+          this.axios.get('/drops/webapp/identity')
+              .then((response) => {
+                  if (response.status === 200) {
+                      this.userRoles = response.data.additional_information.roles.map((role) => role.role)
+                      var profile = response.data.additional_information.profiles.find(p => p.primary)
+                      if(typeof profile === "undefined") {
+                          profile = response.data.additional_information.profiles[0]
+                      }
+                      this.profileForm = profileToForm(profile);
+                      this.emailaddress = profile.email;
+                      this.crewRoles = profile.supporter.roles
+                  }
+              })
 
-        },
-      submitForm(Form) {
+      },
+      submitForm(profileForm) {
           function toProfileSubmit(form, email) {
               var date = Date.parse(form.birthday)
               form['birthday'] = date

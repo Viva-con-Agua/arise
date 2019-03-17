@@ -195,6 +195,32 @@
     }
   },
   "profile": {
+    "nvm": {
+      "title": "A non-voting membership is....",
+      "actions": {
+        "cannotApply": "Non-voting membership",
+        "apply": "Become non-voting member",
+        "active": "End non-voting membership",
+        "renew": "Renew non-voting membership"
+      },
+      "status": {
+        "noAddress": "We need your address for the non-voting membership. ",
+        "inActive": "You have to be active in your crew to become an non-voting member. ",
+        "apply": "You can become a non-voting member.",
+        "active": "You are an non-voting member.",
+        "renew": "Your non-voting membership has expired, please renew your membership to stay a non-voting member."
+      },
+      "messages": {
+        "request": {
+          "success": {
+            "title": "",
+            "message": ""
+          },
+          "error": {
+          }
+        }
+      } 
+    }, 
     "view": {
       "labels": {
         "crew": "Crew",
@@ -234,7 +260,6 @@
       }
     },
     "actions": {
-      "non-voting-membership": "Non-voting Membership",
       "volunteering-certificate": "Volunteering certificate",
       "non-voting-membership-spoiler": "The non-voting membership is coming soon...",
       "assignRole": {

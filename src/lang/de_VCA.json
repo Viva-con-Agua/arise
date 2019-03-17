@@ -195,6 +195,32 @@
     }
   },
   "profile": {
+    "nvm": {
+      "title": "Die stimmrechtslose Mitgliedschaft ist",
+      "actions": {
+        "cannotApply": "Stimmrechtlose Mitgliedschaft",
+        "apply": "Stimmrechtloses Mitglied werden",
+        "active": "Stimmrechtlose Mitgliedschaft beenden",
+        "renew": "Stimmrechtlose Mitgliedschaft erneuern"
+      },
+      "status": {
+        "noAddress": "Bitte hinterlege deine Adresse um stimmrechtloses Mitglied zu werden. ",
+        "inActive": "Du musst aktiv in deiner Crew sein um eine stimmrechtlose Mitgliedschaft abzuschließen. ",
+        "apply": "Du kannst stimmrechtloses Mitglied werden.",
+        "active": "Du bist aktives stimmrechtloses Mitglied.",
+        "renew": "Deine stimmrechtlose Mitgliedschaft ist abgelaufen, du kannst diese für ein weiteres Jahr verlängern."
+      },
+      "messages": {
+        "request": {
+          "success": {
+            "title": "",
+            "message": ""
+          },
+          "error": {
+          }
+        }
+      } 
+    }, 
     "view": {
       "labels": {
         "crew": "Crew",
