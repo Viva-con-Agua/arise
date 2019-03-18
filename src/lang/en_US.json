@@ -275,7 +275,8 @@
       "avatar": "Profile image",
       "update": "Update",
       "crew": "Crew",
-      "address": "Address"
+      "address": "Address",
+      "submit": "Update"
     },
     "messages": {
       "update" : {

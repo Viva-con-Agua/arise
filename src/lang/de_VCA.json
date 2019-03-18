@@ -276,7 +276,8 @@
       "avatar": "Profilbild",
       "update": "Aktualisieren",
       "crew": "Crew",
-      "address": "Adresse"
+      "address": "Adresse",
+      "submit": "aktualisieren"
     },
     "messages": {
       "update" : {

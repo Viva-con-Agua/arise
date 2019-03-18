@@ -1,7 +1,11 @@
 <template>
   <VcAFrame>
       <VcAColumn>
-        <VcABox :first="true" :title="$t('supporterForm.title')">
+      <VcABox :first="true" :title="$t('profile.title.avatar')">
+          <ProfileImage />
+        </VcABox>
+
+        <VcABox :first="false" :title="$t('supporterForm.title')">
             <el-form
                     ref="profileForm"
                     :model="profileForm"
@@ -56,38 +60,19 @@
                           label="undefined">{{ $t('gender.undefined') }}</el-radio>
                 </el-radio-group></div>
             </el-form-item>
+            </el-form>
+        </VcABox>
+      </VcAColumn>
+      <VcAColumn>
+        <VcABox :first="true" :title="$t('profile.title.address')">
+          <AddressSelect :address="profileForm.address[0]" v-on:currentAddress="currentAddress($event)"/>
+        </VcABox>
+        <VcABox :title="$t('profile.title.submit')" >
             <button
                     class="vca-button-primary vca-full-width"
                     @click.prevent="submitForm(profileForm)">
                 {{ $t('options.save') }}
             </button>
-            </el-form>
-        </VcABox>
-      </VcAColumn>
-      <VcAColumn>
-        <VcABox :first="true" :title="$t('profile.title.avatar')">
-          <ProfileImage />
-        </VcABox>
-        <VcABox :first="false" :expand="true" :title="$t('profile.title.crew')" className="crewSelectBox">
-            <CrewSelect v-on:vca-select-crew="init" />
-            <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
-            <div class="actions">
-              <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
-              <div class="activeFlag">
-                <div class="hasNoAddress" v-if="!hasAddress && !hasRequested">
-                  <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.active.actions.request") }}</a>
-                  <span>{{ $t("profile.active.status.noAddress") }}</span>
-                </div>
-                <div class="hasAddress" v-if="hasAddress && !hasRequested">
-                  <a class="vca-button-primary vca-full-width" @click.prevent="handleActiveRequest">{{ $t("profile.active.actions.request") }}</a>
-                  <span>{{ $t("profile.active.status.request") }}</span>
-                </div>
-              </div>
-	      <NonVotingMembership />
-            </div>
-        </VcABox>
-        <VcABox :title="$t('profile.title.address')">
-          <AddressSelect :address="profileForm.address[0]" v-on:currentAddress="currentAddress($event)"/>
         </VcABox>
       </VcAColumn>
       <VcAColumn>
@@ -109,13 +94,22 @@
                 </div>
             </div>
         </VcABox>
-        <VcABox :first="false" :title="$t('profile.title.crew')" className="crewSelectBox">
+         <VcABox :first="false" :title="$t('profile.title.crew')" className="crewSelectBox">
             <CrewSelect v-on:vca-select-crew="init" />
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
-                <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
-                <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.non-voting-membership") }}</a>
-                <span>{{ $t("profile.actions.non-voting-membership-spoiler") }}</span>
+              <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
+              <div class="activeFlag">
+                <div class="hasNoAddress" v-if="!hasAddress && !hasRequested">
+                  <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.active.actions.request") }}</a>
+                  <span>{{ $t("profile.active.status.noAddress") }}</span>
+                </div>
+                <div class="hasAddress" v-if="hasAddress && !hasRequested">
+                  <a class="vca-button-primary vca-full-width" @click.prevent="handleActiveRequest">{{ $t("profile.active.actions.request") }}</a>
+                  <span>{{ $t("profile.active.status.request") }}</span>
+                </div>
+              </div>
+            <NonVotingMembership />
             </div>
         </VcABox>
       </VcAColumn>
@@ -260,7 +254,7 @@
               })
 
       },
-      submitForm(profileForm) {
+      submitForm(){
           function toProfileSubmit(form, email) {
               var date = Date.parse(form.birthday)
               form['birthday'] = date
