@@ -237,6 +237,7 @@
               profile['placeOfResidence'] = profile.supporter.placeOfResidence
               profile['birthday'] = new Date(profile.supporter.birthday)
               profile['gender'] = profile.supporter['sex']
+              profile['address'] = profile.supporter.address
               return profile
           }
           this.axios.get('/drops/webapp/identity')
@@ -254,7 +255,7 @@
               })
 
       },
-      submitForm(){
+      submitForm(Form){
           function toProfileSubmit(form, email) {
               var date = Date.parse(form.birthday)
               form['birthday'] = date
