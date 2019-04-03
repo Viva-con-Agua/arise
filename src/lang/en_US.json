@@ -128,6 +128,7 @@
     "id":"Please enter an ID",
     "secret":"Safty fitst, please enter a secret",
     "uri":"Where is your service located?",
+    "terms":"Please accept the terms of service and the privacy police...",
     "types":"Please chose a grant type."
   },
   "inputSample": {
@@ -160,7 +161,19 @@
       "placeofresidence": "Place of residence:",
       "birthdate": "Birthday:",
       "birthdateinfo": "When is your birthdate?",
-      "gender": "Gender:"
+      "gender": "Gender:",
+      "terms": {
+	"title": "Terms of use",
+      	"accept": "I have read and understood the {0} and the {1} and I accept it!"
+      },
+      "rules": {
+	"title": "Rules of Actions",
+      	"description": "The rules of action have to be accepted to take part at our actions!",
+      	"accept": "I have read and understood the {0} and I accept it!"
+      },
+      "privacy": {
+	"title": "Privacy Policy"
+      }
     },
     "infoBox": "Your full name, your date of birth and your address are required for the registration for actions. Your phone number will be used for short-term arrangements before actions."
   },

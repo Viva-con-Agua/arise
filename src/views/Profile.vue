@@ -1,5 +1,6 @@
 <template>
   <VcAFrame>
+
       <VcAColumn>
         <VcABox :first="true" :expand="true" :title="$t('supporterForm.title')">
             <el-form
@@ -71,7 +72,22 @@
         </VcABox>
       </VcAColumn>
       <VcAColumn>
-        <VcABox :first="true" :title="$t('profile.title.avatar')">
+    	<VcABox :first="true" style="border: solid thin red" :title="$t('supporterForm.label.rules.title')">
+	<div class="checkboxContainer">
+	    <div class="checkboxCheckbox">
+	    	<el-checkbox v-model="actionRules" class="custom-control-input" id="actionRules" name="actionRules" />		
+	    </div>		
+
+	    <div class="checkboxLabel">
+		<i18n path="supporterForm.label.rules.accept" tag="label" for="actionRules">
+		  <a :href="actionRulesUrl" target="_blank">{{ $t('supporterForm.label.rules.title') }}</a>
+		</i18n>
+	    </div>
+	</div>
+
+	{{ $t('supporterForm.label.rules.description') }}
+    	</VcABox>
+        <VcABox :first="false" :title="$t('profile.title.avatar')">
           <ProfileImage />
         </VcABox>
         <VcABox :first="false" :expand="true" :title="$t('profile.title.crew')" className="crewSelectBox">
@@ -148,6 +164,9 @@
 
     data () {
       return {
+       actionRulesUrl: '/pool/rules',
+       actionRules: true,
+       privacyUrl: '/pool/datenschutzerklaerung',
           crew: null,
           crewRoles: [],
           userRoles: [],
@@ -184,6 +203,9 @@
             gender: [
                 {required: false}
             ],
+         actionRules: [
+           { required: false }
+         ]
         },
       };
     },
@@ -210,6 +232,7 @@
                         if(typeof profile === "undefined") {
                             profile = response.data.additional_information.profiles[0]
                         }
+			this.actionRules = response.data.additional_information.rules
                         this.profileForm = profileToForm(profile);
                         this.emailaddress = profile.email;
                         this.crewRoles = profile.supporter.roles
@@ -347,5 +370,19 @@
       float: left;
       clear: both;
       width: 100%;
+  }
+
+  .checkboxContainer {
+    display: flex; 
+    flex-direction: row;
+
+	.checkboxLabel {
+	    margin-left: 10px;
+	    width: 100%;
+	}
+
+	.checkboxLabel, .checkboxCheckbox {
+	    flex-grow: 1; 
+	}
   }
 </style>

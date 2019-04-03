@@ -44,7 +44,7 @@
     .columns-container {
         display: flex;
         flex-direction: row;
-        flex-wrap:nowrap;
+        flex-wrap:wrap;
         justify-content: center;
         align-items: flex-start;
         height: 100%;

@@ -106,6 +106,42 @@
           </el-form-item>
         </VcABox>
         <VcABox :first="false" :title="$t('signup.title.register')">
+
+		<div class="checkboxContainer">
+          <el-form-item
+            prop="terms">
+		    	<el-checkbox v-model="signUpForm.terms"/>
+
+          </el-form-item>
+
+		    <div class="checkboxLabel">
+			<i18n path="supporterForm.label.terms.accept" tag="label" for="terms">
+			  <a :href="termsUrl" target="_blank">{{ $t('supporterForm.label.terms.title') }}</a>
+			  <a :href="privacyUrl" target="_blank">{{ $t('supporterForm.label.privacy.title') }}</a>
+			</i18n>
+		    </div><br/>
+		</div>
+		<div class="errorContainer"><div id="termsError">{{ $t('validationError.terms') }}</div></div>
+
+		
+		<div class="checkboxContainer">
+
+		    <div class="checkboxCheckbox">
+
+          <el-form-item
+            prop="rulesAccepted">
+		    	<el-checkbox v-model="signUpForm.rulesAccepted" class="custom-control-input" id="rulesAccepted" name="rulesAccepted" />
+          </el-form-item>		
+		    </div>		
+
+		    <div class="actionLabel checkboxLabel">
+			<i18n path="supporterForm.label.rules.accept" tag="label" for="rulesAccepted">
+			  <a :href="rulesAcceptedUrl" target="_blank">{{ $t('supporterForm.label.rules.title') }}</a>
+			</i18n>
+		    </div>
+		</div>
+
+	{{ $t('supporterForm.label.rules.description') }}
           <button
                   class="vca-button-primary buttonSignUp"
                   @click.prevent="submitForm">
@@ -133,6 +169,7 @@
   import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
   import {
     Button,
+    Checkbox,
     DatePicker,
     Form,
     FormItem,
@@ -144,6 +181,7 @@
 
  Vue.use(VueAxios, axios);
   Vue.use(Button);
+  Vue.use(Checkbox);
   Vue.use(DatePicker);
   Vue.use(Form);
   Vue.use(FormItem);
@@ -156,10 +194,18 @@
 
  //var axios = require('axios');
 
-
  export default {
    components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
+
    data () {
+       	var checkBox = (rule, value, callback) => {
+		if(!value) {
+			$('#termsError').show();
+			return false;
+		} else {
+			callback();
+		}
+	};
        var checkPass = (rule, value, callback) => {
            if (value === '') {
                callback(new Error(this.$t('signup.error.password.empty')));
@@ -180,6 +226,9 @@
      };
 
      return {
+       termsUrl: '/pool/terms',
+       privacyUrl: '/pool/datenschutzerklaerung',
+       rulesAcceptedUrl: '/pool/rules',
        suggestions: [],
 
        signUpForm: {
@@ -191,11 +240,13 @@
          gender: '',
          email: '',
          password: '',
+	 terms: false,
+	 rulesAccepted: false,
        },
 
        rules: {
          firstName: [
-           {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
+           {required: true, message: this.$t('validationError.firstname'), trigger: 'blur'},
            {message: this.$t('inputSample.firstname'), trigger: 'blur'}
          ],
          lastName: [
@@ -229,6 +280,12 @@
          ],
          checkPass: [
            { required: true, validator: checkPass, trigger: 'blur' }
+         ],
+         terms: [
+           { required: true, validator: checkBox, trigger: 'blur' }
+         ],
+         rulesAccepted: [
+           { required: false }
          ]
        }
      }
@@ -302,6 +359,34 @@
 </script>
 
 <style scoped lang="less">
+
+  #termsError {
+	display: none;
+  }
+
+  .errorContainer {
+	color: #f56c6c;
+	font-size: 12px;
+	margin-top: -25px;
+  }
+
+  .checkboxContainer {
+    display: flex; 
+    flex-direction: row;
+
+	.actionLabel {
+	    padding-top: 10px;
+	}
+
+	.checkboxLabel {
+	    margin-left: 10px;
+	    width: 100%;
+	}
+
+	.checkboxLabel, .checkboxCheckbox {
+	    flex-grow: 1; 
+	}
+  }
 
   .buttonSignUp {
     margin-top:1em;
