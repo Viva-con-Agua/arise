@@ -5,7 +5,7 @@
         :model="signUpForm"
         :rules="rules"
         class="columns-container"
-        @keyup.enter.native="submitForm"
+        @keyup.enter.native.prevent="submitForm"
         status-icon>
       <VcAColumn>
         <VcABox :first="true" :title="$t('supporterForm.title')">
@@ -24,17 +24,11 @@
             <el-input
               v-model="signUpForm.lastName"/>
           </el-form-item>
-          <el-form-item
+                      <el-form-item
             :label="$t('supporterForm.label.mobile')"
             prop="mobile">
             <el-input
               v-model="signUpForm.mobilePhone"/>
-          </el-form-item>
-          <el-form-item
-            :label="$t('supporterForm.label.placeofresidence')"
-            prop="placeofresidence">
-            <el-input
-              v-model="signUpForm.placeOfResidence"/>
           </el-form-item>
           <el-form-item
             :label="$t('supporterForm.label.birthdate')"
@@ -63,6 +57,11 @@
                   label="undefined">{{ $t('gender.undefined') }}</el-radio>
             </el-radio-group></div>
           </el-form-item>
+        </VcABox>
+      </VcAColumn>
+      <VcAColumn>
+        <VcABox :first="true" :title="$t('profile.title.address')">
+          <AddressSelect v-on:currentAddress="currentAddress($event)"/>
         </VcABox>
       </VcAColumn>
       <VcAColumn>
@@ -163,10 +162,9 @@
  import Password from 'vue-password-strength-meter';
  import axios from 'axios'
  import VueAxios from 'vue-axios'
-  import VcAFrame from '@/components/page/VcAFrame.vue';
-  import VcAColumn from '@/components/page/VcAColumn.vue';
-  import VcABox from '@/components/page/VcABox.vue';
-  import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
+  import AddressSelect from '@/components/address/AddressForm.vue'
+  import { VcAFrame, VcAColumn, VcABox, VcAInfoBox } from 'vca-widget-base'
+  import 'vca-widget-base/dist/vca-widget-base.css'
   import {
     Button,
     Checkbox,
@@ -195,8 +193,7 @@
  //var axios = require('axios');
 
  export default {
-   components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
-
+   components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox, AddressSelect },
    data () {
        	var checkBox = (rule, value, callback) => {
 		if(!value) {
@@ -234,8 +231,13 @@
        signUpForm: {
            firstName: '',
            lastName: '',
+           address: {
+            street: '',
+            additional: '',
+            city: '',
+            country: ''
+           },
            mobilePhone: '',
-           placeOfResidence: '',
            birthday: '',
          gender: '',
          email: '',
@@ -255,12 +257,24 @@
          ],
          mobilePhone: [
            {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
-           {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+           {pattern:/^(?=.*[0+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+         ],
+         street: [
+           {required: false, message: this.$t('validationError.street'), trigger: 'blur'},
+           {message: this.$t('inputSample.street'), trigger: 'blur'}
+         ],
+         zip: [
+           {required: false, message: this.$t('validationError.zip'), trigger: 'blur'},
+           {pattern:/^[0-9]{4,8}$/, message: this.$t('inputSample.zip'), trigger: 'blur'}
          ],
          placeOfResidence: [
-           {required: true, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
+           {required: false, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
            {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
          ],
+  country: [
+  {required: false, message: this.$t('validationError.country'), trigger: 'blur'},
+     {message: this.$t('inputSample.country'), trigger: 'blur'}
+  ],
          birthday: [
            {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
          ],
@@ -269,11 +283,11 @@
          ],
          email: [
            {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
-           {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
+           {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ],
          checkemail: [
            {required: true, validator: checkeMail, trigger: 'blur'},
-           {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
+           {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ],
          password: [
              { required: true, message: this.$t('validationError.checkPass'), trigger: 'blur' }
@@ -290,6 +304,8 @@
        }
      }
    },
+    mounted() {
+    },
 
     //createUserBody
    methods: {
@@ -341,6 +357,9 @@
      resetForm() {
       this.$refs.signUpForm.resetFields();
      },
+      currentAddress(address) {
+        this.signUpForm.address = address;
+      },
      open(title, message, type) {
          Notification({
              title:  title,
@@ -348,7 +367,6 @@
              type: type
          });
      },
-
      showFeedback ({suggestions, warning}) {
          this.suggestions = suggestions;
      }

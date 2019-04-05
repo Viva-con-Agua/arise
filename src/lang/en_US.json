@@ -118,6 +118,9 @@
     "firstname":"Please fill in your firstname...",
     "lastname":"Please fill in your name...",
     "mobile":"Please fill in your mobile number...",
+    "street":"Please fill in your street and number...",
+    "additional":"Please fill in your additional address informations...",
+    "zip":"Please fill in your postal code...",
     "placeofresidence":"Please fill in your place of residence...",
     "birthdate":"Please fill in your birtdate...",
     "gender":"What is your Gender?",
@@ -138,10 +141,13 @@
     "firstname":"my parents named me Frederik",
     "lastname":"e.g. Mustermensch",
     "mobile":"e.g. +49-1523-45679",
+    "street": "Neuer Kamp 32",
+    "additional": "c/o Viva con Agua",
+    "zip": "20357",
     "placeofresidence":"e.g. Aldera",
     "birthdate":"e.g. 1910.05.10",
     "gender":"e.g. male",
-    "email":"e.g. freak@vivaconagua.org",
+    "email":"e.g. your@emailaddress.org",
     "password":"info",
     "taskTitle":"e.g. tidying up warehouse",
     "id":"e.g. arise"
@@ -157,8 +163,13 @@
     "label": {
       "firstname": "Firstname:",
       "lastname": "Lastname:",
+      "searchAddress": "Search address:",
+      "street": "Street & number:",
+      "additional": "Additional address:",
+      "zip": "ZIP:",
       "mobile": "Mobilenr:",
       "placeofresidence": "Place of residence:",
+      "country": "Country:",
       "birthdate": "Birthday:",
       "birthdateinfo": "When is your birthdate?",
       "gender": "Gender:",
@@ -197,6 +208,32 @@
     }
   },
   "profile": {
+    "nvm": {
+      "title": "A non-voting membership is....",
+      "actions": {
+        "cannotApply": "Non-voting membership",
+        "apply": "Become non-voting member",
+        "active": "End non-voting membership",
+        "renew": "Renew non-voting membership"
+      },
+      "status": {
+        "noAddress": "We need your address for the non-voting membership. ",
+        "inActive": "You have to be active in your crew to become an non-voting member. ",
+        "apply": "You can become a non-voting member.",
+        "active": "You are an non-voting member.",
+        "renew": "Your non-voting membership has expired, please renew your membership to stay a non-voting member."
+      },
+      "messages": {
+        "request": {
+          "success": {
+            "title": "",
+            "message": ""
+          },
+          "error": {
+          }
+        }
+      } 
+    }, 
     "view": {
       "labels": {
         "crew": "Crew",
@@ -236,7 +273,6 @@
       }
     },
     "actions": {
-      "non-voting-membership": "Non-voting Membership",
       "volunteering-certificate": "Volunteering certificate",
       "non-voting-membership-spoiler": "The non-voting membership is coming soon...",
       "assignRole": {
@@ -251,7 +287,9 @@
       "newsletter": "Newsletter",
       "avatar": "Profile image",
       "update": "Update",
-      "crew": "Crew"
+      "crew": "Crew",
+      "address": "Address",
+      "submit": "Update"
     },
     "messages": {
       "update" : {

@@ -1,6 +1,6 @@
 {
   "name": "arise",
-  "version": "0.8.36",
+  "version": "0.8.41",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 8080",
@@ -12,6 +12,7 @@
     "deepmerge": "^2.2.1",
     "element-ui": "^2.4.11",
     "v-tooltip": "^2.0.0-rc.33",
+    "vca-widget-base": "^0.1.2",
     "vca-widget-navigation": "^0.2.7",
     "vca-widget-user": "^0.4.11",
     "vee-validate": "^2.1.4",
