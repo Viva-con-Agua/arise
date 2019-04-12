@@ -14,7 +14,7 @@
 
 		<div class="active-flag-status" v-if="!isActive && hasCrew && !isRequested">
 		  <span>{{ $t("profile.activeFlag.status.apply") }}</span>
-		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleSetActiveRequest">{{ $t("profile.activeFlag.actions.apply") }}</a>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleActiveRequest">{{ $t("profile.activeFlag.actions.apply") }}</a>
 		</div>
 
 		<div class="active-flag-status" v-if="!hasCrew && !isActive">
@@ -49,31 +49,28 @@
             this.init()
         },
         methods: {
-            handleSetInActiveRequest(event) {
+            handleSetInactiveRequest(event) {
 		if (!confirm(this.$t('profile.activeFlag.messages.inactive.confirm'))) {
 			return false;
 		}
-		return false;
-		this.submit();
+		this.submit('/drops/webapp/profile/active/inactive');
 	    },
             handleUnsetActiveRequest(event) {
 		if (!confirm(this.$t('profile.activeFlag.messages.unset.confirm'))) {
 			return false;
 		}
-		return false;
-		this.submit();
+		this.submit('/drops/webapp/profile/active/inactive');
 	    },
-            handleSetActiveRequest(event) {
+            handleActiveRequest(event) {
 		if (!confirm(this.$t('profile.activeFlag.messages.request.confirm'))) {
 			return false;
 		}
-		return false;
-		this.submit();
+		this.submit('/drops/webapp/profile/active/request')
             },
-            submit() {
+            submit(url) {
                 
         	this.axios
-        	  .get('/drops/webapp/profile/active/request')
+        	  .post(url)
        	 	  .then(response => {
             		switch (response.status) {
               			case 200:
@@ -82,6 +79,7 @@
                   				this.$t('profile.activeFlag.messages.request.success.message'),
                   				"success"
                 			)
+					this.setState(response.data.additional_information.status);
                 		break;
             		}
         	}).catch(error => {
@@ -93,6 +91,23 @@
                     )
                 })
             },
+	    setState(status) {
+			switch(status) {
+				case 'active':
+					this.isActive = true;
+					this.isRequested = false;
+					break;
+				case 'requested':
+					this.isActive = false;
+					this.isRequested = true;
+					break;
+				case 'inactive':
+				default:
+					this.isActive = false;
+					this.isRequested = false;
+					break;
+			}
+	    },
             init() {
                 this.axios
 		  .get('/drops/webapp/profile/active/check')
@@ -100,28 +115,8 @@
 		    switch (response.status) {
 		      case 200:
 			console.log(response.data.additional_information);
-			switch(response.data.additional_information.status) {
-				case 'active':
-					this.isActive = true;
-					this.isRequested = false;
-					this.hasCrew = (response.data.additional_information.conditions.hasCrew);
-					break;
-				case 'requested':
-					this.isActive = false;
-					this.isRequested = true;
-					this.hasCrew = (response.data.additional_information.conditions.hasCrew);
-					break;
-				case 'inactive':
-					this.isActive = false;
-					this.isRequested = false;
-					this.hasCrew = (response.data.additional_information.conditions.hasCrew);
-					break;
-				default:
-					this.hasCrew = (response.data.additional_information.conditions.hasCrew);
-					this.isActive = false;
-					this.isRequested = false;
-					break;
-			}
+			this.hasCrew = (response.data.additional_information.conditions.hasCrew);
+			this.setState(response.data.additional_information.status)
 		    }
 		}).catch(error => {
                     this.selection = this.default
