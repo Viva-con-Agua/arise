@@ -99,16 +99,10 @@
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
               <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
-              <div class="activeFlag">
-                <div class="hasNoAddress" v-if="!hasAddress && !hasRequested">
-                  <a class="disabled vca-button-primary vca-full-width">{{ $t("profile.active.actions.request") }}</a>
-                  <span>{{ $t("profile.active.status.noAddress") }}</span>
-                </div>
-                <div class="hasAddress" v-if="hasAddress && !hasRequested">
-                  <a class="vca-button-primary vca-full-width" @click.prevent="handleActiveRequest">{{ $t("profile.active.actions.request") }}</a>
-                  <span>{{ $t("profile.active.status.request") }}</span>
-                </div>
-              </div>
+              
+
+            <ActiveFlag />
+
             <NonVotingMembership />
             </div>
         </VcABox>
@@ -126,6 +120,7 @@
   import ProfileImage from '@/components/upload/ProfileImage.vue'
   import CrewSelect from '@/components/CrewSelect.vue'
   import NewsletterSelect from '@/components/NewsletterSelection.vue'
+  import ActiveFlag from '@/components/ActiveFlag.vue'
   import NonVotingMembership from '@/components/NonVotingMembership.vue'
   import AddressSelect from '@/components/address/AddressForm.vue'
 
@@ -154,7 +149,7 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, AddressSelect, NonVotingMembership },
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, AddressSelect, NonVotingMembership, ActiveFlag },
     data () {
 
       return {
@@ -219,14 +214,6 @@
 
     created () {
         this.init()
-    },
-    computed: {
-	isActive() {
-		return true;
-	},
-	hasAddress() {
-		return false;
-	}
     },
     methods: {
       init() {

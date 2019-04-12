@@ -195,8 +195,12 @@
     }
   },
   "profile": {
+    "warning": {
+	"important": "Wichtig: "
+    },
     "nvm": {
-      "title": "Die stimmrechtslose Mitgliedschaft ist",
+      "title": "Die stimmrechtslose Mitgliedschaft",
+      "description": "Bitte lies dir die Vereinsordnung durch um dich über die stimmrechlose Mitgliedschaft von Viva con Agua zu informieren",
       "actions": {
         "cannotApply": "Stimmrechtlose Mitgliedschaft",
         "apply": "Stimmrechtloses Mitglied werden",
@@ -204,17 +208,45 @@
         "renew": "Stimmrechtlose Mitgliedschaft erneuern"
       },
       "status": {
-        "noAddress": "Bitte hinterlege deine Adresse um stimmrechtloses Mitglied zu werden. ",
+	"noAddress": "Bitte hinterlege deine Adresse um stimmrechtloses Mitglied zu werden. ",
         "inActive": "Du musst aktiv in deiner Crew sein um eine stimmrechtlose Mitgliedschaft abzuschließen. ",
         "apply": "Du kannst stimmrechtloses Mitglied werden.",
         "active": "Du bist aktives stimmrechtloses Mitglied.",
-        "renew": "Deine stimmrechtlose Mitgliedschaft ist abgelaufen, du kannst diese für ein weiteres Jahr verlängern."
+        "renew": "Deine stimmrechtlose Mitgliedschaft ist abgelaufen, du kannst diese für ein weiteres Jahr verlängern.",
+	"noPrimaryCrew": "Bitte wähle eine Crew aus um dich als aktiver Supporter anzumelden"
       },
       "messages": {
         "request": {
           "success": {
-            "title": "",
-            "message": ""
+            "title": "Erfolg",
+            "message": "Der Status deiner stimmrechtlosen Mitgliedschaft wurde erfolgreich geändert!"
+          },
+          "error": {
+            "title": "Fehler",
+            "message": "Der Status deiner stimmrechtlosen Mitgliedschaft konnte leider nicht geändert werden!"
+          }
+        }
+      } 
+    }, 
+    "activeFlag": {
+      "title": "Aktiver Supporter",
+      "actions": {
+        "cannotApply": "Aktiver Supporter",
+        "apply": "Aktiver Supporter werden",
+        "requested": "Aktiver Supporter angefragt",
+        "active": "Aktiver Supporter beenden"
+      },
+      "status": {
+	"apply": "Wenn du in deiner Crew aktiv bist, kannst du dies über den Button anfragen und von einem Ansprechpartner deiner Crew bestätigen lassen - beispielsweise wenn du an den Crewtreffen teilnimmst, dich bei Aktionen oder Bildungsevents engagierst.",
+        "noCrew": "Du musst eine Crew auswählen, um dich als aktiver Supporter zu melden",
+        "requested": "Du hast dich als aktiver Supporter deiner Crew gemeldet. Warte bitte, bis ein Ansprechpartner deiner Crew deine Anfrage bestätigt. Du kannst die Anfrage auch jederzeit wieder zurückziehen",
+        "active": "Du bist als aktiver Supporter deiner Crew gespeichert. Du kannst den Status deiner Aktivität hier beenden."
+      },
+      "messages": {
+        "request": {
+          "success": {
+            "title": "Success",
+            "message": "Dein aktiver Status wurde erfolgreich geändert!"
           },
           "error": {
           }

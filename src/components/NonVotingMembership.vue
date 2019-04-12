@@ -1,27 +1,29 @@
 <template>
     	<div class="non-voting-membership">
-		<div class="nvmTitle">{{ $t("profile.nvm.title") }}</div>
+		<div class="nvmTitle"><strong>{{ $t("profile.nvm.title") }}</strong></div>
+		<div class="nvmDescription">{{ $t("profile.nvm.description") }}</div>
 		
 		<div class="nvm" v-if="isNVM">
-		  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.active") }}</a>
 		  <span>{{ $t("profile.nvm.status.end") }}</span>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.active") }}</a>
 		</div>
 
 		<div class="nvm" v-if="isExpired">
-		  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.renew") }}</a>
 		  <span>{{ $t("profile.nvm.status.renew") }}</span>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.renew") }}</a>
 		</div>
 
 		<div class="nvm" v-if="canApply">
-		  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.active") }}</a>
-		  <span>{{ $t("profile.nvm.status.end") }}</span>
+		  <span>{{ $t("profile.nvm.status.apply") }}</span>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.active") }}</a>
 		</div>
 
 		<div class="nvm" v-if="!canApply && !isExpired && !isNVM">
-		  <a class="disabled vca-button-primary vca-full-width" >{{ $t("profile.nvm.actions.cannotApply") }}</a>
+		  <span><strong>{{ $t("profile.warning.important") }}</strong></span>
 		  <span v-if="!hasAddress">{{ $t("profile.nvm.status.noAddress") }}</span>
 		  <span v-if="!isActive">{{ $t("profile.nvm.status.inActive") }}</span>
-		  <span v-if="!hasPrimaryCrew">{{ $t("profile.nvm.status.hasNoPrimaryCrew") }}</span>
+		  <span v-if="!hasPrimaryCrew">{{ $t("profile.nvm.status.noPrimaryCrew") }}</span>
+		  <a class="disabled vca-button-primary vca-full-width" >{{ $t("profile.nvm.actions.cannotApply") }}</a>
 		</div>
 	</div>
 </template>
