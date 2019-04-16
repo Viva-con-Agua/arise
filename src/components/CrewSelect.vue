@@ -113,6 +113,13 @@
                     .catch(this.errorHandling)
             },
             select(event) {
+		console.log(this.crew);
+		if (this.crew) {
+			if (!confirm(this.$t('crews.select.request'))) {
+				return false;
+			}
+		}
+
                 var url = "/drops/webapp/profile/assign/" + event.id
                 this.axios.get(url)
                     .then(response => {

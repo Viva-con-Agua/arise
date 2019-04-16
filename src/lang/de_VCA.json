@@ -56,6 +56,7 @@
   },
   "crews": {
     "select": {
+      "request": "Bist du dir sicher, dass du die Crew wechseln möchtest? Solltest du ASP in deiner aktuellen Crew sein, so verlierst du die damit zusammenhängenden Rechte im Pool.",
       "noCrewsAvailable": "Momentan kennt der Pool keine Crews",
       "placeholder": "Bitte wähle deine Crew..."
     },
@@ -233,7 +234,7 @@
       "actions": {
         "cannotApply": "Aktiver Supporter",
         "apply": "Aktiver Supporter werden",
-        "requested": "Aktiver Supporter angefragt",
+        "requested": "Aktiver Supporter Anfrage beenden",
         "active": "Aktiver Supporter beenden"
       },
       "status": {
@@ -243,6 +244,12 @@
         "active": "Du bist als aktiver Supporter deiner Crew gespeichert. Du kannst den Status deiner Aktivität hier beenden."
       },
       "messages": {
+        "inactive": {
+	  "confirm" : "Möchtest du den Status deiner Aktivität in deiner Crew beenden? Solltest du stimmrechtsloses Mitgliedschaft, so wird diese ebenfalls automatisch beendet."
+	},
+        "unset": {
+	  "confirm" : "Möchtest du deine Anfrage auf aktive Supporterschaft in deiner Crew zurückziehen?"
+	},
         "request": {
           "success": {
             "title": "Success",

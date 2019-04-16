@@ -4,18 +4,18 @@
 		<div class="nvmDescription">{{ $t("profile.nvm.description") }}</div>
 		
 		<div class="nvm" v-if="isNVM">
-		  <span>{{ $t("profile.nvm.status.end") }}</span>
-		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.active") }}</a>
+		  <span><strong>{{ $t("profile.nvm.status.active") }}</strong></span>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleSetInactiveRequest">{{ $t("profile.nvm.actions.active") }}</a>
 		</div>
 
 		<div class="nvm" v-if="isExpired">
 		  <span>{{ $t("profile.nvm.status.renew") }}</span>
-		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.renew") }}</a>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleActiveRequest">{{ $t("profile.nvm.actions.renew") }}</a>
 		</div>
 
 		<div class="nvm" v-if="canApply">
 		  <span>{{ $t("profile.nvm.status.apply") }}</span>
-		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.active") }}</a>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleActiveRequest">{{ $t("profile.nvm.actions.apply") }}</a>
 		</div>
 
 		<div class="nvm" v-if="!canApply && !isExpired && !isNVM">
@@ -55,16 +55,22 @@
             this.init()
         },
         methods: {
-            handleClick(event) {
-                if(event.label !== this.selection.label || event.value !== this.selection.value) {
-                    this.selection = event
-                    this.submit()
-                }
+	    handleSetInactiveRequest(event) {
+		if (!confirm(this.$t('profile.nvm.messages.inactive.confirm'))) {
+			return false;
+		}
+		this.submit('/drops/webapp/profile/nvm/inactive');
+	    },
+            handleActiveRequest(event) {
+		if (!confirm(this.$t('profile.nvm.messages.request.confirm'))) {
+			return false;
+		}
+		this.submit('/drops/webapp/profile/nvm/request')
             },
-            submit() {
+            submit(url) {
                 
         	this.axios
-        	  .get('/drops/webapp/profile/nvm/request')
+        	  .post(url)
        	 	  .then(response => {
             		switch (response.status) {
               			case 200:
@@ -73,7 +79,7 @@
                   				this.$t('profile.nvm.messages.request.success.message'),
                   				"success"
                 			)
-                			this.hasRequested=true;
+					this.init();
                 		break;
             		}
         	}).catch(error => {
@@ -95,12 +101,18 @@
 			switch(response.data.additional_information.status) {
 				case 'expired':
 					this.isExpired = true;
+					this.isNVM = false;
+					this.canApply = false;
 					break;
 				case 'active':
 					this.isNVM = true;
+					this.isExpired = false;
+					this.canApply = false;
 					break;
 				case 'inactive':
 					this.canApply = true;
+					this.isExpired = false;
+					this.isNVM = false;
 					break;
 				case 'denied':
 				default:

@@ -56,6 +56,7 @@
   },
   "crews": {
     "select": {
+      "request": "Do you really want to switch to another crew? If you are an ASP of your current crew, you will lose your permissions in the pool.",
       "noCrewsAvailable": "There are no crews available",
       "placeholder": "Please choose your crew..."
     },
@@ -233,7 +234,7 @@
       "actions": {
         "cannotApply": "Active supporter",
         "apply": "Become active supporter",
-        "requested": "End active supporter",
+        "requested": "End active supporter request",
         "active": "End active supporter"
       },
       "status": {
@@ -243,7 +244,14 @@
         "active": "You are an active supporter of your crew. You can end your activity in the crew here."
       },
       "messages": {
+        "inactive": {
+	  "confirm" : "Do you want to end your state as an active supporter?"
+	},
+        "unset": {
+	  "confirm" : "Do you want to remove your application as an active supporter?"
+	},
         "request": {
+	  "confirm" : "Do you want to apply as an active supporter?",
           "success": {
             "title": "Success",
             "message": "Your state as active member of your crew has successfully been changed!"
