@@ -90,8 +90,6 @@
                   				"success"
                 			)
 					this.setState(response.data.additional_information.status);
-					//NonVotingMembership.init();
-					console.log('triggering nvmState');
 					this.$root.$emit('nvmState');
                 		break;
             		}

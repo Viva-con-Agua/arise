@@ -106,7 +106,6 @@
 		  .then(response => {
 		    switch (response.status) {
 		      case 200:
-			console.log(response.data.additional_information);
 			switch(response.data.additional_information.status) {
 				case 'expired':
 					this.isExpired = true;
