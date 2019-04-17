@@ -98,12 +98,9 @@
             <CrewSelect v-on:vca-select-crew="init" />
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
-              <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
-              
-
-            <ActiveFlag ref="activeFlag"/>
-
-            <NonVotingMembership ref="nvmFlag" />
+		<a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
+		<ActiveFlag ref="activeFlag"/>
+		<NonVotingMembership ref="nvmFlag" />
             </div>
         </VcABox>
       </VcAColumn>
@@ -156,7 +153,6 @@
         crew: null,
         crewRoles: [],
         userRoles: [],
-        hasRequested: false,
         imageUrl: '',
         emailaddress: '',
         profileForm: {
