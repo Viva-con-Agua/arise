@@ -33,7 +33,8 @@
         min-height: min-content;
     }
     #content {
-        display: block;
-        overflow: overlay;
+        display: flex;
+	flex-shrink: 0;
+	flex-grow: 1;
     }
 </style>
