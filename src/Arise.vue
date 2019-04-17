@@ -36,5 +36,6 @@
         display: flex;
 	flex-shrink: 0;
 	flex-grow: 1;
+	overflow: auto;
     }
 </style>
