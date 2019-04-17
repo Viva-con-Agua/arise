@@ -35,6 +35,6 @@
     #content {
         flex-grow: 1;
         display: flex;
-        overflow: auto;
+        overflow: overlay;
     }
 </style>

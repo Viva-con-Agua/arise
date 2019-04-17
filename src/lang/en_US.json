@@ -208,6 +208,12 @@
         "active": "End non-voting membership",
         "renew": "Renew non-voting membership"
       },
+      "current": {	
+        "denied": "",
+        "inactive": "inactive",
+        "active": "active",
+        "expired": "expired"
+      },
       "status": {
         "noAddress": "We need your address for the non-voting membership. ",       
 	"noPrimaryCrew": "You need to select a crew to become an active supporter",
@@ -236,6 +242,12 @@
         "apply": "Become active supporter",
         "requested": "End active supporter request",
         "active": "End active supporter"
+      },
+      "current": {	
+        "denied": "",
+        "inactive": "inactive",
+        "active": "active",
+        "requested": "requested"
       },
       "status": {
 	"apply": "If you are an active VcA supporter of your crew, then you can request this via the button at your ASPs and confirm - so if you, for example. participate in team meetings, get involved in actions or engage in education.",

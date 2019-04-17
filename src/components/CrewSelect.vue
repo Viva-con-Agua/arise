@@ -126,6 +126,8 @@
                         if(response.status === 200) {
                             this.crew = event
                             this.$emit("vca-select-crew")
+                            this.$root.$emit("activeState")
+                            this.$root.$emit("nvmState")
                         }
                     })
                     .catch(error => {

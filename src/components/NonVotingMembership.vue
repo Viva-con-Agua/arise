@@ -1,6 +1,11 @@
 <template>
     	<div class="non-voting-membership">
-		<div class="nvmTitle"><strong>{{ $t("profile.nvm.title") }}</strong></div>
+		<div class="nvmTitle"><strong class="nvmTitle-title">{{ $t("profile.nvm.title") }}</strong>
+			<span class="nvm-active" v-if="isNVM">{{ $t("profile.nvm.current.active") }}</span>
+			<span class="nvm-expired" v-if="isExpired">{{ $t("profile.nvm.current.expired") }}</span>
+			<span class="nvm-inactive" v-if="canApply">{{ $t("profile.nvm.current.inactive") }}</span>
+			<span class="nvm-denied" v-if="isDenied()">{{ $t("profile.nvm.current.denied") }}</span>
+		</div>
 		<div class="nvmDescription">{{ $t("profile.nvm.description") }}</div>
 		
 		<div class="nvm" v-if="isNVM">
@@ -18,7 +23,7 @@
 		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleActiveRequest">{{ $t("profile.nvm.actions.apply") }}</a>
 		</div>
 
-		<div class="nvm" v-if="!canApply && !isExpired && !isNVM">
+		<div class="nvm" v-if="isDenied()">
 		  <span><strong>{{ $t("profile.warning.important") }}</strong></span>
 		  <span v-if="!hasAddress">{{ $t("profile.nvm.status.noAddress") }}</span>
 		  <span v-if="!isActive">{{ $t("profile.nvm.status.inActive") }}</span>
@@ -54,7 +59,11 @@
         created() {
             this.init()
         },
+	mounted() {
+		this.$root.$on('nvmState', () => { this.init(); })
+	},
         methods: {
+	    isDenied() { return (!this.canApply && !this.isExpired && !this.isNVM); },
 	    handleSetInactiveRequest(event) {
 		if (!confirm(this.$t('profile.nvm.messages.inactive.confirm'))) {
 			return false;
@@ -116,6 +125,9 @@
 					break;
 				case 'denied':
 				default:
+					this.isNVM = false;
+					this.isExpired = false;
+					this.canApply = false;
 					this.hasAddress = (response.data.additional_information.conditions.hasAddress);
 					this.isActive = (response.data.additional_information.conditions.isActive);
 					this.hasPrimaryCrew = (response.data.additional_information.conditions.hasPrimaryCrew);
@@ -138,5 +150,11 @@
 </script>
 
 <style scoped>
+
+.nvmTitle-title { margin-right: 5px; }
+.nvm-active { color: green; }
+.nvm-inactive { color: grey; }
+.nvm-denied { color: red; }
+.nvm-requested { color: orange; }
 
 </style>

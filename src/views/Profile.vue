@@ -101,9 +101,9 @@
               <a href="/pool/?download-certificate" class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
               
 
-            <ActiveFlag />
+            <ActiveFlag ref="activeFlag"/>
 
-            <NonVotingMembership />
+            <NonVotingMembership ref="nvmFlag" />
             </div>
         </VcABox>
       </VcAColumn>
