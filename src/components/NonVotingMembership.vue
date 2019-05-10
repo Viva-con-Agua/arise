@@ -19,7 +19,8 @@
 		</div>
 
 		<div class="nvm" v-if="canApply">
-		  <span>{{ $t("profile.nvm.status.apply") }}</span>
+		  <span>{{ $t("profile.nvm.status.apply") }}</span><br/><br/>
+		  <span>{{ $t("profile.nvm.status.confirmation") }}</span>
 		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleActiveRequest">{{ $t("profile.nvm.actions.apply") }}</a>
 		</div>
 

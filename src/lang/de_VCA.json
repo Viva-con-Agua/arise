@@ -201,7 +201,7 @@
     },
     "nvm": {
       "title": "Die stimmrechtslose Mitgliedschaft",
-      "description": "Bitte lies dir die Vereinsordnung durch um dich über die stimmrechlose Mitgliedschaft von Viva con Agua zu informieren",
+      "description": "Bitte lies dir §4 (2) der Vereinssatzung durch um dich über die stimmrechlose Mitgliedschaft von Viva con Agua de Santk Pauli e.V. zu informieren",
       "actions": {
         "cannotApply": "Stimmrechtlose Mitgliedschaft",
         "apply": "Stimmrechtloses Mitglied werden",
@@ -211,13 +211,18 @@
       "status": {
 	"noAddress": "Bitte hinterlege deine Adresse um stimmrechtloses Mitglied zu werden. ",
         "inActive": "Du musst aktiv in deiner Crew sein um eine stimmrechtlose Mitgliedschaft abzuschließen. ",
-        "apply": "Du kannst stimmrechtloses Mitglied werden.",
+        "apply": "Als aktives Mitglied deiner Crew hast du die Möglichkeit ein stimmrechtsloses Vereinsmitglied des Viva con Agua de Santk Pauli e.V. zu werden. Diese Mitgliedschaft ist beitragsfrei und muss einmal jährlich hier in deinem Pool-Profil aktiv erneuert werden.",
+	"confirmation": "Gemäß §4 (2) der Vereinssatzung beantrage ich hiermit die Aufnahme in den Viva con Agua de Sankt Pauli e.V. als stimmrechtsloses Vereinsmitglied. Die Mitgliedschaft gilt als angenommen, insofern ihr nicht durch ermächtigte Vertreter*innen des Vereins widersprochen wird. Um die Mitgliedschaft abzuschließen musst du den folgenden Button drücken:",
         "active": "Du bist aktives stimmrechtloses Mitglied.",
         "renew": "Deine stimmrechtlose Mitgliedschaft ist abgelaufen, du kannst diese für ein weiteres Jahr verlängern.",
 	"noPrimaryCrew": "Bitte wähle eine Crew aus um dich als aktiver Supporter anzumelden"
       },
       "messages": {
+        "inactive": {
+	  "confirm" : "Möchtest deine stimmrechtslose Mitgliedschaft bei Viva con Agua de Sankt Pauli e.V. beenden?"
+	},
         "request": {
+	  "confirm" : "Möchtest du stimmrechtsloses Mitglied Viva con Agua de Sankt Pauli e.V. werden. Bitte bestätige auch, dass du §4 (2) der Vereinssatzung gelesen hast!",
           "success": {
             "title": "Erfolg",
             "message": "Der Status deiner stimmrechtlosen Mitgliedschaft wurde erfolgreich geändert!"
