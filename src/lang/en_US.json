@@ -196,6 +196,10 @@
     }
   },
   "profile": {
+    "supporter": {
+      "active": "active",
+      "nvm": "non-voting member"
+    },
     "warning": {
 	"important": "Important: "
     },

@@ -146,6 +146,14 @@ var router = new Router({
         component: loadView('changeEMail')
     },
     {
+        path: "/usersActive",
+        name: 'UsersActive',
+        component: loadView('usersActive'),
+        meta: {
+            'roles': ['Admin', 'Employee', { 'name': 'VolunteerManager' }] //'Admin',
+        }
+    },
+    {
         path: "/users",
         name: 'Users',
         component: loadView('users'),

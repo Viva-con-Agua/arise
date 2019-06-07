@@ -10,7 +10,7 @@
 		
 		<div class="nvm" v-if="isNVM">
 		  <span><strong>{{ $t("profile.nvm.status.active") }}</strong></span>
-		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleSetInactiveRequest">{{ $t("profile.nvm.actions.active") }}</a>
+		  <a class="vca-button-warn vca-full-width" style="cursor: pointer;" @click.prevent="handleSetInactiveRequest">{{ $t("profile.nvm.actions.active") }}</a>
 		</div>
 
 		<div class="nvm" v-if="isExpired">

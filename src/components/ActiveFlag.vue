@@ -9,7 +9,7 @@
 		
 		<div class="active-flag-status" v-if="isActive">
 		  <span>{{ $t("profile.activeFlag.status.active") }}</span>
-		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleSetInactiveRequest">{{ $t("profile.activeFlag.actions.active") }}</a>
+		  <a class="vca-button-warn vca-full-width" style="cursor: pointer;" @click.prevent="handleSetInactiveRequest">{{ $t("profile.activeFlag.actions.active") }}</a>
 		</div>
 
 		<div class="active-flag-status" v-if="isRequested">
@@ -126,7 +126,7 @@
 		    switch (response.status) {
 		      case 200:
 			console.log(response.data.additional_information);
-			this.hasCrew = (response.data.additional_information.conditions.hasCrew);
+			this.hasCrew = (response.data.additional_information.conditions.hasPrimaryCrew);
 			this.setState(response.data.additional_information.status)
 		    }
 		}).catch(error => {
