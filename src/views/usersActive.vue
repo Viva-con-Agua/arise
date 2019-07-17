@@ -3,7 +3,7 @@
         <VcAColumn size="90%">
             <VcABox :first="true" :title="$t('users.title')">
                 <div v-if="!isIE()" class="users-wrapper">
-                    <WidgetUserList :options="options"/>
+                    <WidgetUserList :crewName="crewName" :options="options"/>
                 </div>
                 <p v-else>
                     <i18n path="users.ie.msg" tag="label" for="users.ie.alternative">
@@ -33,8 +33,12 @@
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
 		    'buttons': [ 'active' ],
 		    'filter': {},
+		    //'filter': { 'query': '(supporterCrew.name.1.LIKE)', 'values' : { 'supporterCrew' : { 'name' : { '1': '%Hamburg%' } } } },
+		    //'filter': { 'query': '(supporterCrew.active.1.=)', 'values' : { 'supporterCrew' : { 'active' : { '1': 'requested' } } } },
                     'lang': this.$i18n.locale //'de-DE'
-                }
+                },
+		crewName: "Bremen",
+		activeFlag: "requested",
             }
         },
 	created () {
@@ -51,8 +55,9 @@
 				var userRoles = response.data.additional_information.roles.map((role) => role.role)
 
 				if (userRoles.includes('employee') || userRoles.includes('admin')) {
+					this.active = 'requested';
 					this.options.filter = {
-						'query': 'supporterCrew.active.1.=', 
+						'query': '(supporterCrew.active.1.=)', 
 					    	'values' : {
 							'supporterCrew' : { 
 								'active' : { '1': 'requested' } 
@@ -61,13 +66,15 @@
 		    			}
 				} else {
 					this.options.filter = { 
-						'query': 'supporterCrew.active.1.=_AND_supporterCrew.name.1.LIKE', 
+						'query': '(supporterCrew.active.1.=_AND_supporterCrew.name.1.LIKE)', 
 					    	'values' : {
 							'supporterCrew' : { 
 								'active' : { '1': 'requested' },
 								'name' : { '1' : '%' + response.data.additional_information.profiles[0].supporter.crew.name + '%' }
 							} 
-						}
+						},
+						'fieldList': [],
+						'state': 'success'
 		    			}
 				}
 			}
