@@ -21,6 +21,7 @@
     import 'vca-widget-base/dist/vca-widget-base.css'
     import WidgetUserList from 'vca-widget-user'
     import 'vca-widget-user/dist/vca-widget-user.css'
+    import axios from 'axios'
 
     export default {
         name: "users",
@@ -30,14 +31,38 @@
                 options: {
                     'type': { 'menue': true, 'value': 'table' },
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
-                    'lang': this.$i18n.locale //'de-DE'
-                }
+                    'lang': this.$i18n.locale, //'de-DE'		    
+		    'filter': {}
+                },
+		crewName: ""
             }
         },
+	created () {
+	    this.init();
+	},
         methods: {
             isIE() {
                 return (new IEDetector()).isIE()
-            }
+            },
+	    init() {
+		axios.get('/drops/webapp/identity').then((response) => {
+			if (response.status === 200) {
+					console.log(this.crewName);
+					this.crewName = response.data.additional_information.profiles[0].supporter.crew.name;
+					console.log(this.crewName);
+					this.options.filter = { 
+						'query': '(supporterCrew.name.1.LIKE)', 
+					    	'values' : {
+							'supporterCrew' : { 
+								'name' : { '1' : '%' + response.data.additional_information.profiles[0].supporter.crew.name + '%' }
+							}
+						},
+						'fieldList': [],
+						'state': 'success'
+		    			}
+			}
+      		})
+      	    }
         }
     }
 </script>

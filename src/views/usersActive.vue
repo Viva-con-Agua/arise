@@ -37,7 +37,7 @@
 		    //'filter': { 'query': '(supporterCrew.active.1.=)', 'values' : { 'supporterCrew' : { 'active' : { '1': 'requested' } } } },
                     'lang': this.$i18n.locale //'de-DE'
                 },
-		crewName: "Bremen",
+		crewName: "",
 		activeFlag: "requested",
             }
         },
@@ -55,7 +55,6 @@
 				var userRoles = response.data.additional_information.roles.map((role) => role.role)
 
 				if (userRoles.includes('employee') || userRoles.includes('admin')) {
-					this.active = 'requested';
 					this.options.filter = {
 						'query': '(supporterCrew.active.1.=)', 
 					    	'values' : {
@@ -65,13 +64,16 @@
 						}
 		    			}
 				} else {
+					console.log(this.crewName);
+					this.crewName = response.data.additional_information.profiles[0].supporter.crew.name;
+					console.log(this.crewName);
 					this.options.filter = { 
 						'query': '(supporterCrew.active.1.=_AND_supporterCrew.name.1.LIKE)', 
 					    	'values' : {
 							'supporterCrew' : { 
 								'active' : { '1': 'requested' },
 								'name' : { '1' : '%' + response.data.additional_information.profiles[0].supporter.crew.name + '%' }
-							} 
+							}
 						},
 						'fieldList': [],
 						'state': 'success'
