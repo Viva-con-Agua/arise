@@ -3,7 +3,7 @@
         <VcAColumn size="90%">
             <VcABox :first="true" :title="$t('users.title')">
                 <div v-if="!isIE()" class="users-wrapper">
-                    <WidgetUserList :crewName="crewName" :options="options"/>
+                    <WidgetUserList :crewName="crewName" :activeFlag="activeFlag" :options="options"/>
                 </div>
                 <p v-else>
                     <i18n path="users.ie.msg" tag="label" for="users.ie.alternative">
@@ -37,7 +37,7 @@
 		    //'filter': { 'query': '(supporterCrew.active.1.=)', 'values' : { 'supporterCrew' : { 'active' : { '1': 'requested' } } } },
                     'lang': this.$i18n.locale //'de-DE'
                 },
-		crewName: "",
+		crewName: null,
 		activeFlag: "requested",
             }
         },
@@ -66,17 +66,15 @@
 				} else {
 					console.log(this.crewName);
 					this.crewName = response.data.additional_information.profiles[0].supporter.crew.name;
-					console.log(this.crewName);
-					this.options.filter = { 
+					console.log(this.crewName);					
+					this.options.filter = {
 						'query': '(supporterCrew.active.1.=_AND_supporterCrew.name.1.LIKE)', 
 					    	'values' : {
 							'supporterCrew' : { 
 								'active' : { '1': 'requested' },
-								'name' : { '1' : '%' + response.data.additional_information.profiles[0].supporter.crew.name + '%' }
-							}
-						},
-						'fieldList': [],
-						'state': 'success'
+								'name' : { '1': this.crewName } 
+							} 
+						}
 		    			}
 				}
 			}

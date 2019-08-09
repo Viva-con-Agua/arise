@@ -3,7 +3,7 @@
         <VcAColumn size="90%">
             <VcABox :first="true" :title="$t('users.title')">
                 <div v-if="!isIE()" class="users-wrapper">
-                    <WidgetUserList :options="options" />
+                    <WidgetUserList :crewName="crewName" :options="options" />
                 </div>
                 <p v-else>
                     <i18n path="users.ie.msg" tag="label" for="users.ie.alternative">
@@ -32,37 +32,28 @@
                     'type': { 'menue': true, 'value': 'table' },
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
                     'lang': this.$i18n.locale, //'de-DE'		    
-		    'filter': {}
+                    'filter': {}
                 },
-		crewName: ""
+		crewName: null
             }
         },
 	created () {
-	    this.init();
+            this.init();
 	},
         methods: {
             isIE() {
                 return (new IEDetector()).isIE()
             },
-	    init() {
+            init() {
 		axios.get('/drops/webapp/identity').then((response) => {
 			if (response.status === 200) {
-					console.log(this.crewName);
+				var userRoles = response.data.additional_information.roles.map((role) => role.role)
+				if (!userRoles.includes('employee') && !userRoles.includes('admin')) {
 					this.crewName = response.data.additional_information.profiles[0].supporter.crew.name;
 					console.log(this.crewName);
-					this.options.filter = { 
-						'query': '(supporterCrew.name.1.LIKE)', 
-					    	'values' : {
-							'supporterCrew' : { 
-								'name' : { '1' : '%' + response.data.additional_information.profiles[0].supporter.crew.name + '%' }
-							}
-						},
-						'fieldList': [],
-						'state': 'success'
-		    			}
 			}
-      		})
-      	    }
+                  })
+            }
         }
     }
 </script>
