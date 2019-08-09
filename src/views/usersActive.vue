@@ -31,8 +31,8 @@
                 options: {
                     'type': { 'menue': true, 'value': 'table' },
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
-		    'buttons': [ 'active' ],
-		    'filter': {},
+                    'buttons': [ 'active' ],
+                    'filter': {},
                     'lang': this.$i18n.locale //'de-DE'
                 },
 		crewName: null,
@@ -40,13 +40,13 @@
             }
         },
 	created () {
-	    this.init();
+            this.init();
 	},
         methods: {
             isIE() {
                 return (new IEDetector()).isIE()
             },
-	    init() {
+            init() {
 		axios.get('/drops/webapp/identity').then((response) => {
 			if (response.status === 200) {
 				// Check if admin or employee, then show full list of active requested users
@@ -56,8 +56,8 @@
 					this.crewName = response.data.additional_information.profiles[0].supporter.crew.name;
 				}
 			}
-      		})
-      	    }
+                })
+            }
         }
     }
 </script>
