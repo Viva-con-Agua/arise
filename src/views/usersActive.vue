@@ -33,8 +33,6 @@
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
 		    'buttons': [ 'active' ],
 		    'filter': {},
-		    //'filter': { 'query': '(supporterCrew.name.1.LIKE)', 'values' : { 'supporterCrew' : { 'name' : { '1': '%Hamburg%' } } } },
-		    //'filter': { 'query': '(supporterCrew.active.1.=)', 'values' : { 'supporterCrew' : { 'active' : { '1': 'requested' } } } },
                     'lang': this.$i18n.locale //'de-DE'
                 },
 		crewName: null,
@@ -54,28 +52,8 @@
 				// Check if admin or employee, then show full list of active requested users
 				var userRoles = response.data.additional_information.roles.map((role) => role.role)
 
-				if (userRoles.includes('employee') || userRoles.includes('admin')) {
-					this.options.filter = {
-						'query': '(supporterCrew.active.1.=)', 
-					    	'values' : {
-							'supporterCrew' : { 
-								'active' : { '1': 'requested' } 
-							} 
-						}
-		    			}
-				} else {
-					console.log(this.crewName);
+				if (!userRoles.includes('employee') && !userRoles.includes('admin')) {
 					this.crewName = response.data.additional_information.profiles[0].supporter.crew.name;
-					console.log(this.crewName);					
-					this.options.filter = {
-						'query': '(supporterCrew.active.1.=_AND_supporterCrew.name.1.LIKE)', 
-					    	'values' : {
-							'supporterCrew' : { 
-								'active' : { '1': 'requested' },
-								'name' : { '1': this.crewName } 
-							} 
-						}
-		    			}
 				}
 			}
       		})

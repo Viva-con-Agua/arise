@@ -3,7 +3,7 @@
         <VcAColumn size="90%">
             <VcABox :first="true" :title="$t('users.title')">
                 <div v-if="!isIE()" class="users-wrapper">
-                    <WidgetUserList :crewName="crewName" :options="options" />
+                    <WidgetUserList v-bind:crewName="crewName" :options="options" />
                 </div>
                 <p v-else>
                     <i18n path="users.ie.msg" tag="label" for="users.ie.alternative">
@@ -50,7 +50,7 @@
 				var userRoles = response.data.additional_information.roles.map((role) => role.role)
 				if (!userRoles.includes('employee') && !userRoles.includes('admin')) {
 					this.crewName = response.data.additional_information.profiles[0].supporter.crew.name;
-					console.log(this.crewName);
+                                }
 			}
                   })
             }
