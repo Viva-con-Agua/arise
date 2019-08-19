@@ -1,27 +1,35 @@
 <template>
     	<div class="non-voting-membership">
-		<div class="nvmTitle">{{ $t("profile.nvm.title") }}</div>
+		<div class="nvmTitle"><strong class="nvmTitle-title">{{ $t("profile.nvm.title") }}</strong>
+			<span class="nvm-active" v-if="isNVM">{{ $t("profile.nvm.current.active") }}</span>
+			<span class="nvm-expired" v-if="isExpired">{{ $t("profile.nvm.current.expired") }}</span>
+			<span class="nvm-inactive" v-if="canApply">{{ $t("profile.nvm.current.inactive") }}</span>
+			<span class="nvm-denied" v-if="isDenied()">{{ $t("profile.nvm.current.denied") }}</span>
+		</div>
+		<div class="nvmDescription">{{ $t("profile.nvm.description") }}</div>
 		
 		<div class="nvm" v-if="isNVM">
-		  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.active") }}</a>
-		  <span>{{ $t("profile.nvm.status.end") }}</span>
+		  <span><strong>{{ $t("profile.nvm.status.active") }}</strong></span>
+		  <a class="vca-button-warn vca-full-width" style="cursor: pointer;" @click.prevent="handleSetInactiveRequest">{{ $t("profile.nvm.actions.active") }}</a>
 		</div>
 
 		<div class="nvm" v-if="isExpired">
-		  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.renew") }}</a>
 		  <span>{{ $t("profile.nvm.status.renew") }}</span>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleActiveRequest">{{ $t("profile.nvm.actions.renew") }}</a>
 		</div>
 
 		<div class="nvm" v-if="canApply">
-		  <a class="vca-button-primary vca-full-width" @click.prevent="handleNVMRequest">{{ $t("profile.nvm.actions.active") }}</a>
-		  <span>{{ $t("profile.nvm.status.end") }}</span>
+		  <span>{{ $t("profile.nvm.status.apply") }}</span><br/><br/>
+		  <span>{{ $t("profile.nvm.status.confirmation") }}</span>
+		  <a class="vca-button-primary vca-full-width" style="cursor: pointer;" @click.prevent="handleActiveRequest">{{ $t("profile.nvm.actions.apply") }}</a>
 		</div>
 
-		<div class="nvm" v-if="!canApply && !isExpired && !isNVM">
-		  <a class="disabled vca-button-primary vca-full-width" >{{ $t("profile.nvm.actions.cannotApply") }}</a>
+		<div class="nvm" v-if="isDenied()">
+		  <span><strong>{{ $t("profile.warning.important") }}</strong></span>
 		  <span v-if="!hasAddress">{{ $t("profile.nvm.status.noAddress") }}</span>
 		  <span v-if="!isActive">{{ $t("profile.nvm.status.inActive") }}</span>
-		  <span v-if="!hasPrimaryCrew">{{ $t("profile.nvm.status.hasNoPrimaryCrew") }}</span>
+		  <span v-if="!hasPrimaryCrew">{{ $t("profile.nvm.status.noPrimaryCrew") }}</span>
+		  <a class="disabled vca-button-primary vca-full-width" >{{ $t("profile.nvm.actions.cannotApply") }}</a>
 		</div>
 	</div>
 </template>
@@ -52,17 +60,27 @@
         created() {
             this.init()
         },
+	mounted() {
+		this.$root.$on('nvmState', () => { this.init(); })
+	},
         methods: {
-            handleClick(event) {
-                if(event.label !== this.selection.label || event.value !== this.selection.value) {
-                    this.selection = event
-                    this.submit()
-                }
+	    isDenied() { return (!this.canApply && !this.isExpired && !this.isNVM); },
+	    handleSetInactiveRequest(event) {
+		if (!confirm(this.$t('profile.nvm.messages.inactive.confirm'))) {
+			return false;
+		}
+		this.submit('/drops/webapp/profile/nvm/inactive');
+	    },
+            handleActiveRequest(event) {
+		if (!confirm(this.$t('profile.nvm.messages.request.confirm'))) {
+			return false;
+		}
+		this.submit('/drops/webapp/profile/nvm/request')
             },
-            submit() {
+            submit(url) {
                 
         	this.axios
-        	  .get('/drops/webapp/profile/nvm/request')
+        	  .post(url)
        	 	  .then(response => {
             		switch (response.status) {
               			case 200:
@@ -71,7 +89,7 @@
                   				this.$t('profile.nvm.messages.request.success.message'),
                   				"success"
                 			)
-                			this.hasRequested=true;
+					this.init();
                 		break;
             		}
         	}).catch(error => {
@@ -89,19 +107,27 @@
 		  .then(response => {
 		    switch (response.status) {
 		      case 200:
-			console.log(response.data.additional_information);
 			switch(response.data.additional_information.status) {
 				case 'expired':
 					this.isExpired = true;
+					this.isNVM = false;
+					this.canApply = false;
 					break;
 				case 'active':
 					this.isNVM = true;
+					this.isExpired = false;
+					this.canApply = false;
 					break;
 				case 'inactive':
 					this.canApply = true;
+					this.isExpired = false;
+					this.isNVM = false;
 					break;
 				case 'denied':
 				default:
+					this.isNVM = false;
+					this.isExpired = false;
+					this.canApply = false;
 					this.hasAddress = (response.data.additional_information.conditions.hasAddress);
 					this.isActive = (response.data.additional_information.conditions.isActive);
 					this.hasPrimaryCrew = (response.data.additional_information.conditions.hasPrimaryCrew);
@@ -124,5 +150,11 @@
 </script>
 
 <style scoped>
+
+.nvmTitle-title { margin-right: 5px; }
+.nvm-active { color: green; }
+.nvm-inactive { color: grey; }
+.nvm-denied { color: red; }
+.nvm-requested { color: orange; }
 
 </style>

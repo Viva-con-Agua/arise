@@ -3,7 +3,7 @@
         <VcAColumn size="90%">
             <VcABox :first="true" :title="$t('users.title')">
                 <div v-if="!isIE()" class="users-wrapper">
-                    <WidgetUserList v-bind:crewName="crewName" :options="options" />
+                    <WidgetUserList :crewName="crewName" :activeFlag="activeFlag" :options="options"/>
                 </div>
                 <p v-else>
                     <i18n path="users.ie.msg" tag="label" for="users.ie.alternative">
@@ -31,10 +31,12 @@
                 options: {
                     'type': { 'menue': true, 'value': 'table' },
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
-                    'lang': this.$i18n.locale, //'de-DE'		    
-                    'filter': {}
+                    'buttons': [ 'active' ],
+                    'filter': {},
+                    'lang': this.$i18n.locale //'de-DE'
                 },
-		crewName: null
+		crewName: null,
+		activeFlag: "requested",
             }
         },
 	created () {
@@ -47,12 +49,14 @@
             init() {
 		axios.get('/drops/webapp/identity').then((response) => {
 			if (response.status === 200) {
+				// Check if admin or employee, then show full list of active requested users
 				var userRoles = response.data.additional_information.roles.map((role) => role.role)
+
 				if (!userRoles.includes('employee') && !userRoles.includes('admin')) {
 					this.crewName = response.data.additional_information.profiles[0].supporter.crew.name;
-                                }
+				}
 			}
-                  })
+                })
             }
         }
     }

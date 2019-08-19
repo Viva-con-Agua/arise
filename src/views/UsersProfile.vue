@@ -4,6 +4,8 @@
             <VcABox v-if="hasUser" :first="true" :title="getName()">
                 <template slot="header">
                     <VcARole v-for="role in user.roles.map(role => role.role).filter((role) => role !== 'supporter')" :name="role" :key="role" />
+		    <VcARole v-if="isActive()" :translated="$t('profile.supporter.active')"/>
+		    <VcARole v-if="isNVM()" :translated="$t('profile.supporter.nvm')"/>
                     <span v-if="!getProfile().confirmed" class="notConfirmed">{{ $t('profile.view.labels.notConfirmed') }}</span>
                 </template>
                 <div class="user">
@@ -118,14 +120,20 @@
                     })
             },
             hasCrew() {
-				        return (this.getProfile().supporter.hasOwnProperty("crew"))
-			      },
+		return (this.getProfile().supporter.hasOwnProperty("crew"))
+	    },
+            isNVM: function () {
+            	return this.getProfile().supporter.hasOwnProperty('nvmDate')
+            },
+            isActive: function () {
+            	return this.getProfile().supporter.hasOwnProperty('active') && this.getProfile().supporter.active == 'active'
+            },
             hasMobile() {
-				        return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
-			      },
+		return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
+	    },
             hasResidence() {
-				        return (this.getProfile().supporter.hasOwnProperty("placeOfResidence"))
-			      },
+		return (this.getProfile().supporter.hasOwnProperty("placeOfResidence"))
+	    },
             setRole(pillar) {
                 var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
                 axios.get(call).then(response => {
