@@ -246,6 +246,12 @@
         "requested": "Aktiver Supporter Anfrage beenden",
         "active": "Aktiver Supporter beenden"
       },
+      "current": {	
+        "denied": "",
+        "inactive": "inaktiv",
+        "active": "aktiv",
+        "requested": "angefragt"
+      },
       "status": {
 	"apply": "Wenn du in deiner Crew aktiv bist, kannst du dies über den Button anfragen und von einem Ansprechpartner deiner Crew bestätigen lassen - beispielsweise wenn du an den Crewtreffen teilnimmst, dich bei Aktionen oder Bildungsevents engagierst.",
         "noCrew": "Du musst eine Crew auswählen, um dich als aktiver Supporter zu melden",
@@ -260,6 +266,7 @@
 	  "confirm" : "Möchtest du deine Anfrage auf aktive Supporterschaft in deiner Crew zurückziehen?"
 	},
         "request": {
+	  "confirm" : "Möchtest du deine Anfrage auf aktive Supporterschaft bei einem ASP anfragen?",
           "success": {
             "title": "Success",
             "message": "Dein aktiver Status wurde erfolgreich geändert!"
