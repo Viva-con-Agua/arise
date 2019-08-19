@@ -186,6 +186,7 @@
            address: {
             street: '',
             additional: '',
+            zip: '',
             city: '',
             country: ''
            },
