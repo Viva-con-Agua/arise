@@ -15,7 +15,7 @@
             prop="email">
 
             <el-input
-              v-model.lazy="resetFormEMail.email"/>
+              v-model.lazy.trim="resetFormEMail.email"/>
           </el-form-item>
         </el-form>
         <button
