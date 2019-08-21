@@ -24,8 +24,13 @@
                                     />
                                 </div>
                                 <div class="roleButtons">
-                                    <button class="vca-button-primary vca-button-select-crew" v-for="assignable in getRoleSetter()" @click="setRole(assignable.pillar.pillar)">
+                                    <button class="vca-button-primary vca-button-select-crew" v-for="assignable in this.pillars" @click="setRole(assignable.pillar.pillar)">
                                         {{ $t('profile.actions.assignRole.' + assignable.pillar.pillar) }}
+                                    </button>
+                                </div>
+                                <div v-if="isEmployed()" class="roleButtons">
+                                    <button class="vca-button-warn vca-button-select-crew" v-for="removeable in getProfile().supporter.roles" @click="removeRole(removeable.pillar.pillar)">
+                                        {{ $t('profile.actions.removeRole.' + removeable.pillar.pillar) }}
                                     </button>
                                 </div>
                             </li>
@@ -114,6 +119,7 @@
                     .then(response => {
                         if(response.status === 200) {
                             this.user = response.data.additional_information
+                            this.getRoleSetter()
                         }
                     })
                     .catch(error => {
@@ -137,6 +143,14 @@
             },
             setRole(pillar) {
                 var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
+                axios.get(call).then(response => {
+                    if(response.status === 200) {
+                        this.initVisitedUser()
+                    }
+                })
+            },
+            removeRole(pillar) {
+                var call = "/drops/webapp/profile/role/remove/" + this.user.id + "/" + pillar
                 axios.get(call).then(response => {
                     if(response.status === 200) {
                         this.initVisitedUser()
@@ -172,12 +186,16 @@
                     return this.pillars
                 }
             },
-            getRoleSetter() {
+            isEmployed() {
 		var userRoles = this.currentUser.roles.map((role) => role.role)
-		if (userRoles.includes('employee') || userRoles.includes('admin')) {
-                    return this.getAllPillars()
-		}
-                return this.getSupporterRoles()
+		return (userRoles.includes('employee') || userRoles.includes('admin'))
+            },
+            getRoleSetter() {
+		if (this.isEmployed()) {
+                    return this.getAllPillars(true)
+		} else {
+                    this.pillars = this.getSupporterRoles()
+                }
             },
             getSupporterRoles() {
                 var visitedRoles = this.getProfile().supporter.roles

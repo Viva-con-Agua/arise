@@ -328,6 +328,12 @@
         "operation": "Assign @:profile.roles.crew.operation",
         "education": "Assign @:profile.roles.crew.education",
         "network": "Assign @:profile.roles.crew.network"
+      },
+      "removeRole": {
+        "finance": "Remove @:profile.roles.crew.finance",
+        "operation": "Remove @:profile.roles.crew.operation",
+        "education": "Remove @:profile.roles.crew.education",
+        "network": "Remove @:profile.roles.crew.network"
       }
     },
     "title": {
