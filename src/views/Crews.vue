@@ -41,7 +41,6 @@
       VcAFrame, 
       VcAColumn, 
       VcABox, 
-      VcAInfoBox,
       CrewForm,
       CrewListWorkaround,
       CrewSelected,

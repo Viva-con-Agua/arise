@@ -84,7 +84,8 @@
             return {
                 uuid: this.$route.params.id,
                 user: null,
-                currentUser: null
+                currentUser: null,
+                pillars: null,
             }
         },
         computed: {
@@ -120,20 +121,20 @@
                     })
             },
             hasCrew() {
-		return (this.getProfile().supporter.hasOwnProperty("crew"))
-	    },
+                return (this.getProfile().supporter.hasOwnProperty("crew"))
+            },
             isNVM: function () {
-            	return this.getProfile().supporter.hasOwnProperty('nvmDate')
+                return this.getProfile().supporter.hasOwnProperty('nvmDate')
             },
             isActive: function () {
-            	return this.getProfile().supporter.hasOwnProperty('active') && this.getProfile().supporter.active == 'active'
+                return this.getProfile().supporter.hasOwnProperty('active') && this.getProfile().supporter.active == 'active'
             },
             hasMobile() {
-		return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
-	    },
+                return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
+            },
             hasResidence() {
-		return (this.getProfile().supporter.hasOwnProperty("placeOfResidence"))
-	    },
+                return (this.getProfile().supporter.hasOwnProperty("placeOfResidence"))
+            },
             setRole(pillar) {
                 var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
                 axios.get(call).then(response => {
@@ -142,11 +143,47 @@
                     }
                 })
             },
+            getAllPillars(reload = false) {
+                if(this.pillars == null || reload) {
+                    // get all available pillars
+                    var call = "/drops/webapp/profile/pillar"
+                    axios.get(call).then(response => {
+                        if(response.status === 200) {
+                            this.pillars = []
+                            // for each pillar check, if it may be already set, then filter it
+                            for (var pillar in response.data.additional_information.setting) {
+                                // Search for pillar in current profiles supporter roles
+                                var hasPillar = this.getProfile().supporter.roles.some(r => r.pillar.pillar === response.data.additional_information.setting[pillar].pillar)
+
+                                // If there is no pillar, set it to the current pillars that are availible to give to an user
+                                if (!hasPillar) {
+                                    var addPillar = {
+                                        "crew": {},
+                                        "name": "volunteerManager",
+                                        "pillar": response.data.additional_information.setting[pillar] 
+                                    }
+                                    this.pillars.push(addPillar)
+                                }
+                            }
+                            return this.pillars
+                        }
+                    })
+                } else {
+                    return this.pillars
+                }
+            },
             getRoleSetter() {
+		var userRoles = this.currentUser.roles.map((role) => role.role)
+		if (userRoles.includes('employee') || userRoles.includes('admin')) {
+                    return this.getAllPillars()
+		}
+                return this.getSupporterRoles()
+            },
+            getSupporterRoles() {
                 var visitedRoles = this.getProfile().supporter.roles
                 return this.getProfile(true).supporter.roles.filter(role => {
                     var visitedCrew = this.getCrew()
-                     return (visitedCrew !== null && visitedCrew.id === role.crew.id &&
+                    return (visitedCrew !== null && visitedCrew.id === role.crew.id &&
                          !visitedRoles.some(r => r.name === role.name && r.crew.id === role.crew.id && r.pillar.pillar === role.pillar.pillar))
                 })
             },
@@ -161,12 +198,12 @@
                 }
                 return profile
             },
-	    getGender() {
-	    	var gender = this.getProfile().supporter.sex;
-            if(typeof gender === "undefined" || gender === null || gender === "") {
-                gender = "undefined"
-            }
-            return gender;
+            getGender() {
+                var gender = this.getProfile().supporter.sex;
+                if(typeof gender === "undefined" || gender === null || gender === "") {
+                    gender = "undefined"
+                }
+                return gender;
             },
             getCrew() {
                 var res = null
@@ -183,29 +220,30 @@
                 }
                 return name
             },
-	    getAge: function () {
-            var age = this.calcAge()
-            var res = this.$t('profile.view.value.age.notAvailable')
-            if(age >= 0) {
-              res = age
-            }
-            return res;
-	    },
-	    calcAge: function () {
-	      var birthday = this.user.profiles[0].supporter.birthday
-	      var res = -1
-	      if(typeof birthday !== "undefined" && birthday !== null) {
-	         var today = new Date()
-             var birthDate = new Date(this.getProfile().supporter.birthday)
-             var age = today.getFullYear() - birthDate.getFullYear()
-             var m = today.getMonth() - birthDate.getMonth()
-             if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-               age = age - 1
-             }
-             res = age
-	       }
-	       return res
-	    },
+            getAge: function () {
+                var age = this.calcAge()
+                var res = this.$t('profile.view.value.age.notAvailable')
+                if(age >= 0) {
+                    res = age
+                }
+                return res;
+            },
+            calcAge: function () {
+                var birthday = this.user.profiles[0].supporter.birthday
+                var res = -1
+
+                if(typeof birthday !== "undefined" && birthday !== null) {
+                    var today = new Date()
+                    var birthDate = new Date(this.getProfile().supporter.birthday)
+                    var age = today.getFullYear() - birthDate.getFullYear()
+                    var m = today.getMonth() - birthDate.getMonth()
+                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                        age = age - 1
+                    }
+                    res = age
+                }
+                return res
+            },
             getSince: function () {
                 var created = new Date(this.user.created)
                 return created.getUTCFullYear()

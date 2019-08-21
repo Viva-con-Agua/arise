@@ -18,13 +18,13 @@
           :label="$t('changeEMail.label.newEMail')"
           prop="newEMail">
           <el-input
-            v-model="ChangeEMailForm.newEMail"/>
+            v-model.trim="ChangeEMailForm.newEMail"/>
         </el-form-item>
         <el-form-item
           :label="$t('changeEMail.label.checkNewEMail')"
           prop="checkNewEMail">
           <el-input
-            v-model="ChangeEMailForm.checkNewEMail"/>
+            v-model.trim="ChangeEMailForm.checkNewEMail"/>
         </el-form-item>
       </el-form>
       <el-button
@@ -62,7 +62,7 @@
 
   export default {
     name: "ChangePassword",
-    components: {Password},
+    components: {},
 
     data () {
       var checkEMail = (rule, value, callback) => {
@@ -101,7 +101,7 @@
       submitForm(ChangeEMailForm) {
         this.$refs[ChangeEMailForm].validate((valid) => {
           if (valid) {
-            var that = this;
+
             this.axios
               .post('http://localhost/drops/', {
               })

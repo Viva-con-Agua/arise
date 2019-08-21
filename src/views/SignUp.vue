@@ -70,13 +70,13 @@
             :label="$t('signup.label.email')"
             prop="email">
             <el-input
-              v-model="signUpForm.email"/>
+              v-model.trim="signUpForm.email"/>
           </el-form-item>
           <el-form-item
             :label="$t('signup.label.checkemail')"
             prop="checkemail">
             <el-input
-              v-model="signUpForm.checkemail"/>
+              v-model.trim="signUpForm.checkemail"/>
           </el-form-item>
           <el-form-item
             :label="$t('signup.label.password.title')"
@@ -254,14 +254,14 @@
 
     //createUserBody
    methods: {
+     transform(form) {
+         var date = Date.parse(form.birthday)
+         form['birthday'] = date
+         return form
+     },
      submitForm() {
        this.$refs.signUpForm.validate((valid) => {
          if (valid) {
-             function transform(form) {
-                 var date = Date.parse(form.birthday)
-                 form['birthday'] = date
-                 return form
-             }
            var that = this;
            this.axios
              .post('/drops/webapp/signup', transform(this.signUpForm))

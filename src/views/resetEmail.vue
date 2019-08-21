@@ -63,7 +63,7 @@
 
   export default {
         name: "ResetPassword",
-        components: { Password, VcAFrame, VcAColumn, VcABox },
+        components: { VcAFrame, VcAColumn, VcABox },
 
         data() {
             var checkPass = (rule, value, callback) => {
@@ -86,7 +86,7 @@
               rules: {
                 email: [
                    {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
-                        {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email'), trigger: 'blur' }
+                        {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email'), trigger: 'blur' }
                  ],
                 checkEmail: [
                     { required: true, validator: checkPass, trigger: 'blur' }
