@@ -12,7 +12,7 @@
                     :label="$t('signin.label.email')"
                     prop="email">
               <el-input
-                      v-model="signInForm.email"
+                      v-model.trim="signInForm.email"
                       autoComplete="on"
               />
             </el-form-item>
@@ -23,7 +23,6 @@
                       v-model="signInForm.password"
                       type="password"
               />
-              </el-input>
             </el-form-item>
           </el-form>
           <el-checkbox
@@ -84,7 +83,6 @@
           password: '',
           rememberMe: false
         },
-
         rules: {
               email: [
                   {
@@ -93,7 +91,7 @@
                       trigger: 'blur'
                   },
                   {
-                      pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                       message: this.$t('inputSample.email'),
                       trigger: 'blur'
                   }
@@ -116,6 +114,7 @@
                     switch (response.status)
                       {
                         case 200:
+                            // TODO: What is happening here? Maybe it should be redirected to path?
                             var path = window.atob(that.$route.params.redirectUrl);
                             window.location.reload();
                             break;
