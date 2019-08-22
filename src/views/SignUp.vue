@@ -264,7 +264,7 @@
          if (valid) {
            var that = this;
            this.axios
-             .post('/drops/webapp/signup', transform(this.signUpForm))
+             .post('/drops/webapp/signup', this.transform(this.signUpForm))
              .then(function (response) {
                if (response.status == 200) {
                  that.$router.push({path: 'finishSignup'})
