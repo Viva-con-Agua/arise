@@ -6,13 +6,14 @@
           :model="resetFormEmail"
           :ref="resetFormEmail"
           :rules="rules"
+	  @keyup.enter.native="submitForm(resetFormEMail)"
           status-icon>
           <el-form-item
             :label="$t('reset.label.newEmail')"
             prop="email">
             <div id="pw">
               <el-input
-                v-model="resetFormEmail.email"
+                v-model.trim="resetFormEmail.email"
                 type="email"/>
             </div>
           </el-form-item>
@@ -20,15 +21,14 @@
             :label="$t('reset.label.checkEmail')"
             prop="checkPass">
             <el-input
-              v-model="resetFormEmail.checkEmail"
+              v-model.trim="resetFormEmail.checkEmail"
               type="email"/>
           </el-form-item>
         </el-form>
         <button
                 ref="resetIt"
                 class="vca-button-primary vca-full-width"
-                @click.prevent="submitForm(resetFormEmail)"
-                @keyup.enter="submitForm(resetFormEmail)">
+                @click.prevent="submitForm(resetFormEmail)">
           {{ $t('options.resetIt') }}
         </button>
       </VcABox>

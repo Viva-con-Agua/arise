@@ -9,19 +9,19 @@
           :model="resetFormEMail"
           :ref="resetFormEMail"
           :rules="rules"
+	  @keyup.enter.native="submitForm(resetFormEMail)"
           status-icon>
           <el-form-item
             :label="$t('reset.label.email')"
             prop="email">
             <el-input
-              v-model.lazy="resetFormEMail.email"/>
+              v-model.lazy.trim="resetFormEMail.email"/>
           </el-form-item>
         </el-form>
         <button
                 ref="send"
                 class="vca-button-primary vca-full-width"
-                @click.once="submitForm(resetFormEMail)"
-                @keyup.enter="submitForm(signInForm)">
+                @click.prevent="submitForm(resetFormEMail)">
           {{ $t('options.sendEmail') }}
         </button>
       </VcABox>

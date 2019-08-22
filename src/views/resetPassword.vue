@@ -5,6 +5,7 @@
         <el-form
           :model="resetFormPassword"
           :ref="resetFormPassword"
+	  @keyup.enter.native="submitForm(resetFormPassword)"
           :rules="rules"
           status-icon>
           <el-form-item
@@ -35,8 +36,7 @@
         <button
                 ref="resetIt"
                 class="vca-button-primary vca-full-width"
-                @click.prevent="submitForm(resetFormPassword)"
-                @keyup.enter="submitForm(resetFormPassword)">
+                @click.prevent="submitForm(resetFormPassword)">
           {{ $t('options.resetIt') }}
         </button>
       </VcABox>

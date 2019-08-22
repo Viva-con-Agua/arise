@@ -8,6 +8,7 @@
         <el-form
           :model="resetFormEMail"
           :ref="resetFormEMail"
+	  @keyup.enter.native="submitForm(resetFormEMail)"
           :rules="rules"
           status-icon>
           <el-form-item
@@ -21,8 +22,7 @@
         <button
                 ref="send"
                 class="vca-button-primary vca-full-width"
-                @click.once="submitForm(resetFormEMail)"
-                @keyup.enter="submitForm(signInForm)">
+                @click.once="submitForm(resetFormEMail)">
           {{ $t('options.sendEmail') }}
         </button>
       </VcABox>
