@@ -4,8 +4,8 @@
             <VcABox v-if="hasUser" :first="true" :title="getName()">
                 <template slot="header">
                     <VcARole v-for="role in user.roles.map(role => role.role).filter((role) => role !== 'supporter')" :name="role" :key="role" />
-		    <VcARole v-if="isActive()" :translated="$t('profile.supporter.active')"/>
-		    <VcARole v-if="isNVM()" :translated="$t('profile.supporter.nvm')"/>
+                    <VcARole v-if="isActive()" :translated="$t('profile.supporter.active')"/>
+                    <VcARole v-if="isNVM()" :translated="$t('profile.supporter.nvm')"/>
                     <span v-if="!getProfile().confirmed" class="notConfirmed">{{ $t('profile.view.labels.notConfirmed') }}</span>
                 </template>
                 <div class="user">
@@ -51,7 +51,15 @@
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.placeOfResidence') }}:</span>
-                                <span class="vca-user-value" v-if="hasResidence()">{{ getProfile().supporter.placeOfResidence }}</span>
+                                <span class="vca-user-value" v-if="hasResidence()">
+                                     <span v-if="isEmployed() && hasAdditional()">{{ getProfile().supporter.address[0].additional }}<br/></span>
+                                     <span v-if="isEmployed() && hasStreet()">{{ getProfile().supporter.address[0].street }}<br/></span>
+                                     <span v-if="(hasZip() || hasCity())">
+                                         <span v-if="isEmployed() && hasZip()">{{ getProfile().supporter.address[0].zip }} </span>
+                                         <span v-if="hasCity()">{{ getProfile().supporter.address[0].city }}</span>
+                                     <br/></span>
+                                     <span v-if="isEmployed() && hasCountry()">{{ getProfile().supporter.address[0].country }}<br/></span>
+                                </span>
                                 <span class="vca-user-value" v-else>-</span>
                             </li>
                         </ul>
@@ -139,7 +147,22 @@
                 return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
             },
             hasResidence() {
-                return (this.getProfile().supporter.hasOwnProperty("placeOfResidence"))
+                return (this.getProfile().supporter.hasOwnProperty("address") && this.getProfile().supporter.address[0])
+            },
+            hasAdditional() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].additional)
+            },
+            hasStreet() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].street)
+            },
+            hasZip() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].zip)
+            },
+            hasCity() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].city)
+            },
+            hasCountry() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].country)
             },
             setRole(pillar) {
                 var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
@@ -191,6 +214,11 @@
 		return (userRoles.includes('employee') || userRoles.includes('admin'))
             },
             getRoleSetter() {
+
+                if (!this.hasCrew()) {
+                    return;
+                }
+
 		if (this.isEmployed()) {
                     return this.getAllPillars(true)
 		} else {
