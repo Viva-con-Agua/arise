@@ -323,6 +323,12 @@
         "operation": "Zum @:profile.roles.crew.operation machen",
         "education": "Zum @:profile.roles.crew.education machen",
         "network": "Zum @:profile.roles.crew.network machen"
+      },
+      "removeRole": {
+        "finance": "@:profile.roles.crew.finance entfernen",
+        "operation": "@:profile.roles.crew.operation entfernen",
+        "education": "@:profile.roles.crew.education entfernen",
+        "network": "@:profile.roles.crew.network entfernen"
       }
     },
     "title": {

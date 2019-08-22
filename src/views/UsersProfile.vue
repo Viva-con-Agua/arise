@@ -4,8 +4,8 @@
             <VcABox v-if="hasUser" :first="true" :title="getName()">
                 <template slot="header">
                     <VcARole v-for="role in user.roles.map(role => role.role).filter((role) => role !== 'supporter')" :name="role" :key="role" />
-		    <VcARole v-if="isActive()" :translated="$t('profile.supporter.active')"/>
-		    <VcARole v-if="isNVM()" :translated="$t('profile.supporter.nvm')"/>
+                    <VcARole v-if="isActive()" :translated="$t('profile.supporter.active')"/>
+                    <VcARole v-if="isNVM()" :translated="$t('profile.supporter.nvm')"/>
                     <span v-if="!getProfile().confirmed" class="notConfirmed">{{ $t('profile.view.labels.notConfirmed') }}</span>
                 </template>
                 <div class="user">
@@ -24,8 +24,13 @@
                                     />
                                 </div>
                                 <div class="roleButtons">
-                                    <button class="vca-button-primary vca-button-select-crew" v-for="assignable in getRoleSetter()" @click="setRole(assignable.pillar.pillar)">
+                                    <button class="vca-button-primary vca-button-select-crew" v-for="assignable in this.pillars" @click="setRole(assignable.pillar.pillar)">
                                         {{ $t('profile.actions.assignRole.' + assignable.pillar.pillar) }}
+                                    </button>
+                                </div>
+                                <div v-if="isEmployed()" class="roleButtons">
+                                    <button class="vca-button-warn vca-button-select-crew" v-for="removeable in getProfile().supporter.roles" @click="removeRole(removeable.pillar.pillar)">
+                                        {{ $t('profile.actions.removeRole.' + removeable.pillar.pillar) }}
                                     </button>
                                 </div>
                             </li>
@@ -46,7 +51,15 @@
                             </li>
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.placeOfResidence') }}:</span>
-                                <span class="vca-user-value" v-if="hasResidence()">{{ getProfile().supporter.placeOfResidence }}</span>
+                                <span class="vca-user-value" v-if="hasResidence()">
+                                     <span v-if="isEmployed() && hasAdditional()">{{ getProfile().supporter.address[0].additional }}<br/></span>
+                                     <span v-if="isEmployed() && hasStreet()">{{ getProfile().supporter.address[0].street }}<br/></span>
+                                     <span v-if="(hasZip() || hasCity())">
+                                         <span v-if="isEmployed() && hasZip()">{{ getProfile().supporter.address[0].zip }} </span>
+                                         <span v-if="hasCity()">{{ getProfile().supporter.address[0].city }}</span>
+                                     <br/></span>
+                                     <span v-if="isEmployed() && hasCountry()">{{ getProfile().supporter.address[0].country }}<br/></span>
+                                </span>
                                 <span class="vca-user-value" v-else>-</span>
                             </li>
                         </ul>
@@ -114,6 +127,7 @@
                     .then(response => {
                         if(response.status === 200) {
                             this.user = response.data.additional_information
+                            this.getRoleSetter()
                         }
                     })
                     .catch(error => {
@@ -133,10 +147,33 @@
                 return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
             },
             hasResidence() {
-                return (this.getProfile().supporter.hasOwnProperty("placeOfResidence"))
+                return (this.getProfile().supporter.hasOwnProperty("address") && this.getProfile().supporter.address[0])
+            },
+            hasAdditional() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].additional)
+            },
+            hasStreet() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].street)
+            },
+            hasZip() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].zip)
+            },
+            hasCity() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].city)
+            },
+            hasCountry() {
+                return (this.hasResidence() && this.getProfile().supporter.address[0].country)
             },
             setRole(pillar) {
                 var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
+                axios.get(call).then(response => {
+                    if(response.status === 200) {
+                        this.initVisitedUser()
+                    }
+                })
+            },
+            removeRole(pillar) {
+                var call = "/drops/webapp/profile/role/remove/" + this.user.id + "/" + pillar
                 axios.get(call).then(response => {
                     if(response.status === 200) {
                         this.initVisitedUser()
@@ -172,12 +209,21 @@
                     return this.pillars
                 }
             },
-            getRoleSetter() {
+            isEmployed() {
 		var userRoles = this.currentUser.roles.map((role) => role.role)
-		if (userRoles.includes('employee') || userRoles.includes('admin')) {
-                    return this.getAllPillars()
-		}
-                return this.getSupporterRoles()
+		return (userRoles.includes('employee') || userRoles.includes('admin'))
+            },
+            getRoleSetter() {
+
+                if (!this.hasCrew()) {
+                    return;
+                }
+
+		if (this.isEmployed()) {
+                    return this.getAllPillars(true)
+		} else {
+                    this.pillars = this.getSupporterRoles()
+                }
             },
             getSupporterRoles() {
                 var visitedRoles = this.getProfile().supporter.roles
