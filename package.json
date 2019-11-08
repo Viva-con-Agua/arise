@@ -11,7 +11,7 @@
     "ajv": "^6.10.2",
     "axios": "^0.18.1",
     "deepmerge": "^2.2.1",
-    "element-ui": "^2.4.11",
+    "element-ui": "^2.11.1",
     "portfinder": "^1.0.23",
     "v-tooltip": "^2.0.2",
     "vca-widget-base": "^0.1.3",
