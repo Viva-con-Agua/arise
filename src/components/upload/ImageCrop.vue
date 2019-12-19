@@ -7,7 +7,6 @@
                 :enableOrientation="options.enableOrientation"
                 :enableResize="options.enableResize"
                 :boundary="options.boundary"
-                :viewport="options.viewport"
                 :mouseWheelZoom="options.mouseWheelZoom"
                 :enableExif="options.enableExif"
                 @result="result"
@@ -28,19 +27,19 @@
         props: ["imageUrl", "upload", "id"],
         data () {
             var sizes = [
-                { "width": 400, "height": 400, "cropped": null },
-                { "width": 200, "height": 200, "cropped": null },
-                { "width": 85, "height": 85, "cropped": null },
-                { "width": 75, "height": 75, "cropped": null },
-                { "width": 32, "height": 32, "cropped": null }
+               // { "width": 400, "height": 400, "cropped": null },
+               // { "width": 200, "height": 200, "cropped": null },
+               // { "width": 85, "height": 85, "cropped": null },
+               // { "width": 75, "height": 75, "cropped": null },
+               // { "width": 32, "height": 32, "cropped": null }
             ]
             var options = {
-                "boundary": { "width": 400, "height": 400},
-                "viewport": { "width": 200, "height": 200 },
+                "boundary": { "width": 0, "height": 200},
+                "viewport": { "width": 0, "height": 0},
                 "enableResize": false,
                 "enableOrientation": true,
                 "mouseWheelZoom":true,
-                "enableExif": true
+                "enableExif": false
             }
             return {
                 options: options,
@@ -51,6 +50,12 @@
             if((typeof this.imageUrl !== "undefined") && this.imageUrl !== null) {
                 this.bind(this.imageUrl)
             }
+        },
+        updated () {
+          this.$refs.croppieRef.bind({
+                    url: this.update,
+                });
+
         },
         methods: {
             bind(event) {
@@ -150,8 +155,5 @@
 
 <style scoped>
 
-    .image-container {
-        width: 100%;
-    }
 
 </style>

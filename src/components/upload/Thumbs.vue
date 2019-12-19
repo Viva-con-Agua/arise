@@ -142,7 +142,6 @@
         &.selected {
             border-width: 0.2em;
             border-style: solid;
-            border-color: #colors[primary];
         }
 
         .select {
