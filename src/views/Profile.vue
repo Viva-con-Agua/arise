@@ -2,7 +2,7 @@
   <VcAFrame>
       <VcAColumn>
       <VcABox :first="true" :title="$t('profile.title.avatar')">
-          <ProfileImage />
+          <ProfileImage :disabled="true"/>
         </VcABox>
 
         <VcABox :first="false" :title="$t('supporterForm.title')">
