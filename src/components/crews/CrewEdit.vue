@@ -4,9 +4,7 @@
       <p v-html="$t('crews.crewform.label.crewname')"></p>
       <input
         v-model="crew.name" 
-        placeholder="crew.name"
-        v-validate="'required'"
-        data-rules="required">
+        placeholder="crew.name">
     </div>
     <div class="crew-cities">
       <p v-html="$t('crews.crewform.label.location')"></p>
