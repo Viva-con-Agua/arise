@@ -14,13 +14,13 @@
           </VcAInfoBox>
           <el-form-item
             :label="$t('supporterForm.label.firstname')"
-            prop="firstname">
+            prop="firstName">
             <el-input
               v-model="signUpForm.firstName"/>
           </el-form-item>
           <el-form-item
             :label="$t('supporterForm.label.lastname')"
-            prop="lastname">
+            prop="lastName">
             <el-input
               v-model="signUpForm.lastName"/>
           </el-form-item>
@@ -37,6 +37,7 @@
               v-model="signUpForm.birthday"
               :placeholder="$t('supporterForm.label.birthdateinfo')"
               type="date"
+              format="dd.MMM yyyy"
               style="width: 100%;"/>
           </el-form-item>
           <el-form-item
@@ -199,12 +200,10 @@
 
        rules: {
          firstName: [
-           {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
-           {message: this.$t('inputSample.firstname'), trigger: 'blur'}
+           {required: true, message: this.$t('validationError.firstname'), trigger: 'blur'}
          ],
          lastName: [
-           {required: true, message: this.$t('validationError.lastname'), trigger: 'change'},
-           {message: this.$t('inputSample.lastname'), trigger: 'blur'}
+           {required: true, message: this.$t('validationError.lastname'), trigger: 'change'}
          ],
          mobilePhone: [
            {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
@@ -227,7 +226,7 @@
      {message: this.$t('inputSample.country'), trigger: 'blur'}
   ],
          birthday: [
-           {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
+           {type: 'date', required: false, message: this.$t('validationError.birthdate'), trigger: 'change'}
          ],
          gender: [
            {required: false}

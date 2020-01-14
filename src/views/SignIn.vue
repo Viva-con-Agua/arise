@@ -1,5 +1,5 @@
 <template>
-  <div id="signin">
+  <div id="signin" v-loading="loadingScreen">
     <VcAFrame>
       <VcAColumn>
         <VcABox :first="true" :title="$t('signin.title')">
@@ -78,6 +78,7 @@
 
     data() {
       return {
+        loadingScreen: true,
         signInForm: {
           email: '',
           password: '',
@@ -142,7 +143,7 @@
         });
       }
     },
-    beforeCreate () {
+    mounted () {
       var that = this;
       this.axios
         .get('/drops/webapp/identity')
@@ -153,6 +154,7 @@
            }
          })
          .catch(function (error) {
+            that.loadingScreen = false
             switch (error.response.status) {
                case 500:
                  that.open(that.$t('signin.error'), error.response.data.msg, "error");

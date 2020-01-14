@@ -2,7 +2,7 @@
   <VcAFrame>
       <VcAColumn>
       <VcABox :first="true" :title="$t('profile.title.avatar')">
-          <ProfileImage />
+          <ProfileImage :disabled="true"/>
         </VcABox>
 
         <VcABox :first="false" :title="$t('supporterForm.title')">
@@ -17,13 +17,13 @@
             </VcAInfoBox>
             <el-form-item
                     :label="$t('supporterForm.label.firstname')"
-                    prop="firstname">
+                    prop="firstName">
               <el-input
                       v-model="profileForm.firstName"/>
             </el-form-item>
             <el-form-item
                     :label="$t('supporterForm.label.lastname')"
-                    prop="lastname">
+                    prop="lastName">
               <el-input
                       v-model="profileForm.lastName"/>
             </el-form-item>
@@ -40,6 +40,7 @@
                       v-model="profileForm.birthday"
                       :placeholder="$t('supporterForm.label.birthdateinfo')"
                       type="date"
+                      format="dd.MMM yyyy"
                       style="width: 100%;"/>
             </el-form-item>
             <el-form-item
@@ -98,8 +99,7 @@
             <CrewSelect v-on:vca-select-crew="init" />
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
-		<!--a href="/pool/?download-certificate"*/ class="vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a-->
-		<a title="Aktuell arbeiten wir an der Ehrenamtsbescheinigung!" class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
+		<a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
 		<ActiveFlag ref="activeFlag"/>
 		<NonVotingMembership ref="nvmFlag" />
             </div>
@@ -172,7 +172,7 @@
         },
         rules: {
             firstName: [
-                {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
+                {required: true, message: this.$t('validationError.firstname'), trigger: 'blur'},
                 {message: this.$t('inputSample.firstname'), trigger: 'blur'}
             ],
             lastName: [
@@ -219,7 +219,11 @@
               profile['lastName'] = profile.supporter.lastName
               profile['mobilePhone'] = profile.supporter.mobilePhone
               profile['placeOfResidence'] = profile.supporter.placeOfResidence
-              profile['birthday'] = new Date(profile.supporter.birthday)
+              if (typeof profile.supporter.birthday === "undefined") {
+                  profile['birthday'] = new Date()
+              } else {
+                  profile['birthday'] = new Date(profile.supporter.birthday)
+              }
               profile['gender'] = profile.supporter['sex']
               profile['address'] = profile.supporter.address
               return profile

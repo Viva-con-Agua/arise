@@ -8,7 +8,7 @@
                 v-on:vca-images-edit="load"
                 v-on:vca-images-selected="select"
         />
-        <Upload v-on:vca-images="bindFromUpload" v-if="isUpload" :upload="imageUpload" />
+        <Upload v-on:vca-images="bindFromUpload" v-if="isUpload" :upload="imageUpload" :disabled="true"/>
         <ImageCrop v-if="isCrop" :id="profileImage.id" :imageUrl="profileImage.imageUrl" :upload="imageUpload" v-on:vca-images-cropped="bindThumbs" />
     </div>
 </template>

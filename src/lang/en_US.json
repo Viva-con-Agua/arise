@@ -206,6 +206,8 @@
     "nvm": {
       "title": "Non-voting membership",
       "description": "Please read the §4 (2) of the Articles of Association to inform you about the non-voting membership of Viva con Agua de Sankt Pauli e.V.",
+      "link": "https://www.vivaconagua.org/files/pdfs/20181215_Satzung_Viva_con_Agua_de_Sankt_Pauli_e.V.pdf",
+      "aoa": "Articles of Association Viva con Agua de Sankt Pauli e.V.",
       "actions": {
         "cannotApply": "Become Non-voting member",
         "apply": "Become non-voting member",
