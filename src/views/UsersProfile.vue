@@ -24,15 +24,17 @@
                                 <span class="vca-user-value" v-else>-</span>
 
                                 <div class="roles">
-                                    <div v-if="(isEmployed() || isSelf() || isNetworkVolunteerManager())" class="removableRole" v-for="role in getProfile().supporter.roles">
+                                    <div v-if="canEdit()" class="removableRole" v-for="role in getProfile().supporter.roles">
                                         <VcARole :role="role.name" :pillar="role.pillar.pillar" :key="role.crew.name + role.name + role.pillar.pillar"/>
                                         <div class="remove" @click="removeRole(role.pillar.pillar)">X</div>
                                     </div>
-                                    <VcARole v-else v-for="role in getProfile().supporter.roles"
-                                             :role="role.name"
-                                             :pillar="role.pillar.pillar"
-                                             :key="role.crew.name + role.name + role.pillar.pillar"
-                                    />
+
+                                    <div v-if="!canEdit()" v-for="role in getProfile().supporter.roles">
+                                        <VcARole :role="role.name"
+                                                 :pillar="role.pillar.pillar"
+                                                 :key="role.crew.name + role.name + role.pillar.pillar"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div class="roleButtons">
@@ -286,8 +288,18 @@
                          !visitedRoles.some(r => r.name === role.name && r.crew.id === role.crew.id && r.pillar.pillar === role.pillar.pillar))
                 })
             },
+            canEdit() {
+                return this.isEmployed() || this.isSelf() || this.isNetworkVolunteerManager()
+            },
             isNetworkVolunteerManager() {
-                return this.getProfile(true).supporter.roles.some(r => r.name === "VolunteerManager" && r.pillar.pillar === 'network')
+
+                var sameCrew = this.getProfile(true).supporter.roles.filter(role => {
+                    var visitedCrew = this.getCrew()
+                    return (visitedCrew !== null && visitedCrew.id === role.crew.id)
+                })
+
+                return this.getProfile(true).supporter.roles.some(r => r.name === "VolunteerManager" && r.pillar.pillar === 'network') && sameCrew.length > 0
+
             },
             isSelf() {
                 return this.currentUser.id === this.user.id
