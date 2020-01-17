@@ -632,6 +632,30 @@
     "ie": {
       "msg": "Der Internet Explorer erlaubt im Moment keine fehlerfreie Darstellung dieser Oberfläche. Dies wird in Kürze nachgerüstet. Bitte nutze solange einen anderen Browser, wie etwa {0}.",
       "alternative": "Firefox"
+    },
+    "pillar": {
+        "messages": {
+            "remove": "Willst du die aufgewählte Rolle vom Supporter wirklich entfernen?"
+	}
+    },
+    "active": {
+        "messages": {
+	    "update": {
+	        "noUserSelected": {
+		    "title": "Hinweis",
+		    "message": "Du hast keine Supporter ausgewählt!"
+		}
+	    },
+            "confirm": "Willst du die Aktivitätsanfragen für die ausgewählten Supporter annehmen?",
+            "remove": "Willst du den Aktivitätsstatus für den ausgewählten Supporter entfernen?",
+            "decline": "Willst du die Aktivitätsanfragen für die ausgewählten Supporter ablehnen?"
+	},
+	"button": {
+            "confirm": "Aktivitätsanfrage bestätigen",
+            "decline": "Aktivitätsanfrage ablehnen",
+            "activate": "Aktivitätsstatus hinzufügen",
+            "remove": "Aktivitätsstatus entfernen"
+	}
     }
   }
 }

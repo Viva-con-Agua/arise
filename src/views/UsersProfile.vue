@@ -3,9 +3,15 @@
         <VcAColumn size="70%">
             <VcABox v-if="hasUser" :first="true" :title="getName()">
                 <template slot="header">
-                    <VcARole v-for="role in user.roles.map(role => role.role).filter((role) => role !== 'supporter')" :name="role" :key="role" />
-                    <VcARole v-if="isActive()" :translated="$t('profile.supporter.active')"/>
-                    <VcARole v-if="isNVM()" :translated="$t('profile.supporter.nvm')"/>
+                    <VcARole v-for="role in user.roles.map(role => role.role).filter((role) => role !== 'supporter')" :additionalClass="operatingRole()" :name="role" :key="role" />
+
+		    <div v-if="(isEmployed() || isSelf() || isNetworkVolunteerManager()) && isActive()" class="removableRole associationRole">
+                        <VcARole :translated="$t('profile.supporter.active')" :additionalClass="associationRole()"/>
+                        <div class="remove" @click="setInactive()"  style="display: inline; margin-top: 3px;">X</div>
+                    </div>
+                    <VcARole v-else-if="isActive()" :additionalClass="associationRole()" :translated="$t('profile.supporter.active')"/>
+
+                    <VcARole v-if="isNVM()" :additionalClass="associationRole()" :translated="$t('profile.supporter.nvm')"/>
                     <span v-if="!getProfile().confirmed" class="notConfirmed">{{ $t('profile.view.labels.notConfirmed') }}</span>
                 </template>
                 <div class="user">
@@ -16,21 +22,22 @@
                                 <span class="vca-user-label">{{ $t('profile.view.labels.crew') }}:</span>
                                 <span class="vca-user-value" v-if="hasCrew()">{{ getProfile().supporter.crew.name }}</span>
                                 <span class="vca-user-value" v-else>-</span>
+
                                 <div class="roles">
-                                    <VcARole v-for="role in getProfile().supporter.roles"
+                                    <div v-if="(isEmployed() || isSelf() || isNetworkVolunteerManager())" class="removableRole" v-for="role in getProfile().supporter.roles">
+                                        <VcARole :role="role.name" :pillar="role.pillar.pillar" :key="role.crew.name + role.name + role.pillar.pillar"/>
+                                        <div class="remove" @click="removeRole(role.pillar.pillar)">X</div>
+                                    </div>
+                                    <VcARole v-else v-for="role in getProfile().supporter.roles"
                                              :role="role.name"
                                              :pillar="role.pillar.pillar"
                                              :key="role.crew.name + role.name + role.pillar.pillar"
                                     />
                                 </div>
+
                                 <div class="roleButtons">
                                     <button class="vca-button-primary vca-button-select-crew" v-for="assignable in this.pillars" @click="setRole(assignable.pillar.pillar)">
                                         {{ $t('profile.actions.assignRole.' + assignable.pillar.pillar) }}
-                                    </button>
-                                </div>
-                                <div v-if="isEmployed()" class="roleButtons">
-                                    <button class="vca-button-warn vca-button-select-crew" v-for="removeable in getProfile().supporter.roles" @click="removeRole(removeable.pillar.pillar)">
-                                        {{ $t('profile.actions.removeRole.' + removeable.pillar.pillar) }}
                                     </button>
                                 </div>
                             </li>
@@ -85,10 +92,17 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import axios from 'axios'
     import { VcAFrame, VcAColumn, VcABox } from 'vca-widget-base'
     import 'vca-widget-base/dist/vca-widget-base.css'
     import { Avatar, VcARole } from 'vca-widget-user'
+    import {
+      Notification
+    } from 'element-ui'
+
+    Vue.use(Notification);
+    Notification.closeAll();
 
     export default {
         name: "UsersProfile",
@@ -134,6 +148,36 @@
                         this.$router.push({path: '/error/' + error.response.status})
                     })
             },
+            setInactive: function() {
+                if (!confirm(this.$t('users.active.messages.remove'))) {
+                    return false;
+                }
+                let request = { users: [ this.user.id ] };
+                this.submit('/drops/widgets/users/inactive', request);
+            },
+            submit(url, data) {
+
+                axios
+                    .post(url, data)
+                    .then(response => {
+                        switch (response.status) {
+                            case 200:
+                                this.open(
+                                    this.$t('success.title'),
+                                    this.$t('success.msg'),
+                                    "success"
+				)
+                                window.location.reload();
+                                break;
+                    }
+                }).catch(error => {
+                    this.open(
+                        this.$t('error.title'),
+                        this.$t('error.unknown'),
+                        "error"
+                    )
+                })
+            },
             hasCrew() {
                 return (this.getProfile().supporter.hasOwnProperty("crew"))
             },
@@ -141,7 +185,7 @@
                 return this.getProfile().supporter.hasOwnProperty('nvmDate')
             },
             isActive: function () {
-                return this.getProfile().supporter.hasOwnProperty('active') && this.getProfile().supporter.active == 'active'
+                return (this.getProfile().supporter.hasOwnProperty('active') && this.getProfile().supporter.active === 'active')
             },
             hasMobile() {
                 return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
@@ -164,6 +208,12 @@
             hasCountry() {
                 return (this.hasResidence() && this.getProfile().supporter.address[0].country)
             },
+            associationRole: function() {
+              return 'activeRole nvmRole'
+            },
+            operatingRole: function() {
+              return 'admin employee'
+            },
             setRole(pillar) {
                 var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
                 axios.get(call).then(response => {
@@ -173,6 +223,9 @@
                 })
             },
             removeRole(pillar) {
+                if (!confirm(this.$t('users.pillar.messages.remove'))) {
+                    return false;
+                }
                 var call = "/drops/webapp/profile/role/remove/" + this.user.id + "/" + pillar
                 axios.get(call).then(response => {
                     if(response.status === 200) {
@@ -219,7 +272,7 @@
                     return;
                 }
 
-		if (this.isEmployed()) {
+		if (this.isEmployed() || this.isNetworkVolunteerManager()) {
                     return this.getAllPillars(true)
 		} else {
                     this.pillars = this.getSupporterRoles()
@@ -232,6 +285,12 @@
                     return (visitedCrew !== null && visitedCrew.id === role.crew.id &&
                          !visitedRoles.some(r => r.name === role.name && r.crew.id === role.crew.id && r.pillar.pillar === role.pillar.pillar))
                 })
+            },
+            isNetworkVolunteerManager() {
+                return this.getProfile(true).supporter.roles.some(r => r.name === "VolunteerManager" && r.pillar.pillar === 'network')
+            },
+            isSelf() {
+                return this.currentUser.id === this.user.id
             },
             getProfile(currentUser = false) {
                 var user = this.user
@@ -293,6 +352,13 @@
             getSince: function () {
                 var created = new Date(this.user.created)
                 return created.getUTCFullYear()
+            },
+            open(title, message, type) {
+                Notification({
+                    title:  title,
+                    message: message,
+                    type: type
+                });
             }
         }
     }
@@ -390,6 +456,35 @@
                 }
             }
         }
+    }
+
+    .associationRole {
+        display: inline-block;
+    }
+
+    .activeRole, .nvmRole, .associationRole {
+        background-color: rgba(10, 107, 145, 0.4) !important;
+    }
+
+    .admin, .employee {
+        font-weight: bold;
+        background-color: rgba(107, 145, 10, 0.6) !important;
+    }
+
+    .remove {
+        cursor: pointer;
+        display: inline-block;
+        top: 2px;
+        position: relative;
+        padding: 0 4px;
+        font-weight: bold;
+    }
+
+    .removableRole {
+        background-color: rgba(165, 119, 64, .6);
+        border-radius: 0.5em;
+        padding-right: 5px;
+        margin-right: 5px;
     }
 
     .vca-user-label {

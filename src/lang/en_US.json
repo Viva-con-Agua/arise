@@ -627,6 +627,30 @@
     "ie": {
       "msg": "The Internet Explorer does not allow an error-free display of this interface at the moment. This will be added shortly. Please use another browser, such as {0}.",
       "alternative": "Firefox"
+    },
+    "pillar": {
+        "messages": {
+            "remove": "Willst du die aufgewählte Rolle vom Supporter wirklich entfernen?"
+	}
+    },
+    "active": {
+        "messages": {
+            "update": {
+                "noUserSelected": {
+                    "title": "Notice",
+                    "message": "You have not selected any supporter"
+                }
+            },
+            "confirm": "Do you want to confirm the active requests for the selected supporters?",
+            "remove": "Do you want to remove the active state for the selected supporter?",
+            "decline": "Do you want to decline the active requests for the selected supporters?"
+        },
+	"button": {
+            "confirm": "Confirm activity request",
+            "decline": "Decline activity request",
+            "activate": "Set activity state",
+            "remove": "Remove activity state"
+	}
     }
   }
 }
