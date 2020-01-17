@@ -146,7 +146,7 @@ var router = new Router({
         component: loadView('changeEMail')
     },
     {
-        path: "/usersActive",
+        path: "/users/:activeState",
         name: 'UsersActive',
         component: loadView('usersActive'),
         meta: {
