@@ -108,8 +108,14 @@
         this.$refs[signInForm].validate((valid) => {
           if (valid) {
               var that = this;
+              let axiosConfig= {
+                headers: {
+                  'Content-Type': 'application/json;charset=UTF-8',
+                  "Access-Control-Allow-Origin": "*",
+                }
+              };
               this.axios
-                  .post('/drops/webapp/authenticate', this.signInForm)
+                  .post('/drops/webapp/authenticate', this.signInForm, axiosConfig)
                   .then(function (response)
                   {
                     switch (response.status)
