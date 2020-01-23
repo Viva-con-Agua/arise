@@ -99,9 +99,10 @@
             <CrewSelect v-on:vca-select-crew="init" />
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
-		<a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
-		<ActiveFlag ref="activeFlag"/>
-		<NonVotingMembership ref="nvmFlag" />
+          		<a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
+              <VolunteerCertificatePDF :profile="profileData" />
+          		<ActiveFlag ref="activeFlag"/>
+          		<NonVotingMembership ref="nvmFlag" />
             </div>
         </VcABox>
       </VcAColumn>
@@ -121,6 +122,7 @@
   import ActiveFlag from '@/components/ActiveFlag.vue'
   import NonVotingMembership from '@/components/NonVotingMembership.vue'
   import AddressSelect from '@/components/address/AddressForm.vue'
+  import VolunteerCertificatePDF from "@/components/VolunteerCertificatePDF";
 
   import {
     Button,
@@ -147,10 +149,11 @@
 
   export default {
     name: "ChangeProfile",
-    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, AddressSelect, NonVotingMembership, ActiveFlag },
+    components: { ProfileImage, VcARole, VcAFrame, VcAColumn, VcABox, VcAInfoBox, CrewSelect, NewsletterSelect, AddressSelect, NonVotingMembership, ActiveFlag, VolunteerCertificatePDF },
     data () {
 
       return {
+        profileData: Object,
         crew: null,
         crewRoles: [],
         userRoles: [],
@@ -176,7 +179,7 @@
                 {message: this.$t('inputSample.firstname'), trigger: 'blur'}
             ],
             lastName: [
-                {required: true, message: this.$t('validationError.lastname'), trigger: 'change'},
+                {required: true, message: this.$t('validationError.lastname'), trigger: 'blur'},
                 {message: this.$t('inputSample.lastname'), trigger: 'blur'}
             ],
             mobilePhone: [
@@ -236,6 +239,8 @@
                       if(typeof profile === "undefined") {
                           profile = response.data.additional_information.profiles[0]
                       }
+                      this.profileData = profile;
+                      this.profileData['created'] = response.data.additional_information.created;
                       this.profileForm = profileToForm(profile);
                       this.emailaddress = profile.email;
                       this.crewRoles = profile.supporter.roles
