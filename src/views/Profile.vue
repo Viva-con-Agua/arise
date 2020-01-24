@@ -100,8 +100,8 @@
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
               <VolunteerCertificatePDF :profile="profileData" />
-          		<ActiveFlag ref="activeFlag"/>
-          		<NonVotingMembership ref="nvmFlag" />
+              <ActiveFlag ref="activeFlag"/>
+              <NonVotingMembership ref="nvmFlag" />
             </div>
         </VcABox>
       </VcAColumn>
