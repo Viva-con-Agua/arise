@@ -99,7 +99,6 @@
             <CrewSelect v-on:vca-select-crew="init" />
             <VcARole v-for="role in crewRoles" :role="role.name" :translated="$t('profile.roles.crew.' + role.pillar.pillar)" :key="role.crew.name + role.name + role.pillar.pillar" />
             <div class="actions">
-          		<a class="disabled vca-button-primary vca-full-width">{{ $t("profile.actions.volunteering-certificate") }}</a>
               <VolunteerCertificatePDF :profile="profileData" />
           		<ActiveFlag ref="activeFlag"/>
           		<NonVotingMembership ref="nvmFlag" />

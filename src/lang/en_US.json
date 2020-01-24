@@ -204,6 +204,11 @@
 	"important": "Important: "
     },
     "volunteering-certificate": {
+      "header": "Volunteering certificate",
+      "desc": {
+        "allowed": "You can download an automatically generated volunteering certificate",
+        "denied": "To download an volunteering certificate, you have to be an active member of your crew and be at least 6 months as a supporter in the pool"
+      },
       "since": "engagiert sich seit %since% freiwillig für unseren Verein in der Ortsgruppe %crew%",
       "description1": "Viva con Agua de Sankt Pauli e.V. ist ein gemeinnütziger Verein, der sich dafür einsetzt, dass alle Menschen weltweit Zugang zu sauberem Trinkwasser und sanitärer Grundversorgung haben.",
       "description2": "Tausende Supporter engagieren sich für Viva con Agua. Wir sammeln mit charmanten Aktionen Spenden und machen auf das globale Thema \"Wasser\" aufmerksam. Dafür nutzen wir die universellen Sprachen Kunst, Sport und Musik.'",
