@@ -217,7 +217,7 @@
     },
     "volunteering-certificate": {
       "header": "Ehrenamtsbescheinigung",
-      "selectLanguage": "Select language",
+      "selectLanguage": "Sprache wählen",
       "filename": "Ehrenamtsbescheinigung_VivaConAgua.pdf",
       "desc": {
         "allowed": "Du kannst dir hier deine automatisch generierte Ehrenamtsbescheinigung herunterladen",
