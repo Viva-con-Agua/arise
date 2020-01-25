@@ -5,7 +5,24 @@
 
     <div v-if="canDownloadCert">{{ $t("profile.volunteering-certificate.desc.allowed") }}</div>
     <div v-else>{{ $t("profile.volunteering-certificate.desc.denied") }}</div>
-    <el-button v-if="canDownloadCert" v-loading="imagesLoaded" icon="el-icon-download" class="vca-full-width cert-button" v-on:click="pdfgen" >{{ $t("profile.actions.volunteering-certificate") }}</el-button>
+    
+    <div class="certificate-selection">
+      <v-select
+          :value="locale.selected"
+          :options="locale.values"
+          label="name"
+          :placeholder="$t('profile.volunteering-certificate.selectLanguage')"
+          class="cert-button"
+          maxHeight="300px"
+          v-on:input="handleClick">
+          <template slot="option" slot-scope="option">
+              <div class="language">
+                  <h4 class="languageName">{{ option.name }}</h4>
+              </div>
+          </template>
+      </v-select>
+      <el-button v-if="canDownloadCert" v-loading="imagesLoaded" icon="el-icon-download" class="vca-full-width cert-button" v-on:click="pdfgen" >{{ $t("profile.actions.volunteering-certificate") }}</el-button>
+    </div>
   </div>
 </template>
 
@@ -14,9 +31,13 @@
     import pdfmake from 'pdfmake'
     import moment from 'moment'
     import Loading from 'element-ui'
+    import vSelect from 'vue-select'
 
     export default {
-        name: "VolunteerCertificatePDF",    
+        name: "VolunteerCertificatePDF",
+        components: {
+            'v-select': vSelect
+        },    
         props: {
             "profile": {
                 "required": true
@@ -24,6 +45,10 @@
         },
         data() {
             return {
+                locale: {
+                  values: [{ locale: 'de-DE', name: this.$t("locale.de-DE.name") }, { locale: 'en-US', name: this.$t("locale.en-US.name") }],
+                  selected: { locale: 'en-US', name: this.$t("locale.en-US.name") }
+                },
                 images: {},
                 imageCount: 5,
                 currentImageCount: 0
@@ -31,6 +56,9 @@
         },
         created() {
             this.init()
+
+            // Read all available keys of languages
+            // console.log(Object.keys(this.$i18n.messages))
         },
         computed: {
           imagesLoaded () {
@@ -73,6 +101,11 @@
                   fr.readAsDataURL(xhr.response); // async call
                 };
                 xhr.send();
+            },
+            handleClick: function(event) {
+                if (event !== null) {
+                    this.locale.selected = event
+                }
             },
             pdfgen: function () {
                 var pdfMake = require('pdfmake/build/pdfmake.js');
@@ -134,38 +167,42 @@
                       alignment: 'center'
                     },
                     {
-                      text: '(*' + this.$d(new Date(this.profile.birthday)) + ')',
+                      text: '(*' + moment(new Date(this.profile.birthday))
+                        .format(this.$t("locale.dateFormat", this.locale.selected.locale)) + ')',
                       style: 'birthdate',
                       alignment: 'center'
                     },
                     {
-                      text: this.$t("profile.volunteering-certificate.since").replace('%since%', moment(new Date(this.profile.created)).format("MM.YYYY")).replace('%crew%', this.profile.supporter.crew.name),
+                      text: this.$t("profile.volunteering-certificate.since", this.locale.selected.locale).replace('%since%', moment(new Date(this.profile.created))
+                        .format(this.$t("locale.monthDateFormat", this.locale.selected.locale))).replace('%crew%', this.profile.supporter.crew.name),
                       style: 'since',
                       alignment: 'center'
                     },
                     {
-                      text: this.$t("profile.volunteering-certificate.description1"),
+                      text: this.$t("profile.volunteering-certificate.description1", this.locale.selected.locale),
                       style: 'desc1',
                       alignment: 'center'
                     },
                     {
-                      text: this.$t("profile.volunteering-certificate.description2"),
+                      text: this.$t("profile.volunteering-certificate.description2", this.locale.selected.locale),
                       style: 'desc2',
                       alignment: 'center'
                     },
                     {
-                      text: this.$t("profile.volunteering-certificate.created").replace('%date%', moment(Date.now()).format('DD.MM.YYYY')),
+                      text: this.$t("profile.volunteering-certificate.created", this.locale.selected.locale).replace('%date%', moment(Date.now())
+                        .format(this.$t("locale.dateFormat", this.locale.selected.locale))),
                       style: 'created',
                       alignment: 'left'
                     },
                     {
-                      text: this.$t("profile.volunteering-certificate.signature"),
+                      text: this.$t("profile.volunteering-certificate.signature", this.locale.selected.locale),
                       style: 'signature',
                       alignment: 'left'
                     },
                     {
                       text: [
-                        'Danke\n',
+                        this.$t("profile.volunteering-certificate.thanks", this.locale.selected.locale),
+                        "\n",
                         this.profile.firstName
                       ],
                       style: 'thanks',
@@ -176,7 +213,7 @@
                   footer: {
                     columns: [
                       { 
-                        text: this.$t("profile.volunteering-certificate.organisation"),
+                        text: this.$t("profile.volunteering-certificate.organisation", this.locale.selected.locale),
                         alignment: 'center',
                         margin: [0,10,0,0]
                       }
@@ -227,7 +264,7 @@
                     }
                   }
                 }
-                pdfMake.createPdf(docDefinition).download('Ehrenamtsbescheinigung_VivaConAgua.pdf')
+                pdfMake.createPdf(docDefinition).download(this.$t("profile.volunteering-certificate.filename", this.locale.selected.locale))
 	      }
     }
 }
@@ -257,4 +294,25 @@
   .cert-button {
     margin: 10px 0;
   }
+  .languageName {
+      font-size: 1.1em;
+      font-weight: bold;
+      font-style: italic;
+      margin-right: 0.5em;
+  }
+  .language {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-end;
+  }
+  .certificate-selection {
+    display: grid; 
+    grid-template-columns: 2fr 4fr; 
+    grid-gap: 10px;
+  }
+  .certificate-selection /deep/ div.dropdown-toggle {
+    min-height: 41px;
+  }
+
 </style> 

@@ -1,4 +1,16 @@
 {
+  "locale": {
+    "dateFormat": "YYYY-MM-DD",
+    "monthDateFormat": "YYYY-MM",
+    "en-US": {
+      "locale": "en-US",
+      "name": "English"
+    },
+    "de-DE": {
+      "locale": "de-DE",
+      "name": "German"
+    }
+  },
   "delete":{
     "User": {
       "title": "delete User",
@@ -205,15 +217,18 @@
     },
     "volunteering-certificate": {
       "header": "Volunteering certificate",
+      "selectLanguage": "Select language",
+      "filename": "Volunteer_certificate_vivaconagua.pdf",
       "desc": {
         "allowed": "You can download an automatically generated volunteering certificate",
         "denied": "To download an volunteering certificate, you have to be an active member of your crew and be at least 6 months as a supporter in the pool"
       },
-      "since": "engagiert sich seit %since% freiwillig für unseren Verein in der Ortsgruppe %crew%",
-      "description1": "Viva con Agua de Sankt Pauli e.V. ist ein gemeinnütziger Verein, der sich dafür einsetzt, dass alle Menschen weltweit Zugang zu sauberem Trinkwasser und sanitärer Grundversorgung haben.",
-      "description2": "Tausende Supporter engagieren sich für Viva con Agua. Wir sammeln mit charmanten Aktionen Spenden und machen auf das globale Thema \"Wasser\" aufmerksam. Dafür nutzen wir die universellen Sprachen Kunst, Sport und Musik.'",
+      "since": "is a voluntary supporter of Viva con Agua since %since% in our regional group %crew%",
+      "description1": "Viva con Agua is a network of people and organisations committed to establish access to clean drinking water and basic sanitation for all humans worldwide.",
+      "description2": "There are thousands of voluntary supporters which are using creative and joyful activities to raise awareness for the global issues WATER, SANITATION and HYGIENE (short WASH) and simultaneously raise funds for our water projects.",
       "created": "Hamburg, %date%",
-      "signature": "Mario Dresing, Ehrenamtskoordination und -betreuung",
+      "signature": "Mario Dresing, Coordination and supervision of voluntary",
+      "thanks": "Thanks",
       "organisation": "Viva con Agua de Sankt Pauli e.V. | Neuer Kamp 32 | 20357 Hamburg | vivaconagua.org"
     },
     "nvm": {
