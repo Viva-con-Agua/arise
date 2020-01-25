@@ -40,7 +40,7 @@
             return this.isActive && this.isLongTimeSupporter
           },
           isActive() {
-            if (this.profile !== "undefined" && this.profile.supporter !== "undefined") {
+            if (this.profile !== undefined && this.profile.supporter !== undefined) {
               return this.profile.supporter.active == "active"
             }
             return false
@@ -55,11 +55,11 @@
         methods: {
             init: function() {
               var that = this;
-              this.toDataURL('http://localhost/assets/vca/file/header.png', (function(data) { that.images.header = data; that.currentImageCount++ }))
-              this.toDataURL('http://localhost/assets/vca/file/background.png', (function(data) { that.images.footer = data; that.currentImageCount++ }))
-              this.toDataURL('http://localhost/assets/vca/file/logo.png', (function(data) { that.images.logo = data; that.currentImageCount++ }))
-              this.toDataURL('http://localhost/assets/vca/file/freak.png', (function(data) { that.images.freak = data; that.currentImageCount++ }))
-              this.toDataURL('http://localhost/assets/vca/file/signaturemd.png', (function(data) { that.images.signature = data; that.currentImageCount++ }))
+              this.toDataURL('/assets/vca/file/header.png', (function(data) { that.images.header = data; that.currentImageCount++ }))
+              this.toDataURL('/assets/vca/file/background.png', (function(data) { that.images.footer = data; that.currentImageCount++ }))
+              this.toDataURL('/assets/vca/file/logo.png', (function(data) { that.images.logo = data; that.currentImageCount++ }))
+              this.toDataURL('/assets/vca/file/freak.png', (function(data) { that.images.freak = data; that.currentImageCount++ }))
+              this.toDataURL('/assets/vca/file/signaturemd.png', (function(data) { that.images.signature = data; that.currentImageCount++ }))
             },
             toDataURL: function(url, callback) {
                 var xhr = new XMLHttpRequest();
