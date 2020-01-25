@@ -6,13 +6,14 @@
           :model="resetFormEmail"
           :ref="resetFormEmail"
           :rules="rules"
+	  @keyup.enter.native="submitForm(resetFormEMail)"
           status-icon>
           <el-form-item
             :label="$t('reset.label.newEmail')"
             prop="email">
             <div id="pw">
               <el-input
-                v-model="resetFormEmail.email"
+                v-model.trim="resetFormEmail.email"
                 type="email"/>
             </div>
           </el-form-item>
@@ -20,15 +21,14 @@
             :label="$t('reset.label.checkEmail')"
             prop="checkPass">
             <el-input
-              v-model="resetFormEmail.checkEmail"
+              v-model.trim="resetFormEmail.checkEmail"
               type="email"/>
           </el-form-item>
         </el-form>
         <button
                 ref="resetIt"
                 class="vca-button-primary vca-full-width"
-                @click.prevent="submitForm(resetFormEmail)"
-                @keyup.enter="submitForm(resetFormEmail)">
+                @click.prevent="submitForm(resetFormEmail)">
           {{ $t('options.resetIt') }}
         </button>
       </VcABox>
@@ -41,9 +41,8 @@
   import Password from 'vue-password-strength-meter';
   import axios from 'axios'
   import VueAxios from 'vue-axios'
-  import VcAFrame from '@/components/page/VcAFrame.vue';
-  import VcAColumn from '@/components/page/VcAColumn.vue';
-  import VcABox from '@/components/page/VcABox.vue';
+  import { VcAFrame, VcAColumn, VcABox } from 'vca-widget-base'
+  import 'vca-widget-base/dist/vca-widget-base.css'
   import {
     Button,
     Form,
@@ -64,7 +63,7 @@
 
   export default {
         name: "ResetPassword",
-        components: { Password, VcAFrame, VcAColumn, VcABox },
+        components: { VcAFrame, VcAColumn, VcABox },
 
         data() {
             var checkPass = (rule, value, callback) => {
@@ -87,7 +86,7 @@
               rules: {
                 email: [
                    {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
-                        {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email'), trigger: 'blur' }
+                        {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email'), trigger: 'blur' }
                  ],
                 checkEmail: [
                     { required: true, validator: checkPass, trigger: 'blur' }

@@ -5,6 +5,7 @@
         <el-form
           :model="resetFormPassword"
           :ref="resetFormPassword"
+	  @keyup.enter.native="submitForm(resetFormPassword)"
           :rules="rules"
           status-icon>
           <el-form-item
@@ -35,8 +36,7 @@
         <button
                 ref="resetIt"
                 class="vca-button-primary vca-full-width"
-                @click.prevent="submitForm(resetFormPassword)"
-                @keyup.enter="submitForm(resetFormPassword)">
+                @click.prevent="submitForm(resetFormPassword)">
           {{ $t('options.resetIt') }}
         </button>
       </VcABox>
@@ -49,9 +49,8 @@
   import Password from 'vue-password-strength-meter';
   import axios from 'axios'
   import VueAxios from 'vue-axios'
-  import VcAFrame from '@/components/page/VcAFrame.vue';
-  import VcAColumn from '@/components/page/VcAColumn.vue';
-  import VcABox from '@/components/page/VcABox.vue';
+  import { VcAFrame, VcAColumn, VcABox } from 'vca-widget-base'
+  import 'vca-widget-base/dist/vca-widget-base.css'
   import {
     Button,
     Form,

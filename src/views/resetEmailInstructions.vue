@@ -9,19 +9,19 @@
           :model="resetFormEMail"
           :ref="resetFormEMail"
           :rules="rules"
+	  @keyup.enter.native="submitForm(resetFormEMail)"
           status-icon>
           <el-form-item
             :label="$t('reset.label.email')"
             prop="email">
             <el-input
-              v-model.lazy="resetFormEMail.email"/>
+              v-model.lazy.trim="resetFormEMail.email"/>
           </el-form-item>
         </el-form>
         <button
                 ref="send"
                 class="vca-button-primary vca-full-width"
-                @click.once="submitForm(resetFormEMail)"
-                @keyup.enter="submitForm(signInForm)">
+                @click.prevent="submitForm(resetFormEMail)">
           {{ $t('options.sendEmail') }}
         </button>
       </VcABox>
@@ -33,9 +33,8 @@
     import Vue from 'vue'
     import axios from 'axios'
     import VueAxios from 'vue-axios'
-    import VcAFrame from '@/components/page/VcAFrame.vue';
-    import VcAColumn from '@/components/page/VcAColumn.vue';
-    import VcABox from '@/components/page/VcABox.vue';
+    import { VcAFrame, VcAColumn, VcABox } from 'vca-widget-base'
+    import 'vca-widget-base/dist/vca-widget-base.css'
     import {
       Button,
       Form,
@@ -67,7 +66,7 @@
                 rules: {
                     email: [
                         {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
-                        {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email'), trigger: 'blur' }
+                        {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email'), trigger: 'blur' }
                     ]}
 
             }

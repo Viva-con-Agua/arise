@@ -113,12 +113,20 @@
                     .catch(this.errorHandling)
             },
             select(event) {
+		if (this.crew) {
+			if (!confirm(this.$t('crews.select.request'))) {
+				return false;
+			}
+		}
+
                 var url = "/drops/webapp/profile/assign/" + event.id
                 this.axios.get(url)
                     .then(response => {
                         if(response.status === 200) {
                             this.crew = event
                             this.$emit("vca-select-crew")
+                            this.$root.$emit("activeState")
+                            this.$root.$emit("nvmState")
                         }
                     })
                     .catch(error => {

@@ -1,11 +1,20 @@
 set -ex
 
+# SET THE FOLLOWING VARIABLES
+# docker hub username
 USERNAME=vivaconagua
 
-publish_vca_docker(){
-  docker tag $USERNAME/${1}:latest $USERNAME/${1}:${2};
-  docker push $USERNAME/${1}:latest;
-  docker push $USERNAME/${1}:${2};
-}
+# image name
+IMAGE=arise
 
-publish_vca_docker $@
+version=$1
+echo "version: $version"
+
+# run build
+# ./build-docker.sh
+
+docker tag $USERNAME/$IMAGE:latest $USERNAME/$IMAGE:$version
+
+# push it
+docker push $USERNAME/$IMAGE:latest
+docker push $USERNAME/$IMAGE:$version

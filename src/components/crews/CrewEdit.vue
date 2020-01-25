@@ -4,9 +4,7 @@
       <p v-html="$t('crews.crewform.label.crewname')"></p>
       <input
         v-model="crew.name" 
-        placeholder="crew.name"
-        v-validate="'required'"
-        data-rules="required">
+        placeholder="crew.name">
     </div>
     <div class="crew-cities">
       <p v-html="$t('crews.crewform.label.location')"></p>
@@ -33,14 +31,12 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-   import VcABox from '@/components/page/VcABox.vue'
   import CitiesSelect from '@/components/crews/CitiesSelect.vue'
 
   export default {
     name: "CrewSelected",
     props: ['crew'],
-    components: { VcABox, CitiesSelect },
+    components: { CitiesSelect },
     data (){
       return {
         Location: "",

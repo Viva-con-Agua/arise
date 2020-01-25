@@ -56,6 +56,7 @@
   },
   "crews": {
     "select": {
+      "request": "Do you really want to switch to another crew? If you are an ASP of your current crew, you will lose your permissions in the pool.",
       "noCrewsAvailable": "There are no crews available",
       "placeholder": "Please choose your crew..."
     },
@@ -118,6 +119,9 @@
     "firstname":"Please fill in your firstname...",
     "lastname":"Please fill in your name...",
     "mobile":"Please fill in your mobile number...",
+    "street":"Please fill in your street and number...",
+    "additional":"Please fill in your additional address informations...",
+    "zip":"Please fill in your postal code...",
     "placeofresidence":"Please fill in your place of residence...",
     "birthdate":"Please fill in your birtdate...",
     "gender":"What is your Gender?",
@@ -137,10 +141,13 @@
     "firstname":"my parents named me Frederik",
     "lastname":"e.g. Mustermensch",
     "mobile":"e.g. +49-1523-45679",
+    "street": "Neuer Kamp 32",
+    "additional": "c/o Viva con Agua",
+    "zip": "20357",
     "placeofresidence":"e.g. Aldera",
     "birthdate":"e.g. 1910.05.10",
     "gender":"e.g. male",
-    "email":"e.g. freak@vivaconagua.org",
+    "email":"e.g. your@emailaddress.org",
     "password":"info",
     "taskTitle":"e.g. tidying up warehouse",
     "id":"e.g. arise"
@@ -156,8 +163,13 @@
     "label": {
       "firstname": "Firstname:",
       "lastname": "Lastname:",
+      "searchAddress": "Search address:",
+      "street": "Street & number:",
+      "additional": "Additional address:",
+      "zip": "ZIP:",
       "mobile": "Mobilenr:",
       "placeofresidence": "Place of residence:",
+      "country": "Country:",
       "birthdate": "Birthday:",
       "birthdateinfo": "When is your birthdate?",
       "gender": "Gender:"
@@ -184,6 +196,107 @@
     }
   },
   "profile": {
+    "supporter": {
+      "active": "active",
+      "nvm": "non-voting member"
+    },
+    "warning": {
+	"important": "Important: "
+    },
+    "volunteering-certificate": {
+      "header": "Volunteering certificate",
+      "desc": {
+        "allowed": "You can download an automatically generated volunteering certificate",
+        "denied": "To download an volunteering certificate, you have to be an active member of your crew and be at least 6 months as a supporter in the pool"
+      },
+      "since": "engagiert sich seit %since% freiwillig für unseren Verein in der Ortsgruppe %crew%",
+      "description1": "Viva con Agua de Sankt Pauli e.V. ist ein gemeinnütziger Verein, der sich dafür einsetzt, dass alle Menschen weltweit Zugang zu sauberem Trinkwasser und sanitärer Grundversorgung haben.",
+      "description2": "Tausende Supporter engagieren sich für Viva con Agua. Wir sammeln mit charmanten Aktionen Spenden und machen auf das globale Thema \"Wasser\" aufmerksam. Dafür nutzen wir die universellen Sprachen Kunst, Sport und Musik.'",
+      "created": "Hamburg, %date%",
+      "signature": "Mario Dresing, Ehrenamtskoordination und -betreuung",
+      "organisation": "Viva con Agua de Sankt Pauli e.V. | Neuer Kamp 32 | 20357 Hamburg | vivaconagua.org"
+    },
+    "nvm": {
+      "title": "Non-voting membership",
+      "description": "Please read the §4 (2) of the Articles of Association to inform you about the non-voting membership of Viva con Agua de Sankt Pauli e.V.",
+      "link": "https://www.vivaconagua.org/files/pdfs/20181215_Satzung_Viva_con_Agua_de_Sankt_Pauli_e.V.pdf",
+      "aoa": "Articles of Association Viva con Agua de Sankt Pauli e.V.",
+      "actions": {
+        "cannotApply": "Become Non-voting member",
+        "apply": "Become non-voting member",
+        "active": "End non-voting membership",
+        "renew": "Renew non-voting membership"
+      },
+      "current": {	
+        "denied": "",
+        "inactive": "inactive",
+        "active": "active",
+        "expired": "expired"
+      },
+      "status": {
+        "noAddress": "We need your address for the non-voting membership. ",       
+	"noPrimaryCrew": "You need to select a crew to become an active supporter",
+        "inActive": "You have to be active in your crew to become an non-voting member. ",
+        "apply": "As an active member of your crew you are able to become an non-voting member of Viva con Agua de Sankt Pauli e.V. This membership is non-contributory and must be actively renewed once a year here in your pool profile.",
+	"confirmation": "According to §4 (2) of the Articles of Association, I hereby apply for inclusion in the Viva con Agua de Sankt Pauli e.V. as a non-voting association member. Membership is considered accepted insofar as it is not contradicted by authorized representatives of the association. To complete the membership you have to click the button below:",
+        "active": "You are an non-voting member.",
+        "renew": "Your non-voting membership has expired, please renew your membership to stay a non-voting member."
+      },
+      "messages": {
+        "inactive": {
+	  "confirm" : "Do you want to end you non-voting membership in Viva con Agua de Sankt Pauli e.V.?"
+	},
+        "request": {
+	  "confirm" : "Do you want to become a non-voting member of Viva con Agua de Santk Pauli e.V. Please confirm you have read the §4 (2) of the Articles of Association?",
+          "success": {
+            "title": "Success",
+            "message": "Your state of non-voting membership has successfully been changed!"
+          },
+          "error": {
+            "title": "Error",
+            "message": "Your state of non-voting membership could not be changed!"
+          }
+        }
+      } 
+    }, 
+    "activeFlag": {
+      "title": "Active Supporter",
+      "actions": {
+        "cannotApply": "Active supporter",
+        "apply": "Become active supporter",
+        "requested": "End active supporter request",
+        "active": "End active supporter"
+      },
+      "current": {	
+        "denied": "",
+        "inactive": "inactive",
+        "active": "active",
+        "requested": "requested"
+      },
+      "status": {
+	"apply": "If you are an active VcA supporter of your crew, then you can request this via the button at your ASPs and confirm - so if you, for example. participate in team meetings, get involved in actions or engage in education.",
+        "noCrew": "You need to select a crew to become an active supporter",
+        "requested": "You have requested to be an active supporter of your crew. Please wait until an ASP of your crew has confirmed your request. You can also withdraw your request at any time.",
+        "active": "You are an active supporter of your crew. You can end your activity in the crew here."
+      },
+      "messages": {
+        "inactive": {
+	  "confirm" : "Do you want to end your state as an active supporter?"
+	},
+        "unset": {
+	  "confirm" : "Do you want to remove your application as an active supporter?"
+	},
+        "request": {
+	  "confirm" : "Do you want to apply as an active supporter?",
+          "success": {
+            "title": "Success",
+            "message": "Your state as active member of your crew has successfully been changed!"
+          },
+          "error": {
+          }
+        }
+      } 
+    }, 
     "view": {
       "labels": {
         "crew": "Crew",
@@ -223,7 +336,6 @@
       }
     },
     "actions": {
-      "non-voting-membership": "Non-voting Membership",
       "volunteering-certificate": "Volunteering certificate",
       "non-voting-membership-spoiler": "The non-voting membership is coming soon...",
       "assignRole": {
@@ -231,6 +343,12 @@
         "operation": "Assign @:profile.roles.crew.operation",
         "education": "Assign @:profile.roles.crew.education",
         "network": "Assign @:profile.roles.crew.network"
+      },
+      "removeRole": {
+        "finance": "Remove @:profile.roles.crew.finance",
+        "operation": "Remove @:profile.roles.crew.operation",
+        "education": "Remove @:profile.roles.crew.education",
+        "network": "Remove @:profile.roles.crew.network"
       }
     },
     "title": {
@@ -238,7 +356,9 @@
       "newsletter": "Newsletter",
       "avatar": "Profile image",
       "update": "Update",
-      "crew": "Crew"
+      "crew": "Crew",
+      "address": "Address",
+      "submit": "Update"
     },
     "messages": {
       "update" : {
@@ -520,6 +640,30 @@
     "ie": {
       "msg": "The Internet Explorer does not allow an error-free display of this interface at the moment. This will be added shortly. Please use another browser, such as {0}.",
       "alternative": "Firefox"
+    },
+    "pillar": {
+        "messages": {
+            "remove": "Willst du die aufgewählte Rolle vom Supporter wirklich entfernen?"
+	}
+    },
+    "active": {
+        "messages": {
+            "update": {
+                "noUserSelected": {
+                    "title": "Notice",
+                    "message": "You have not selected any supporter"
+                }
+            },
+            "confirm": "Do you want to confirm the active requests for the selected supporters?",
+            "remove": "Do you want to remove the active state for the selected supporter?",
+            "decline": "Do you want to decline the active requests for the selected supporters?"
+        },
+	"button": {
+            "confirm": "Confirm activity request",
+            "decline": "Decline activity request",
+            "activate": "Set activity state",
+            "remove": "Remove activity state"
+	}
     }
   }
 }

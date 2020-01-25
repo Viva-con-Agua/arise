@@ -33,9 +33,9 @@
         min-height: min-content;
     }
     #content {
-        flex-grow: 1;
-        flex-shrink: 0;	
         display: flex;
-        overflow: auto;
+	flex-shrink: 0;
+	flex-grow: 1;
+	overflow: auto;
     }
 </style>
