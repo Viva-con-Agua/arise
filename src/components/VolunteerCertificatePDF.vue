@@ -11,6 +11,7 @@
           :value="locale.selected"
           :options="locale.values"
           label="name"
+          v-if="canDownloadCert"
           :placeholder="$t('profile.volunteering-certificate.selectLanguage')"
           class="cert-button"
           maxHeight="300px"
