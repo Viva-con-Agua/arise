@@ -1,4 +1,16 @@
 {
+  "locale": {
+    "dateFormat": "DD.MM.YYYY",
+    "monthDateFormat": "MM.YYYY",
+    "en-US": {
+      "locale": "en-US",
+      "name": "Englisch"
+    },
+    "de-DE": {
+      "locale": "de-DE",
+      "name": "Deutsch"
+    }
+  },
   "delete":{
     "User": {
       "title": "Nutzer löschen",
@@ -202,6 +214,22 @@
     },
     "warning": {
 	"important": "Wichtig: "
+    },
+    "volunteering-certificate": {
+      "header": "Ehrenamtsbescheinigung",
+      "selectLanguage": "Sprache wählen",
+      "filename": "Ehrenamtsbescheinigung_VivaConAgua.pdf",
+      "desc": {
+        "allowed": "Du kannst dir hier deine automatisch generierte Ehrenamtsbescheinigung herunterladen",
+        "denied": "Um dir eine Ehrenamtsbescheinigung herunterladen zu können musst du aktives Crew-Mitglied sein und seit mindestens 6 Monaten im Pool registriert sein"
+      },
+      "since": "engagiert sich seit %since% freiwillig für unseren Verein in der Ortsgruppe %crew%.",
+      "description1": "Viva con Agua de Sankt Pauli e.V. ist ein gemeinnütziger Verein, der sich dafür einsetzt, dass alle Menschen weltweit Zugang zu sauberem Trinkwasser und sanitärer Grundversorgung haben.",
+      "description2": "Tausende Supporter engagieren sich für Viva con Agua. Wir sammeln mit charmanten Aktionen Spenden und machen auf das globale Thema \"Wasser\" aufmerksam. Dafür nutzen wir die universellen Sprachen Kunst, Sport und Musik.",
+      "created": "Hamburg, %date%",
+      "signature": "Mario Dresing, Ehrenamtskoordination und -betreuung",
+      "thanks": "Danke",
+      "organisation": "Viva con Agua de Sankt Pauli e.V. | Neuer Kamp 32 | 20357 Hamburg | vivaconagua.org"
     },
     "nvm": {
       "title": "Die stimmrechtslose Mitgliedschaft",
