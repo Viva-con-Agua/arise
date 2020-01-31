@@ -60,8 +60,11 @@
             }
         },
         watch: {
-            $route: function(value) {
-                window.location.reload();
+            $route: {
+                handler: function(value) {
+                    window.location.reload();
+                },
+                deep: true
             }
         },
         created () {
@@ -126,7 +129,7 @@
         },
         init() {
             if (!this.validRoute()) {
-                this.$router.next({path: '/error/404'})
+                this.$router.push({path: '/error/404'})
             }
         },
         validRoute() {

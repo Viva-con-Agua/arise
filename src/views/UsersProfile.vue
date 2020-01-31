@@ -5,7 +5,7 @@
                 <template slot="header">
                     <VcARole v-for="role in user.roles.map(role => role.role).filter((role) => role !== 'supporter')" :additionalClass="operatingRole()" :name="role" :key="role" />
 
-		    <div v-if="(isEmployed() || isSelf() || isNetworkVolunteerManager()) && isActive()" class="removableRole associationRole">
+                      <div v-if="(isEmployed() || isSelf() || isNetworkVolunteerManager()) && isActive()" class="removableRole associationRole">
                         <VcARole :translated="$t('profile.supporter.active')" :additionalClass="associationRole()"/>
                         <div class="remove" @click="setInactive()"  style="display: inline; margin-top: 3px;">X</div>
                     </div>
@@ -31,8 +31,8 @@
 
                                     <div v-if="!canEdit()" v-for="role in getProfile().supporter.roles">
                                         <VcARole :role="role.name"
-                                                 :pillar="role.pillar.pillar"
-                                                 :key="role.crew.name + role.name + role.pillar.pillar"
+                                        :pillar="role.pillar.pillar"
+                                        :key="role.crew.name + role.name + role.pillar.pillar"
                                         />
                                     </div>
                                 </div>
@@ -61,19 +61,19 @@
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.placeOfResidence') }}:</span>
                                 <span class="vca-user-value" v-if="hasResidence()">
-                                     <span v-if="isEmployed() && hasAdditional()">{{ getProfile().supporter.address[0].additional }}<br/></span>
-                                     <span v-if="isEmployed() && hasStreet()">{{ getProfile().supporter.address[0].street }}<br/></span>
-                                     <span v-if="(hasZip() || hasCity())">
-                                         <span v-if="isEmployed() && hasZip()">{{ getProfile().supporter.address[0].zip }} </span>
-                                         <span v-if="hasCity()">{{ getProfile().supporter.address[0].city }}</span>
-                                     <br/></span>
-                                     <span v-if="isEmployed() && hasCountry()">{{ getProfile().supporter.address[0].country }}<br/></span>
-                                </span>
-                                <span class="vca-user-value" v-else>-</span>
-                            </li>
-                        </ul>
+                                   <span v-if="isEmployed() && hasAdditional()">{{ getProfile().supporter.address[0].additional }}<br/></span>
+                                   <span v-if="isEmployed() && hasStreet()">{{ getProfile().supporter.address[0].street }}<br/></span>
+                                   <span v-if="(hasZip() || hasCity())">
+                                       <span v-if="isEmployed() && hasZip()">{{ getProfile().supporter.address[0].zip }} </span>
+                                       <span v-if="hasCity()">{{ getProfile().supporter.address[0].city }}</span>
+                                       <br/></span>
+                                       <span v-if="isEmployed() && hasCountry()">{{ getProfile().supporter.address[0].country }}<br/></span>
+                                   </span>
+                                   <span class="vca-user-value" v-else>-</span>
+                               </li>
+                           </ul>
 
-                        <ul class="demographics">
+                           <ul class="demographics">
                             <li>
                                 <span class="vca-user-label">{{ $t('profile.view.labels.age') }}:</span>
                                 <span class="vca-user-value">{{ getAge() }}</span>
@@ -101,142 +101,142 @@
     import { Avatar, VcARole } from 'vca-widget-user'
     import {
       Notification
-    } from 'element-ui'
+  } from 'element-ui'
 
-    Vue.use(Notification);
-    Notification.closeAll();
+  Vue.use(Notification);
+  Notification.closeAll();
 
-    export default {
-        name: "UsersProfile",
-        components: { VcAFrame, VcAColumn, VcABox, VcARole, Avatar },
-        data() {
-            return {
-                uuid: this.$route.params.id,
-                user: null,
-                currentUser: null,
-                pillars: null,
-            }
+  export default {
+    name: "UsersProfile",
+    components: { VcAFrame, VcAColumn, VcABox, VcARole, Avatar },
+    data() {
+        return {
+            uuid: this.$route.params.id,
+            user: null,
+            currentUser: null,
+            pillars: null,
+        }
+    },
+    computed: {
+        hasUser() {
+            return this.user !== null && (typeof this.user !== "undefined") && this.user.hasOwnProperty("id")
+        }
+    },
+    created() {
+        this.init()
+    },
+    methods: {
+        init() {
+            this.initCurrentUser()
+            this.initVisitedUser()
         },
-        computed: {
-            hasUser() {
-                return this.user !== null && (typeof this.user !== "undefined") && this.user.hasOwnProperty("id")
-            }
-        },
-        created() {
-            this.init()
-        },
-        methods: {
-            init() {
-                this.initCurrentUser()
-                this.initVisitedUser()
-            },
-            initCurrentUser() {
-                axios.get('/drops/webapp/identity')
-                    .then(response => {
-                        if(response.status === 200) {
-                            this.currentUser = response.data.additional_information
-                        }
-                    })
-            },
-            initVisitedUser() {
-                axios.get('/drops/webapp/user/' + this.uuid, {})
-                    .then(response => {
-                        if(response.status === 200) {
-                            this.user = response.data.additional_information
-                            this.getRoleSetter()
-                        }
-                    })
-                    .catch(error => {
-                        this.$router.push({path: '/error/' + error.response.status})
-                    })
-            },
-            setInactive: function() {
-                if (!confirm(this.$t('users.active.messages.remove'))) {
-                    return false;
+        initCurrentUser() {
+            axios.get('/drops/webapp/identity')
+            .then(response => {
+                if(response.status === 200) {
+                    this.currentUser = response.data.additional_information
                 }
-                let request = { users: [ this.user.id ] };
-                this.submit('/drops/widgets/users/inactive', request);
-            },
-            submit(url, data) {
+            })
+        },
+        initVisitedUser() {
+            axios.get('/drops/webapp/user/' + this.uuid, {})
+            .then(response => {
+                if(response.status === 200) {
+                    this.user = response.data.additional_information
+                    this.getRoleSetter()
+                }
+            })
+            .catch(error => {
+                this.$router.push({path: '/error/' + error.response.status})
+            })
+        },
+        setInactive: function() {
+            if (!confirm(this.$t('users.active.messages.remove'))) {
+                return false;
+            }
+            let request = { users: [ this.user.id ] };
+            this.submit('/drops/widgets/users/inactive', request);
+        },
+        submit(url, data) {
 
-                axios
-                    .post(url, data)
-                    .then(response => {
-                        switch (response.status) {
-                            case 200:
-                                this.open(
-                                    this.$t('success.title'),
-                                    this.$t('success.msg'),
-                                    "success"
-				)
-                                window.location.reload();
-                                break;
-                    }
-                }).catch(error => {
+            axios
+            .post(url, data)
+            .then(response => {
+                switch (response.status) {
+                    case 200:
                     this.open(
-                        this.$t('error.title'),
-                        this.$t('error.unknown'),
-                        "error"
-                    )
-                })
-            },
-            hasCrew() {
-                return (this.getProfile().supporter.hasOwnProperty("crew"))
-            },
-            isNVM: function () {
-                return this.getProfile().supporter.hasOwnProperty('nvmDate')
-            },
-            isActive: function () {
-                return (this.getProfile().supporter.hasOwnProperty('active') && this.getProfile().supporter.active === 'active')
-            },
-            hasMobile() {
-                return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
-            },
-            hasResidence() {
-                return (this.getProfile().supporter.hasOwnProperty("address") && this.getProfile().supporter.address[0])
-            },
-            hasAdditional() {
-                return (this.hasResidence() && this.getProfile().supporter.address[0].additional)
-            },
-            hasStreet() {
-                return (this.hasResidence() && this.getProfile().supporter.address[0].street)
-            },
-            hasZip() {
-                return (this.hasResidence() && this.getProfile().supporter.address[0].zip)
-            },
-            hasCity() {
-                return (this.hasResidence() && this.getProfile().supporter.address[0].city)
-            },
-            hasCountry() {
-                return (this.hasResidence() && this.getProfile().supporter.address[0].country)
-            },
-            associationRole: function() {
-              return 'activeRole nvmRole'
-            },
-            operatingRole: function() {
-              return 'admin employee'
-            },
-            setRole(pillar) {
-                var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
-                axios.get(call).then(response => {
-                    if(response.status === 200) {
-                        this.initVisitedUser()
-                    }
-                })
-            },
-            removeRole(pillar) {
-                if (!confirm(this.$t('users.pillar.messages.remove'))) {
-                    return false;
+                        this.$t('success.title'),
+                        this.$t('success.msg'),
+                        "success"
+                        )
+                    window.location.reload();
+                    break;
                 }
-                var call = "/drops/webapp/profile/role/remove/" + this.user.id + "/" + pillar
-                axios.get(call).then(response => {
-                    if(response.status === 200) {
-                        this.initVisitedUser()
-                    }
-                })
-            },
-            getAllPillars(reload = false) {
-                if(this.pillars == null || reload) {
+            }).catch(error => {
+                this.open(
+                    this.$t('error.title'),
+                    this.$t('error.unknown'),
+                    "error"
+                    )
+            })
+        },
+        hasCrew() {
+            return (this.getProfile().supporter.hasOwnProperty("crew"))
+        },
+        isNVM: function () {
+            return this.getProfile().supporter.hasOwnProperty('nvmDate')
+        },
+        isActive: function () {
+            return (this.getProfile().supporter.hasOwnProperty('active') && this.getProfile().supporter.active === 'active')
+        },
+        hasMobile() {
+            return (this.getProfile().supporter.hasOwnProperty("mobilePhone"))
+        },
+        hasResidence() {
+            return (this.getProfile().supporter.hasOwnProperty("address") && this.getProfile().supporter.address[0])
+        },
+        hasAdditional() {
+            return (this.hasResidence() && this.getProfile().supporter.address[0].additional)
+        },
+        hasStreet() {
+            return (this.hasResidence() && this.getProfile().supporter.address[0].street)
+        },
+        hasZip() {
+            return (this.hasResidence() && this.getProfile().supporter.address[0].zip)
+        },
+        hasCity() {
+            return (this.hasResidence() && this.getProfile().supporter.address[0].city)
+        },
+        hasCountry() {
+            return (this.hasResidence() && this.getProfile().supporter.address[0].country)
+        },
+        associationRole: function() {
+          return 'activeRole nvmRole'
+      },
+      operatingRole: function() {
+          return 'admin employee'
+      },
+      setRole(pillar) {
+        var call = "/drops/webapp/profile/role/" + this.user.id + "/" + pillar
+        axios.get(call).then(response => {
+            if(response.status === 200) {
+                this.initVisitedUser()
+            }
+        })
+    },
+    removeRole(pillar) {
+        if (!confirm(this.$t('users.pillar.messages.remove'))) {
+            return false;
+        }
+        var call = "/drops/webapp/profile/role/remove/" + this.user.id + "/" + pillar
+        axios.get(call).then(response => {
+            if(response.status === 200) {
+                this.initVisitedUser()
+            }
+        })
+    },
+    getAllPillars(reload = false) {
+        if(this.pillars == null || reload) {
                     // get all available pillars
                     var call = "/drops/webapp/profile/pillar"
                     axios.get(call).then(response => {
@@ -265,115 +265,115 @@
                 }
             },
             isEmployed() {
-		var userRoles = this.currentUser.roles.map((role) => role.role)
-		return (userRoles.includes('employee') || userRoles.includes('admin'))
-            },
-            getRoleSetter() {
+              var userRoles = this.currentUser.roles.map((role) => role.role)
+              return (userRoles.includes('employee') || userRoles.includes('admin'))
+          },
+          getRoleSetter() {
 
-                if (!this.hasCrew()) {
-                    return;
-                }
-
-		if (this.isEmployed() || this.isNetworkVolunteerManager()) {
-                    return this.getAllPillars(true)
-		} else {
-                    this.pillars = this.getSupporterRoles()
-                }
-            },
-            getSupporterRoles() {
-                var visitedRoles = this.getProfile().supporter.roles
-                return this.getProfile(true).supporter.roles.filter(role => {
-                    var visitedCrew = this.getCrew()
-                    return (visitedCrew !== null && visitedCrew.id === role.crew.id &&
-                         !visitedRoles.some(r => r.name === role.name && r.crew.id === role.crew.id && r.pillar.pillar === role.pillar.pillar))
-                })
-            },
-            canEdit() {
-                return this.isEmployed() || this.isSelf() || this.isNetworkVolunteerManager()
-            },
-            isNetworkVolunteerManager() {
-
-                var sameCrew = this.getProfile(true).supporter.roles.filter(role => {
-                    var visitedCrew = this.getCrew()
-                    return (visitedCrew !== null && visitedCrew.id === role.crew.id)
-                })
-
-                return this.getProfile(true).supporter.roles.some(r => r.name === "VolunteerManager" && r.pillar.pillar === 'network') && sameCrew.length > 0
-
-            },
-            isSelf() {
-                return this.currentUser.id === this.user.id
-            },
-            getProfile(currentUser = false) {
-                var user = this.user
-                if(currentUser) {
-                    user = this.currentUser
-                }
-                var profile = user.profiles.find(p => p.primary)
-                if(typeof profile === "undefined") {
-                    profile = user.profiles[0]
-                }
-                return profile
-            },
-            getGender() {
-                var gender = this.getProfile().supporter.sex;
-                if(typeof gender === "undefined" || gender === null || gender === "") {
-                    gender = "undefined"
-                }
-                return gender;
-            },
-            getCrew() {
-                var res = null
-                var supporter = this.getProfile().supporter
-                if(supporter.hasOwnProperty("crew")) {
-                    res = supporter.crew
-                }
-                return res
-            },
-            getName() {
-                var name = this.getProfile().supporter.fullName
-                if(typeof name === "undefined" || name === null || name === " " || name === "") {
-                    name = this.$t('profile.view.value.name.fallback')
-                }
-                return name
-            },
-            getAge: function () {
-                var age = this.calcAge()
-                var res = this.$t('profile.view.value.age.notAvailable')
-                if(age >= 0) {
-                    res = age
-                }
-                return res;
-            },
-            calcAge: function () {
-                var birthday = this.user.profiles[0].supporter.birthday
-                var res = -1
-
-                if(typeof birthday !== "undefined" && birthday !== null) {
-                    var today = new Date()
-                    var birthDate = new Date(this.getProfile().supporter.birthday)
-                    var age = today.getFullYear() - birthDate.getFullYear()
-                    var m = today.getMonth() - birthDate.getMonth()
-                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                        age = age - 1
-                    }
-                    res = age
-                }
-                return res
-            },
-            getSince: function () {
-                var created = new Date(this.user.created)
-                return created.getUTCFullYear()
-            },
-            open(title, message, type) {
-                Notification({
-                    title:  title,
-                    message: message,
-                    type: type
-                });
+            if (!this.hasCrew()) {
+                return;
             }
+
+            if (this.isEmployed() || this.isNetworkVolunteerManager()) {
+                return this.getAllPillars(true)
+            } else {
+                this.pillars = this.getSupporterRoles()
+            }
+        },
+        getSupporterRoles() {
+            var visitedRoles = this.getProfile().supporter.roles
+            return this.getProfile(true).supporter.roles.filter(role => {
+                var visitedCrew = this.getCrew()
+                return (visitedCrew !== null && visitedCrew.id === role.crew.id &&
+                   !visitedRoles.some(r => r.name === role.name && r.crew.id === role.crew.id && r.pillar.pillar === role.pillar.pillar))
+            })
+        },
+        canEdit() {
+            return this.isEmployed() || this.isSelf() || this.isNetworkVolunteerManager()
+        },
+        isNetworkVolunteerManager() {
+
+            var sameCrew = this.getProfile(true).supporter.roles.filter(role => {
+                var visitedCrew = this.getCrew()
+                return (visitedCrew !== null && visitedCrew.id === role.crew.id)
+            })
+
+            return this.getProfile(true).supporter.roles.some(r => r.name === "VolunteerManager" && r.pillar.pillar === 'network') && sameCrew.length > 0
+
+        },
+        isSelf() {
+            return this.currentUser.id === this.user.id
+        },
+        getProfile(currentUser = false) {
+            var user = this.user
+            if(currentUser) {
+                user = this.currentUser
+            }
+            var profile = user.profiles.find(p => p.primary)
+            if(typeof profile === "undefined") {
+                profile = user.profiles[0]
+            }
+            return profile
+        },
+        getGender() {
+            var gender = this.getProfile().supporter.sex;
+            if(typeof gender === "undefined" || gender === null || gender === "") {
+                gender = "undefined"
+            }
+            return gender;
+        },
+        getCrew() {
+            var res = null
+            var supporter = this.getProfile().supporter
+            if(supporter.hasOwnProperty("crew")) {
+                res = supporter.crew
+            }
+            return res
+        },
+        getName() {
+            var name = this.getProfile().supporter.fullName
+            if(typeof name === "undefined" || name === null || name === " " || name === "") {
+                name = this.$t('profile.view.value.name.fallback')
+            }
+            return name
+        },
+        getAge: function () {
+            var age = this.calcAge()
+            var res = this.$t('profile.view.value.age.notAvailable')
+            if(age >= 0) {
+                res = age
+            }
+            return res;
+        },
+        calcAge: function () {
+            var birthday = this.user.profiles[0].supporter.birthday
+            var res = -1
+
+            if(typeof birthday !== "undefined" && birthday !== null) {
+                var today = new Date()
+                var birthDate = new Date(this.getProfile().supporter.birthday)
+                var age = today.getFullYear() - birthDate.getFullYear()
+                var m = today.getMonth() - birthDate.getMonth()
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age = age - 1
+                }
+                res = age
+            }
+            return res
+        },
+        getSince: function () {
+            var created = new Date(this.user.created)
+            return created.getUTCFullYear()
+        },
+        open(title, message, type) {
+            Notification({
+                title:  title,
+                message: message,
+                type: type
+            });
         }
     }
+}
 </script>
 
 <style scoped lang="less">
