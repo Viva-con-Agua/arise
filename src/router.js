@@ -150,7 +150,7 @@ var router = new Router({
         name: 'UsersActive',
         component: loadView('usersActive'),
         meta: {
-            'roles': ['Admin', 'Employee', { 'name': 'VolunteerManager' }] //'Admin',
+            'roles': ['Admin', 'Employee', { 'name': 'VolunteerManager', 'pillar': [ 'network' ] }] //'Admin',
         }
     },
     {
@@ -158,7 +158,7 @@ var router = new Router({
         name: 'Users',
         component: loadView('users'),
         meta: {
-            'roles': ['Admin', 'Employee', { 'name': 'VolunteerManager' }] //'Admin',
+            'roles': ['Admin', 'Employee', { 'name': 'VolunteerManager', 'pillar': [ 'network', 'operation' ] }] //'Admin',
         }
     },
       {
@@ -197,7 +197,7 @@ router.beforeEach((to, from, next) => {
                                 has = supporterRoles.reduce((found, supporterRole) =>
                                         (found || (supporterRole.name === requiredRole.name &&
                                             ((requiredRole.hasOwnProperty("crew") && supporterRole.crew.name === requiredRole.crew) || !requiredRole.hasOwnProperty("crew")) &&
-                                            ((requiredRole.hasOwnProperty("pillar") && supporterRole.pillar.pillar === requiredRole.pillar) || !requiredRole.hasOwnProperty("pillar"))
+                                            ((requiredRole.hasOwnProperty("pillar") && requiredRole.pillar.includes(supporterRole.pillar.pillar)) || !requiredRole.hasOwnProperty("pillar"))
                                         )),
                                     false
                                 )

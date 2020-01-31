@@ -60,13 +60,9 @@
             }
         },
         watch: {
-            '$route.params.activeState': {
+            $route: {
                 handler: function(value) {
-                    if (this.validRoute()) {
-                        window.location.reload();
-                    } else {
-                        this.$router.push({path: '/error/404'})
-                    }
+                    window.location.reload();
                 },
                 deep: true
             }
