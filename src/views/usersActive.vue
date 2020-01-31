@@ -33,30 +33,35 @@
   export default {
     name: "users",
     components: { WidgetUserList, VcAFrame, VcAColumn, VcABox },
-    data () {
+        data () {
 
-        switch (this.$route.params.activeState) {
-            case 'active':
+            switch (this.$route.params.activeState) {
+                case 'active':
                 var buttons = [ { 'label': this.$t('users.active.button.remove'), 'callback': 'setUsersInActive' } ]
                 break;
-            case 'inactive':
+                case 'inactive':
                 var buttons = [ { 'label': this.$t('users.active.button.activate'), 'callback': 'setUsersActive' } ]
                 break;
-            case 'requested':
-            default:
+                case 'requested':
+                default:
                 var buttons = [ { 'label': this.$t('users.active.button.confirm'), 'callback': 'setUsersActive' }, { 'label': this.$t('users.active.button.decline'), 'callback': 'setUsersInActive' } ]
                 break;
-        }
+            }
 
-        return {
-            options: {
-                'type': { 'menue': true, 'value': 'table' },
-                'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
-                'buttons': buttons,
-                'filter': {},
+            return {
+                options: {
+                    'type': { 'menue': true, 'value': 'table' },
+                    'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
+                    'buttons': buttons,
+                    'filter': {},
                     'lang': this.$i18n.locale //'de-DE'
                 },
                 activeFlag: this.$route.params.activeState
+            }
+        },
+        watch: {
+            $route: function(value) {
+                window.location.reload();
             }
         },
         created () {
@@ -120,9 +125,12 @@
             return (new IEDetector()).isIE()
         },
         init() {
-            if (this.$route.params.activeState != 'active' && this.$route.params.activeState != 'requested' && this.$route.params.activeState != 'inactive') {
+            if (!this.validRoute()) {
                 this.$router.next({path: '/error/404'})
             }
+        },
+        validRoute() {
+            return !(this.$route.params.activeState != 'active' && this.$route.params.activeState != 'requested' && this.$route.params.activeState != 'inactive')
         },
         open(title, message, type) {
             Notification({
