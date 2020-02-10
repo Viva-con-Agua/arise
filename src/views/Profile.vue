@@ -29,7 +29,7 @@
             </el-form-item>
                        <el-form-item
                     :label="$t('supporterForm.label.mobile')"
-                    prop="mobile">
+                    prop="mobilePhone">
               <el-input
                       v-model="profileForm.mobilePhone"/>
             </el-form-item>
@@ -182,8 +182,8 @@
                 {message: this.$t('inputSample.lastname'), trigger: 'blur'}
             ],
             mobilePhone: [
-                {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
-                {pattern:/^(?=.*[0])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+                {required: false, message: this.$t('validationError.mobile'), trigger: 'blur'},
+                {pattern:/^\+(?:[0-9]⋅?){6,14}[0-9]$/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
             ],
             street: [
                 {required: false, message: this.$t('validationError.street'), trigger: 'blur'},
@@ -216,20 +216,6 @@
     },
     methods: {
       init() {
-        function profileToForm(profile) {
-              profile['firstName'] = profile.supporter.firstName
-              profile['lastName'] = profile.supporter.lastName
-              profile['mobilePhone'] = profile.supporter.mobilePhone
-              profile['placeOfResidence'] = profile.supporter.placeOfResidence
-              if (typeof profile.supporter.birthday === "undefined") {
-                  profile['birthday'] = new Date()
-              } else {
-                  profile['birthday'] = new Date(profile.supporter.birthday)
-              }
-              profile['gender'] = profile.supporter['sex']
-              profile['address'] = profile.supporter.address
-              return profile
-          }
           this.axios.get('/drops/webapp/identity')
               .then((response) => {
                   if (response.status === 200) {
@@ -240,12 +226,27 @@
                       }
                       this.profileData = profile;
                       this.profileData['created'] = response.data.additional_information.created;
-                      this.profileForm = profileToForm(profile);
+                      this.profileForm = this.profileToForm(profile);
                       this.emailaddress = profile.email;
                       this.crewRoles = profile.supporter.roles
                   }
               })
 
+      },
+      profileToForm(profiles) {
+          var profile = {}
+          profile['firstName'] = profiles.supporter.firstName
+          profile['lastName'] = profiles.supporter.lastName
+          profile['mobilePhone'] = profiles.supporter.mobilePhone
+          profile['placeOfResidence'] = profiles.supporter.placeOfResidence
+          if (typeof profiles.supporter.birthday === "undefined") {
+              profile['birthday'] = new Date()
+          } else {
+              profile['birthday'] = new Date(profiles.supporter.birthday)
+          }
+          profile['gender'] = profiles.supporter['sex']
+          profile['address'] = profiles.supporter.address
+          return profile
       },
       submitForm(Form){
           function toProfileSubmit(form, email) {

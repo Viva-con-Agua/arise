@@ -26,7 +26,7 @@
           </el-form-item>
                       <el-form-item
             :label="$t('supporterForm.label.mobile')"
-            prop="mobile">
+            prop="mobilePhone">
             <el-input
               v-model="signUpForm.mobilePhone"/>
           </el-form-item>
@@ -203,11 +203,11 @@
            {required: true, message: this.$t('validationError.firstname'), trigger: 'blur'}
          ],
          lastName: [
-           {required: true, message: this.$t('validationError.lastname'), trigger: 'change'}
+           {required: true, message: this.$t('validationError.lastname'), trigger: 'blur'}
          ],
          mobilePhone: [
-           {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
-           {pattern:/^(?=.*[0+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+           {required: false, message: this.$t('validationError.mobile'), trigger: 'blur'},
+           {pattern:/^\+(?:[0-9]⋅?){6,14}[0-9]$/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
          ],
          street: [
            {required: false, message: this.$t('validationError.street'), trigger: 'blur'},
