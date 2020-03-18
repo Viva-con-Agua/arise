@@ -260,9 +260,9 @@
          return form
      },
      submitForm() {
-       this.signUpSent = true;
        this.$refs.signUpForm.validate((valid) => {
          if (valid) {
+           this.signUpSent = true;
            var that = this;
            this.axios
              .post('/drops/webapp/signup', this.transform(this.signUpForm))
