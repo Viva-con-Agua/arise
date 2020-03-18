@@ -261,7 +261,7 @@
      },
      submitForm() {
        this.$refs.signUpForm.validate((valid) => {
-         if (valid) {
+         if (valid && !this.signUpSent) {
            this.signUpSent = true;
            var that = this;
            this.axios
@@ -272,7 +272,7 @@
                }
              })
              .catch(function (error) {
-                 this.signUpSent = false;
+                 that.signUpSent = false;
                  switch (error.response.status) {
                      case 500:
                          if(error.response.data.hasOwnProperty("msg")) {
