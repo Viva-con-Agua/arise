@@ -107,6 +107,7 @@
         </VcABox>
         <VcABox :first="false" :title="$t('signup.title.register')">
           <button
+                  :disabled="signUpSent"
                   class="vca-button-primary buttonSignUp"
                   @click.prevent="submitForm">
             {{ $t('signup.formSubmit') }}
@@ -180,7 +181,7 @@
 
      return {
        suggestions: [],
-
+       signUpSent: false,
        signUpForm: {
            firstName: '',
            lastName: '',
@@ -259,6 +260,7 @@
          return form
      },
      submitForm() {
+       this.signUpSent = true;
        this.$refs.signUpForm.validate((valid) => {
          if (valid) {
            var that = this;
@@ -270,6 +272,7 @@
                }
              })
              .catch(function (error) {
+                 this.signUpSent = false;
                  switch (error.response.status) {
                      case 500:
                          if(error.response.data.hasOwnProperty("msg")) {
