@@ -168,7 +168,7 @@
                       alignment: 'center'
                     },
                     {
-                      text: '(*' + moment(new Date(this.profile.birthday))
+                      text: '(*' + moment(new Date(this.profile.supporter.birthday))
                         .format(this.$t("locale.dateFormat", this.locale.selected.locale)) + ')',
                       style: 'birthdate',
                       alignment: 'center'
