@@ -158,7 +158,7 @@ var router = new Router({
         name: 'Users',
         component: loadView('users'),
         meta: {
-            'roles': ['Admin', 'Employee', { 'name': 'VolunteerManager', 'pillar': [ 'network', 'operation' ] }] //'Admin',
+            'roles': ['Admin', 'Employee', { 'name': 'VolunteerManager', 'pillar': [ 'network', 'operation', 'finance', 'education' ] }] //'Admin',
         }
     },
       {
