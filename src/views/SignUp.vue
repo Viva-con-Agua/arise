@@ -5,7 +5,7 @@
         :model="signUpForm"
         :rules="rules"
         class="columns-container"
-        @keyup.enter.native="submitForm"
+        @keyup.enter.native.prevent="submitForm"
         status-icon>
       <VcAColumn>
         <VcABox :first="true" :title="$t('supporterForm.title')">
@@ -14,27 +14,21 @@
           </VcAInfoBox>
           <el-form-item
             :label="$t('supporterForm.label.firstname')"
-            prop="firstname">
+            prop="firstName">
             <el-input
               v-model="signUpForm.firstName"/>
           </el-form-item>
           <el-form-item
             :label="$t('supporterForm.label.lastname')"
-            prop="lastname">
+            prop="lastName">
             <el-input
               v-model="signUpForm.lastName"/>
           </el-form-item>
-          <el-form-item
+                      <el-form-item
             :label="$t('supporterForm.label.mobile')"
-            prop="mobile">
+            prop="mobilePhone">
             <el-input
               v-model="signUpForm.mobilePhone"/>
-          </el-form-item>
-          <el-form-item
-            :label="$t('supporterForm.label.placeofresidence')"
-            prop="placeofresidence">
-            <el-input
-              v-model="signUpForm.placeOfResidence"/>
           </el-form-item>
           <el-form-item
             :label="$t('supporterForm.label.birthdate')"
@@ -43,6 +37,7 @@
               v-model="signUpForm.birthday"
               :placeholder="$t('supporterForm.label.birthdateinfo')"
               type="date"
+              format="dd.MMM yyyy"
               style="width: 100%;"/>
           </el-form-item>
           <el-form-item
@@ -66,18 +61,23 @@
         </VcABox>
       </VcAColumn>
       <VcAColumn>
+        <VcABox :first="true" :title="$t('profile.title.address')">
+          <AddressSelect v-on:currentAddress="currentAddress($event)"/>
+        </VcABox>
+      </VcAColumn>
+      <VcAColumn>
         <VcABox :first="true" :title="$t('signup.title.credentials')">
           <el-form-item
             :label="$t('signup.label.email')"
             prop="email">
             <el-input
-              v-model="signUpForm.email"/>
+              v-model.trim="signUpForm.email"/>
           </el-form-item>
           <el-form-item
             :label="$t('signup.label.checkemail')"
             prop="checkemail">
             <el-input
-              v-model="signUpForm.checkemail"/>
+              v-model.trim="signUpForm.checkemail"/>
           </el-form-item>
           <el-form-item
             :label="$t('signup.label.password.title')"
@@ -107,6 +107,7 @@
         </VcABox>
         <VcABox :first="false" :title="$t('signup.title.register')">
           <button
+                  :disabled="signUpSent"
                   class="vca-button-primary buttonSignUp"
                   @click.prevent="submitForm">
             {{ $t('signup.formSubmit') }}
@@ -127,10 +128,9 @@
  import Password from 'vue-password-strength-meter';
  import axios from 'axios'
  import VueAxios from 'vue-axios'
-  import VcAFrame from '@/components/page/VcAFrame.vue';
-  import VcAColumn from '@/components/page/VcAColumn.vue';
-  import VcABox from '@/components/page/VcABox.vue';
-  import VcAInfoBox from '@/components/page/VcAInfoBox.vue';
+  import AddressSelect from '@/components/address/AddressForm.vue'
+  import { VcAFrame, VcAColumn, VcABox, VcAInfoBox } from 'vca-widget-base'
+  import 'vca-widget-base/dist/vca-widget-base.css'
   import {
     Button,
     DatePicker,
@@ -158,7 +158,7 @@
 
 
  export default {
-   components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox },
+   components: { Password, VcAFrame, VcAColumn, VcABox, VcAInfoBox, AddressSelect },
    data () {
        var checkPass = (rule, value, callback) => {
            if (value === '') {
@@ -181,12 +181,18 @@
 
      return {
        suggestions: [],
-
+       signUpSent: false,
        signUpForm: {
            firstName: '',
            lastName: '',
+           address: {
+            street: '',
+            additional: '',
+            zip: '',
+            city: '',
+            country: ''
+           },
            mobilePhone: '',
-           placeOfResidence: '',
            birthday: '',
          gender: '',
          email: '',
@@ -195,34 +201,44 @@
 
        rules: {
          firstName: [
-           {required: true, message: this.$t('validationError.firstname'), trigger: 'blur',},
-           {message: this.$t('inputSample.firstname'), trigger: 'blur'}
+           {required: true, message: this.$t('validationError.firstname'), trigger: 'blur'}
          ],
          lastName: [
-           {required: true, message: this.$t('validationError.lastname'), trigger: 'change'},
-           {message: this.$t('inputSample.lastname'), trigger: 'blur'}
+           {required: true, message: this.$t('validationError.lastname'), trigger: 'blur'}
          ],
          mobilePhone: [
-           {required: true, message: this.$t('validationError.mobile'), trigger: 'blur'},
-           {pattern:/^(?=.*[0\+])(?=.*[0-9]{4})(?=.*[-/\\s])(?=.*([0-9]{4,}))(?=.*[-/\\s])(?=.*[0-9]{4,})/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+           {required: false, message: this.$t('validationError.mobile'), trigger: 'blur'},
+           {pattern:/^\+(?:[0-9]⋅?){6,14}[0-9]$/, message: this.$t('inputSample.mobile'), trigger: 'blur'}
+         ],
+         street: [
+           {required: false, message: this.$t('validationError.street'), trigger: 'blur'},
+           {message: this.$t('inputSample.street'), trigger: 'blur'}
+         ],
+         zip: [
+           {required: false, message: this.$t('validationError.zip'), trigger: 'blur'},
+           {pattern:/^[0-9]{4,8}$/, message: this.$t('inputSample.zip'), trigger: 'blur'}
          ],
          placeOfResidence: [
-           {required: true, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
+           {required: false, message: this.$t('validationError.placeofresidence'), trigger: 'blur'},
            {pattern:/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, message: this.$t('inputSample.placeofresidence'), trigger: 'blur'}
          ],
+  country: [
+  {required: false, message: this.$t('validationError.country'), trigger: 'blur'},
+     {message: this.$t('inputSample.country'), trigger: 'blur'}
+  ],
          birthday: [
-           {type: 'date', required: true, message: this.$t('validationError.birthdate'), trigger: 'change'}
+           {type: 'date', required: false, message: this.$t('validationError.birthdate'), trigger: 'change'}
          ],
          gender: [
            {required: false}
          ],
          email: [
            {required: true, message: this.$t('validationError.email'), trigger: 'blur'},
-           {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
+           {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ],
          checkemail: [
            {required: true, validator: checkeMail, trigger: 'blur'},
-           {pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
+           {pattern:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, message: this.$t('inputSample.email') }
          ],
          password: [
              { required: true, message: this.$t('validationError.checkPass'), trigger: 'blur' }
@@ -233,26 +249,30 @@
        }
      }
    },
+    mounted() {
+    },
 
     //createUserBody
    methods: {
+     transform(form) {
+         var date = Date.parse(form.birthday)
+         form['birthday'] = date
+         return form
+     },
      submitForm() {
        this.$refs.signUpForm.validate((valid) => {
-         if (valid) {
-             function transform(form) {
-                 var date = Date.parse(form.birthday)
-                 form['birthday'] = date
-                 return form
-             }
+         if (valid && !this.signUpSent) {
+           this.signUpSent = true;
            var that = this;
            this.axios
-             .post('/drops/webapp/signup', transform(this.signUpForm))
+             .post('/drops/webapp/signup', this.transform(this.signUpForm))
              .then(function (response) {
                if (response.status == 200) {
                  that.$router.push({path: 'finishSignup'})
                }
              })
              .catch(function (error) {
+                 that.signUpSent = false;
                  switch (error.response.status) {
                      case 500:
                          if(error.response.data.hasOwnProperty("msg")) {
@@ -284,6 +304,9 @@
      resetForm() {
       this.$refs.signUpForm.resetFields();
      },
+      currentAddress(address) {
+        this.signUpForm.address = address;
+      },
      open(title, message, type) {
          Notification({
              title:  title,
@@ -291,7 +314,6 @@
              type: type
          });
      },
-
      showFeedback ({suggestions, warning}) {
          this.suggestions = suggestions;
      }

@@ -3,7 +3,7 @@
         <!--UPLOAD-->
         <form enctype="multipart/form-data" novalidate>
             <div class="dropbox">
-                <input type="file" :name="uploadFieldName" :disabled="isSaving || isFailed" @change="filesChange"
+                <input type="file" :name="uploadFieldName" :disabled="isTrue" @change="filesChange"
                        accept="image/*" class="input-file">
                 <p v-if="isInitial" v-html="$t('upload.initial')"></p>
                 <p v-if="isSaving" v-html="$t('upload.saving')"></p>
@@ -42,6 +42,9 @@
             }
         },
         computed: {
+            isTrue () {
+              return true
+            },
             isInitial() {
                 return this.currentStatus === STATUS_INITIAL;
             },

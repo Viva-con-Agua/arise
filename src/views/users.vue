@@ -17,11 +17,11 @@
 
 <script>
     import IEDetector from '@/utils/IEDetector.js'
-    import VcAFrame from '@/components/page/VcAFrame.vue';
-    import VcAColumn from '@/components/page/VcAColumn.vue';
-    import VcABox from '@/components/page/VcABox.vue';
+    import { VcAFrame, VcAColumn, VcABox } from 'vca-widget-base'
+    import 'vca-widget-base/dist/vca-widget-base.css'
     import WidgetUserList from 'vca-widget-user'
     import 'vca-widget-user/dist/vca-widget-user.css'
+    import axios from 'axios'
 
     export default {
         name: "users",
@@ -31,13 +31,19 @@
                 options: {
                     'type': { 'menue': true, 'value': 'table' },
                     'sorting': { 'menue': { 'field': 'Supporter_firstName', 'dir': 'ASC' } },
-                    'lang': this.$i18n.locale //'de-DE'
+                    'lang': this.$i18n.locale, //'de-DE'		    
+                    'filter': {}
                 }
             }
+        },
+        created () {
+            this.init();
         },
         methods: {
             isIE() {
                 return (new IEDetector()).isIE()
+            },
+            init() {
             }
         }
     }
